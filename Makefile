@@ -1,14 +1,15 @@
 # http://github.com/cofi/dotfiles/blob/master/Makefile
 
-.PHONY: all emacs-compile emacs-clean deploy backup
+.PHONY: all emacs-compile emacs-clean deploy backup clean
 
 PWD := `pwd`
 LINK_CMD := ln --symbolic --force -T
+CLEAN_CMD := rm -rfv
 BCKUP_CMD := cp -v --recursive
 BCKUP_DIR := dotfiles_backup
 NORMAL_FILES := `ls -I README -I Makefile -I bin -I mozilla -I config`
 
-all: emacs-compile deploy
+all: backup clean emacs-compile deploy
 
 emacs-compile:
 	emacs --batch --no-site-file --eval '(byte-recompile-directory "emacs.d/" 0 t)'
@@ -21,11 +22,17 @@ emacs-refresh:
 emacs-clean:
 	find emacs.d/ -name "*.elc" -delete
 
+clean:
+	for file in $(NORMAL_FILES); do $(CLEAN_CMD) ~/.$$file; done
+	for file in `ls config/`; do $(CLEAN_CMD) ~/.config/$$file; done
+	$(CLEAN_CMD) ~/bin
+	$(CLEAN_CMD) ~/.mozilla/firefox/*/chrome/userContent.css
+
 deploy:
 	for file in $(NORMAL_FILES); do $(LINK_CMD) $(PWD)/$$file ~/.$$file; done
 	for file in `ls config/`; do $(LINK_CMD) $(PWD)/config/$$file ~/.config/$$file; done
 	$(LINK_CMD) $(PWD)/bin ~/bin
-	$(LINK_CMD) $(PWD)/mozilla/firefox/userContent.css ~/.mozilla/firefox/*/chrome/userContent.css
+	#$(LINK_CMD) $(PWD)/mozilla/firefox/userContent.css ~/.mozilla/firefox/*/chrome/userContent.css
 
 backup:
 	mkdir -p ../$(BCKUP_DIR)/config
