@@ -1,0 +1,19 @@
+#!/bin/sh
+
+on(){
+   xrandr --output VGA_1 --mode 1440x900 --below PANEL
+}
+
+clone(){
+   xrandr --output VGA_1 --mode 1440x900
+}
+
+off(){
+   xrandr --output VGA_1 --off
+}
+
+case $1 in
+  "on")     on;      exit 0;;
+  "clone")  clone;   exit 0;;
+  "off")    off;     exit 0;;
+esac

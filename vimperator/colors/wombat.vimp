@@ -1,0 +1,112 @@
+" ==Vimperator_Color_Scheme==
+" name: wombat
+
+hi Bell                 border: 0 none; background-color: black;
+hi Boolean              color: #cae682;
+hi CmdLine              font-family: monospace; font-size: 11px; font-weight: normal; padding: 0px 3px;
+hi CmdOutput            white-space: pre;
+hi CompDesc             color: #99968b; width: 50%; font-size: 11px;
+hi CompGroup:not(:first-of-type)    margin-top: .5em;
+hi CompIcon             width: 16px; min-width: 16px; display: inline-block; margin-right: .5ex;
+hi CompIcon>img         max-width: 16px; max-height: 16px; vertical-align: middle;
+hi CompItem             font-size: 10px;
+hi CompItem>*           padding: 0 .5ex;
+hi CompItem[selected]   color: #f6f3e8; background: #444444;
+hi CompLess             text-align: center; height: 0; line-height: .5ex; padding-top: 1ex;
+hi CompLess::after      content: "\2303" /* Unicode up arrowhead */
+hi CompMore             text-align: center; height: .5ex; line-height: .5ex; margin-bottom: -.5ex;
+hi CompMore::after      content: "\2304" /* Unicode down arrowhead */
+hi CompMsg              font-style: italic; margin-left: 16px;
+hi CompResult           width: 45%; overflow: hidden; font-size: 11px; font-family: monospace; font-weight: normal;
+hi CompTitle            color: #8ac6f2; background: #242424; font-weight: bold;
+hi CompTitle>*          padding: 0 .5ex;
+hi ErrorMsg             color: #e7f6da; background: #444444; font-weight: bold;
+hi Filter               color: #ffffd7; background: #444444;
+hi FrameIndicator       background-color: #CC9393; opacity: 0.5; z-index: 999; position: fixed; top: 0; bottom: 0; left: 0; right: 0;
+hi Function             color: #cae682;
+hi Gradient             height: 1px; margin-bottom: -1px; margin-top: -1px;
+hi GradientLeft         background-color: #95e454;
+hi GradientRight        background-color: #95e454;
+hi Hint                 font-family: monospace; font-size: 10px; font-weight: bold; color: #8ac6f2; background-color: #656565; border-color: ButtonShadow; border-width: 0; border-style: solid; padding: 1px;
+hi Hint::after          content: attr(number);
+hi HintActive           background: #eee; color: #e5786d; font-weight: bold;
+hi HintElem             background-color: #eee; color: #8ac6f2; font-weight: bold;
+hi HintImage            opacity: .5;
+hi Indicator            color: #e5786d;
+hi InfoMsg              color: #99968b; background: #242424;
+hi LineNr               color: #e7f6da; background: #242424;
+hi Message              white-space: normal; min-width: 100%; padding-left: 2em; text-indent: -2em; display: block;
+hi ModeMsg              color: #f6f3e8; background: #242424;
+hi MoreMsg              color: #e7f6da; background: #242424;
+hi NonText              color: #808080; background: #303030; min-height: 16px; padding-left: 2px;
+hi Normal               color: #f6f3e8; background: #242424;
+hi Null                 color: #e5786d;
+hi Number               color: #e5786d;
+hi Object               color: #e5786d;
+hi Preview              color: gray;
+hi Question             color: #e7f6da; background: #242424; font-weight: bold;
+hi Search               font-size: inherit; padding: 0; color: #8ac6f2; background-color: #444444;
+hi StatusLine           color: #f6f3e8; background: #444444; font-size: 11px; font-family: monospace; font-weight: bold; padding: 0px 3px;
+hi StatusLineBroken     color: #857b6f; background: #444444;
+hi StatusLineSecure     color: #e7f6da; background: #444444;
+hi String               color: #e7f6da;
+hi TabIconNumber        font-weight: normal; color: #f6f3e8; text-align: center; text-shadow: black -1px 0 1px, black 0 1px 1px, black 1px 0 1px, black 0 -1px 1px;
+hi TabNumber            font-weight: bold; margin: 0; padding-right: .3ex;
+hi Tag                  color: #8ac6f2;
+hi Title                color: #8ac6f2; background: #242424; font-weight: bold;
+hi URL                  text-decoration: none; color: #e7f6da; background: inherit;
+hi URL:hover            text-decoration: underline; cursor: pointer;
+hi WarningMsg           color: #e7f6da; background: #444444;
+"hi BufTab               color: #f6f3e8;
+"hi BufTabSelected       color: #e5786d;
+
+style -name statusbar chrome://* <<EOM
+#status-bar statusbarpanel { padding: 1px !important; }
+statusbarpanel > * { margin: 0 !important; padding: 0 2px 0 0 !important; }
+
+#main-window #content .tabbrowser-tabs {
+ -moz-appearance: none !important;
+ margin-top: -1px!important;
+ margin-bottom: -1px!important;
+ border-top: 0px solid !important;
+ padding:0 !important;
+}
+
+.tabs-bottom {
+ border: 0px solid !important;
+ margin-bottom: 3px!important;
+ min-height: 21px !important;
+ background: #242424 !important;
+}
+
+.tabbrowser-tab {
+ -moz-appearance: none !important;
+ -moz-border-radius: 0px !important;
+ margin: 0 !important;
+ padding: 3px 1px !important;
+ border-right: 0 !important;
+ font-family: monospace !important;
+ font-size: 9pt !important;
+ color: #f6f3e8 !important;
+ background: #444444 !important;
+}
+
+.tabbrowser-tab[selected="true"] {
+ background: #656565 !important;
+ font-weight: bold !important;
+ color: #f6f3e8 !important;
+}
+
+.tabbrowser-tab .tab-text {
+ border:0px !important;
+}
+
+.tabbrowser-arrowscrollbox {
+ max-height: 21px !important;
+ background: #444444 !important;
+}
+
+.tabs-closebutton-box, .tab-close-button, .tabs-newtab-button, .tabs-alltabs-button, .tabbrowser-arrowscrollbox > .scrollbutton-up, .tabbrowser-arrowscrollbox > .scrollbutton-down {
+ display: none !important;
+}
+EOM

@@ -1,0 +1,25 @@
+[ui]
+username = Simon <contact at saimon.org>
+
+[web]
+contact = Simon
+allowgz = true
+allowbz2 = true
+allowzip = true
+
+[diff]
+git = True
+
+#[defaults]
+#addremove = --similarity 100
+
+[extensions]
+hgext.mq=!
+hgext.hbisect=!
+hgext.hgk=
+hgext.patchbomb=!
+hgext.convert=
+hgext.color =
+hgext.graphlog =
+hgext.fetch=
+progress =

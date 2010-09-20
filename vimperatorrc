@@ -1,0 +1,143 @@
+"-----------------------------------------
+" ~/.vimperatorc - Vimperator config file
+"-----------------------------------------
+
+" Load plugins
+loadplugins
+
+" Load userstyles
+source ~/.vimperator/styles/styles.js
+styledisable -name global
+
+colorscheme wombat
+"set editor=emacsclient
+set editor="emacsclient -c"
+
+" default search engine
+set defsearch="duck"
+
+" don't show tab line if only one tab
+set showtabline=1
+
+set visualbell
+
+" open all commands in a new tab
+set newtab=all
+set showstatuslinks=2
+
+set wildmode=list:longest,list:full
+set wildoptions=auto
+
+" Unfocus textfields
+set focuscontent
+
+" Vim editing in textareas
+"set noinsertmode
+
+" buftabs option
+"let g:buftabs_showCurrentUrl = 1
+" Show/hide the buftabbar
+"nmap <silent> <A-u> :set invbuftabs<CR>
+
+" RSS icon in statusbar
+javascript <<EOF
+(function(){
+   var feedPanel = document.createElement("statusbarpanel");
+   feedPanel.setAttribute("id", "feed-panel-clone");
+   feedPanel.appendChild(document.getElementById("feed-button"));
+   feedPanel.firstChild.setAttribute("style", "padding: 0; max-height: 16px;");
+   document.getElementById("status-bar")
+           .insertBefore(feedPanel, document.getElementById("security-button"));
+})();
+EOF
+
+" {{{ Quickmarks / Bookmarks
+" Quickmarks
+delqm!
+source ~/.vimperator/qmarks
+
+" Bookmarks
+"source ~/.vimperator/bookmarks
+" }}}
+
+" Commands {{{
+
+" Add a :Google command to search via google:
+":command -nargs=* Google open google <args>
+
+" Disable vimperator keys on Google mail and Google reader
+":autocmd LocationChange .* js modes.passAllKeys = /(www|mail)\.google\.com/.test(buffer.URL)
+:autocmd LocationChange .* js modes.passAllKeys = false
+":autocmd LocationChange mail\.google\.com js modes.passAllKeys = true
+":autocmd LocationChange google(\.(com|fr)\/(reader|calendar)) js modes.passAllKeys = true
+:autocmd LocationChange 240plan\.ovh\.net\/~climbr\/tt-rss js modes.passAllKeys = true
+
+" Set the Vim filetype to "mail" when editing mail in GMail with the external editor:
+":autocmd LocationChange .* :set editor=gvim\ -f
+":autocmd LocationChange mail\.google\.com :set editor="gvim -f -c 'set ft=mail'"
+
+"Pour « [[ » et « ]] » permet de les faire fonctionner en Français
+set nextpattern=\bnext|Next|suivant|Suivant\b,^>$,^(>>|»)$,^(>|»),(>|»)$,\bmore\b
+set previouspattern=\bprev|previous|Previous|précédent|Précédent\b,^<$,^(<<|«)$,^(<|«),(<|«)$
+
+" }}}
+
+" Keys {{{
+
+let mapleader = ","
+
+" Show/hide toolbars
+map <F9> :set go+=mT<CR>
+map <silent> <F10> :set go-=mT<CR>
+
+" contrast plugin
+map <c-j> :contrast 10<cr>
+map <c-k> :contrast -10<cr>
+
+" restart Vimperator
+map <C-r> :restart<CR>
+
+map <C-a> :dialog addbookmark<CR>
+map <A-b> :dialog bookmarks<CR>
+
+" Toggle userstyles/userscripts
+nmap <silent> <Leader>s :styletoggle<CR>:styledisable -name global<CR>
+nmap <silent> <Leader>h :styletoggle -name global<CR>
+nmap <silent> <Leader>S :loaduserstyles<CR>:styledisable -name global<CR>
+
+" Show/hide the buftabbar
+"nmap <silent> <A-u> :set invbuftabs<CR>
+
+" }}}
+
+" Firefox options {{{
+
+" hide close button
+set! browser.tabs.closeButtons=2
+" open bookmarks in background
+"set! browser.tabs.loadBookmarksInBackground=true
+" open tabs by javascript in background
+"set! browser.tabs.loadDivertedInBackground=true
+" allow control sidebar position
+"set! layout.scrollbar.side=1
+
+" }}}
+
+" Hints {{{
+
+"js <<EOF
+"hints.addMode("i", "Focus to input",
+"    function(element) element.focus(),
+"    function() "//input[not(@type='hidden')] | //textarea | //xhtml:input[not(@type='hidden')] | //xhtml:textarea"
+"    );
+
+"hints.addMode("h", "Hide element",
+"    function(element) {
+"        element.style.display = "none";
+"    },
+"    function() "//*");
+"EOF
+
+" }}}
+
+" vim:ft=vimperator:

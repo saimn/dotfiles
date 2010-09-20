@@ -1,0 +1,662 @@
+This is the CHANGES file of the IDLWAVE distribution, version 6.2pre2 
+
+The file covers only the changes for Revision 3.0 and later.  Earlier
+changes are documented in the (obsolete) files idl.el and
+idl-shell.el, available at idlwave.org.
+
+Revision 6.5 
+================================================================
+   - Support for the Windows command-line IDL tool (as of version 7.1)
+   - Support for the new Eclipse-based help system, including direct
+     keyword linking.
+   - A new "help with topic" (C-M-?) command to lookup inidividual
+     help topics in the IDL help system, with completion.
+   - Fails gracefully if no help is installed (e.g. for IDL <6.1
+     without any HTML help module).
+   - Structure tag completion now enabled by default (e.g. for state
+     structures).
+   - Improved fontification handling of keywords, especially in
+     continued statements and routine definitions (routine keywords
+     stay fontified as you edit!).
+   - Better handling of spaces in filepaths for syncing the current
+     working directory.
+   - HideShow support.  Just add `hs-minor-mode' to the mode hook (or
+     type M-x hs-minor-mode), and you can quickly hide and show
+     logical blocks, entire routines, etc.  Very useful for working
+     with long files filled with many routines.
+   - Trim out spurious "None" superclasses in routine information of
+     classes without inheritance.  You may need to rebuild your XML
+     Help catalog to accomplish this (IDLWAVE->Routine Info->Rescan
+     XML Help Catalog).
+   - Automatically list the enclosing routine name in ChangeLog 
+     ('C-x 4 a' appends a new ChangeLog entry).
+   - Changing the break condition or repeat count on a disabled
+     breakpoint now works correctly.
+   - Improved handling of windows and frames when use-dedicated-frame
+     is on, avoiding duplicate windows for an already showing buffer
+     (e.g. the *idl* buffer).
+   - Indenting now works as expected for $MAIN$ level routines (those
+     without a pro/function declaration).
+   - When retall is called (e.g. by hitting 'q' in debug mode),
+     IDLWAVE now escapes from stopped $MAIN$ level routines, skipping
+     any remaining commands.
+   - The fractional height of the shell buffer when it is displayed in
+     a non-dedicated frame is customizable (see
+     `idlwave-shell-buffer-height-frac').
+   - Default command (C-c C-d C-y) prompts for the default command to
+     execute, if it hasn't yet been set.  It also no longer resets IDL.
+   - Direct support in the shell for multi-line commands ending in '&'
+     executed as a single statement (e.g. FOR loops).  Use C-c SPACE
+     to add a new command line at the IDL> prompt (and M-Ret to
+     continue the current line, just as in a buffer).
+   - When using up/down arrows to cycle through history in the Shell,
+     first move through multi-line commands line by line.  Only when
+     at the beginning or end is the next history item recalled.  This
+     makes editing and re-executing multi-line commands much easier.
+     Hold shift when hitting up/down arrow to skip through the full
+     multi-line command with one keypress (the old behavior).
+
+Revision 6.0
+=============
+   - Use the new HTML help and XML routine info catalog distributed
+     with IDL starting with version 6.2.  Help is now available
+     without a separate download, and is always in sync with IDLWAVE's
+     routine information.
+   - Use the new IDL Assistant directly by default to display bundled
+     HTML help.
+   - Fall back on class help for methods without any help entry.
+   - Allow keyword inheritence on system classes, in addition to user
+     classes with *_EXTRA keywords.
+   - Much better handling of >, <, >=, <=, ->, &, and && for space
+     padding with optional idlwave-surround-by-blank and
+     idlwave-do-actions.
+   - Limit the total length printed when examining long arrays, using
+     'idlwave_print_safe'.  Default limit 200.
+   - Read-only prompt in the shell with Emacs 22.
+   - No more complaints when compiling filenames with space.
+   - New convience command "e" in Electric Debug Mode, which prompts
+     for an expression to print.
+   - Better caching of path and system directory info gleaned from the
+     shell.
+   - Better checking/recompilation for idlwave_* helper routines
+     (e.g. if you are a frequent .full_reset_session user).
+   - Made default block indent 3 and main level indent 2 (users who
+     like the old defaults can customize and set
+     idlwave-main-block-indent to 0, idlwave-block-indent to 3,
+     idlwave-end-offset to -3, and idlwave-continuation-indent to 2).
+   - When stepping through code, the highlight color of the line where
+     IDL is currently stopped changes to gray temporarily, until IDL
+     stops at another line, to give feedback for long operations.
+   - When compiling files, the routine info for routines in that file
+     alone are updated from the shell, to avoid slow-down for very
+     large numbers of routines.  C-c TAB updates all of them.
+
+
+Revision 5.6
+=============
+   - New right-clickable break-point lines with a tooltip pop-up
+     describing the breakpoint, and a menu of options for clearing,
+     disabling, changing breakpoint conditions and repeat count, etc.
+   - Much faster breakpoint operations, especially over slow links or
+     when working with many hundreds or thousands of compiled
+     routines.
+   - More robust ability to set breakpoints at the beginning of a
+     module (procedure/function/method) referenced nearby, using the
+     same intelligent module inference as visit module uses.
+   - Solved occassional apparent "hang" of the shell, which would
+     require a return to be hit to flush the command queue (compiling,
+     setting breakpoints, etc.).  Anecdotal evidence is that the
+     frequency of this hang increased in IDLv6.1.  Note that, if you
+     are setting your own command prompt expression (e.g. for ENVI, or
+     a special purpose environment), you should use the format "^\r?
+     ?IDL> " to avoid this problem (IDL outputs arbitrary return
+     characters occasionally).
+   - More careful evaluation of expressions pulled from higher levels
+     on the calling stack for examine commands (like C-c C-d C-p
+     `idlwave-shell-print').  Non-stack-local variable examinations
+     should be more robust for complicated expressions.
+   - New convenience key binding, C-c C-t, for visiting a module in
+     the current file, with a context-sensitive default module and
+     completion.
+   - Adding action and bindings to special regular expression
+     characters like "[" now works as expected (e.g. to force blanks
+     around array indices, use (idlwave-action-and-binding "["
+     '(idlwave-surround nil 1)), and similarly for "]").
+   - Two new default convenience abbreviations: \pv for "ptr_valid()"
+     and \ipv for "if ptr_valid() then" (with cursor placed between
+     the parentheses).
+   - With the optional 'complete-structtag module, auto-determine the
+     structure tags of structures being completed in the Shell
+     (similar to object methods).
+
+Revision 5.5
+=============
+   - Allow completion/source-level help on structure or class
+     definitions which inherit some of their data field from other
+     structures in the same __define routine.  Useful for
+     "on-the-spot" structure inheritance.
+   - Greatly improved structure parsing speed.
+   - Fix if statement issue: `&&' was being confused with multiple
+     commands on a line.
+   - Properly indent continuations in method calls after the arrow but
+     before the method name.
+   - Scan and lookup source for routines in buffers which have not yet
+     been saved to file.
+
+
+Revision 5.4
+=============
+   - Update routine info and help for IDL v6.1.
+   - Improved breakpoint handling, including new enable/disable
+     breakpoint toggle command (C-c C-d C-\), and greyed-out
+     glyph/highlight appearance for disabled breakpoints.
+   - Fix continuation indent bug with function calls with keywords in
+     continued "IF" statements.
+
+
+Revision 5.3
+=============
+   - New command for visiting routines in a file.  With one arg
+     prefix, (C-u C-c C-v), you'll be prompted for a routine in the
+     current file to visit.
+   - A new optional "Kernighan"-style parentheses continuation indent
+     can be enabled with `idlwave-indent-parens-nested'.
+   - Bug fix when encountering "&" in comments.
+   - Procedures which are continued *before* the first comma are
+     recognized.
+   - Better handling of continued statement blocks (e.g.
+     if.. then... else) with continuations.
+   - Tab-complete executive commands (e.g. .COMPILE) in the shell, with
+     linked help.
+
+
+Revision 5.2
+=============
+   - Supports IDLv6.0, including a new set of HTML documentation.
+   - Pads new IDL6 assignment operators (e.g. #=, XOR=), when
+     `idlwave-surround-with-space' is set.  Operators with
+     alphabetical prefixes must be separated from the left-hand-side
+     with a space.  
+   - Better behavior of keyword and for-loop assignment padding.
+   - Rescan saved paths when "Save Path Info" selected.
+   - Fixed small continued statement indentation for closing
+     parentheses on a line by themselves.
+   - Better handling of continued statement indents with in-line
+     assignments and for loops, e.g. "if 1 then a=1 else $".
+   - Always show HTML help if available, using in-file help for those
+     routines with available source code as a backup.
+   - Filename completion after "." no longer confused with structure
+     completion.
+
+Revision 5.1
+=============
+   - Fixed handling of method calls and keywords when padding
+     operators with `idlwave-surround-by-blank'.
+   - Context (not just completion) help on sysvar tags.
+   - Prevent electric-debug mode from enabling when traversing the
+     calling stack, unless it's already enabled.
+   - Fixed bug accidentally binding ESC when using "Shift" among your
+     idlwave-shell-debug-modifiers.
+   - Improve continued assignment statement matching to allow
+     arbitrary left-hand side expressions.
+   - Added support for localizing doclib header sections (e.g. "nom"
+     instead of "name").
+   - Added links to top and bottom of each HTML help page, including a
+     custom-produced table of contents.
+
+Revision 5.0
+=============
+   - Introduced Electric-Debug mode, for lightning fast stepping,
+     shortcut-driven variable examination, breakpoint operations, and
+     more, all using single keystrokes.  Look for "*Debugging*" in the
+     mode line and a different colored stop line or arrow.
+   - HTML-based, fully-linked, context-aware online help with
+     configurable browser settings.
+   - New, more flexible routine catalog system.  Any number of
+     per-directory "library catalogs" (in files named
+     ".idlwave_catalog") will be automatically dicovered on the IDL
+     path and loaded.  System-wide libraries can be scanned once for
+     all to use.  Pre-scanned catalog files will be distributed with
+     popular libraries, and can be built by the user (perhaps
+     automatically using, e.g., cron) with the included
+     `idlwave_catalog' perl script.  The older "user catalog"
+     (libinfo) functionality still exists alongside the new system.
+   - Help on system variable tags.
+   - Better breakpoint glyph display in the margins, with different
+     images for different breakpoint types (single, conditional,
+     after, etc.).
+   - Continuations with nothing (aside from "$" and possibly a
+     comment) after the opening comma or parenthesis of routine calls
+     and definitions, or the opening punctuation of a paren-pair
+     (arrays, structures, etc.), now assume you continued the line to
+     get more space, and "give you room" by reverting to the basic
+     indent.
+   - All completion commands can be given two prefix arguments
+     (e.g. C-u C-u M-TAB) to query for a regular expression by which
+     to limit completion.
+   - Better handling of history recall for multi-line commands in the
+     Shell.
+   - Fixed breakpoint scanning for cases of both AFTER and CONDITION
+     being set.
+   - New commands for moving between breakpoint locations in a buffer.
+   - New command for setting a breakpoint at the beginning of the
+     enclosing routine.
+   - Fixed a rarely seen error with shadowed routine sorting order for
+     routines with files.
+   - File name completion for external shell commands (those beginning
+     with `$').
+
+Revision 4.16
+=============
+   - Fixed XEmacs error when indenting continuation lines.
+   - Fixed case-bug when simultaneously upcasing and expanding generic
+     END statements (i.e. when using `idlwave-reserved-word-upcase'
+     with 'idlwave-expand-generic-end').
+   - Improved Debug Menu when running the Shell, including the super
+     examination pop-up commands as menu items (for both expression at
+     point, and region).
+   - Highlighted stop-line is cleared when retall'ing.
+   - Better continuation of single statement if..then..else
+     continuation lines.
+   - Fixed broken drag-to-examine functionality on the newest XEmacs
+     versions.
+   - Debugging commands (breakpoints, stepping, etc.) now work in
+     $MAIN$ level routines.
+   - Fixed a rare error when stepping code yourself (e.g., with
+     ".step").
+   - When not showing shell output ( e.g., for stepping commands; see
+     `idlwave-shell-show-commands'), any errors in the output will
+     still be displayed.
+   - An occassional hang when finding keys (e.g. when showing a
+     routine definition block for the last routine in a file) was
+     fixed.
+
+Revision 4.15
+=============
+   - Routine info for routines with multi-threading keywords is now
+     displayed correctly, and these keywords are linked in online
+     help.
+   - Fixed bug in Makefile causing trouble compiling when using older
+     versions of help.
+   - Filename completion in the shell works more cleanly without
+     corruption, and can now complete blank filenames in the local
+     directory (e.g. open,'[Tab]).
+   - Filename completion in the shell now works after "@" batch
+     commands.
+   - Better handling of obscure syntax errors.
+   - A special loadable module (`idlw-roprompt') allows Emacs 21 users
+     to make the "IDL>" prompt read-only.
+   - Bug fix: All tags are now found for tag completion on self, and
+     in other structures when the optional completion module
+     `complete-struct-tag' is used.
+   - Bug fix: alignment on the `=' of an assignment now permits a more
+     complicated LHS (e.g. a.(0)[1]=...).  
+   - Fixed bug when using multi-word abbreviations like "\ei": an
+     erroneous begin-end block matching error was being issued.
+   - Fixed system variable tag completion bug when using
+     idlw-complete-structtag for easy structure completion.
+   - Breakpoints are now temporarily disabled when using "Continue to
+     Here" and "Continue to End of Block", ensuring this always works
+     correctly.
+   - Added custom variable for controlling how much of the background
+     communication between buffer and shell is displayed
+     (`idlwave-shell-show-commands').  You can even turn on
+     'everything to get a peek behind the curtain.
+   - By default, object method and method keyword completions in the
+     shell now query the shell for the object class during the
+     completion.  E.g. "a=obj_new("idl_container") & a->[Tab]" will
+     automatically learn that "a" is an IDL_CONTAINER object and offer
+     the correct procedure methods.
+   - You can now set a conditional breakpoint with a simple prefix arg
+     to the breakpoint command (i.e. [C-u C-c C-d C-b]), which will
+     prompt you for the IDL expression.
+   - Fixed bug when completing procedure methods on multi-statement
+     lines.
+   - When completing class structure tags (self.[Tab]), or regular
+     structure (via idlw-complete-structtag) you can now right click
+     on the tags in the completion buffer to pull up their definition
+     in the help window.  Context help also works on class structure
+     tags.
+   - Class structure tags from superclasses are labelled with the
+     class in the *Completions* buffer.
+   - Bug fix for indenting continuation lines which contain "pro" or
+     "function" somewhere within their argument list.
+
+Revision 4.14
+=============
+   - More sensible handling of multiple *Examine* buffer windows,
+     allowing permanent resizing of windows.
+   - "q" in an *Examine* window closes it, and "c" clears the old contents.
+   - Continued statements at the end of a multi-line statement (with
+     `&') have continuation indent correctly calculated.
+   - Continued qualified method procedure calls now indented correctly.
+
+Revision 4.13
+=============
+   - Security improvement for temporary files.
+   - New convenience routine for creating abbreviations.
+   - Much-improved indentation for multi-line comments in function and
+     procedure calls, structure definitions, etc.... no more lines
+     with "$" only required.
+   - Continued routine calls and definitions, structure and class
+     definitions, and assignment statements now line up on the first
+     non-blank character after the opening punctuation.  To save
+     space, this can be disabled for indentation shifts larger than a
+     configurable value, in which case IDLWAVE still attempts to keep
+     things neat.
+   - Bug fix: improper alignment when splitting strings fixed.
+   - Bug fix: keyword completion in continued function calls which are
+     themselves continued fixed. 
+   - Bug fix: keyword completion failed for class::Init in obj_new(),
+     if routine completion-case set to any other than 'preserve or
+     'capitalize.
+   - Several new abbreviations and updated easy abbrev customization.
+   - Procedures on lines with multiple statements (using `&') are now
+     treated correctly for routine info and help.
+   - Custom "examine" commands can be created easily using two new
+     macros, for binding to keys or mouse clicks.  
+   - Variable/expression print, help, and other examine commands now
+     work in the shell as well as the buffer.
+   - A new examine mouse binding pops-up a customizable list of
+     examine functions to apply to the expression selected.
+
+Revision 4.12
+=============
+   - New support for Speedbar.
+   - Bug fix in explicit class name completion/help/routine info:
+     a->b::c now completes correctly.
+
+Revision 4.11
+=============
+   - New configureable class-driven keyword inheritance in Completion
+     for common methods (like Init, and (Get|Set)Property) which chain
+     keyword inheritance up the class stack.
+   - Bug fix for space padding: the method invocation operator,"->",
+     will now be padded immediately upon entry, if
+     `idlwave-surround-by-blank' is non-nil.
+   - Bug fix in generic END expansion: faulty capitalization was
+     occuring when END expansion was coupled with reserved word
+     upcasing.
+   - Numerous documentation improvements, including a description of
+     the structure tag completion plug-in.
+
+Revision 4.10
+=============
+   - New maintainer: J.D. Smith <jdsmith at as.arizona.edu>
+   - Compatible with IDL v5.5's  new breakpoint listing
+     format, along with the older format.
+   - Updated routine info for new routines and new keywords to
+     existing routines, taken from the `What's New' document shipped
+     with the IDL v5.5 release.  
+   - Updated online help text, from the `What's New' document.
+   - The get_rinfo script can now take a `fixup' file for adding
+     updated help and routine info material.
+   - New frame creation handled better with quick shell (idlwave-shell
+     'quick).
+   - A few updates for better Emacs 21 compatibility.
+
+Revision 4.9
+============
+   - Idle time is used to automatically initialize the routine info.
+     See new variable `idlwave-init-rinfo-when-idle-after'.
+   - When using the mouse to print variables an expressions, you now
+     can also drag over a region to define the expression to print.
+   - Before doing file name completion in the shell, the Emacs working
+     directory is switched to the current IDL working directory.
+   - The IDL procedure "BEEP" works again in the IDLWAVE Shell.
+   - Fixed display problem with multiple frames.
+   - In places where completion defaults to *keywords*, you can force
+     function name completion with a C-u prefix to M-TAB.
+   - Some bugs fixed.
+
+Revision 4.8
+============
+   - The shell preserves the command history between sessions.  See
+     new variables `idlwave-shell-command-history-file' and
+     `idlwave-shell-save-command-history'.
+   - New variable `idlwave-indent-to-open-paren' which can be used to
+     turn off deep indentation of continuation lines.  Example:
+        x = function_a(function_b(function_c( a, b, $
+                                              d, c)))
+   - The library catalog can be updated with a background job so that
+     you can continue to work while it runs.
+   - A double prefix argument to `idlwave-shell-print' evaluates
+     and prints the current region as an expression.
+   - When the IDL process under the shell exits, it runs
+     `idlwave-shell-sentinel-hook'.
+   - Fixed bug with deleting last window on IDL exit.
+   - Fixed bug (exponential regexp) with parsing Liam Gumley's routine
+     headers.
+
+Revision 4.7
+============
+   - New way to define key bindings for debugging commands
+     See variable `idlwave-shell-debug-modifiers'.
+   - Variable `idlwave-shell-activate-alt-keybindings' obsolete.
+   - Tutorial added to the documentation.
+   - Bugfix with !PATH query under Solaris (Craig Markwardt)
+
+Revision 4.6
+============
+   - Shell window more like xterm:
+     - show as much output as possible
+     - up and down arrows do history stuff (see new variable
+       idlwave-shell-arrows-do-history). 
+   - Routine info and help files updated to IDL 5.4
+   - Support for the new IDL statements (SWITCH, BREAK, CONTINUE)
+   - Bugfix for shell printing of identifiers with `!' and `.'
+   - File name completion in strings in buffers, similar to the shell.
+   - Fixed file name completion with a dash in file names.
+   - Font-lock enhancements in structure definitions: Structure name
+     and tag names.
+   - END is replaced by ENDIF etc already when indenting a line with TAB.
+   - Fixed bug with parsing of routine definition if comment lines are
+     scallered between continuation lines.
+   - `idlwave-close-block' and `idlwave-abbrev-change-case'
+     interaction bug fixed.
+   - Routine info and source lookup switch to INIT automatically when
+     the cursor is in keyword section of an OBJ_NEW call.
+   - Fixed BUG with getting system variable info from the Shell under
+     IDL5.2 and earlier.  Used to produce a compilation error, now
+     just silently fails.
+ 
+
+Revision 4.5
+============
+   - Bug fixed with structure parsing in CLASS__define procedures.
+
+Revision 4.4
+============
+   - IDLWAVE understands inheritance in all important contexts.
+   - Completion of system variables and their tags.
+   - Completion of class structure tags on "self" variables.
+
+Revision 4.3
+============
+   - The IDL procedure "BEEP" works in the IDLWAVE Shell
+   - Fixed bug with dedicated shell frame display under Emacs
+     (patch from Stein Vidar Hagfors Haugan <shaugan@esa.nascom.nasa.gov>)
+
+Revision 4.2
+============
+   - Fixed bug with context-help when at end-of-buffer.
+   - Ambiguous kwd abbrev and non-existent in online help kwd
+     now ring the bell.
+   - Toggling the toolbar causes a redraw-frame on Emacs (21 only).
+   - Allow for space between a function and `('.
+   - Forcing completion type with prefix arg to M-TAB fixed in the shell.
+   - Fixed bug when exiting shell with *idl* as the only window.
+   - The class of object "self" is assumed of be the current routines class.
+
+Revision 4.1
+============
+   - Fixed bug in which unresolved routines could shadow catalog entries.
+   - Fixed the incorrect installation instructions in README.hlp.
+   - Online help for non-system stuff makes use of the DocLib file header.
+   - Abbreviated keywords are treated correctly for online help.
+   - Source files displayed as online help can be fontified
+     (off by default, see variable `idlwave-help-fontify-source-code').
+   - Multiple definitions of a routine in one file count as shadowing.
+   - Facility to send single characters to interact with GET_KBRD (see manual)
+   - The shell defines a system variable !IDLWAVE_VERSION, which can
+     be used by a program to detect if it is running under Emacs or not.
+   - More efficient way of querying the shell for routine info.
+   - Fixed bug in get_rinfo -> 10 mode keywords recognized.
+   - Fixed bug with translation of help topics.
+   - Fixed bug for completion context after continuation lines.
+   - Fixed bug with Keyword insertion after `(' from Routine Info Window.
+
+Revision 4.0
+============
+   - Fast and accurate IDL online help.  Two additional files need to
+     be installed, they are not part of the standard distribution.
+     Help is triggered with `M-?', and by clicking with mouse-3 on
+     items in the Routine Info buffer or in *Completions*.
+   - Global IDL namespace analysis to produce a list of routines
+     with definitions in several files.
+   - Clicking on a keyword in the routine-info buffer inserts
+     the keyword in the buffer from which `C-c ?' was called.
+   - More intelligent completion in OBJ_NEW calls.
+   - Class completion after PRO and FUNCTION.
+   - Abbrev expansion in the shell.
+   - `idlwave-pad-keywords' can also have a value `keep'.
+   - `idlwave-scan-all-buffers-for-routine-info' can also have value
+     `current' to scan only the current buffer but no other buffers. 
+
+Revision 3.15
+=============
+   - Printing expressions while execution is halted can now also
+     access all levels on the calling stack.
+   - Padding of long operators (like `->') is now possible.  The
+     object arrow `->' has been added to the defaults - when
+     `idlwave-do-actions' is non-nil, `->' will have at least one
+     space before and after it.
+   - Code templates now respect settings of `idlwave-abbrev-change-case'
+     and `idlwave-reserved-word-upcase'.
+   - Fixed bug with `idlwave-pad-keywords' in procedure method calls.
+   - Fontification of keyword parameters works with embedded comments.
+
+Revision 3.13
+=============
+   - Minor cleanup.
+
+Revision 3.12
+=============
+   - 3 files had to be renamed, in order to get IDLWAVE included in the 
+     Emacs distribution:
+      - idlwave-shell.el   -> idlw-shell.el
+      - idlwave-rinfo.el   -> idlw-rinfo.el
+      - idlwave-toolbar.el -> idlw-toolbar.el
+     When installing this version, make sure to remove the old
+     idlwave-*.el files and update the autoload for `idlwave-shell'.
+
+Revision 3.11
+=============
+   - Final cleanup before installing in the Emacs and XEmacs distributions.
+
+Revision 3.10
+=============
+   - Fixed bug with `idlwave-shell-automatic-start'.
+   - Fixed bug with the info files.
+
+Revision 3.9
+============
+   - Exiting the shell does not kill the *idl* buffer.
+   - Shell prompt pattern allows single whitespace before "IDL>"
+
+Revision 3.8
+============
+   - Library scan implemented for Windows and MacOS.  On these systems 
+     the search path need to be given in `idlwave-library-path'.
+   - *Completions* window disappears after successful completion.
+   - Fixed library scan bug with keywords in continuations line.
+
+Revision 3.7
+============
+   - Completion of Object methods finalized.
+   - Exiting the IDLWAVE shell now kills all associated buffers and
+     the dedicated frame (if applicable).
+   - Documentation finalized.  The printed documentation is 24 pages.
+     Available online in Emacs (info), as postscript and HTML.
+
+Revision 3.6
+============
+   - You can make IDLWAVE prescan library files for routine info.
+
+Revision 3.5
+============
+   - Completion and Routine Info display now also work for object
+     methods.
+   - Completion and Routine Info display available in the IDLWAVE Shell.
+   - Debugging Toolbar adapted for Emacs 21.
+   - First draft of TeXInfo documentation.
+   - Fixed bug with END expansion in CASE lists.
+
+Revision 3.4
+============
+   - Fixed bug in Makefile with install-tags 
+   - Fixed bug in with concat in XEmacs 21.x
+   - Enforced FSF coding standards, to prepare for installation in
+     main Emacs distributions.
+
+Revision 3.3
+============
+   - `C-c ?' displays the calling sequence and keyword parameters of a
+     routine.  Works for most builtin IDL routines, the routines you
+     are currently editing, and the compiled routines in the idlwave-shell. 
+   - `M-tab' completes procedure names, function names and keyword
+     parameters in the buffer.  
+   - New source file idlwave-rinfo.el contains the code for these new
+     functions.
+
+Revision 3.2
+============
+   - The cleanup after the idl process finishes is now reliable and gets
+     called exactly once.
+   - Toolbar code moved to a separate source file.
+   - Fixed bug with `display-buffer' in Emacs 19.
+
+Revision 3.0
+============
+   File idlwave.el
+   ---------------
+   - New maintainer Carsten Dominik <dominik@strw.leidenuniv.nl>
+   - Renamed mode and all variables and functions.  The new prefix is
+     `idlwave-' instead of `idl-'.  This was necessary to evade a name
+     clash with the idl-mode defined in `cc-mode.el' which is part of
+     X/Emacs 20 distributions.
+   - Added Customize support.
+   - New commands `idlwave-beginning-of-block' and `idlwave-end-of-block'.
+   - New command `idlwave-close-block'.
+   - The type of END at the end of the block is checked.
+   - Font-lock enhancements.  Multi-level fontification based on the
+     value of `font-lock-maximum-decoration'.  Reunified the different
+     expressions for Emacs and XEmacs.
+   - `idlwave-show-begin' check the correctness of the END statement.
+   - `idlwave-surround' exception for `->'.
+   - Better listing of abbreviations with `idlwave-list-abbrevs'.
+   - Some general cleanup of the code.  Menu reorganized.
+   - Both imenu (Emacs) and func-menu (XEmacs) are now supported.
+   - Dropped support for Emacs 18 and hilit19.el.
+   - Rewrite of the docstring for the Mode.  Made more compact, to
+     make more people read it.  Too long parts moved to the Commentary.
+   - Revision number jumps to 3.0 to synchronize with idlwave-shell.el.
+
+   File idlwave-shell.el
+   ---------------------
+   - New maintainer Carsten Dominik <dominik@strw.leidenuniv.nl>
+   - Renamed mode and all functions and variables to use `idlwave-' instead
+     of `idl-' prefix. This was necessary to avoid a name clash with
+     `idl-mode' which is defined in cc-mode.el.
+   - Made the stop-line-overlay work for XEmacs as well.  Changed the
+     associated face to 'highlight.
+   - Breakpoint lines are highlighted with a glyph or a special face.
+   - Debugging toolbar under XEmacs.
+   - To get a special frame for the shell buffer, set the variable
+     `idlwave-shell-use-dedicated-frame' to t, or call `idlwave-shell'
+     with a prefix arg.  The hook suggested for in Revision 2.4 for
+     the same purpose probably still works, but is no longer recommended.
+   - Changed the default `idlwave-shell-use-truename' to nil, since we ensure
+     now internally to not visit the same file twice under different names.
+   - Menu reorganized.
+   - Implemented a number of new commands.  Check the "Debug" menu.

@@ -1,0 +1,4 @@
+--langdef=IDL
+--langmap=IDL:.pro
+--regex-IDL=/^pro[ \t]+([a-zA-Z0-9_:]+)/\1/p,procedure/i
+--regex-IDL=/^function[ \t]+([a-zA-Z0-9_:]+)/\1/f,function/i

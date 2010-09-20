@@ -1,0 +1,30 @@
+#!/bin/sh
+
+HTTP="/etc/rc.d/httpd"
+MYSQL="/etc/rc.d/mysqld"
+
+start(){
+   $HTTP start
+   $MYSQL start
+}
+
+stop(){
+   $HTTP stop
+   $MYSQL stop
+}
+
+restart(){
+   $HTTP restart
+   $MYSQL restart
+}
+
+print_usage() {
+    echo "Usage : lamp [start][stop][restart]"
+}
+
+case $1 in
+   "start")    start;         exit 0;;
+   "stop")     stop;          exit 0;;
+   "restart")  restart;       exit 0;;
+   *)          print_usage;   exit 0;;
+esac

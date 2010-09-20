@@ -1,0 +1,10 @@
+
+[Desktop Entry]
+Encoding=UTF-8
+Name=Xmonad
+Comment=Tiling window manager
+Exec=/usr/bin/xmonad
+TryExec=/usr/bin/xmonad
+#Icon=xmonad.png
+Type=XSession
+Name[fr_FR]=xmonad.desktop

@@ -1,0 +1,156 @@
+#!/bin/bash
+# Backup script with rsync
+
+VERSION="20100330"
+COMMAND=$(basename $0)
+DATE=$(date +%Y%m%d)
+
+# options
+DRYRUN=""
+OPTS="-avh --delete --force --stats --progress --delete-excluded"
+BACKUP_OPTS="--backup --suffix=.$DATE --backup-dir=backup/"
+
+#----------------------------------------------------------------------------
+# Mail backup with offlineIMAP {{{
+function backup_mail () {
+   read -p "Backup mail with OfflineIMAP ? y/[n]" answer
+   if [ $answer = "y" ]
+   then
+      offlineimap
+      reset
+      tar czvf $HOME/Documents/perso/backup/mail-$DATE.tar.gz $HOME/Mail/
+   fi
+}
+# }}}
+
+
+#----------------------------------------------------------------------------
+# backup home {{{
+function backup_home () {
+   SRC=$HOME
+   [ "$HOSTNAME" = "fireball" ] && DST="/data/backup"
+   [ "$HOSTNAME" = "goudes" ] && DST="/media/857344cd-6fa4-428c-a68b-08b211b2cedd"
+
+   # check if disk is present
+   [ ! -e "$DST" ] && echo "Error: backup disk missing ($DST)" && exit
+
+   # excludes file (contains a wildcard pattern per line of files to exclude)
+   FILTER=$HOME/bin/rsync_filter
+
+   LOG=$DST/backup.$USER.`date +%F`.log
+   ERRLOG=$DST/backup.$USER.error.log
+
+   # --dry-run option
+   if [ "$DRYRUN" = "--dry-run" ]
+   then
+      LOG="$LOG.dryrun"
+      echo "Option --dry-run ON" | tee -a $LOG
+   fi
+
+   # check if everything is ok
+   read -p "Backup $SRC to $DST ? y/[n]" answer
+   [ $answer != "y" ] && echo "Cancel backup" && exit
+
+   #notify-send --icon='info' Message "Starting backup of $SRC to $DST ..."
+
+   echo ":: Starting backup of $SRC to $DST - `date`" | tee -a $LOG
+   echo "--------------------------------------------------------" | tee -a $LOG
+
+   [ $RSYNC_BACKUP ] && OPTS="${OPTS} $BACKUP_OPTS"
+
+   rsync $OPTS $DRYRUN --filter=". $FILTER" $SRC $DST 2> $ERRLOG | tee -a $LOG
+
+   echo "--------------------------------------------------------" | tee -a $LOG
+   echo ":: Backup finished ! - `date`" | tee -a $LOG
+
+   #notify-send --icon='info' Message "Backup finished !"
+
+   chmod 700 $LOG
+
+   if [ -s $ERRLOG ]; then
+      echo "Backup error. See $ERRLOG for details."
+   else
+       rm $ERRLOG
+   fi
+}
+# }}}
+
+#----------------------------------------------------------------------------
+# backup system files {{{
+function backup_system () {
+   echo ":: Backup list of installed packages ..."
+   pacman -Qqet | grep -v "$(pacman -Qqm)" > pkglist-official.txt
+   pacman -Qqmt > pkglist-local.txt
+
+   echo ":: Backup system config files ..."
+   tar -cvpJf $HOME/Documents/system-files-$DATE.tar.xz /etc /boot pkglist-local.txt pkglist-official.txt
+   rm pkglist-local.txt pkglist-official.txt
+
+   #tar --files-from=include.txt --exclude-from=exclude.txt -cvpzf backupname.tar.gz
+}
+
+#----------------------------------------------------------------------------
+# backup musique {{{
+function backup_music () {
+   [ "$HOSTNAME" != "goudes" ] && echo "Error: unknown host" && exit 1
+
+   SRC="/data/Musique"
+   DST="/media/857344cd-6fa4-428c-a68b-08b211b2cedd"
+
+   # check if disk is present
+   [ ! -e "$DST" ] && echo "Error: backup disk missing ($DST)" && exit
+
+   read -p "Backup $SRC to $DST ? y/[n]" answer
+   [ $answer != "y" ] && echo "Cancel backup" && exit
+
+   rsync $OPTS $DRYRUN $SRC $DST
+}
+# }}}
+
+#----------------------------------------------------------------------------
+# help {{{
+print_help() {
+cat <<EOF
+NAME
+   $COMMAND -- backup script with rsync.
+
+SYNOPSIS
+   $COMMAND [-d] [--music|--mail|--home]
+
+DESCRIPTION
+   make backup
+
+OPTIONS
+   -h | --help    : Display a help screen and quit.
+   --music        : Music
+   --mail         : Mail
+   --home         : Home
+   --system       : System files (from sysbackup.inc.txt)
+   -d | --dry-run : Simulation mode
+   -b | --backup  : Backup deleted and modified files
+
+AUTHOR
+   Simon <@>
+
+COPYRIGHT
+   This is free software; see the source for copying conditions.  There is NO
+   warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+EOF
+}
+# }}}
+
+#----------------------------------------------------------------------------
+while true; do
+   case $1 in
+      -h | --help)      print_help; exit 0;;
+      -d | --dry-run)   DRYRUN="--dry-run"; shift ;;
+      -b | --backup)    RSYNC_BACKUP=1; shift ;;
+      --music)          backup_music; exit 0 ;;
+      --mail)           backup_mail; exit 0 ;;
+      --home)           backup_home; exit 0 ;;
+      --system)         backup_system; exit 0 ;;
+      *)  break ;;
+   esac
+done
+
+exit

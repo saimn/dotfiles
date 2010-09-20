@@ -1,0 +1,58 @@
+/*
+ * This file can be used to apply a style to all web pages you view
+ * Rules without !important are overruled by author rules if the
+ * author sets any.  Rules with !important overrule author rules.
+ */
+
+@-moz-document domain("linuxfr.org")
+{
+  #commentsbrowser {
+    max-height: none !important;
+    padding: 0 !important;
+  }
+  #vieuxarticle {
+    display: none;
+  }
+}
+
+@-moz-document url-prefix(https://ssl3.ovh.net/~climbr/tt-rss/tt-rss.php)
+{
+  #header {
+    height: 50px !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 260px;
+  }
+  #header img {
+    width: 200px;
+  }
+  #feeds-holder {
+    top: 20px !important;
+    width: 240px !important;
+  }
+  div.headlines_normal {
+    left: 241px !important;
+  }
+  div.topLinks {
+    float: none !important;
+    margin: 2px;
+  }
+  #toolbar div.actionChooser {
+    float: left !important;
+  }
+  #toolbar select {
+    width: 100px !important;
+  }
+  table.headlinesList td.hlUpdated {
+    width: auto !important;
+  }
+  span.contentPreview {
+    font-size: 10px !important;
+  }
+}
+
+/*
+@-moz-document domain(nom_de_domaine){ code CSS habituel }
+@-moz-document url-prefix(adresse_http_partielle) { code CSS habituel }
+@-moz-document url(adresse_http_précise) { code CSS habituel }
+*/

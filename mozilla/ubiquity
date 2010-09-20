@@ -1,0 +1,75 @@
+
+/* This is a template command */
+CmdUtils.CreateCommand({ 
+  name: "example",
+  icon: "http://example.com/example.png",
+  homepage: "http://example.com/",
+  author: { name: "Your Name", email: "you@example.com"},
+  license: "GPL",
+  description: "A short description of your command",
+  help: "how to use your command",
+  takes: {"input": noun_arb_text},
+  preview: function( pblock, input ) {
+    var template = "Hello ${name}";
+    pblock.innerHTML = CmdUtils.renderTemplate(template, {"name": "World!"});
+  },
+  execute: function(input) {
+    CmdUtils.setSelection("You selected: "+input.html);
+  }
+});
+
+CmdUtils.CreateCommand({
+    name: "arch-wiki",
+    contributors: ["Mr Green", "deadrabbit"],
+    license: "MPL",
+
+    description: "Search all of archlinux wiki",
+    help:  "Enter a string to search at archlinux wiki",
+
+    takes:  {"Search string":  noun_arb_text},
+    preview:  "Search all of archlinux wiki.",
+    icon: "http://wiki.archlinux.org/favicon.ico",
+    execute: function( search_string ) {
+        var prefix_url = "http://wiki.archlinux.org/index.php/Special:Search?search=";
+        var search_url = prefix_url + search_string.text;
+        Utils.openUrlInBrowser(search_url);
+    }
+})
+  
+CmdUtils.CreateCommand({
+    name: "arch-forum",
+    contributors: ["Mr Green", "deadrabbit"],
+    license: "MPL",
+
+    description: "Search all of archlinux forums",
+    help:  "Enter a string to search the archlinux forums",
+
+    takes:  {"Search string":  noun_arb_text},
+    preview:  "Search the archlinux forums.",
+    icon: "http://wiki.archlinux.org/favicon.ico", 
+    execute: function( search_string ) {
+        var prefix_url = "http://bbs.archlinux.org/search.php?action=search&keywords=";
+        var after_crap_url = "&author=&forum=-1&search_in=all&sort_by=0&sort_dir=DESC&show_as=topics&search=Submit"
+        var search_url = prefix_url + search_string.text + after_crap_url;
+        Utils.openUrlInBrowser(search_url);
+    }
+})
+
+CmdUtils.CreateCommand({
+    name: "arch-aur",
+    contributors: ["Mr Green", "deadrabbit"],
+    license: "MPL",
+
+    description: "Search the AUR for Packages.",
+    help:  "Enter a string to search the AUR",
+
+    takes:  {"Search string":  noun_arb_text},
+    preview:  "Search the AUR for Packages.",
+    icon: "http://wiki.archlinux.org/favicon.ico", 
+    execute: function( search_string ) {
+        var prefix_url = "http://aur.archlinux.org/packages.php?O=0&L=0&C=0&K=";
+        var after_crap_url = "&SeB=nd&SB=n&SO=a&PP=25&do_Search=Go"
+        var search_url = prefix_url + search_string.text + after_crap_url;
+        Utils.openUrlInBrowser(search_url);
+    }
+})

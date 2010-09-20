@@ -1,0 +1,50 @@
+#!/bin/sh
+# -*- coding: utf-8 -*-
+#
+# ~/.xprofile
+# Executed by gdm at login
+#
+
+# Executed by startx (run your window manager from here)
+#xset s off
+
+#(scale,tile,seemless,center)
+#setxkbmap -option ctrl:swapcaps &
+#autocutsel -selection CLIPBOARD -fork &
+#autocutsel -selection PRIMARY -fork &
+
+#sets the background to black
+#xsetroot -solid black
+xset +fp /usr/share/fonts/local
+xset +fp /usr/share/fonts/TTF
+xset fp rehash
+
+# set the cursor
+xsetroot -cursor_name left_ptr
+
+# Set a background color
+#xsetroot -solid "#303030"
+
+# Load local modmap
+test -r $HOME/.Xmodmap && xmodmap $HOME/.Xmodmap
+
+# Load .Xdefaults
+test -r $HOME/.Xresources && xrdb -load $HOME/.Xresources
+test -r $HOME/.Xdefaults && xrdb -load $HOME/.Xdefaults
+
+#[[ $(hostname) == "devenson" ]] &&
+source $HOME/.xmonad/autostart.sh
+
+#emacs --daemon &
+urxvtd -q -f -o &
+xbindkeys &
+
+# Start ssh-agent
+#eval `ssh-agent -s`
+
+# Start awesome
+#awesome
+#exec ck-launch-session awesome
+
+# Terminate ssh-agent
+#eval `ssh-agent -k`

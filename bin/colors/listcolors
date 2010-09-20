@@ -1,0 +1,10 @@
+#!/bin/bash
+
+clear
+echo "Colors"
+echo "------"
+
+for i in {16..255}; do 
+    echo -en "\e[38;5;${i}mCo\e[38;5;${i}m\e[38;1mlor \e[38;5;${i}m$i\e[38;0m\t"
+    [ $((++j%6)) -eq 0 ] && echo
+done

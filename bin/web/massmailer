@@ -1,0 +1,161 @@
+#!/usr/bin/env python
+
+# Licensed under the Python License (see http://www.python.org/psf/license/)
+# Copyright (C) 2008 Pierre Duquesne <stackp@online.fr>
+
+USAGE='''\
+usage:
+massmailer --server <hostname> --addrlist <addr.txt> --from <addr>
+           [--subject <subject>] [--log <logfile>]
+           [--text <textfile>] [--img <image>] [--audio <sndfile>]
+           [--bin <file>]
+
+    massmailer sends a similar (multipart mime) mail to a bunch of people.
+    --server <hostname>
+          the name of the smtp server
+    --addrlist <addr.txt>
+          is a text file containing one address per line. Each
+          address can be a raw email address, or in the format:
+          Name of the person <person@site.org>
+    --from <addr>
+          is the sender address either formatted as jdoe@site.com or
+          "John Doe <jdoe@site.com>"
+    --subject <subject>
+          the subject of the mail
+    --log <logfile>
+          a file name for the program to write success and failures
+          in a human-readable text file.
+    --text <txtfile>
+    --img  <image>
+    --audio <sndfile>
+    --bin <file>
+          attach a text file, a picture, an audio file, or any type of file to
+          the mail. Files specified with --text don\'t have their filename
+          specified in the mime headers (the text only is inserted).
+          Use --bin if you want to attach the filename information.
+
+Example:
+    massmailer --server smtp.site.com --addrlist addr.txt --log log \\
+               --from spammer@site.com --subject "Cheap Rolex" \\
+               --text buy.txt --img rolex.png\
+'''
+
+import smtplib, sys, getopt
+from email.MIMEBase import MIMEBase
+from email.MIMEMultipart import MIMEMultipart
+from email.MIMEText import MIMEText
+from email.MIMEImage import MIMEImage
+from email.MIMEAudio import MIMEAudio
+import email, mimetypes
+from os.path import basename
+
+# -- Parse command line arguments
+
+opts, args = getopt.getopt(sys.argv[1:], ':h',\
+                              ['server=','log=','addrlist=','from=','subject=',
+                               'text=', 'img=', 'audio=', 'bin=', 'help'])
+if args != []:
+    print "Wrong command line arguments:", "'"+' '.join(args)+"'"
+    print "Try '%s --help' for valid options." % sys.argv[0]
+    sys.exit(1)
+
+servername=None
+logfile=None
+addrfile=None
+fromaddr=None
+subject=''
+attch=[]
+
+for o,a in opts:
+    if o=='--text' or o=='--img' or o=='--audio' or o=='--bin':
+        attch.append((o[2:],a))
+    elif o=='--server': servername=a
+    elif o=='--log': logfile=a
+    elif o=='--addrlist': addrfile=a
+    elif o=='--from': fromaddr=a
+    elif o=='--subject': subject=a
+    elif o in ['-h', '--help']:
+        print USAGE
+        sys.exit(0)
+
+# -- Print error messages
+
+if not (servername and addrfile and fromaddr):
+    if not servername:
+        print 'Error: No server specified (--server option)'
+    if not addrfile:
+        print 'Error: No address list specified (--addrlist option)'
+    if not fromaddr:
+        print 'Error: No sender address specified (--from option)'
+    sys.exit(1)
+
+# -- Print warning messages
+
+warning=''
+if not subject:
+    warning = warning + 'Warning: No subject specified (--subject option)\n'
+if not logfile:
+    warning = warning +'Warning: No log file specified (--logfile option)\n'
+if attch == []: warning = warning + \
+   'Warning: No content specified (--text, --img, --audio, --bin options)\n'
+if warning != '':
+    print '\n', warning
+    inp = raw_input('Are you sure you want to continue [Y/n] ?')
+    if inp not in ['Y','y', '']:
+        print 'Aborted, bye!'
+        sys.exit(0)
+
+# -- Store the destination addresses in a list
+
+addrlist = [l.strip() for l in open(addrfile).readlines() if l.strip() !='']
+if logfile:
+    print 'writing log to',logfile
+    log = open(logfile, 'w')
+else:
+    log = sys.stdout
+
+# -- Build multi-part mime message
+
+msg = MIMEMultipart()
+msg['Subject']=subject
+msg['From']=fromaddr
+msg['To']=''
+
+for (ftype, f) in attch:
+    fd = open(f)
+    content = fd.read()
+    if ftype == 'text': msg.attach(MIMEText(content))
+    elif ftype == 'img':
+        m = MIMEImage(content)
+        m.add_header('Content-Disposition','inline', filename=basename(f))
+        msg.attach(m)
+    # FIXME: mp3 subtype not found
+    elif ftype == 'audio': msg.attach(MIMEAudio(content))
+    elif ftype == 'bin':
+        m = MIMEBase('application', 'octet-stream')
+        m.add_header('Content-Disposition','attachment', filename=basename(f))
+        m.set_payload(content)
+        email.Encoders.encode_base64(m)
+        msg.attach(m)
+        
+    fd.close()
+
+# -- Send the message
+
+try:
+    server = smtplib.SMTP(servername)
+except Exception, e:
+    print >>log, 'Could not connect to', servername, e.__class__, e
+    sys.exit(2)
+
+total = len(addrlist)
+for (idx, addr) in enumerate(addrlist):
+    try:
+        msg.replace_header('To', addr)
+        server.sendmail(fromaddr, addr, msg.as_string())
+        print >>log, 'Success: ', addr
+        print 'Progress: %d/%d' % (idx+1, total)
+    except Exception, e:
+        print >>log, 'Error:',addr, e.__class__, e
+
+server.quit()

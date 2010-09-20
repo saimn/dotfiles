@@ -1,0 +1,10 @@
+#!/bin/sh
+# -*- coding: UTF8 -*-
+
+for i in "$@"
+do
+   new=$(echo "$i" | tr A-Z a-z | tr -s "[:blank:]" "-" | tr -d "[:punct:]")
+   mv "$i" "$new"
+done
+
+exit

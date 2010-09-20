@@ -1,0 +1,29 @@
+#!/bin/sh
+#
+#
+#
+# (c) 2007, by Jochen Schweizer
+# with help from Robert Manea
+
+GH=7
+GW=35
+GFG='#99CCFF'
+GBG='#333333'
+FW="mpc seek +5"
+RW="mpc seek -5"
+NEXTS="mpc next"
+PREVS="mpc prev"
+TOGGS="mpc toggle"
+CAPTION="^fg(#99CCFF)^i(/home/phraok/.dzen/bitmaps/mpd.xbm)^fg()"
+MAXPOS="100"
+
+while true; do
+  POS=`mpc | sed -ne 's/^.*(\([0-9]*\)%).*$/\1/p'`
+  POSM="$POS $MAXPOS"
+  echo -n "$CAPTION "
+  echo "`mpc | sed -n '1p'`" | tr '\n' ' '
+  echo "$POSM" | gdbar -h $GH -w $GW -fg $GFG -bg $GBG
+  sleep 1;
+done | dzen2 -ta r -tw 300 -x 580 -y 0 -fg '#DDDDDD' -bg '#222222' -fn '-*-terminus-*-r-normal-*-*-120-*-*-*-*-iso8859-*' -e onstart=raise -e "button4=exec:$RW;button5=exec:$FW;button1=exec:$PREVS;button3=exec:$NEXTS;but
+ton2=exec:$TOGGS"
+ 

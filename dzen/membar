@@ -1,0 +1,50 @@
+#!/bin/bash
+#
+# (c) 2007 by Robert Manea
+#
+# Left mouse button toggles detailed view
+# Right mouse button quits
+
+#--[ Configuration ]---------------------------------------------------
+
+# bg color
+BG='#494b4f'
+# fg color
+FG='grey70'
+# font
+FNT='-*-bitstream vera sans mono-medium-r-normal-*-10-*-*-*-*-*-*-*'
+# x position
+XPOS=1435
+# y position
+YPOS=0
+# title width
+TWIDTH=125
+# details area width
+DWIDTH=150
+
+# events & actions
+ACT='button1=togglecollapse;button3=exit'
+
+
+#----------------------------------------------------------------------
+
+AWKS='/MemTotal/   {mtotal=$2};
+/MemFree/    {mfree=$2};
+/Active/     {mactive=$2};
+/^Cached/     {mcached=$2};
+/SwapTotal/  {swtotal=$2};
+/SwapFree/   {swfree=$2};
+END {
+	print mtotal-mfree " " mtotal;
+	print mactive " " mtotal;
+	print mcached " " mtotal;
+	print swtotal-swfree " " swtotal; }'
+
+while echo ' Mem:
+Active:
+Cached:
+Swap  : ' | paste - <(awk "$AWKS" /proc/meminfo | gdbar -fg '#99CCFF'  -bg '#333333' -w 35 -h 7); do
+sleep 5
+done | dzen2 -ta l -l 3 -u -fn '-*-terminus-*-r-normal-*-*-120-*-*-*-*-iso8859-*' -p -bg '#222222' -fg '#DDDDDD' -x 900 -y 0 -tw 125 -w 150 -sa c -e $ACT -e onstart=raise
+
+ 

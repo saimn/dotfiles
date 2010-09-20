@@ -1,0 +1,22 @@
+#!/bin/sh
+# optimize images with jpegtran / pngcrush
+
+# find . -name *.jpg -or -name *.png | xargs optimage
+
+for f in "$@"
+do
+   echo ":: optimize $f"
+
+   if test ${f##*.} = 'jpg'
+   then
+      cp "$f" "$f.bak"
+      jpegtran -copy none -optimize "$f.bak" > "$f"
+      rm "$f.bak"
+   elif test ${f##*.} = 'png'
+   then
+      optipng "$f"
+      #pngcrush -rem alla -reduce -brute $f.bak $f > /dev/null
+   fi
+done
+
+exit

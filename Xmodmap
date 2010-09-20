@@ -1,0 +1,11 @@
+!! Switch Caps_lock and escape key
+clear lock
+keycode 9 = Caps_Lock
+keycode 66 = Escape
+add lock = Caps_Lock
+
+!! Compose -> CTRL R
+keycode 105 = Multi_key
+
+!! Deactivate mod2 (numlock)
+!!clear mod2

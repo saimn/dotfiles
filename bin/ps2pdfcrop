@@ -1,0 +1,10 @@
+#!/bin/sh
+
+for f in "$*"
+do
+   ps2pdf "$1" tmp.pdf
+   pdfcrop --margins 10 tmp.pdf "${1/.ps/.pdf}"
+   rm tmp.pdf
+done
+
+exit

@@ -1,0 +1,153 @@
+#shell /bin/zsh
+# legère modif du fichier config de bennyben par kamagatos www.kamagatos.blogspot.com
+# raccourcis avec Ctrl-x puis une touche
+# ou alors Ctrl-meta-une touche, voir Shirt-Ctrl-Meta
+
+# ------------------------------------------------------------------------------
+# SCREEN SETTINGS
+# ------------------------------------------------------------------------------
+
+# don't display the copyright page
+startup_message off
+#nethack on
+
+#defflow on # will force screen to process ^S/^Q
+deflogin on
+
+# detach on hangup
+autodetach on
+
+# turn visual bell on
+vbell on
+vbell_msg "   Wuff  ----  Wuff!!  "
+bell_msg "bell: %n (%t) [%w:%s]^G" 
+
+# define a bigger scrollback, default	a is 100 lines
+defscrollback 1024
+
+# emulate .logout message
+pow_detach_msg "Screen session of $LOGNAME $:cr:$:nl:ended."
+
+# Enable 256 colors
+term screen-256color
+
+# Termcap, fix 256 colors
+termcapinfo rxvt 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm' 
+termcapinfo rxvt-unicode 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm' 
+termcapinfo rxvt-256color 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm' 
+
+# ------------------------------------------------------------------------------
+# SCREEN KEYBINDINGS
+# ------------------------------------------------------------------------------
+
+#bind ^a windowlist -b
+
+# Remove some stupid / dangerous key bindings
+bind '^k'
+bind 'L'
+bind '^\'
+bind .
+bind ^h
+bind h
+
+# Make them better
+bind '\\' quit
+bind 'K' kill
+bind 'I' login on
+bind 'O' login off
+bind '}' history
+
+# Add toggle bindings for the statusbar
+bind ^f eval "hardstatus ignore"
+bind f eval "hardstatus alwayslastline"
+
+#bind 'R' colon "screen -ln rlogin faui -8^b^b^b"
+#bind 'P' colon "^p"
+
+# bind = resize =
+# bind + resize +1
+# bind - resize -1
+# bind _ resize max
+
+# escape ""
+#escape "^xx"
+#bindkey \033^b break
+
+# An example of a "screen scraper" which will launch urlview on the current
+# screen window
+
+#bind ^B eval "hardcopy_append off" "hardcopy -h $HOME/.screen-urlview" "screen urlview $HOME/.screen-urlview"
+
+# on Debian backspace should send char `\177':
+#bindkey -k kb stuff "\177"
+
+# ------------------------------------------------------------------------------
+# TERMINAL SETTINGS
+# ------------------------------------------------------------------------------
+
+#caption always "%-Lw%{+u wk}%50>%n%f* %t%{-}%+Lw%<"
+#backtick 42 60 30 /home/pierre/scripts/checkimap.pl
+
+# caption always "%3n %t%? @%u%?%? [%h]%?%=%c"
+## alternative caption, gives window list, LOGNAME and current date:
+# caption always "%{wk}%?%-Lw%?%{bw}%n*%f %t%?(%u)%?%{wk}%?%+Lw %=%{mk}@%H %{yk}%D %{ck}%M%{wk} %{ck}%d %{gk}%c"
+# hardstatus alwaysignore
+# hardstatus alwayslastline "%Lw"
+
+#--------------
+
+# The vt100 description does not mention "dl". *sigh*
+termcapinfo vt100 dl=5\E[M
+
+# turn sending of screen messages to hardstatus off
+#hardstatus off
+hardstatus on
+# Set the hardstatus prop on gui terms to set the titlebar/icon title
+termcapinfo xterm*|rxvt*|kterm*|Eterm* hs:ts=\E]0;:fs=\007:ds=\E]0;\007
+# use this for the hard status string
+#hardstatus string "%h%? users: %u%?"
+
+# An alternative hardstatus to display a bar at the bottom listing the
+# windownames and highlighting the current windowname in blue. (This is only
+# enabled if there is no hardstatus setting for your terminal)
+#
+#hardstatus alwayslastline "%-Lw%{= BW}%50>%n%f* %t%{-}%+Lw%<"
+#  version d'avant, allégée avec seulement les window en cours et celle courante en jaune
+#  et fond bleu
+#hardstatus alwayslastline "%{= BY}%-Lw%{= YB}%50>%n%f* %t%{= BY}%+Lw%<"
+# nouvelle version :
+# heure (avec secondes), nom de la machine en rouge, load de la machine
+# puis fenetres avec celle courante en jaune, le tout en fond bleu
+hardstatus alwayslastline "%{b kB}%{b kG}%c:%s%{b kB} %{b kB}%H %{b kB}%{b kR}%l%{b kB} %{b kB}%{rs Y}%-Lw%{b kB}%50>%n%{b kB}%f%{b kB} %t%{b kB}%+Lw%<"
+#hardstatus alwayslastline "%{+b}%c%{kg}%="
+#hardstatus alwayslastline "  %{= kK}%-w%{+b W}%n %t%{-}%+w%=%{+b W}%h  %{= dd}"
+
+# set these terminals up to be 'optimal' instead of vt100
+termcapinfo xterm*|linux*|rxvt*|Eterm* OP
+
+# Change the xterm initialization string from is2=\E[!p\E[?3;4l\E[4l\E>
+# (This fixes the "Aborted because of window size change" konsole symptoms found
+#  in bug #134198)
+termcapinfo xterm 'is=\E[r\E[m\E[2J\E[H\E[?7h\E[?1;4;6l'
+
+termcapinfo xterm*|linux*|rxvt*|Eterm* ti@:te@
+
+# Do not use xterms alternate window buffer (won't add lines to scrollback bfr)
+#termcapinfo xterm|xterms|xs ti=\E7\E[?47l
+
+# ------------------------------------------------------------------------------
+# STARTUP SCREENS
+# ------------------------------------------------------------------------------
+
+# Define new windows
+#screen -t irc  1  weechat-temp
+#screen -t rss  2  newsbeuter
+#screen -t mpd  3  ncmpcpp
+#screen -t dl   4  rtor
+#screen -t mt   5  mutt
+
+sorendition =s WB 
+#sorendition "=b ky"
+msgwait 3
+bell "^GBell in window %"
+

@@ -1,0 +1,18 @@
+# conkyrc file for dzen
+###
+
+background no
+out_to_console yes
+out_to_x no
+update_interval 1
+total_run_times 0
+#mpd_host 192.168.0.5
+#mpd_port 6600
+
+#[ ${mpd_status} ${if_mpd_playing}- ${mpd_elapsed}/${mpd_length}$endif ]
+#^fg(\#909090)${mpd_title}^fg() by ^fg(\#909090)${mpd_artist}^fg() from #^fg(\#909090)${mpd_album}^fg()
+
+#Cpu: ^fg(\#909090)${cpu}%^fg()  Mem: ^fg(\#909090)${memperc}%^fg()  Net: #^fg(\#909090)${downspeedf eth0} / ${upspeedf eth0}^fg()  ${time %a %b %d %H:%M} .
+
+TEXT
+^fg(\#909090)^i(/home/simon/.dzen/bitmaps/cpu.xbm) ${cpu}% ^i(/home/simon/.dzen/bitmaps/mem.xbm) ${memperc}% ^i(/home/simon/.dzen/bitmaps/down.xbm) ${downspeedf eth0} / ^i(/home/simon/.dzen/bitmaps/up.xbm) ${upspeedf eth0} ^i(/home/simon/.dzen/bitmaps/battery.xbm) ${battery_percent BAT0} ^i(/home/simon/.dzen/bitmaps/temp.xbm) ${platform coretemp.0 temp 1}°C ^i(/home/simon/.dzen/bitmaps/net-wifi5.xbm) ${wireless_link_qual wlan0}% ${time %a %d %b %H:%M}

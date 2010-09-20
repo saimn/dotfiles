@@ -1,0 +1,30 @@
+#!/bin/sh
+
+#if test -n "$1"; then
+    #echo "Syntax: xmonad-session"
+    #echo
+    #echo "See the xmonad-session(1) manpage for help."
+  #exit
+#fi
+
+export WINDOW_MANAGER=xmonad
+
+# Clean up after GDM
+#xprop -root -remove _NET_NUMBER_OF_DESKTOPS \
+      #-remove _NET_DESKTOP_NAMES \
+      #-remove _NET_CURRENT_DESKTOP 2> /dev/null
+
+#AUTOSTART="${XDG_CONFIG_HOME:-"$HOME/.xmonad"}/autostart.sh"
+#GLOBALAUTOSTART="/etc/xdg/xmonad/autostart.sh"
+
+#if test -r $AUTOSTART; then
+    #. $AUTOSTART
+#else
+    #if test -r $GLOBALAUTOSTART; then
+        #. $GLOBALAUTOSTART
+    #fi
+#fi
+
+# . $HOME/.xmonad/autostart.sh
+
+exec ck-launch-session /usr/bin/xmonad

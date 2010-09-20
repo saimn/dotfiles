@@ -1,0 +1,60 @@
+#!/bin/sh
+
+# nicofo - http://nicofo.tuxfamily.org
+# 12/12/08 : v1
+# 12/01/09 : v1.1 : ajout commentaires et %
+# 19/03/10 : v2 : simplification de la commande 'find'
+#		  nouveau traitement des différences
+
+#compare 2 dossiers et affiche les différences
+#par rapport aux NOMS et à la TAILLE des fichiers
+
+[ -z "$1" ] && read -p "Dossier 1 : " DIR1 || DIR1="$1"
+[ ! -d "$DIR1" ] && echo "'$DIR1' n'est pas un dossier !" && exit 1
+[ -z "$2" ] && read -p "Dossier 2 : " DIR2 || DIR2="$2"
+[ ! -d "$DIR2" ] && echo "'$DIR2' n'est pas un dossier !" && exit 1
+
+file1="/tmp/compDossier1"
+file2="/tmp/compDossier2"
+diff1="/tmp/compDossier_diff1"
+diff2="/tmp/compDossier_diff2"
+
+#ajouter le cas échéant un "/" final aux noms de dossier
+[ -z "$(echo "$DIR1"|grep "/$")" ] && DIR1="$DIR1/"
+[ -z "$(echo "$DIR2"|grep "/$")" ] && DIR2="$DIR2/"
+
+#remplacer "/" par "\/" (pour le sed)
+DIR1m=$(echo "$DIR1"|sed "s#/#\\\/#g")
+DIR2m=$(echo "$DIR2"|sed "s#/#\\\/#g")
+
+#lister les 2 dossiers
+echo -en       "\n\033[1;34mPréparation : listage de \"$DIR1\" ...\033[0m"
+find "$DIR1" -printf "%P\t%s\n" | sort >$file1
+echo -en "\r\033[K\033[1;34mPréparation : listage de \"$DIR2\" ...\033[0m"
+find "$DIR2" -printf "%P\t%s\n" | sort >$file2
+
+#supprimer la ligne qui est la taille du dossier DIR1/2
+sed -i '/^\t[0-9]*$/d' $file1
+sed -i '/^\t[0-9]*$/d' $file2
+
+
+
+#chercher les différences
+diff $file1 $file2 > $diff1			#contient toutes les différences (les différences de taille en double)
+
+#supprimer la taille des fichiers/dossiers
+sed -i 's/\t[0-9]*$//' $file1
+sed -i 's/\t[0-9]*$//' $file2
+sed -i 's/\t[0-9]*$//' $diff1
+
+diff $file1 $file2 > $diff2			#contient uniquement les différences de fichier en plus
+
+#comparer
+echo -e "\r\033[K\033[1;34mCe qui est différent dans les deux dossiers :\033[0m"
+grep '^[<>] ' $diff1  | sed "s/^[<>] //" | sort | uniq -d	#ne garde que les lignes en double
+echo -e "\n\033[1;34mCe que \"$DIR1\" contient en plus :\033[0m"
+grep '^<' $diff2 | cut -d' ' -f1 --complement
+echo -e "\n\033[1;34mCe que \"$DIR2\" contient en plus :\033[0m"
+grep '^>' $diff2 | cut -d' ' -f1 --complement
+
+rm $file1 $file2 $diff1 $diff2

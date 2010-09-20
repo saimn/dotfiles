@@ -1,0 +1,231 @@
+#!/bin/bash
+# Distributed under the terms of the GNU General Public License v3 or later
+# AUTHOR: Loïc Cerf
+# e-mail: magicbanana@gmail.com
+
+WGET_OPT="-q -c"
+
+EX_USAGE=64
+EX_NOHOST=68
+
+manual ()
+{
+    echo "Usages: $0 [ OPTIONS ] album-url [ destination ]
+        $0 [ OPTIONS ] gallery-url [ destination ]
+        $0 [ OPTIONS ] directory [ destination ]
+        $0 [ OPTIONS ] list-file [ destination ]
+
+OPTIONS:
+-h (--help): produce help message
+-V (--version): display version information and exit
+
+-a (--albums): do not download, list the new albums' URLs
+-l (--list): do not dowload, list the new pictures
+
+-n (--no-gallery): no \"gallery\" level of directories"
+}
+
+recurse ()
+{
+    if [ -n "$printUrlMode" -o -n "$listMode" ]
+    then
+	$command "$1" "$destination"
+    else
+	$command "$1" "$destination" &
+    fi
+}
+
+structure ()
+{
+    if [ -z "$printUrlMode" -a -z "$listMode" ]
+    then
+	if [ -f "$destination"/.picasaweb-download ]
+	then
+	    if ! grep -m 1 ^$1$ "$destination"/.picasaweb-download > /dev/null
+	    then
+		echo $1 >> "$destination"/.picasaweb-download
+	    fi
+	else
+	    mkdir -p "$destination"
+	    echo $1 >> "$destination"/.picasaweb-download
+	fi
+    fi
+}
+
+proceedAlbum ()
+{
+    structure $arg
+    cat $temp1 | tr '{' '\n' | grep "^\"url\":\"" > $temp2
+    rm $temp1
+    while read picture
+    do
+	pictureUrl=${picture#\"url\":\"}
+	pictureUrl=${pictureUrl%%\"*}
+        pictureName=${pictureUrl##*/}
+	pictureName=${pictureName//%25/%}
+	pictureName=`echo $pictureName | perl -MURI::Escape -lne 'print uri_unescape($_)'`
+	echo "$pictureName/$pictureUrl" >> $temp1
+    done < $temp2
+    sort -t / -k 1,1 $temp1 > $temp2
+    while IFS=/ read pictureName pictureUrl
+    do
+# Rename the picture if its name was previously encountered
+	if [ "$pictureName" = "$oldPictureName" ]
+	then
+	    let "counter += 1"
+	    out="$destination/${pictureName%.*} $counter.${pictureName##*.}"
+	else
+	    oldPictureName="$pictureName"
+	    counter=1
+	    out="$destination/$pictureName"
+	fi
+	if [ -n "$listMode" ]
+	then
+# Print the name of the picture
+	    if [ ! -f "$out" ]
+	    then
+		echo "${out#./}"
+	    fi
+	else
+# Download the picture
+	    wget $WGET_OPT -O "$out" $pictureUrl &
+	fi
+    done < $temp2
+}
+
+proceedSpecialCharacters ()
+{
+    string="${1//'\x26#39\x3B'/\'}"
+    string="${string//'\x26quot\x3B'/\"}"
+    string="${string//'\x26amp\x3B'/&}"
+    string="${string//'\x3B'/;}"
+    string="${string//'\x5C'/ }"
+    echo ${string//'\x0A'/ }
+}
+
+proceedSpecialCharactersURL ()
+{
+    url=`proceedSpecialCharacters "$1"`
+    echo ${url//'\x2F'//}
+}
+
+proceedSpecialCharactersFile ()
+{
+    file=`proceedSpecialCharacters "$1"`
+    echo ${file//'\x2F'/ }
+}
+
+command="$0"
+while [ -n "$1" ]
+do
+    case "$1" in
+	-h | --help ) manual
+	    exit;;
+	-V | --version ) echo "picasaweb-download 0.1.1"
+	    exit;;
+	-a | --albums ) command="$command -a"
+	    printUrlMode="y";;
+	-l | --list ) command="$command -l"
+	    listMode="y";;
+	-n | --no-gallery ) command="$command -n"
+	    noGalleryDirectory="y";;
+	* ) if [ -z "$arg" ]
+	    then
+	    arg="${1#http://}"
+	    elif [ -z "$destination" ]
+	    then
+	    destination="$1"
+	    else
+	    manual
+	    exit $EX_USAGE
+	    fi;;
+    esac
+    shift 1
+done
+if [ -z "$arg" ]
+then
+    manual
+    exit $EX_USAGE
+fi
+if [ -d "$arg" ]
+then
+# echo "$arg is the directory of previously downloaded galleries/albums"
+    if [ ! -f "$arg"/.picasaweb-download ]
+    then
+	echo "\"$arg\" is not the directory
+of a previously downloaded album (or gallery)" 1>&2
+	exit
+    fi
+    arg="$arg"/.picasaweb-download
+fi
+if [ -f "$arg" ]
+then
+# echo "$arg is a list of galleries/albums"
+    while read url
+    do
+	recurse $url
+    done < "$arg"
+    exit
+fi
+page=${arg#picasaweb.google.*/}
+if [ "$page" = "$arg" ]
+then
+    echo "\"$arg\" is neither the URL of a PicasaWeb album (or gallery)
+nor the directory of a previously downloaded album (or gallery)" 1>&2
+    exit $EX_USAGE
+fi
+if [ -z "$destination" ]
+then
+    destination=.
+fi
+temp1=`mktemp`
+trap "rm $temp1 2>/dev/null" EXIT
+temp2=`mktemp`
+trap "rm $temp2 2>/dev/null" EXIT
+suffix=${page#*/}
+if [ -z "$suffix" -o "$suffix" = "$page" ]
+then
+# echo "$arg is a gallery URL"
+    if wget $WGET_OPT -O $temp1 "$arg"
+    then
+	grep "^,url:'" $temp1 > $temp2
+	while read -r url
+	do
+	    url=${url#",url:'"}
+	    recurse `proceedSpecialCharactersURL ${url%\'}`
+	done < $temp2
+    else
+	exit $EX_NOHOST
+    fi
+else
+# echo "$arg is an album URL"
+    if ! wget $WGET_OPT -O $temp1 "$arg"
+    then
+	echo "The album $arg cannot be found.
+Are you connected to Internet? Is the URL correct?" 1>&2
+	exit $EX_NOHOST
+    fi
+    if [ -z "$noGalleryDirectory" ]
+    then
+	galleryName=`grep -m 1 "^var _user" $temp1`
+	galleryName="${galleryName##*,nickname:\'}"
+	destination="$destination"/`proceedSpecialCharactersFile "${galleryName%%\'*}"`
+	structure ${arg%/*}
+    fi
+    album=`grep -m 1 "^var _album" $temp1`
+    albumName="${album##*,title:\'}"
+    destination="$destination"/`proceedSpecialCharactersFile "${albumName%%\'*}"`
+    if [ -n "$printUrlMode" ]
+    then
+	if [ ! -d "$destination" ]
+	then
+	    echo $arg
+	fi
+	if [ -n "$listMode" ]
+	then
+	    proceedAlbum
+	fi
+    else
+	proceedAlbum
+    fi
+fi

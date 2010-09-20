@@ -1,0 +1,61 @@
+# -*- shell-script -*-x
+# vim: set syntax=zsh:
+
+# Default prompt is:
+# <date> (user~host) path
+
+export date_color="white"
+export user_color="green"
+export host_color="yellow"
+export path_color="red"
+export status_color="red"
+
+precmd () {
+	local buffer load
+	load=(${$(< /proc/loadavg)})
+	LOADAVG="$load[1] $load[2]"
+	buffer=(${$(free)})
+	MEM="$((100 * $buffer[16] / $buffer[8]))%%"
+	if [[ $buffer[19] != 0 ]]; then
+		MEM="$MEM $((100 * $buffer[20] / $buffer[19]))%%"
+	fi
+	if [ -d $PWD/.svn ] ; then
+		PATHINFO="(svn):%~"
+	else
+		PATHINFO="%~"
+	fi
+}
+
+# Add name of (Debian) SCHROOT if exists
+if [ -r /etc/debian_chroot ] ; then
+   chrootname=${$(< /etc/debian_chroot)//-*}
+   host="%{$fg[$user_color]%}%n:${chrootname}%{$reset_color%}~%{$fg[$host_color]%}%m"
+else
+   host="%{$fg[$user_color]%}%n%{$reset_color%}@%{$fg[$host_color]%}%m"
+fi
+
+# Format
+date_format="%H:%M"
+date="%{$fg[$date_color]%}%D{$date_format}"
+
+#cpath="%{$fg[$path_color]%}%/%b"
+#cpath="%B%{$fg[$path_color]%}\$PATHINFO%b"
+cpath="%B%{$fg[$path_color]%}%~%b"
+
+end="%{$reset_color%}"
+
+stats="%{$fg[$status_color]%}[\$LOADAVG - \$MEM]"
+
+PS1="$date$end ($host$end) $cpath
+$end%% "
+#RPS1="$stats%{$reset_color%}"
+
+# function use to toggle RPS1 (which is very ugly for copy/paste)
+function rmrps1 () {
+	unset RPS1
+}
+
+function rps1 () {
+	RPS1="$stats%{$reset_color%}"
+}
+

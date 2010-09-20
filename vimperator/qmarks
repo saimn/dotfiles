@@ -1,0 +1,14 @@
+""" Websites
+" Bitbucket
+qma h http://bitbucket.org/
+" C2C
+qma c http://www.camptocamp.org/outings
+qma C http://www.camptocamp.org/forums/search.php?action=show_new
+" Localhost
+qma l http://localhost/
+
+""" Forums
+"" Arch Linux Forums
+qma a http://bbs.archlinux.org/search.php?action=show_new
+
+" vim: ft=vimperator :

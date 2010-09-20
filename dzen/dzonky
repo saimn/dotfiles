@@ -1,0 +1,5 @@
+FG='#FFFFFF'
+BG='#222222'
+FONT='-*-terminus-*-r-normal-*-*-120-*-*-*-*-iso8859-*'
+
+conky -c ~/.dzen/conkyrc | dzen2 -e '' -x '960' -h '14' -w '320' -ta r -fg $FG -bg $BG -fn $FONT
