@@ -1,7 +1,8 @@
 # Install
 
-make [refresh] : Update byte-compiled Emacs files.
-make compile   : Compile all Emacs files.
-make deploy    : Deploy all files (using symbolic links).
-make backup    : save old files (to use before deploying)
-make all       : compile and deploy.
+make [refresh]       : Update byte-compiled Emacs files.
+make emacs-compile   : Compile all Emacs files.
+make emacs-clean     : Clean all Emacs files.
+make deploy          : Deploy all files (using symbolic links).
+make backup          : save old files (to use before deploying)
+make all             : compile and deploy.

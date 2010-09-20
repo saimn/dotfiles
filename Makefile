@@ -1,6 +1,6 @@
 # http://github.com/cofi/dotfiles/blob/master/Makefile
 
-.PHONY: all emacs-compile elisp-compile deploy backup
+.PHONY: all emacs-compile emacs-clean deploy backup
 
 PWD := `pwd`
 LINK_CMD := ln --symbolic --force -T
@@ -8,13 +8,18 @@ BCKUP_CMD := cp -v --recursive
 BCKUP_DIR := dotfiles_backup
 NORMAL_FILES := `ls -I README -I Makefile -I bin -I mozilla -I config`
 
-refresh:
+all: emacs-compile deploy
+
+emacs-compile:
+	emacs --batch --no-site-file --eval '(byte-recompile-directory "emacs.d/" 0 t)'
+	#emacs -Q -L . -batch -f batch-byte-compile `find . -name "*.el"`
+	#emacs -batch -no-site-file -l init.el -f batch-byte-compile `find . -name "*.el"`
+
+emacs-refresh:
 	emacs --batch --no-site-file --eval '(byte-recompile-directory "emacs.d/")'
 
-all: compile deploy
-
-compile:
-	emacs --batch --no-site-file --eval '(byte-recompile-directory "emacs.d/" 0 t)'
+emacs-clean:
+	find emacs.d/ -name "*.elc" -delete
 
 deploy:
 	for file in $(NORMAL_FILES); do $(LINK_CMD) $(PWD)/$$file ~/.$$file; done
