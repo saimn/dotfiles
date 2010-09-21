@@ -325,48 +325,7 @@ zstyle ':completion:*' hosts $_myhosts
 source $HOME/bin/arch/pacman-cmd.sh
 source $HOME/.zsh/rc/functions.rc
 source $HOME/.zsh/rc/ssh.rc
-#source $HOME/.zsh/rc/prompt.rc
-
-function precmd
-{
-  local deco="%{${fg_no_bold[white]}%}"
-
-  if [[ -O "$PWD" ]]; then
-    local path_color="${fg_bold[blue]}"
-  else
-    local path_color="${fg_bold[red]}"
-  fi
-
-  local host_color="${fg_bold[green]}"
-
-  local date_format="%H:%M"
-  local date="%{${deco}%}%D{${date_format}}"
-
-  #local return_code="%(?..${deco}!%{${fg_no_bold[red]}%}%?${deco}! )"
-  local user_at_host="%{${fg_bold[red]}%}%n${deco}@%{${host_color}%}%M"
-  local cwd="%{${path_color}%}%48<...<%~"
-  local sign="%(!.%{${fg_bold[red]}%}.${deco})%#"
-
-  #PS1="${return_code}${deco}(${user_at_host} ${cwd}${deco}) ${sign}%{${reset_color}%} "
-  PS1="${date}${deco} (${user_at_host}${deco}) [${cwd}${deco}]
-${sign}%{${reset_color}%} "
-
-  load=(${$(< /proc/loadavg)})
-  LOADAVG="$load[1] $load[2]"
-  buffer=(${$(free)})
-  MEM="$((100 * $buffer[16] / $buffer[8]))%%"
-  if [[ $buffer[19] != 0 ]]; then
-    MEM="$MEM $((100 * $buffer[20] / $buffer[19]))%%"
-  fi
-  if [ -d $PWD/.svn ] ; then
-    PATHINFO="(svn):%~"
-  else
-    PATHINFO="%~"
-  fi
-
-  stats="%{${deco}%}[\$LOADAVG - \$MEM]"
-  RPS1="$stats"
-}
+source $HOME/.zsh/rc/prompt.rc
 
 # }}}
 

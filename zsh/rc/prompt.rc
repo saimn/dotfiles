@@ -4,51 +4,53 @@
 # Default prompt is:
 # <date> (user~host) path
 
-export date_color="white"
-export user_color="green"
-export host_color="yellow"
-export path_color="red"
-export status_color="red"
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' enable git hg svn
+# zstyle ':vcs_info:*' formats ' (%s)-[%b|%i]'
 
-precmd () {
-	local buffer load
-	load=(${$(< /proc/loadavg)})
-	LOADAVG="$load[1] $load[2]"
-	buffer=(${$(free)})
-	MEM="$((100 * $buffer[16] / $buffer[8]))%%"
-	if [[ $buffer[19] != 0 ]]; then
-		MEM="$MEM $((100 * $buffer[20] / $buffer[19]))%%"
-	fi
-	if [ -d $PWD/.svn ] ; then
-		PATHINFO="(svn):%~"
-	else
-		PATHINFO="%~"
-	fi
+function precmd
+{
+  if [[ -O "$PWD" ]]; then
+    local path_color="${fg_bold[blue]}"
+  else
+    local path_color="${fg_bold[red]}"
+  fi
+
+  local deco="%{${fg_no_bold[white]}%}"
+  local date="%{${deco}%}%T"
+  local user="%{${fg_bold[red]}%}%n"
+  local host="%{${fg_bold[green]}%}%m"
+  local cwd="%{${path_color}%}%48<...<%~"
+  local sign="%(!.%{${fg_bold[red]}%}.${deco})%#"
+  local return_code="%(?..${deco}!%{${fg_bold[red]}%}%?${deco}! )"
+
+  psvar=()
+  vcs_info
+  [[ -n $vcs_info_msg_0_ ]] && psvar[1]="$vcs_info_msg_0_"
+  local vcs="${fg_bold[yellow]}%(1v.%F{yellow}%1v%f.)"
+
+  PS1="${user}${deco}@${host}${deco} [${cwd}${deco}]${vcs} ${return_code}
+${sign}%{${reset_color}%} "
+  RPS1="${date}${deco}"
+
+  # load=(${$(< /proc/loadavg)})
+  # LOADAVG="$load[1] $load[2]"
+  # buffer=(${$(free)})
+  # MEM="$((100 * $buffer[16] / $buffer[8]))%%"
+
+  # if [[ $buffer[19] != 0 ]]; then
+  #   MEM="$MEM $((100 * $buffer[20] / $buffer[19]))%%"
+  # fi
+
+  # if [ -d $PWD/.svn ] ; then
+  #   PATHINFO="(svn):%~"
+  # else
+  #   PATHINFO="%~"
+  # fi
+
+  # stats="%{${deco}%}[\$LOADAVG - \$MEM]"
+  # RPS1="$stats"
 }
-
-# Add name of (Debian) SCHROOT if exists
-if [ -r /etc/debian_chroot ] ; then
-   chrootname=${$(< /etc/debian_chroot)//-*}
-   host="%{$fg[$user_color]%}%n:${chrootname}%{$reset_color%}~%{$fg[$host_color]%}%m"
-else
-   host="%{$fg[$user_color]%}%n%{$reset_color%}@%{$fg[$host_color]%}%m"
-fi
-
-# Format
-date_format="%H:%M"
-date="%{$fg[$date_color]%}%D{$date_format}"
-
-#cpath="%{$fg[$path_color]%}%/%b"
-#cpath="%B%{$fg[$path_color]%}\$PATHINFO%b"
-cpath="%B%{$fg[$path_color]%}%~%b"
-
-end="%{$reset_color%}"
-
-stats="%{$fg[$status_color]%}[\$LOADAVG - \$MEM]"
-
-PS1="$date$end ($host$end) $cpath
-$end%% "
-#RPS1="$stats%{$reset_color%}"
 
 # function use to toggle RPS1 (which is very ugly for copy/paste)
 function rmrps1 () {

@@ -1,3 +1,5 @@
+# -*- mode: Conf; -*-
+
 [user]
    name = Simon
    email = contact_at_saimon.org
@@ -6,31 +8,32 @@
    br = branch
    ci = commit
    co = checkout
-   cp = cherry-pick
+   # cp = cherry-pick
+   # fp = format-patch
+   st = status
+   unstage = reset HEAD --
+   ignored = ls-files --others
+   # log
+   logv = log -p
+   last = log --oneline -1 HEAD
+   oneline = log --oneline --decorate
+   out = log --oneline origin/master..HEAD
+   # diff
    di = diff
    dic = diff --cached
-   fp = format-patch
-   lg = log -p
-   st = status
-   # summary of what you're going to push
-   ps = log --pretty=oneline origin..master
-   # like "git log", but include the diffs
+   wdiff = diff --color-words
    w  = whatchanged -p
-   # changes since we last did a push
-   wo = whatchanged -p origin..
    changes = diff --name-status -r
    staged = diff --cached
    unstaged = diff
    both = diff HEAD
-   unstage = reset HEAD --
-   ignored = ls-files --others
-   oneline = log --oneline --decorate
-   last = log --oneline -1 HEAD
-   out = log --oneline origin/master..HEAD
-   wdiff = diff --color-words
+   # summary of what you're going to push
+   ps = log --pretty=oneline origin..master
+   # changes since we last did a push
+   wo = whatchanged -p origin..
+   # info
    info = remote -v
    authors = "!git log --format='%aN <%aE>' | sort -u"
-   initial = "!sh -c 'git init && git add . && git ci -m \"Initial import\"'"
 [diff]
    renames = true
 [color]
@@ -55,10 +58,10 @@
    tool = meld
 [giggle]
    main-window-view = HistoryView
-	main-window-maximized = false
-	main-window-geometry = 858x874+0+20
-	history-view-vpane-position = 501
-	file-view-vpane-position = 726
+   main-window-maximized = false
+   main-window-geometry = 858x874+0+20
+   history-view-vpane-position = 501
+   file-view-vpane-position = 726
 [branch]
    autosetupmerge = true
    autosetuprebase = always
