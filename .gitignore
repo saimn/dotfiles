@@ -11,8 +11,10 @@ emacs.d/customize.el
 newsbeuter/
 perso/
 vim/.netrwhist
+vim/.VimballRecord
+vim/backup/
 vimperator/info/
 xmonad/xmonad-x86_64-linux
 xmonad/xmonad.errors
-zsh/goudes.zsh
 zsh/history
+zsh/zshrc.local
