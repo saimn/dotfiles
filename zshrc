@@ -322,7 +322,6 @@ zstyle ':completion:*' hosts $_myhosts
 
 # {{{ Functions
 
-source $HOME/bin/arch/pacman-cmd.sh
 source $HOME/.zsh/rc/functions.rc
 source $HOME/.zsh/rc/ssh.rc
 source $HOME/.zsh/rc/prompt.rc

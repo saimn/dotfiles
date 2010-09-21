@@ -57,9 +57,9 @@
 [merge]
    tool = meld
 [giggle]
-   main-window-view = HistoryView
-   main-window-maximized = false
-   main-window-geometry = 858x874+0+20
+	main-window-view = HistoryView
+	main-window-maximized = false
+	main-window-geometry = 714x874+0+20
    history-view-vpane-position = 501
    file-view-vpane-position = 726
 [branch]

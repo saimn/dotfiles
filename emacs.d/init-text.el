@@ -1,9 +1,9 @@
 ;; (add-hook 'text-mode-hook 'turn-on-auto-fill)
 ;; (add-hook 'text-mode-hook 'imenu-add-menubar-index)
-(add-hook ’text-mode-hook
+(add-hook 'text-mode-hook
            (lambda ()
              (auto-fill-mode 1)
-             (setq default-justification ’full))
+             (setq default-justification 'full))
            )
 
 ;; don't cut before :
@@ -16,7 +16,7 @@
           (backward-char 1)
           (looking-at "[([«]")))))
 
-(setq fill-nobreak-predicate ’my-fill-nobreak-predicate)
+(setq fill-nobreak-predicate 'my-fill-nobreak-predicate)
 
 
 ;;------------------------------------------------------------
