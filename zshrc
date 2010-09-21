@@ -282,7 +282,7 @@ zstyle ':completion:*:descriptions' format '%B%d%b'
 
 # Use cache
 zstyle ':completion:*' use-cache on
-zstyle ':completion:*' cache-path ~/.zsh/cache
+zstyle ':completion:*' cache-path ~/.cache/zsh
 
 # prevent CVS files/directory completion
 if [[ -x $(which cvs) ]]; then
