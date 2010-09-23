@@ -2,7 +2,7 @@
 
 [user]
    name = Simon
-   email = contact_at_saimon.org
+   email = contact@saimon.org
 [alias]
    addrm = add -u
    br = branch
@@ -69,3 +69,4 @@
    default = current
 [github]
    user = saimn
+
