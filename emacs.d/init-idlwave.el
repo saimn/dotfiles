@@ -2,15 +2,14 @@
 (defun my-idlwave-mode-hook ()
   (setq idlwave-system-directory "/opt/apps/rsi/idl71/")
   (setq idlwave-shell-explicit-file-name "/opt/apps/rsi/idl71/bin/idl")
-  (setq idlwave-html-system-help-location "/opt/apps/rsi/idl71/help/")
-  (setq idlwave-html-help-location "/opt/apps/rsi/idl71/help/")
+  (setq idlwave-html-system-help-location "help/")
 
   ;; regular expressions matching special library directories for labeling
   ;; in routine-info display
   (setq idlwave-special-lib-alist
         '(("~/Dev/prior/trunk/EM/IDL/" . "PPrior")))
 
-  (hs-minor-mode)
+  ;; (hs-minor-mode)
 
   ;; completion for structures
   (setq idlw-complete-structtag t)

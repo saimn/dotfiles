@@ -1,6 +1,6 @@
 ;;-*- Mode: Emacs-Lisp -*-
 ;; .emacs - Emacs configuration file
-;; Time-stamp: <2010-09-21 23:15>
+;; Time-stamp: <2010-09-23 18:41>
 
 ;; (message "Loading ~/.emacs/init.el")
 
@@ -331,7 +331,7 @@
 
 (global-set-key (kbd "C-z") 'undo)
 (global-set-key (kbd "C-b") 'ido-switch-buffer)
-(global-set-key (kbd "<C-escape>") 'list-buffers)
+(global-set-key (kbd "<C-escape>") 'ibuffer-list-buffers)
 (global-set-key (kbd "C-/") 'my-comment-region-or-line)
 (global-set-key (kbd "C-\\") 'my-uncomment-region-or-line)
 
@@ -343,7 +343,7 @@
 ;; (global-set-key (kbd "M-C-r") 'query-replace)
 (global-set-key (kbd "M-r") 'replace-string)
 (global-set-key (kbd "M-g") 'goto-line)
-(global-set-key (kbd "M-h") 'help-command)
+;; (global-set-key (kbd "M-h") 'help-command)
 
 ;; supprime le formatage du paragraphe courant
 (global-set-key (kbd "M-Q") 'remove-hard-wrap-paragraph)
