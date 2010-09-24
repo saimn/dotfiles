@@ -17,8 +17,6 @@
 (require 'org-install)
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
 (add-to-list 'auto-mode-alist '("\\.org.gpg$" . org-mode))
-(define-key global-map "\C-cl" 'org-store-link)
-(define-key global-map "\C-ca" 'org-agenda)
 (setq org-log-done t)
 (setq org-return-follows-link t)
 (setq org-completion-use-ido t)
@@ -47,7 +45,6 @@
 
 (require 'remember)
 (org-remember-insinuate)
-(global-set-key (kbd "C-c r") 'remember)
 
 ;; Notes file
 (setq org-default-notes-file (concat org-directory "/notes.org.gpg"))

@@ -1,6 +1,6 @@
 ;;-*- Mode: Emacs-Lisp -*-
 ;; .emacs - Emacs configuration file
-;; Time-stamp: <2010-09-23 18:41>
+;; Time-stamp: <2010-09-25 00:23>
 
 ;; (message "Loading ~/.emacs/init.el")
 
@@ -115,33 +115,35 @@
 ;; distinguish files with the same name
 ;; (require 'uniquify)
 
+(require 'magit)
+
 ;;----------------------------------------------------------------------
 ;; twitter
 ;;----------------------------------------------------------------------
-;(require 'twittering-mode)
-;(setq twittering-icon-mode t)         ; Show icons
-;(setq twittering-timer-interval 900)  ; Update your timeline each x sec
-;(setq twittering-use-master-password t)
-;
-;(add-hook 'twittering-mode-hook
-;           (lambda ()
-;             (mapc (lambda (pair)
-;                     (let ((key (car pair))
-;                           (func (cdr pair)))
-;                       (define-key twittering-mode-map
-;                         (read-kbd-macro key) func)))
-;                   '(("F" . twittering-friends-timeline)
-;                     ("R" . twittering-replies-timeline)
-;                     ("U" . twittering-user-timeline)
-;                     ("W" . twittering-update-status-interactive)))))
-;
-;(add-hook 'twittering-new-tweets-hook (lambda ()
-;   (let ((n twittering-new-tweets-count))
-;     (start-process "twittering-notify" nil "notify-send"
-;                    "-i" "/usr/share/pixmaps/gnome-emacs.png"
-;                    "New tweets"
-;                    (format "You have %d new tweet%s"
-;                            n (if (> n 1) "s" ""))))))
+(require 'twittering-mode)
+(setq twittering-icon-mode t)         ; Show icons
+(setq twittering-timer-interval 900)  ; Update your timeline each x sec
+(setq twittering-use-master-password t)
+
+(add-hook 'twittering-mode-hook
+          (lambda ()
+            (mapc (lambda (pair)
+                    (let ((key (car pair))
+                          (func (cdr pair)))
+                      (define-key twittering-mode-map
+                        (read-kbd-macro key) func)))
+                  '(("F" . twittering-friends-timeline)
+                    ("R" . twittering-replies-timeline)
+                    ("U" . twittering-user-timeline)
+                    ("W" . twittering-update-status-interactive)))))
+
+(add-hook 'twittering-new-tweets-hook (lambda ()
+  (let ((n twittering-new-tweets-count))
+    (start-process "twittering-notify" nil "notify-send"
+                   "-i" "/usr/share/pixmaps/gnome-emacs.png"
+                   "New tweets"
+                   (format "You have %d new tweet%s"
+                           n (if (> n 1) "s" ""))))))
 
 ;;----------------------------------------------------------------------
 ;; Completion
@@ -322,10 +324,6 @@
 (setq cua-enable-cua-keys nil)
 (cua-mode t)
 
-;; (global-set-key (kbd "M-a") 'cmd)      ; Meta+a
-;; (global-set-key (kbd "<f2>")   'cmd)   ; F2 key
-;; (global-set-key (kbd "<kp-2>") 'cmd)   ; the “2” key on the number keypad
-
 ;; Mouse
 (global-set-key [mouse-3] 'imenu)
 
@@ -339,11 +337,8 @@
 (global-set-key (kbd "<C-S-tab>") '(lambda () (interactive) (other-window -1)))
 (global-set-key (kbd "<C-S-iso-lefttab>") '(lambda () (interactive) (other-window -1)))
 
-;; (global-set-key (kbd "M-C-h") 'backward-kill-word)
-;; (global-set-key (kbd "M-C-r") 'query-replace)
 (global-set-key (kbd "M-r") 'replace-string)
 (global-set-key (kbd "M-g") 'goto-line)
-;; (global-set-key (kbd "M-h") 'help-command)
 
 ;; supprime le formatage du paragraphe courant
 (global-set-key (kbd "M-Q") 'remove-hard-wrap-paragraph)
@@ -352,22 +347,21 @@
 (define-key global-map (kbd "RET") 'newline-and-indent)
 
 ;; (global-set-key [delete] 'delete-backward-char)
-;; (global-set-key [f4] 'advertised-undo)
-;; (global-set-key [(control z)] 'undo)
-;; (global-set-key [f10] 'trim-whitespace)
 
-(global-set-key (kbd "<f1>") 'man) ; 'manual-entry
-(global-set-key (kbd "<f2>") 'save-buffer)
-(global-set-key (kbd "<f3>") 'flyspell-buffer)
-(global-set-key (kbd "<f4>") 'kill-this-buffer)
+(global-set-key (kbd "C-c a") 'org-agenda)
+(global-set-key (kbd "C-c l") 'org-store-link)
+(global-set-key (kbd "C-c r") 'remember)
 
-(global-set-key (kbd "<f5>") 'eval-current-buffer)
+(global-set-key (kbd "C-c k") 'kill-this-buffer)
+(global-set-key (kbd "C-c m") 'magit-status)
+(global-set-key (kbd "C-c s") 'flyspell-buffer)
+(global-set-key (kbd "C-c t") 'trim-whitespace)
+
+(global-set-key (kbd "<f5>") 'kill-this-buffer)
 (global-set-key (kbd "<f6>") 'buffer-menu)
 (global-set-key (kbd "<f7>") 'other-window)
-;; (global-set-key (kbd "<f8>") 'dired)
-(global-set-key [f8]         'query-replace)
-(global-set-key [(shift f8)] 'query-replace-regexp)
-
+(global-set-key (kbd "<f8>") 'query-replace)
+(global-set-key (kbd "S-<f8>") 'query-replace-regexp)
 (global-set-key (kbd "<f9>") 'compile)
 (global-set-key (kbd "<f10>") 'my-toggle-menu-and-scrollbar)
 ;; (global-set-key [f10] 'repeat-complex-command)
