@@ -70,7 +70,7 @@ source ~/.vimperator/qmarks
 :autocmd LocationChange .* js modes.passAllKeys = false
 ":autocmd LocationChange mail\.google\.com js modes.passAllKeys = true
 ":autocmd LocationChange google(\.(com|fr)\/(reader|calendar)) js modes.passAllKeys = true
-:autocmd LocationChange 240plan\.ovh\.net\/~climbr\/tt-rss js modes.passAllKeys = true
+:autocmd LocationChange ssl3\.ovh\.net\/~climbr\/tt-rss js modes.passAllKeys = true
 
 " Set the Vim filetype to "mail" when editing mail in GMail with the external editor:
 ":autocmd LocationChange .* :set editor=gvim\ -f

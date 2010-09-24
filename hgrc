@@ -1,16 +1,10 @@
 [ui]
 username = Simon <contact at saimon.org>
 
-[web]
-contact = Simon
-allowgz = true
-allowbz2 = true
-allowzip = true
-
 [diff]
 git = True
 
-#[defaults]
+#[alias]
 #addremove = --similarity 100
 
 [extensions]
