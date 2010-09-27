@@ -24,6 +24,7 @@
 (setq org-hide-leading-stars t)
 
 (setq org-agenda-files '("~/Dropbox/org/"))
+(setq org-agenda-file-regexp "\\`[^.].*\\.org")
 (setq org-directory "~/Dropbox/org/")
 
 (setq org-agenda-custom-commands

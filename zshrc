@@ -49,7 +49,7 @@ umask 022
 # De la couleur pour grep
 export GREP_OPTIONS='--color=auto'
 
-export BROWSER="firefox -new-tab"
+export BROWSER="firefox"
 # run multiple Firefox
 #export MOZ_NO_REMOTE=1
 
@@ -353,4 +353,5 @@ host=${$(hostname)//.*/}
 
 # }}}
 
-# vim:filetype=zsh:tabstop=4:shiftwidth=2:fdm=marker:
+# vim:filetype=zsh:tabstop=4:shiftwidth=2:
+#fdm=marker:

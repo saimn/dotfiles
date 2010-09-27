@@ -1,6 +1,6 @@
 ;;-*- Mode: Emacs-Lisp -*-
 ;; .emacs - Emacs configuration file
-;; Time-stamp: <2010-09-25 00:23>
+;; Time-stamp: <2010-09-27 17:45>
 
 ;; (message "Loading ~/.emacs/init.el")
 
@@ -98,6 +98,28 @@
 (setq frame-background-mode 'dark)
 
 ;;----------------------------------------------------------------------
+;; Browser
+;;----------------------------------------------------------------------
+(setq browse-url-browser-function 'browse-url-generic
+      browse-url-generic-program "/usr/bin/firefox")
+
+(defun uzbl-browse (url &rest ignore)
+  "Browse URL using uzbl."
+  (interactive "sURL: ")
+  (shell-command (concat "uzbl-browser " url))
+  (pop-to-buffer "*Shell Command Output*")
+  (setq truncate-lines t))
+
+(defun choose-browser (url &rest args)
+  (interactive "sURL: ")
+  (if (y-or-n-p "Use external browser? ")
+      (browse-url-generic url)
+    (uzbl-browse url)))
+
+(setq browse-url-browser-function 'choose-browser)
+(global-set-key "\C-xm" 'browse-url-at-point)
+
+;;----------------------------------------------------------------------
 ;; Load modules / modes
 ;;----------------------------------------------------------------------
 
@@ -148,6 +170,10 @@
 ;;----------------------------------------------------------------------
 ;; Completion
 ;;----------------------------------------------------------------------
+
+(setq tab-always-indent 'complete)
+; Completion of acronyms and initialisms
+(setq completion-styles (append completion-style '(initials)))
 
 (require 'yasnippet)
 (yas/initialize)
