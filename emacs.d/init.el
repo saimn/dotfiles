@@ -1,6 +1,6 @@
 ;;-*- Mode: Emacs-Lisp -*-
 ;; .emacs - Emacs configuration file
-;; Time-stamp: <2010-09-27 17:45>
+;; Time-stamp: <2010-09-28 10:54>
 
 ;; (message "Loading ~/.emacs/init.el")
 
@@ -139,6 +139,9 @@
 
 (require 'magit)
 
+(require 'browse-kill-ring)
+(browse-kill-ring-default-keybindings)
+
 ;;----------------------------------------------------------------------
 ;; twitter
 ;;----------------------------------------------------------------------
@@ -173,7 +176,7 @@
 
 (setq tab-always-indent 'complete)
 ; Completion of acronyms and initialisms
-(setq completion-styles (append completion-style '(initials)))
+;(setq completion-styles (append completion-style '(initials)))
 
 (require 'yasnippet)
 (yas/initialize)
@@ -269,9 +272,6 @@
 ;; Whitespace mode
 ;;----------------------------------------------------------------------
 
-;; Activation globale du mode mettant en exergue des « caractères blancs »
-(global-whitespace-mode 1)
-
 ;; Choix des éléments mis en exergue :
 ;; - space      => montrer les espaces (KO car gestion intégrée d'Emacs)
 ;; - tabs       => montrer les tabulations
@@ -328,6 +328,24 @@
 ;; mode autofill ou par un M-q, coupe au niveau des ponctuations :
 (add-hook 'fill-no-break-predicate 'fill-french-nobreak-p)
 
+;; ;; face for long lines' tails
+;; (set-face-attribute 'whitespace-line nil
+;;                     :background "red1"
+;;                     :foreground "yellow"
+;;                     :weight 'bold)
+
+;; ;; face for Tabs
+;; (set-face-attribute 'whitespace-tab nil
+;;                     :background "red1"
+;;                     :foreground "yellow"
+;;                     :weight 'bold)
+
+;; Activation globale du mode mettant en exergue des « caractères blancs »
+(global-whitespace-mode 1)
+
+;; activate minor whitespace mode when in python mode
+;(add-hook 'python-mode-hook 'whitespace-mode)
+
 ;;----------------------------------------------------------------------
 ;; Viper
 ;;----------------------------------------------------------------------
@@ -378,10 +396,14 @@
 (global-set-key (kbd "C-c l") 'org-store-link)
 (global-set-key (kbd "C-c r") 'remember)
 
+(global-set-key (kbd "C-c c") 'server-done)
 (global-set-key (kbd "C-c k") 'kill-this-buffer)
 (global-set-key (kbd "C-c m") 'magit-status)
 (global-set-key (kbd "C-c s") 'flyspell-buffer)
 (global-set-key (kbd "C-c t") 'trim-whitespace)
+;; (global-set-key (kbd "C-c y") '(lambda ()
+;;                                  (interactive)
+;;                                  (popup-menu 'yank-menu)))
 
 (global-set-key (kbd "<f5>") 'kill-this-buffer)
 (global-set-key (kbd "<f6>") 'buffer-menu)
