@@ -1,6 +1,6 @@
 ;;-*- Mode: Emacs-Lisp -*-
 ;; .emacs - Emacs configuration file
-;; Time-stamp: <2010-09-28 13:31>
+;; Time-stamp: <2010-09-28 14:41>
 
 ;; (message "Loading ~/.emacs/init.el")
 
@@ -399,8 +399,7 @@
 (global-set-key (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-c l") 'org-store-link)
 (global-set-key (kbd "C-c r") 'remember)
-
-(global-set-key (kbd "C-c c") 'server-done)
+(global-set-key (kbd "C-c c") 'server-edit)
 (global-set-key (kbd "C-c k") 'kill-this-buffer)
 (global-set-key (kbd "C-c m") 'magit-status)
 (global-set-key (kbd "C-c s") 'flyspell-buffer)
