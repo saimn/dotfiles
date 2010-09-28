@@ -10,3 +10,12 @@
 [submodule "emacs.d/site-lisp/magit"]
 	path = emacs.d/site-lisp/magit
 	url = http://github.com/technomancy/magit.git
+[submodule "emacs.d/site-lisp/color-theme-tangotango"]
+	path = emacs.d/site-lisp/color-theme-tangotango
+	url = http://github.com/juba/color-theme-tangotango.git
+[submodule "emacs.d/site-lisp/color-theme-wombat"]
+	path = emacs.d/site-lisp/color-theme-wombat
+	url = git@github.com:saimn/color-theme-wombat.git
+[submodule "emacs.d/site-lisp/color-theme-zenburn"]
+	path = emacs.d/site-lisp/color-theme-zenburn
+	url = http://github.com/bbatsov/zenburn-emacs.git

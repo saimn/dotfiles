@@ -1,6 +1,6 @@
 ;;-*- Mode: Emacs-Lisp -*-
 ;; .emacs - Emacs configuration file
-;; Time-stamp: <2010-09-28 10:54>
+;; Time-stamp: <2010-09-28 13:31>
 
 ;; (message "Loading ~/.emacs/init.el")
 
@@ -92,10 +92,14 @@
 (require 'color-theme)
 (color-theme-initialize)
 (require 'color-theme-wombat)
-(load "~/.emacs.d/themes/color-theme-zenburn.el")
+(require 'color-theme-tangotango)
+(require 'zenburn)
 ;; (color-theme-vim-colors)
-(color-theme-wombat)
+(color-theme-tangotango)
 (setq frame-background-mode 'dark)
+
+(unless (zenburn-format-spec-works-p)
+  (zenburn-define-format-spec))
 
 ;;----------------------------------------------------------------------
 ;; Browser
