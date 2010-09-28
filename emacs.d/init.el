@@ -1,6 +1,6 @@
 ;;-*- Mode: Emacs-Lisp -*-
 ;; .emacs - Emacs configuration file
-;; Time-stamp: <2010-09-28 14:41>
+;; Time-stamp: <2010-09-29 00:09>
 
 ;; (message "Loading ~/.emacs/init.el")
 
@@ -182,6 +182,11 @@
 ; Completion of acronyms and initialisms
 ;(setq completion-styles (append completion-style '(initials)))
 
+;; minibuffer completion
+(icomplete-mode) ; complete as you type
+(setq completion-ignored-extensions '(".o" "~" ".bin" ".aux"))
+(partial-completion-mode)
+
 (require 'yasnippet)
 (yas/initialize)
 (yas/load-directory "~/.emacs.d/site-lisp/yasnippet/snippets")
@@ -193,13 +198,6 @@
 (setq ido-enable-flex-matching t) ; enable fuzzy matching
 (setq ido-everywhere t)           ; use ido everywhere
 (setq ido-show-dot-for-dired t)   ; always show dot for current directory
-
-;; minibuffer completion as you type
-(icomplete-mode)
-
-;; completion features in minibuffer
-(setq completion-ignored-extensions '(".o" "~" ".bin" ".aux"))
-(partial-completion-mode)
 
 (require 'smart-tab)
 
@@ -399,10 +397,12 @@
 (global-set-key (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-c l") 'org-store-link)
 (global-set-key (kbd "C-c r") 'remember)
+
 (global-set-key (kbd "C-c c") 'server-edit)
+(global-set-key (kbd "C-c f") 'flyspell-buffer)
 (global-set-key (kbd "C-c k") 'kill-this-buffer)
 (global-set-key (kbd "C-c m") 'magit-status)
-(global-set-key (kbd "C-c s") 'flyspell-buffer)
+(global-set-key (kbd "C-c s") 'shell)
 (global-set-key (kbd "C-c t") 'trim-whitespace)
 ;; (global-set-key (kbd "C-c y") '(lambda ()
 ;;                                  (interactive)
