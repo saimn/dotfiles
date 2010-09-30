@@ -1,6 +1,6 @@
 ;;-*- Mode: Emacs-Lisp -*-
 ;; .emacs - Emacs configuration file
-;; Time-stamp: <2010-09-29 00:09>
+;; Time-stamp: <2010-09-30 23:02>
 
 ;; (message "Loading ~/.emacs/init.el")
 
@@ -504,6 +504,8 @@
 ;; colors in shell
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 
+(require 'pkgbuild-mode)
+
 ;; mode Perl
 ;; (defalias 'perl-mode 'cperl-mode)
 ;; (defun my-perl-mode-hook ()
@@ -536,6 +538,7 @@
       ("/mutt" . mail-mode)
       ("\\.conf\\'" . conf-mode)
       ("\\rc\\'" . conf-mode)
+      ("\\PKGBUILD\\'" . pkgbuild-mode)
      )
      auto-mode-alist
   )

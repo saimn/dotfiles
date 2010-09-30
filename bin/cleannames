@@ -3,7 +3,7 @@
 
 for i in "$@"
 do
-   new=$(echo "$i" | tr A-Z a-z | tr -s "[:blank:]" "-" | tr -d "[:punct:]")
+   new=$(echo "$i" | tr A-Z a-z | tr -s "[:blank:]" "-")
    mv "$i" "$new"
 done
 
