@@ -1,6 +1,6 @@
 #!/bin/zsh
 #
-# xmonad statusline, (c) 2007 by Robert Manea
+# xmonad statusline, based on Robert Manea's example
 #
 
 source $HOME/.dzen/dzconf.sh
@@ -17,14 +17,14 @@ time_format='%H:%M'
 maildir=$HOME/Mail
 
 # Main loop interval in seconds
-interval=1
+interval=60
 
 # function calling intervals in seconds
-cputempival=60
-dateival=60
-mailival=60
-memfreeival=60
-# weatherival=1800
+cputempival=1
+dateival=1
+mailival=1
+memfreeival=1
+updateival=60
 
 # Functions
 fdate() {
@@ -55,11 +55,6 @@ fmail() {
         { print -n $i: $counts[$i]' ' }
 }
 
-# fweather() {
-#     /path/to/dzenWeather.pl
-# }
-
-
 fvolume() {
     if [ "$HOST" = "fireball" ]; then
         percentage=`amixer |grep -A 6 \'Master\' |awk {'print $5'} |grep -m 1 % |sed -e 's/[][%]//g'`
@@ -88,19 +83,30 @@ fmemfree() {
 fcpubar() {
     ${gcpubarcmd} -fg ${colorBarFG} -bg ${colorBarBG} -h ${barHeight} -w ${barWidth} -c 3 -i 0.2  | tail -1
 }
+
+fupdate() {
+    if [ "$HOST" = "fireball" ]; then
+        yum check-update -q | grep '.' | wc -l
+    elif [ "$HOST" = "goudes" ]; then
+        print -n "todo"
+    fi
+}
+
+#=======================================================================
 # Main
+#=======================================================================
 
 # initialize data
 cputempcounter=$cputempival
 datecounter=$dateival
 mailcounter=$mailival
 memfreecounter=$memfreeival
-# weathercounter=$weatherival
+updatecounter=$updateival
 
 while true; do
    if [ $datecounter -ge $dateival ]; then
-     pdate=$(fdate)
-     ptime=$(ftime)
+     pdate="^fg(${colorFG4})$(fdate)^fg()"
+     ptime="^fg(${colorBarFG})$(ftime)^fg()"
      datecounter=0
    fi
 
@@ -124,20 +130,20 @@ while true; do
        memfreecounter=0
    fi
 
+   if [ $updatecounter -ge $updateival ]; then
+     nbup=$(fupdate)
+     [ $nbup -eq 0 ] && pupdate="up to date" || pupdate="^fg(${colorFG4})${nbup} updates^fg()"
+     updatecounter=0
+   fi
+
    pvolume="^fg(${colorBarFG})^i(${dzen_iconpath}/volume.xbm)$(fvolume)^fg()"
 
    pcpubar="^fg(${colorBarFG})^i(${dzen_iconpath}/cpu.xbm)$(fcpubar)^fg()"
 
-   # if [ $weathercounter -ge $weatherival ]; then
-   #   pweather=$(fweather)
-   #   weathercounter=0
-   # fi
-
    # arrange and print the status line
-   #print "$pweather $pcputemp $pgtime $pmail ^fg(white)${pdate}^fg()"
-   pcommon="^fg(${colorFG4})${pdate} ^fg(${colorBarFG})${ptime}^fg() $pmail $pmemfree $pcpubar $pvolume"
+   pcommon="${pdate} ${ptime} • ${pmail} • ${pupdate} • ${pmemfree} ${pcpubar} ${pvolume}"
 
-   if  [ "$HOST" = "devenson" ]; then
+   if  [ "$HOST" = "goudes" ]; then
        print "${pcputemp} ${pcommon}"
    else
        print "${pcommon}"
@@ -147,7 +153,7 @@ while true; do
    mailcounter=$((mailcounter+1))
    gtimecounter=$((gtimecounter+1))
    cputempcounter=$((cputempcounter+1))
-   #weathercounter=$((weathercounter+1))
+   updatecounter=$((updatecounter+1))
 
    sleep $interval
 done
