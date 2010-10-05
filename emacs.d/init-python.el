@@ -12,13 +12,6 @@
 (setq interpreter-mode-alist
       (cons '("python" . python-mode) interpreter-mode-alist))
 
-
-(setq ipython-command "ipython")
-(require 'ipython)
-;; (setq python-python-command "ipython")
-(setq py-python-command-args '( "-colors" "Linux"))
-(setq ipython-completion-command-string "print(';'.join(__IP.Completer.all_completions('%s')))\n")
-
 (add-hook 'python-mode-hook
           (lambda ()
             (eldoc-mode 1)
@@ -32,6 +25,18 @@
             (set (make-local-variable 'tab-width) 4)
             (set (make-local-variable 'indent-tabs-mode) 'nil)))
 
+;;----------------------------------------------------------------------
+;; IPython
+;;----------------------------------------------------------------------
+(setq ipython-command "ipython")
+(require 'ipython)
+;; (setq python-python-command "ipython")
+(setq py-python-command-args '( "-colors" "Linux"))
+(setq ipython-completion-command-string "print(';'.join(__IP.Completer.all_completions('%s')))\n")
+
+;;----------------------------------------------------------------------
+;; Fonctions
+;;----------------------------------------------------------------------
 (defun python-reindent-then-newline-and-indent ()
   "Reindents the current line then creates an indented newline."
   (interactive "*")
@@ -62,8 +67,6 @@
 ;;----------------------------------------------------------------------------
 ;; Pymacs and Rope for Python
 ;;----------------------------------------------------------------------------
-;; (require 'pymacs)
-;; (pymacs-load "ropemacs" "rope-")
 ;; (add-hook 'python-mode-hook
 ;;           (lambda ()
 ;;             (require 'pymacs)
