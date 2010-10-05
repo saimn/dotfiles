@@ -1,3 +1,6 @@
+# ~/.pythonrc
+
+# enable syntax completion
 try:
    import readline
 except ImportError:

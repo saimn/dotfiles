@@ -1,6 +1,6 @@
 ;;-*- Mode: Emacs-Lisp -*-
 ;; .emacs - Emacs configuration file
-;; Time-stamp: <2010-09-30 23:02>
+;; Time-stamp: <2010-10-05 14:35>
 
 ;; (message "Loading ~/.emacs/init.el")
 
@@ -501,8 +501,15 @@
 ;; Modes divers
 ;;----------------------------------------------------------------------
 
-;; colors in shell
+;; shell
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
+
+(eval-after-load 'shell
+  '(progn
+     (define-key shell-mode-map [up] 'comint-previous-input)
+     (define-key shell-mode-map [down] 'comint-next-input)
+     (define-key shell-mode-map "\C-p" 'comint-previous-input)
+     (define-key shell-mode-map "\C-n" 'comint-next-input)))
 
 (require 'pkgbuild-mode)
 

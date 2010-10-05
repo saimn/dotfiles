@@ -11,6 +11,7 @@ emacs.d/ac-comphist.dat
 emacs.d/.org-id-locations
 emacs.d/auto-save-list/
 emacs.d/customize.el
+emacs.d/tramp
 newsbeuter/
 perso/
 vim/.netrwhist

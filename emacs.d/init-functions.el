@@ -85,4 +85,13 @@
         (setq count (1+ count)))
       (message "Buffer contains %d words" count))))
 
+;; (defun word-count ()
+;;   "Count words in buffer"
+;;   (interactive)
+;;   (shell-command-on-region (point-min) (point-max) "wc -w"))
+
+(defun goto-config ()
+  (interactive)
+  (find-file "~/.emacs.d/init.el"))
+
 (provide 'init-functions)

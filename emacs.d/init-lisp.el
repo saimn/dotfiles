@@ -4,6 +4,8 @@
   (define-key lisp-mode-map "\C-j" 'eval-print-last-sexp))
 
 (add-hook 'lisp-mode-hook 'my-lisp-mode-hook)
+(add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
+(add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
 
 ;; Compile .emacs
 (defun compile-init-file ()

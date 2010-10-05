@@ -39,9 +39,18 @@
 
 (defun my-css-mode-hook ()
   (setq css-indent-offset 2)
+  (define-key css-mode-map "\C-s" 'css-insert-section)
   (rainbow-mode 1))
 
 (add-hook 'css-mode-hook 'my-css-mode-hook)
+
+(defun css-insert-section (section)
+  "Inserts a css section."
+  (interactive "sSection: ")
+  (insert (concat "/*--[ " section " ]"))
+  (while (< (point) (+ 70 (point-at-bol)))
+    (insert "-"))
+  (insert (concat "*/\n" "\n")))
 
 ;;------------------------------------------------------------
 ;; javascript
