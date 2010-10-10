@@ -9,7 +9,7 @@ application/mspowerpoint;       ooimpress '%s'
 application/vnd.ms-powerpoint;  ooimpress '%s'
 
 application/pdf;                zathura '%s'
-application/ps;                 zathura '%s'
+application/ps;                 evince '%s'
 
 application/x-bz;               file-roller '%s'
 application/x-bzip2;            file-roller '%s'

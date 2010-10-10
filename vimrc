@@ -175,13 +175,13 @@ if has("gui_running")
    colorscheme wombat
 else
     "set t_Co=8
-    "set t_Co=256
-    "let g:zenburn_high_Contrast = 1
+    set t_Co=256
     set nocursorline
     set termencoding=utf-8
     "set ttymouse=xterm
-    "colorscheme desert
-    colorscheme peachpuff
+    "let g:zenburn_high_Contrast = 1
+    "colorscheme zenburn
+    colorscheme 256-grayvim
 endif
 
 " ??? how many lines to sync backwards
@@ -602,7 +602,7 @@ let html_ignore_folding=1
 
 " Include DokuVimKi Configuration
 if filereadable($HOME."/.vim/dokuvimkirc")
-  source $HOME/.vim/dokuvimkirc
+   source $HOME/.vim/dokuvimkirc
 endif
 
 " -----------------------------------------------------------
@@ -627,20 +627,20 @@ map ,fd :call ChangeToFileDirectory()<CR>
 
 " Cscope est un outil similaire à ctags, mais voyez-le plutôt comme un ctags
 " sous amphétamines, car il est capable de bien plus.
-if has("cscope") && filereadable("/usr/bin/cscope")
-   set csprg=/usr/bin/cscope
-   set csto=0
-   set cst
-   set nocsverb
-   " add any database in current directory
-   if filereadable("cscope.out")
-      cs add cscope.out
-      " else add database pointed to by environment
-   elseif $CSCOPE_DB != ""
-      cs add $CSCOPE_DB
-   endif
-   set csverb
-endif
+" if has("cscope") && filereadable("/usr/bin/cscope")
+"    set csprg=/usr/bin/cscope
+"    set csto=0
+"    set cst
+"    set nocsverb
+"    " add any database in current directory
+"    if filereadable("cscope.out")
+"       cs add cscope.out
+"       " else add database pointed to by environment
+"    elseif $CSCOPE_DB != ""
+"       cs add $CSCOPE_DB
+"    endif
+"    set csverb
+" endif
 
 " Convenient command to see the difference between the current buffer and the
 " file it was loaded from, thus the changes you made.

@@ -88,9 +88,6 @@
      ;(border ((t (:background "#888a85"))))
      ;(fringe ((t (:background "grey10"))))
      (minibuffer-prompt ((t (:foreground ,wombat-red :bold t))))
-     (region ((t (:foreground ,wombat-fg :background ,wombat-gray-1))))
-
-     ;; Mode line
      (mode-line ((t (:background ,wombat-gray-1 :foreground ,wombat-fg))))
      (mode-line-emphasis ((t (:bold t))))
      (mode-line-highlight ((t (:background ,wombat-orange :box nil))))
@@ -100,6 +97,7 @@
      ;; (mode-line-inactive ((t (:background "#424242" :weight light))))
      ;; (modeline-mousable ((t (nil))))
      ;; (modeline-mousable-minor-mode ((t (:background "#424242"))))
+     (region ((t (:foreground ,wombat-fg :background ,wombat-gray-1))))
 
 
 
