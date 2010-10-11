@@ -1,6 +1,6 @@
 ;;-*- Mode: Emacs-Lisp -*-
 ;; .emacs - Emacs configuration file
-;; Time-stamp: <2010-10-05 14:35>
+;; Time-stamp: <2010-10-11 14:25>
 
 ;; (message "Loading ~/.emacs/init.el")
 
@@ -124,11 +124,51 @@
 (global-set-key "\C-xm" 'browse-url-at-point)
 
 ;;----------------------------------------------------------------------
-;; Load modules / modes
+;; Buffers
 ;;----------------------------------------------------------------------
 
 ;; Show all buffer names when you switch buffers with C-x b
 ;; (iswitchb-mode)
+(global-set-key (kbd "C-x C-b") 'ibuffer)
+(autoload 'ibuffer "ibuffer" "List buffers." t)
+
+(setq ibuffer-saved-filter-groups
+      (quote (("default"
+               ("dired" (mode . dired-mode))
+               ("python" (mode . python-mode))
+               ("org" (or
+                       (name . "^\\*Calendar\\*$")
+                       (name . "^diary$")
+                       (mode . org-mode)
+                       (mode . muse-mode)))
+               ("emacs" (or
+                         (name . "^\\*scratch\\*$")
+                         (name . "^\\*Buffer List\\*$")
+                         (name . "^\\*Completions\\*$")
+                         (name . "^\\*Messages\\*$")
+                         (name . "^\\*vc\\*$")
+                         (name . "^\\*Warnings\\*$")))
+               ("idl" (or
+                       (mode . idlwave-mode)
+                       (name . "^\\*idl\\*$")))
+               ;; ("gnus" (or
+               ;;          (mode . message-mode)
+               ;;          (mode . bbdb-mode)
+               ;;          (mode . mail-mode)
+               ;;          (mode . gnus-group-mode)
+               ;;          (mode . gnus-summary-mode)
+               ;;          (mode . gnus-article-mode)
+               ;;          (name . "^\\.bbdb$")
+               ;;          (name . "^\\.newsrc-dribble")))
+               ))))
+
+(add-hook 'ibuffer-mode-hook
+          (lambda ()
+            (ibuffer-switch-to-saved-filter-groups "default")))
+
+;;----------------------------------------------------------------------
+;; Load modules / modes
+;;----------------------------------------------------------------------
 
 ;; Show images et compressed files
 (setq auto-image-file-mode t)
@@ -178,7 +218,7 @@
 ;; Completion
 ;;----------------------------------------------------------------------
 
-(setq tab-always-indent 'complete)
+;(setq tab-always-indent 'complete)
 ; Completion of acronyms and initialisms
 ;(setq completion-styles (append completion-style '(initials)))
 

@@ -5,7 +5,7 @@
 (setq php-manual-url "http://fr.php.net/manual/fr/")
 (autoload 'php-html-helper-mode "html-helper-mode" "html-helper-mode" t)
 (autoload 'php-mode "php-mode" "PHP editing mode" t)
-(add-auto-mode 'php-mode "\\.php[345]?\\'\\|\\.phtml\\." "\\.(inc|tpl)$" "\\.module$")
+;; (add-auto-mode 'php-mode "\\.php[345]?\\'\\|\\.phtml\\." "\\.(inc|tpl)$" "\\.module$")
 
 ;; (add-hook 'php-mode-hook
 ;;           (lambda ()

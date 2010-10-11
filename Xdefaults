@@ -31,10 +31,7 @@ Emacs*shadowThickness:          1
 
 ! URxvt settings {{{
 
-!URxvt*font: xft:DejaVu Sans Mono:style=Book:size=8
-!URxvt*boldFont: xft:DejaVu Sans Mono:style=Bold:size=8
-!URxvt*italicFont: xft:DejaVu Sans Mono:style=Oblique:size=8
-!URxvt*boldItalicFont: xft:DejaVu Sans Mono:style=BoldOblique:size=8
+
 URxvt*font: xft:DejaVu Sans Mono:style=Book:pixelsize=12
 URxvt*boldFont: xft:DejaVu Sans Mono:style=Bold:pixelsize=12
 URxvt*italicFont: xft:DejaVu Sans Mono:style=Oblique:pixelsize=12
@@ -48,6 +45,7 @@ URxvt*boldItalicFont: xft:DejaVu Sans Mono:style=BoldOblique:pixelsize=12
 !URxvt*geometry: 80x27
 !URxvt*chdir: /home/simon
 
+!URxvt*termName:                 rxvt-256color
 URxvt*termName:                 rxvt-unicode
 urxvt*depth:                    32
 !URxvt*inheritPixmap:   true    ! transparency
