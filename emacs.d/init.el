@@ -1,6 +1,6 @@
 ;;-*- Mode: Emacs-Lisp -*-
 ;; .emacs - Emacs configuration file
-;; Time-stamp: <2010-10-11 14:25>
+;; Time-stamp: <2010-10-12 15:07>
 
 ;; (message "Loading ~/.emacs/init.el")
 
@@ -134,23 +134,35 @@
 
 (setq ibuffer-saved-filter-groups
       (quote (("default"
-               ("dired" (mode . dired-mode))
-               ("python" (mode . python-mode))
-               ("org" (or
-                       (name . "^\\*Calendar\\*$")
-                       (name . "^diary$")
-                       (mode . org-mode)
-                       (mode . muse-mode)))
-               ("emacs" (or
+               ("Config" (filename . ".emacs.d/"))
+               ("Dired" (mode . dired-mode))
+               ("Emacs" (or
                          (name . "^\\*scratch\\*$")
                          (name . "^\\*Buffer List\\*$")
                          (name . "^\\*Completions\\*$")
                          (name . "^\\*Messages\\*$")
                          (name . "^\\*vc\\*$")
                          (name . "^\\*Warnings\\*$")))
-               ("idl" (or
+               ("IDL" (or
                        (mode . idlwave-mode)
                        (name . "^\\*idl\\*$")))
+               ("Org" (or
+                       (name . "^\\*Calendar\\*$")
+                       (name . "^diary$")
+                       (mode . org-mode)
+                       (mode . muse-mode)))
+               ("Programming" (or
+                               (mode . python-mode)
+                               (mode . haskell-mode)
+                               (name . "\\*Python.*\\*")
+                               (name . "\\*haskell.*\\*")
+                               (mode . emacs-lisp-mode)
+                               (mode . sh-mode)))
+               ("Writing" (or
+                           (mode . tex-mode)
+                           (mode . latex-mode)
+                           (mode . markdown-mode)
+                           (mode . rst-mode)))
                ;; ("gnus" (or
                ;;          (mode . message-mode)
                ;;          (mode . bbdb-mode)
