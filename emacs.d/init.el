@@ -1,6 +1,6 @@
 ;;-*- Mode: Emacs-Lisp -*-
 ;; .emacs - Emacs configuration file
-;; Time-stamp: <2010-10-14 17:05>
+;; Time-stamp: <2010-10-14 19:33>
 
 ;; (message "Loading ~/.emacs/init.el")
 
@@ -263,6 +263,10 @@
 ;; C-n/C-p to select candidates
 ;; (define-key ac-complete-mode-map "\C-n" 'ac-next)
 ;; (define-key ac-complete-mode-map "\C-p" 'ac-previous)
+
+;; enable autopair in all buffers
+(require 'autopair)
+(autopair-global-mode)
 
 ;;----------------------------------------------------------------------
 ;; Edit

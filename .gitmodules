@@ -19,3 +19,6 @@
 [submodule "emacs.d/site-lisp/color-theme-zenburn"]
 	path = emacs.d/site-lisp/color-theme-zenburn
 	url = http://github.com/bbatsov/zenburn-emacs.git
+[submodule "emacs.d/site-lisp/autopair"]
+	path = emacs.d/site-lisp/autopair
+	url = http://github.com/emacsmirror/autopair.git
