@@ -23,6 +23,18 @@
     (if (re-search-forward "[  \t\r\n]*[^  \t\r\n]" nil t)
       (delete-region (match-beginning 0) (- (point) 1)))))
 
+(defun clean-up-buffer-or-region ()
+  "Untabifies, indents and deletes trailing whitespace from buffer or region."
+  (interactive)
+  (save-excursion
+    (unless (region-active-p)
+      (mark-whole-buffer))
+    (untabify (region-beginning) (region-end))
+    (indent-region (region-beginning) (region-end))
+    (save-restriction
+      (narrow-to-region (region-beginning) (region-end))
+      (delete-trailing-whitespace))))
+
 ;; Suppression du formatage sur N colonnes (comme la fonction n'existe pas,
 ;; l'astuce consiste à définir temporairement une largeur de ligne extrêmement
 ;; grande et de formater le paragraphe sur cette base).
@@ -50,29 +62,28 @@
   (interactive)
   (insert (format-time-string "%d %B %Y")))
 
-(defun my-mark-line ()
-  (let ((beg (point)))
-    (if (= 0 (current-column))
-        (forward-line 1)
-      (end-of-line))
-    (push-mark)
-    (goto-char beg)))
+(defun comment-dwim-line (&optional arg)
+  "Replacement for the comment-dwim command.
+If no region is selected and current line is not blank and we are not at the end of the line,
+then comment current line.
+Replaces default behaviour of comment-dwim, when it inserts comment at the end of the line."
+  (interactive "*P")
+  (comment-normalize-vars)
+  (if (and (not (region-active-p)) (not (looking-at "[ \t]*$")))
+      (comment-or-uncomment-region (line-beginning-position) (line-end-position))
+    (comment-dwim arg)))
 
-(defun my-mark ()
-  (if (not mark-active)
-      (my-mark-line)))
-
-(defun my-comment-region-or-line ()
-  "Comment the region or line."
+(defun comment-or-uncomment-current-line-or-region ()
+  "Comments or uncomments current current line or whole lines in region."
   (interactive)
-  (my-mark)
-  (comment-region (point) (mark)))
-
-(defun my-uncomment-region-or-line ()
-  "Uncomment the region or line."
-  (interactive)
-  (my-mark)
-  (uncomment-region (point) (mark)))
+  (save-excursion
+    (let (min max)
+      (if (region-active-p)
+          (setq min (region-beginning) max (region-end))
+        (setq min (point) max (point)))
+      (comment-or-uncomment-region
+       (progn (goto-char min) (line-beginning-position))
+       (progn (goto-char max) (line-end-position))))))
 
 (defun count-words ()
   "Print the number of words in the buffer."

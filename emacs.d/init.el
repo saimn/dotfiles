@@ -1,6 +1,6 @@
 ;;-*- Mode: Emacs-Lisp -*-
 ;; .emacs - Emacs configuration file
-;; Time-stamp: <2010-10-12 15:07>
+;; Time-stamp: <2010-10-14 17:05>
 
 ;; (message "Loading ~/.emacs/init.el")
 
@@ -269,6 +269,7 @@
 ;;----------------------------------------------------------------------
 
 (setq-default fill-column 78)     ; auto-fill
+(setq comment-auto-fill-only-comments t)
 (global-visual-line-mode 1)       ; Wrap Long Lines By Word Boundary
 ;; (setq longlines-wrap-follows-window-size t)
 (show-paren-mode 1)               ; turn on paren match highlighting
@@ -428,8 +429,8 @@
 (global-set-key (kbd "C-z") 'undo)
 (global-set-key (kbd "C-b") 'ido-switch-buffer)
 (global-set-key (kbd "<C-escape>") 'ibuffer-list-buffers)
-(global-set-key (kbd "C-/") 'my-comment-region-or-line)
-(global-set-key (kbd "C-\\") 'my-uncomment-region-or-line)
+(global-set-key (kbd "C-/") 'comment-dwim-line)
+(global-set-key "\M-;" 'comment-dwim-line)
 
 (global-set-key (kbd "<C-tab>") 'other-window)
 (global-set-key (kbd "<C-S-tab>") '(lambda () (interactive) (other-window -1)))
@@ -454,6 +455,7 @@
 (global-set-key (kbd "C-c f") 'flyspell-buffer)
 (global-set-key (kbd "C-c k") 'kill-this-buffer)
 (global-set-key (kbd "C-c m") 'magit-status)
+(global-set-key (kbd "C-c n") 'clean-up-buffer-or-region)
 (global-set-key (kbd "C-c s") 'shell)
 (global-set-key (kbd "C-c t") 'trim-whitespace)
 ;; (global-set-key (kbd "C-c y") '(lambda ()
