@@ -3,21 +3,11 @@
 (add-hook 'text-mode-hook
            (lambda ()
              (auto-fill-mode 1)
-             (setq default-justification 'full))
-           )
+             ;; (setq default-justification 'full)
+             ))
 
-;; don't cut before :
-(defun my-fill-nobreak-predicate ()
-  (save-match-data
-    (or (looking-at "[ \t]*[])»!?;:]")
-        (looking-at "[ \t]*\\.\\.\\.")
-        (save-excursion
-          (skip-chars-backward " \t")
-          (backward-char 1)
-          (looking-at "[([«]")))))
-
-(setq fill-nobreak-predicate 'my-fill-nobreak-predicate)
-
+;; don't cut before ponctuations
+(add-hook 'fill-no-break-predicate 'fill-french-nobreak-p)
 
 ;;------------------------------------------------------------
 ;; Markdown
@@ -44,6 +34,8 @@
 (add-hook 'markdown-mode-hook '(lambda ()
                                  (setq yas/fallback-behavior
                                        '(apply 'original-command))
+                                 (setq paragraph-start "\\*\\|$"
+                                       paragraph-separate "$")
                                  (local-set-key [tab] 'yas/expand)))
 
 ;;------------------------------------------------------------

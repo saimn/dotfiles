@@ -1,6 +1,6 @@
 ;;-*- Mode: Emacs-Lisp -*-
 ;; .emacs - Emacs configuration file
-;; Time-stamp: <2010-10-14 19:33>
+;; Time-stamp: <2010-10-15 11:57>
 
 ;; (message "Loading ~/.emacs/init.el")
 
@@ -383,10 +383,6 @@
 ;; ce comportement n'est pas souhaitable en francais
 (setq sentence-end-double-space nil)
 
-;; Eviter que la cesure de fin de ligne, operée par exemple par le
-;; mode autofill ou par un M-q, coupe au niveau des ponctuations :
-(add-hook 'fill-no-break-predicate 'fill-french-nobreak-p)
-
 ;; ;; face for long lines' tails
 ;; (set-face-attribute 'whitespace-line nil
 ;;                     :background "red1"
@@ -460,6 +456,7 @@
 (global-set-key (kbd "C-c k") 'kill-this-buffer)
 (global-set-key (kbd "C-c m") 'magit-status)
 (global-set-key (kbd "C-c n") 'clean-up-buffer-or-region)
+(global-set-key (kbd "C-c r") 'refill-mode)
 (global-set-key (kbd "C-c s") 'shell)
 (global-set-key (kbd "C-c t") 'trim-whitespace)
 ;; (global-set-key (kbd "C-c y") '(lambda ()

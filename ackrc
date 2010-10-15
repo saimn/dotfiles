@@ -1,2 +1,4 @@
 # define idl type
 --type-set=idl=.pro
+
+--smart-case
