@@ -54,15 +54,19 @@
 ;;------------------------------------------------------------
 ;; Speedbar
 ;;------------------------------------------------------------
-;; (load-file "~/.emacs.d/sr-speedbar.el")
 (require 'sr-speedbar)
-(global-set-key (kbd "C-S-s") 'sr-speedbar-toggle)
-;; (global-set-key [(super ?s)] 'sr-speedbar-toggle)
 (setq sr-speedbar-right-side nil)
-;; permettre à la speedbar de reconnaître plus de fichiers
-(speedbar-add-supported-extension "\\.\\(inc\\|txt\\)")
-(speedbar-add-supported-extension "\\.\\(inc\\|ml[i]?\\)")
-(speedbar-add-supported-extension "\\.\\(inc\\|xml\\)")
-(speedbar-add-supported-extension "\\.\\(inc\\|css\\)")
+(setq speedbar-show-unknown-files t)
+(setq speedbar-use-images t)
+;; Additional extensions we are interested in
+(speedbar-add-supported-extension
+  '("PKGBUILD" ".txt" ".org" ".pdf" ".css" ".tpl" "inc" ".php" ".js"
+    ".conf" ".patch" ".diff" ".lua" ".sh"))
+
+;; cedet
+;; (global-ede-mode 1)
+;; (require 'semantic/sb)
+;; (semantic-mode 1)
+
 
 (provide 'init-ui)

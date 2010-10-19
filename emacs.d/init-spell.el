@@ -36,7 +36,7 @@
                 erlang-mode-hook))
   (add-hook hook 'flyspell-prog-mode))
 
-(add-hook 'text-mode-hook 'flyspell-mode)
+;; (add-hook 'text-mode-hook 'flyspell-mode)
 
 ;; flyspell
 ;; (add-hook 'flyspell-mode-hook

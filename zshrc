@@ -1,5 +1,3 @@
-
-
 #!/usr/bin/env zsh
 # Global zsh configuration
 
@@ -29,6 +27,14 @@ elif [ -x `which less` ]; then
    export LESS="-ir"
    export LESSOPEN="| /usr/bin/lesspipe %s"
    export LESSCLOSE="/usr/bin/lesspipe %s %s"
+   export LESS_TERMCAP_mb=$'\E[01;31m'    # debut de blink !
+   export LESS_TERMCAP_md=$'\E[01;31m'    # debut de gras
+   export LESS_TERMCAP_me=$'\E[0m'        # fin
+   export LESS_TERMCAP_so=$'\E[01;44;33m' # début de la ligne d'état
+   export LESS_TERMCAP_se=$'\E[0m'        # fin
+   export LESS_TERMCAP_us=$'\E[01;32m'    # début de souligné
+   export LESS_TERMCAP_ue=$'\E[0m'        # fin
+   export LESSHISTFILE="-"                # turn off .lesshst file
 fi
 
 # Permissions rw-r--r-- pour les fichiers crées
@@ -56,9 +62,6 @@ export BROWSER="firefox"
 # repertoire texlive local
 [ "$HOSTNAME" = "goudes" ] && MYTEXMF="miktex-texmf" || MYTEXMF=".texmf"
 export TEXMFHOME=$HOME/$MYTEXMF
-
-# turn off .lesshst file
-export LESSHISTFILE="-"
 
 # }}}
 

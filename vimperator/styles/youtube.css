@@ -11,8 +11,9 @@ body
 #subscribeDiv,
 #watch-channel-icon,
 #watch-url-embed-wrapper,
-#footer,
+#pagebottom,
 #watch-channel-videos-panel,
+#watch-main-container,
 #search-option-expander,
 #search-duplicates-message,
 #default-language-box,
@@ -33,7 +34,7 @@ body
 }
 
 #watch-channel-vids-div, #watch-video-details, .watch-video-added,
-#watch-video-details-inner, #watch-channel-vids-top, 
+#watch-video-details-inner, #watch-channel-vids-top,
 #watch-headline-container, #watch-video-container,
 .watch-module-body
 {

@@ -1,6 +1,6 @@
 #!/bin/sh
 # Configure your favorite diff program here.
-DIFF="/usr/bin/colordiff"
+DIFF="/usr/bin/colordiff -u"
 # gvim -d $6 $7
 
 # Subversion provides the paths we need as the sixth and seventh
