@@ -22,3 +22,6 @@
 [submodule "emacs.d/site-lisp/autopair"]
 	path = emacs.d/site-lisp/autopair
 	url = http://github.com/emacsmirror/autopair.git
+[submodule "emacs.d/site-lisp/anything"]
+	path = emacs.d/site-lisp/anything
+	url = git://repo.or.cz/anything-config.git

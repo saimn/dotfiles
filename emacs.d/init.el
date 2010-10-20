@@ -1,6 +1,6 @@
 ;;-*- Mode: Emacs-Lisp -*-
 ;; .emacs - Emacs configuration file
-;; Time-stamp: <2010-10-19 12:02>
+;; Time-stamp: <2010-10-20 18:21>
 
 ;; (message "Loading ~/.emacs/init.el")
 
@@ -239,17 +239,27 @@
 (setq completion-ignored-extensions '(".o" "~" ".bin" ".aux"))
 (partial-completion-mode)
 
-(require 'yasnippet)
-(yas/initialize)
-(yas/load-directory "~/.emacs.d/site-lisp/yasnippet/snippets")
-(yas/load-directory "~/.emacs.d/snippets")
-
 ;; InteractivelyDoThings
 (require 'ido)
 (ido-mode t)
 (setq ido-enable-flex-matching t) ; enable fuzzy matching
 (setq ido-everywhere t)           ; use ido everywhere
 (setq ido-show-dot-for-dired t)   ; always show dot for current directory
+
+(require 'anything-config)
+(setq anything-sources
+      (list anything-c-source-buffers
+            anything-c-source-file-name-history
+            anything-c-source-info-pages
+            anything-c-source-man-pages
+	    anything-c-source-file-cache
+            anything-c-source-emacs-commands))
+(global-set-key (kbd "M-X") 'anything)
+
+(require 'yasnippet)
+(yas/initialize)
+(yas/load-directory "~/.emacs.d/site-lisp/yasnippet/snippets")
+(yas/load-directory "~/.emacs.d/snippets")
 
 (require 'smart-tab)
 
@@ -267,6 +277,7 @@
 ;; enable autopair in all buffers
 (require 'autopair)
 (autopair-global-mode)
+(setq autopair-autowrap t)
 
 ;;----------------------------------------------------------------------
 ;; Edit
