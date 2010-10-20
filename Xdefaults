@@ -90,37 +90,46 @@ xterm*utf8: 2
 
 ! ---| Tango |--- {{{
 
-! ! Black
-! *color0: #1e1e1e
-! *color8: #555753
-! ! Red
-! *color1: #CC0000
-! *color9: #EF2929
-! ! Green
-! *color2: #4E9A06
-! *color10: #8AE234
-! ! Yellow
-! *color3: #C4A000
-! *color11: #FCE94F
-! ! Blue
-! *color4: #3465A4
-! *color12: #729FCF
-! ! Purple
-! *color5: #75507B
-! *color13: #AD7FA8
-! ! Cyan
-! *color6: rgb:06/98/9A
-! *color14: #34E2E2
-! ! White
+*.cursorColor:              #fce94f
+! *.borderColor:              #888a85
+
+*background: #2E3434
+*foreground: #EEEEEC
+! *foreground: #D3D7CF
+! *background: #555753
+
+! Black
+*color0: #1e1e1e
+*color8: #555753
+! Red
+*color1: #CC0000
+*color9: #EF2929
+! Green
+*color2: #4E9A06
+*color10: #8AE234
+! Yellow
+*color3: #C4A000
+*color11: #FCE94F
+! Blue
+*color4: #3465A4
+*color12: #729FCF
+! Purple
+*color5: #75507B
+*color13: #AD7FA8
+! Cyan
+*color6: #06989A
+*color14: #34E2E2
+! White
+*color7: #D3D7CF
 ! *color7: #9f9f9f
-! *color15: #e0e0e0
+*color15: #e0e0e0
 
 !}}}
 
 ! ---| Zenburn |--- {{{
 
-! !*background: #1f1f1f   ! darker
-! *background: #3f3f3f
+! *background: #1f1f1f
+! ! *background: #3f3f3f
 ! *foreground: #dcdccc
 
 ! ! black + red
@@ -157,81 +166,79 @@ xterm*utf8: 2
 ! *background: #3f3f3f
 ! *foreground: #dcdccc
 
-! *color0: rgb:33/33/33
-! *color8: rgb:33/33/33
-! *color1: rgb:ff/a0/a0
-! *color9: rgb:ff/a0/a0
-! *color2: rgb:98/fb/98
-! *color10: rgb:9a/cd/32
-! *color3: rgb:f0/e6/8c
-! *color11: rgb:f0/e6/8c
-! *color4: rgb:87/ce/eb
-! *color12: rgb:87/ce/eb
-! *color5: rgb:ff/a0/a0
-! *color13: rgb:ff/a0/a0
-! *color6: rgb:87/ce/eb
-! *color14: rgb:87/ce/eb
-! *color7: rgb:ff/ff/ff
-! *color15: rgb:ff/ff/ff
-
-
-! --- My Xdefaults --- {{{
-
-! *background:       #121212
-! *foreground:       #cacaca
-! !black
-! *color0:           #080808
-! *color8:           #888888
-! !red
-! *color1:           #cf6a4c
-! *color9:           #dd4010
-! !green
-! *color2:           #799d6a
-! *color10:          #99ad6a
-! !yellow
-! *color3:           #fad07a
-! *color11:          #ffb964
-! !blue
-! *color4:           #8197bf
-! *color12:          #8fbfdc
-! !magenta
-! *color5:           #d6156c
-! *color13:          #F0A0C0
-! !cyan
-! *color6:           #a0a8b0
-! *color14:          #c6b6ee
-! !white
-! *color7:           #808080
-! *color15:          #b0b0b0
-
+! *color0: #333333
+! *color8: #333333
+! *color1: #ffa0a0
+! *color9: #ffa0a0
+! *color2: #98fb98
+! *color10: #9acd32
+! *color3: #f0e68c
+! *color11: #f0e68c
+! *color4: #87ceeb
+! *color12: #87ceeb
+! *color5: #ffa0a0
+! *color13: #ffa0a0
+! *color6: #87ceeb
+! *color14: #87ceeb
+! *color7: #ffffff
+! *color15: #ffffff
 
 ! --- this rox --- {{{
 
-*background: #262626
-*foreground: light grey
+! *background: #262626
+! *foreground: light grey
 
-!black
-*color0: #222222
-*color8: #554444
+! !black
+! *color0: #222222
+! *color8: #554444
 
-!red
-*color1: #EA6868
-*color9: #FF7272
-!green
-*color2: #ABCB8D
-*color10: #AFD78A
-!yellow
-*color3: #E8AE5B
-*color11: #FFA75D
-!blue
-*color4: #71C5F4
-*color12: #67CDE9
-!magenta
-*color5: #E2BAF1
-*color13: #ECAEE9
-!cyan
-*color6: #21F1EA
-*color14: #36FFFC
-!white
-*color7: #F1F1F1
-*color15: #FFFFFF
+! !red
+! *color1: #EA6868
+! *color9: #FF7272
+! !green
+! *color2: #ABCB8D
+! *color10: #AFD78A
+! !yellow
+! *color3: #E8AE5B
+! *color11: #FFA75D
+! !blue
+! *color4: #71C5F4
+! *color12: #67CDE9
+! !magenta
+! *color5: #E2BAF1
+! *color13: #ECAEE9
+! !cyan
+! *color6: #21F1EA
+! *color14: #36FFFC
+! !white
+! *color7: #F1F1F1
+! *color15: #FFFFFF
+
+! --- Thayer --- {{{
+
+! *foreground:#a0a0a0
+! *background:#1b1d1e
+! !black
+! *color0:#1b1d1e
+! *color8:#505354
+! !red
+! *color1:#f92672
+! *color9:#ff5995
+! !green
+! *color2:#82b414
+! *color10:#b6e354
+! !yellow
+! *color3:#fd971f
+! *color11:#feed6c
+! !blue
+! *color4:#56c2d6
+! *color12:#8cedff
+! !magenta
+! *color5:#8c54fe
+! *color13:#9e6ffe
+! !cyan
+! *color6:#465457
+! *color14:#899ca1
+! !white
+! *color7:#ccccc6
+! *color15:#f8f8f2
