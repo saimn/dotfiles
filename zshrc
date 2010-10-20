@@ -207,26 +207,22 @@ alias top-10="sed -e 's/sudo //' $HOME/.zsh/history |  cut -d' ' -f1 | sort | un
 
 # per extentions
 alias -s pdf="zathura"
-alias -s ps="zathura"
+alias -s ps="evince"
 alias -s png="mirage"
 alias -s jpg="mirage"
 alias -s log="tail -f"
 alias -s conf="vim"
 
 # misc commands
-alias ht='gnome-terminal -e htop -t htop --geometry=80x6 &'
-alias uht='urxvt -name htop -title htop +sb -geometry 80x6 -e htop &'
-
+alias ht='urxvt -name htop -title htop +sb -geometry 80x6 -e htop &'
 alias firedev='firefox -no-remote -P Webdev'
+alias svnd='svn diff --diff-cmd "~/bin/svnvimdiff"'
 
 alias e="emacsclient"
 alias ec="emacsclient -c"
-alias v="vim"
+alias v='exec urxvtc -e "bash" -c "exec vim $@" >> /dev/null &'
 alias vi="vim"
-alias sv="sudo vim"
-alias svnd='svn diff --diff-cmd "~/bin/svnvimdiff"'
-alias g='exec urxvtc -e "bash" -c "exec vim $@" >> /dev/null &'
-alias gg='exec urxvtc -e "bash" -c "exec sudo vim $@" >> /dev/null &'
+alias sv='exec urxvtc -e "bash" -c "exec sudo vim $@" >> /dev/null &'
 
 # simple webserver on port 8000
 alias webshare='python -m SimpleHTTPServer'
