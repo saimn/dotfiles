@@ -1,6 +1,5 @@
 ;;-*- Mode: Emacs-Lisp -*-
 ;; .emacs - Emacs configuration file
-;; Time-stamp: <2010-10-20 18:21>
 
 ;; (message "Loading ~/.emacs/init.el")
 
@@ -21,9 +20,6 @@
 ;;----------------------------------------------------------------------
 ;; Global settings
 ;;----------------------------------------------------------------------
-
-(setq user-full-name "Simon")
-(setq user-mail-address "sc at sconseil.fr")
 
 ;; enable emacsclient
 (server-start)
@@ -59,9 +55,11 @@
 ;; (setq scroll-step 1)
 
 ;;----------------------------------------------------------------------------
-;; Set load path
+;; paths
 ;;----------------------------------------------------------------------------
 
+;; Load Path
+;; (add-to-list 'load-path "~/.emacs.d")
 (if (fboundp 'normal-top-level-add-subdirs-to-load-path)
     (let* ((my-lisp-dir "~/.emacs.d/site-lisp/")
            (default-directory my-lisp-dir))
@@ -70,13 +68,8 @@
         (normal-top-level-add-subdirs-to-load-path))))
 (setq load-path (cons (expand-file-name "~/.emacs.d") load-path))
 
-;; Load Path
-;; (add-to-list 'load-path "~/.emacs.d")
-(add-to-list 'load-path "~/.emacs.d/themes")
-
-;; disable backup files
+;; backup files
 ;; (setq make-backup-files nil)
-;; backup directory
 (setq backup-directory-alist '(("." . "~/.emacs.d/backup-files/")))
 
 ;; Customize file
@@ -247,14 +240,19 @@
 (setq ido-show-dot-for-dired t)   ; always show dot for current directory
 
 (require 'anything-config)
-(setq anything-sources
-      (list anything-c-source-buffers
-            anything-c-source-file-name-history
-            anything-c-source-info-pages
-            anything-c-source-man-pages
-	    anything-c-source-file-cache
-            anything-c-source-emacs-commands))
-(global-set-key (kbd "M-X") 'anything)
+(defun my-anything ()
+  (interactive)
+  (anything-other-buffer
+   '(anything-c-source-emacs-commands
+     anything-c-source-buffers
+     anything-c-source-files-in-current-dir
+     anything-c-source-file-name-history
+     ;; anything-c-source-info-pages
+     ;; anything-c-source-man-pages
+     ;; anything-c-source-file-cache
+     anything-c-source-locate)
+   " *my-anything*"))
+(global-set-key (kbd "M-X") 'my-anything)
 
 (require 'yasnippet)
 (yas/initialize)
