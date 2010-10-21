@@ -216,7 +216,8 @@ myManageHook = (composeAll . concat $
   , [title     =? t  --> doFloat          |  t <- myOtherFloats]
   , [name      =? n  --> doFloat          |  n <- myNames  ] -- names
   , [name      =? n  --> doCenterFloat    |  n <- myCNames ] -- centered names
-  , [isFullscreen    --> myDoFullFloat                        ]
+  , [isFullscreen    --> myDoFullFloat                     ]
+  , [className =? "Gimp-2.6"  --> doShift "9"              ] -- Gimp
   , [(className =? "Firefox" <&&> resource =? "Dialog") --> doCenterFloat]
   ]) <+> manageTypes <+> manageDocks <+> manageScratchPads
 
@@ -226,10 +227,10 @@ myManageHook = (composeAll . concat $
     name = stringProperty "WM_NAME"
 
     myMails       = ["Thunderbird","mutt","irssi","Gajim.py"]
-    myFloats      = ["MPlayer","vlc","MediaPlayer","VLC media player"] ++ -- media players
-                    ["feh","GIMP","gimp","Gimp","gimp-2.6","Gpicview"] ++ -- image viewers
+    myFloats      = ["MPlayer","gnome-mplayer","vlc","totem"] ++ -- media players
+                    ["feh","gimp","gimp-2.6","Gpicview"] ++      -- image viewers
                     ["Zenity","file_properties","Ediff","Idl","Sonata", "xine"]
-    myCFloats     = ["Xmessage","Save As...","XFontSel","gmrun","Galculator"]
+    myCFloats     = ["Xmessage","Save As...","XFontSel","gmrun","gcalctool"]
     myOtherFloats = ["Bibliothèque Multimédia","VLC media player"] ++
                     ["Bookmarks","Downloads","Add-ons"] ++
                     ["Téléchargements","Préférences de Firefox"] ++
