@@ -1,16 +1,16 @@
 "-----------------------------------------
-" ~/.vimperatorc - Vimperator config file
+" ~/.pentadactylc - Vimperator config file
 "-----------------------------------------
 
 " Load plugins
 loadplugins
 
 " Load userstyles
-source ~/.vimperator/styles/styles.js
+source ~/.pentadactyl/styles/styles.js
 styledisable -name global
 
-colorscheme wombat
-"set editor=emacsclient
+colorscheme desert
+
 set editor="emacsclient -c"
 
 " default search engine
@@ -26,10 +26,10 @@ set newtab=all
 set showstatuslinks=2
 
 set wildmode=list:longest,list:full
-set wildoptions=auto
+"set wildoptions=auto
 
 " Unfocus textfields
-set focuscontent
+set strictfocus
 
 " Vim editing in textareas
 "set noinsertmode
@@ -54,10 +54,10 @@ EOF
 " {{{ Quickmarks / Bookmarks
 " Quickmarks
 delqm!
-source ~/.vimperator/qmarks
+source ~/.pentadactyl/qmarks
 
 " Bookmarks
-"source ~/.vimperator/bookmarks
+"source ~/.pentadactyl/bookmarks
 " }}}
 
 " Commands {{{
@@ -65,7 +65,7 @@ source ~/.vimperator/qmarks
 " Add a :Google command to search via google:
 ":command -nargs=* Google open google <args>
 
-" Disable vimperator keys on Google mail and Google reader
+" Disable pentadactyl keys on Google mail and Google reader
 ":autocmd LocationChange .* js modes.passAllKeys = /(www|mail)\.google\.com/.test(buffer.URL)
 :autocmd LocationChange .* js modes.passAllKeys = false
 ":autocmd LocationChange mail\.google\.com js modes.passAllKeys = true
@@ -94,7 +94,7 @@ map <silent> <F10> :set go-=mT<CR>
 map <c-j> :contrast 10<cr>
 map <c-k> :contrast -10<cr>
 
-" restart Vimperator
+" restart pentadactyl
 map <C-r> :restart<CR>
 
 map <C-a> :dialog addbookmark<CR>
