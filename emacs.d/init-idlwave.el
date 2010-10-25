@@ -65,6 +65,11 @@
 ;;          (local-set-key [f7] 'idlwave-shell-cont)
 ;;          (local-set-key [f8] 'idlwave-shell-clear-all-bp)))
 
+;; auto-complete setup
+(defun ac-idlwave-mode-setup ()
+  (setq ac-sources (append '(ac-source-filename ac-source-yasnippet ac-source-dictionary ac-source-words-in-same-mode-buffers) ac-sources)))
+
+(add-hook 'idlwave-mode-hook 'ac-idlwave-mode-setup)
 (add-hook 'idlwave-mode-hook 'my-idlwave-mode-hook)
 (add-hook 'idlwave-mode-hook 'turn-on-font-lock)
 

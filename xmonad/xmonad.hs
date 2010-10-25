@@ -229,8 +229,9 @@ myManageHook = (composeAll . concat $
     myMails       = ["Thunderbird","mutt","irssi","Gajim.py"]
     myFloats      = ["MPlayer","gnome-mplayer","vlc","totem"] ++ -- media players
                     ["feh","gimp","gimp-2.6","Gpicview"] ++      -- image viewers
-                    ["Zenity","file_properties","Ediff","Idl","Sonata", "xine"]
-    myCFloats     = ["Xmessage","Save As...","XFontSel","gmrun","gcalctool"]
+                    ["Zenity","file_properties","Ediff","Sonata", "xine"]
+    myCFloats     = ["Xmessage","Save As...","XFontSel","gmrun"] ++
+                    ["gcalctool","Idl","Toplevel"]
     myOtherFloats = ["Bibliothèque Multimédia","VLC media player"] ++
                     ["Bookmarks","Downloads","Add-ons"] ++
                     ["Téléchargements","Préférences de Firefox"] ++
