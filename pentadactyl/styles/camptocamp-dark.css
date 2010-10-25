@@ -1,5 +1,3 @@
-/*@namespace url(http://www.w3.org/1999/xhtml);*/
-
 /* colors {{{
    based on Arch Linux Forums Style - original by Hrwa (http://userstyles.org/styles/13263)
 
@@ -25,9 +23,9 @@
    color: white !important;
    background: #141414 !important;
    }
-*/
 
-/*@-moz-document domain("camptocamp.org") {*/
+  }}}
+*/
 
 html, body, #holder, .pun {
   min-width: 800px !important;
@@ -68,14 +66,17 @@ html, body, #holder, .pun {
   min-width: 900px;
 }
 
-.content_article, #footer, #MB_window, #edit_me, .nav_box, #punwrap {
+.content_article, #footer, #MB_window, #MB_frame, #edit_me, .nav_box, #punwrap {
   background-color: #242424 !important;
   background: #242424 !important;
   border: 1px solid #343434 !important;
 }
 
 .article_titre_bg, .home_title_text, .latest li, .articles_content .htext, #article.articles_content .htext {
-  border-bottom: 1px solid #343434 !important;
+  border-bottom: 2px solid #343434 !important;
+}
+.latest li {
+  border-width: 1px !important;
 }
 
 .clearing, #punviewtopic .clearing { padding: 20px !important; }
@@ -244,6 +245,9 @@ div.current_lang {
 
 .sbox, .sbox select, .sbox input {
   background-color: #242424 !important;
+  border: 0 !important;
+}
+.sbox {
   border-color: #343434 !important;
 }
 
@@ -368,6 +372,7 @@ div#quick_switch {
 .home_title_left {
   margin: 8px 8px 0 5px !important;
   top: 2px !important;
+  background-color: transparent !important;
 }
 
 #last_images {
@@ -415,24 +420,26 @@ ul.article_changes li.even, ul.docs_changes li.even {
 
 #nav_tools {
   position: fixed;
-  bottom: 10px;
-  left: 10px;
+  top: 0;
+  left: 0;
   z-index: 50;
-  width: 180px !important;
-  height: 280px !important;
+  width: 200px !important;
+  height: 10px !important;
   margin: 0 !important;
-  padding: 1em !important;
+  padding: 0 !important;
+  background-color: #608baa !important;
   }
 #nav_tools:hover {
-  background-color: #eee;
-  border: 1px solid #ddd !important;
+  background-color: #242424 !important;
+  border-color: #343434 !important;
+  height: 350px !important;
 }
 #nav_tools_content {
   background-color: transparent !important;
 }
 
 #nav_tools ul { position: absolute; top: -10000px; }
-#nav_tools:hover ul { position: absolute; top: 1em; }
+#nav_tools:hover ul { position: absolute; top: 0; }
 #nav_tools ul li {
   width: 180px !important;
   display: block !important;
@@ -442,38 +449,35 @@ ul.article_changes li.even, ul.docs_changes li.even {
 
 #nav_edit {
   font-size: 11px;
-  margin: 0 0.5em !important;
+  margin: 0 !important;
   width: auto !important;
-  float: right !important;
   position: absolute;
   right: 0;
-  top: -22px;
-  }
+  top: 0;
+}
 
-#nav_edit li {
+#nav_edit li, #nav_edit li.active_tab, #nav_edit li:hover {
   display: inline-block;
   padding: 2px 8px !important;
   margin-left: 5px !important;
-  background-color: #fafafa;
-  border: 1px solid #ddd !important;
-  border-width: 1px 1px 0 !important;
-}
-#nav_edit li.active_tab, #nav_edit li:hover {
-  background-color: #eee;
+  background-color: #242424;
+  border: 1px solid #343434 !important;
+  border-width: 0 1px 1px !important;
   width: auto !important;
 }
 
 #nav_edit li a, #nav_edit li div {
   font-weight: normal !important;
-  color: #555 !important;
+  color: #aaa !important;
   border-bottom: 0 !important;
   margin: 0 !important;
   font-size: 11px !important;
   }
 #nav_edit li a:hover {
-  border-right: 0 !important;
+  border: 0 !important;
   }
 #nav_edit li.active_tab a {
+  color: #0088cc !important;
   font-weight: bold !important;
 }
 
@@ -514,6 +518,13 @@ ul.article_changes li.even, ul.docs_changes li.even {
 #data_section_container ul.data { margin: 0 !important; }
 
 #data_section_container { padding: 1em 0 !important; }
+
+/* MAPS */
+
+.x-border-layout-ct, .x-layout-collapsed, .x-tree .x-panel-body, .x-tree-node, .x-tree-node a, .x-dd-drag-ghost a, .x-tree-node a span, .x-dd-drag-ghost a span, .x-tree-node-over {
+  background-color: #141414 !important;
+  color: #aaa !important;
+}
 
 /* LISTS */
 
@@ -663,8 +674,11 @@ ul.conr li:first-child+li+li+li { display: none; }
   right: 0 !important;
   margin: auto !important;
 }
-#MB_frame { padding: 7px 0 !important; }
-#MB_close { top: .3em !important; }
+#MB_header, #MB_caption, #MB_content {
+  background-color: #242424 !important;
+  color: #aaa !important;
+  border: 0 !important;
+}
 
 /* CHANGER D'APPROCHE */
 
@@ -672,5 +686,3 @@ ul.conr li:first-child+li+li+li { display: none; }
 #cda_title { margin: 20px 0 0 !important; }
 #cda_sub_title { margin: 0 0 10px !important; }
 #c2c_mw_logos { display: none !important; }
-
-/*}*/

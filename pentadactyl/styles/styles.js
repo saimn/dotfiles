@@ -31,11 +31,11 @@ var loaduserstyles = function()
         //     "archlinux.forum.css",
         // ],
 
-        // [
-        //     "camptocamp:dark",
-        //     "camptocamp.org",
-        //     "camptocamp-dark.css",
-        // ],
+        [
+            "camptocamp:dark",
+            "camptocamp.org",
+            "camptocamp-dark.css",
+        ],
 
         [
             "youtube:dark-minimal",
