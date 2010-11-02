@@ -389,7 +389,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- , ((modm .|. shiftMask, xK_a     ), spawn "nautilus --browser ~/")
     , ((modm .|. shiftMask, xK_f     ), spawn "firefox")
     , ((modm .|. shiftMask, xK_t     ), spawn "thunderbird")
-    , ((modm,               xK_Print ), spawn "scrot -q 90 ~/Images/Screenshots/%F-%T.png")
+    , ((modm,               xK_Print ), spawn "scrot -q 90 ~/Images/screenshots/%F-%T.png")
 
     , ((modm,               xK_z     ), withFocused (sendMessage . maximizeRestore))
 

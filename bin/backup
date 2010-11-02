@@ -83,7 +83,7 @@ function backup_system () {
    pacman -Qqmt > pkglist-local.txt
 
    echo ":: Backup system config files ..."
-   tar -cvpJf $HOME/Documents/system-files-$DATE.tar.xz /etc /boot pkglist-local.txt pkglist-official.txt
+   tar -cvpJf $HOME/Documents/perso/backup/system-files-$DATE.tar.xz /etc /boot pkglist-local.txt pkglist-official.txt
    rm pkglist-local.txt pkglist-official.txt
 
    #tar --files-from=include.txt --exclude-from=exclude.txt -cvpzf backupname.tar.gz
