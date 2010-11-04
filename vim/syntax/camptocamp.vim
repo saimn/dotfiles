@@ -1,6 +1,6 @@
 " Camptocamp.org syntax file
 " Language: Mix of BBCode & Markdown
-" Maintainer: Saïmon <contact@saimon.org>
+" Maintainer: Saïmon <contact at saimon dot org>
 " URL: http://saimon.org/
 " Version: 1
 " Last Change: 2009 Jul 29

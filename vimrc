@@ -1,5 +1,5 @@
 " Description: Vim configuration file
-" Author: Simon <contact@saimon.org>
+" Author: Simon <contact at saimon dot org>
 
 " -----------------------------------------------------------
 " General setup

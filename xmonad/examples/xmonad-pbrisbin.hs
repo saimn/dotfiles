@@ -323,7 +323,7 @@ myLogHook h = (dynamicLogWithPP $ defaultPP
     dzenFGL c = dzenColorL c ""
 
     -- custom loggers
-    myMail     = wrapL "Mail: " ""  . dzenFGL colorFG6 $ maildirNew "/home/simon/Mail/saimon.org/INBOX"
+    myMail     = wrapL "Mail: " ""  . dzenFGL colorFG6 $ maildirNew "/home/me/mail/INBOX"
     myUpdates  = logCmd "$HOME/.bin/logger-updates"
     myTorrents = logCmd "$HOME/.bin/logger-torrents"
 
