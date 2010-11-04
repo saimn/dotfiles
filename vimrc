@@ -5,25 +5,24 @@
 " General setup
 " -----------------------------------------------------------
 
-set nocompatible	      " Use Vim defaults (much better!)
-"set viminfo='20,\"50	" .viminfo: don't store more than 50 lines of registers
-set history=100		   " nb of command line history
+set nocompatible        " Use Vim defaults (much better!)
+"set viminfo='20,\"50   " .viminfo: don't store more than 50 lines of registers
+set history=100         " nb of command line history
 set undolevels=150
 
-set noerrorbells	" ne fait pas un bip lors d'une erreur
-set visualbell		" Avertissement par flash
+set noerrorbells        " ne fait pas un bip lors d'une erreur
+set visualbell          " Avertissement par flash
 
-set showmatch		" Affiche la paire de parenthèses
-set nostartofline	" curseur dans la même colonne quand on change de ligne
-set scrolloff=2	" Nb de lignes visible autour du curseur
-"set number		   " afficher les numéros de ligne
-set cursorline
+set showmatch           " Affiche la paire de parenthèses
+set nostartofline       " curseur dans la même colonne quand on change de ligne
+set scrolloff=2         " Nb de lignes visible autour du curseur
+"set number             " afficher les numéros de ligne
 set autowrite
 set previewheight=5
 set paste
 
 " allow backspacing over everything in insert mode
-set backspace=indent,eol,start 
+set backspace=indent,eol,start
 
 " In many terminal emulators the mouse works just fine, thus enable it.
 if has('mouse')
@@ -31,7 +30,7 @@ if has('mouse')
 endif
 
 " Tags file search path
-set tags=./tags,tags,../tags                
+set tags=./tags,tags,../tags
 
 " Don't wake up system with blinking cursor:
 set guicursor=a:blinkon0
@@ -49,7 +48,7 @@ endif
 
 " encoding ?
 "if v:lang =~ "utf8$" || v:lang =~ "UTF-8$"
-"		set fileencodings=ucs-bom,utf-8,latin1
+"               set fileencodings=ucs-bom,utf-8,latin1
 "endif
 
 " Encodage par défaut des buffers et des fichiers
@@ -77,7 +76,7 @@ set autoindent       " always set autoindenting on
 set smartindent      " clever autoindenting
 set shiftwidth=3     " Nombre d'espace pour l'(auto-)indentation
 set softtabstop=3    " if non-zero, number of spaces to insert for a <tab>
-set tabstop=3	     " number of spaces the tab stands for >> softtabstop is better
+set tabstop=3        " number of spaces the tab stands for >> softtabstop is better
 
 " Montre les caractères de fin de lignes, tabs et espaces en trop
 set list
@@ -100,7 +99,7 @@ endif
 " Wrap
 " -----------------------------------------------------------
 
-set wrap " les lignes plus longues que la largeur de l'écran sont enroulées 
+set wrap " les lignes plus longues que la largeur de l'écran sont enroulées
 
 " Largeur maxi du texte inséré
 " '72' permet de wrapper automatiquement à 72 caractères
@@ -119,13 +118,13 @@ set whichwrap=<,>,[,]
 " Searching, Substituting
 " -----------------------------------------------------------
 
-set ignorecase	" ignore la casse des caractères dans les recherches
-set smartcase	" No ignorecase if Uppercase chars in search
-set magic	   " change the way backslashes are used in search patterns
-set wrapscan	" begin search at top when EOF reached
-set sm		   " jump to matches during entering the pattern
-set incsearch	" ...and also during entering the pattern
-set hlsearch	" Mettre en surbrillance le mot cherché
+set ignorecase  " ignore la casse des caractères dans les recherches
+set smartcase   " No ignorecase if Uppercase chars in search
+set magic       " change the way backslashes are used in search patterns
+set wrapscan    " begin search at top when EOF reached
+set sm          " jump to matches during entering the pattern
+set incsearch   " ...and also during entering the pattern
+set hlsearch    " Mettre en surbrillance le mot cherché
 
 " !!! use 'g'-flag when substituting (subst. all matches in that line, not
 " only first) to turn off, use g (why is there no -g ?) set gdefault
@@ -143,25 +142,16 @@ if &t_Co > 2 || has("gui_running")
    syntax on
 endif
 
-" xterm (terminal couleur ?)
-if &term=="xterm"
-   set t_Co=8
-   set t_Sb=[4%dm
-   set t_Sf=[3%dm
-endif
-
 if has("gui_running")
-   "set co=98			 "Nombre de colonnes à afficher
-   "set lines=41		 "Nombre de lignes à afficher
+   "set co=98                    "Nombre de colonnes à afficher
+   "set lines=41                 "Nombre de lignes à afficher
 
-   " Choix d'une police
    if has("win32")
       set guifont=Fixedsys:h9:cANSI
       "set guifont=Courier:h10:cANSI
-      "set guifont=Bitstream_Vera_Sans_Mono:h8:cANSI
    else
       "set gfn=-adobe-courier-medium-r-normal-*-*-140-*-*-m-*-iso8859-15
-      if $HOSTNAME == "devenson"
+      if $HOSTNAME == "goudes"
          set guifont=Inconsolata\ 11
       elseif $HOSTNAME == "fireball"
          set guifont=Inconsolata\ 10
@@ -169,19 +159,31 @@ if has("gui_running")
 
       "set guifont=Monaco\ 10
       "set guifont=Monaco:h12
-      "set guioptions=gimrLtTa
    endif
 
+   " alt jumps to menu
+   set winaltkeys=menu
+
+   " GUI options, default GTK: agimrLtT
+   set guioptions+=a    " clipboard to autoselect
+   set guioptions+=c    " Use console dialogs instead of popup
+   set guioptions-=r    " ascenseur à droite
+   set guioptions-=T    " toolbar
+   set cursorline
+
+   set mousef                    " Le focus suit la souris
+   set mousemodel=popup_setpos   " Le bouton droit affiche une popup
+
    colorscheme wombat
+   "let g:zenburn_high_Contrast = 1
+   "colorscheme zenburn
+elseif $HOSTNAME == "goudes"
+   set t_Co=256
+   colorscheme 256-grayvim
 else
-    "set t_Co=8
-    set t_Co=256
-    set nocursorline
-    set termencoding=utf-8
-    "set ttymouse=xterm
-    "let g:zenburn_high_Contrast = 1
-    "colorscheme zenburn
-    colorscheme 256-grayvim
+   set t_Co=8
+   set termencoding=utf-8
+   "set ttymouse=xterm
 endif
 
 " ??? how many lines to sync backwards
@@ -203,14 +205,14 @@ set ofu=syntaxcomplete#Complete
 " Statusline, Menu
 " -----------------------------------------------------------
 
-set ruler		   " show cursor position below each window
-set showmode	   " shows the current status (insert, visual, ...) in statusline
+set ruler         " show cursor position below each window
+set showmode      " shows the current status (insert, visual, ...) in statusline
 set shortmess=a   " use shortest messages
 set showcmd       " Affiche les commandes dans la barre de status
-set wc=<TAB>	   " use tab for auto-expansion in menus
-set wmnu		      " show a list of all matches when tabbing a command
+set wc=<TAB>      " use tab for auto-expansion in menus
+set wmnu          " show a list of all matches when tabbing a command
 
-set laststatus=2	" show always statusline of last window
+set laststatus=2  " show always statusline of last window
 set statusline=%<%t\(%n\)\ %y%h%m%r%=[%l,%c]\ %P
 "set statusline=%<%f%m\ %r\ %h\ %w%=%l,%c\ %p%%
 "set statusline=[%l,%c\ %P%M]\ %f\ %r%h%w
@@ -232,20 +234,15 @@ set su=.h,.bak,~,.o,.info,.swp,.obj
 " window handling
 " -----------------------------------------------------------
 
-if has("gui_running")
-   set mousef			 " Le focus suit la souris
-   set mousemodel=popup_setpos	 " Le bouton droit affiche une popup
-endif
-
-set wh=1		" minimal number of lines used for the current window
-set wmh=0		" minimal number of lines used for any window
-set noequalalways	" make all windows the same size when adding/removing windows
-set splitbelow		" a new window is put below the current one
+set wh=1            " minimal number of lines used for the current window
+set wmh=0           " minimal number of lines used for any window
+set noequalalways   " make all windows the same size when adding/removing windows
+set splitbelow      " a new window is put below the current one
 
 " Raccourcis claviers pour les Tabs
 map <C-Down>  :tabnew <CR>
 nmap <C-Right> :tabnext <CR>
-nmap <C-Left>  :tabprevious <CR> 
+nmap <C-Left>  :tabprevious <CR>
 
 " -----------------------------------------------------------
 " Sauvegarde
@@ -276,7 +273,7 @@ map Q gq
 :noremap <silent> <Space> :silent noh<Bar>echo<CR>
 
 " Allows writing to files with root priviledges
-cmap w!! %!sudo tee > /dev/null %  
+cmap w!! %!sudo tee > /dev/null %
 
 " CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
 " so that you can undo CTRL-U after inserting a line break.
@@ -318,9 +315,9 @@ noremap <C-A> gggH<C-O>G
 cnoremap <C-A> <C-C>gggH<C-O>G
 
 " Indentation automatique (Emacs's style)
-vnoremap <C-F>	 =$
-vnoremap <tab>	 =
-nnoremap <tab>	 =$
+vnoremap <C-F>   =$
+vnoremap <tab>   =
+nnoremap <tab>   =$
 nnoremap <C-tab> mzvip=`z
 
 " Fermer fichier (tampon) (window$'s style)
@@ -358,7 +355,7 @@ cmap <F4> <c-c>:bd!<cr>
 "inoremap <F5> <C-R>=GetCloseTag()<CR>
 "map <F5> a<C-_><ESC>
 
-" Toggle le mode collage 
+" Toggle le mode collage
 set pastetoggle=<F5>
 
 " Supprime tout les blancs en fin de ligne
@@ -377,13 +374,6 @@ nnoremap <silent> <F8> :Tlist<CR>
 " noremap <F3> :set nu!<cr>:set nu?<cr>
 
 if has("gui_running")
-   " alt jumps to menu
-   set winaltkeys=menu
-
-   " GUI options, default GTK: agimrLtT
-   set guioptions+=a    " clipboard to autoselect 
-   set guioptions-=r    " ascenseur à droite
-
    " Shift-Fleche pour selectionner un bloc
    map <S-Up> vk
    vmap <S-Up> k
@@ -402,29 +392,29 @@ if has("gui_running")
 
       " Copier aka Copy (generic's style)
       "vmap <C-Insert> "*y
-      "vmap <Return> "*y"		"Return realise la copie du bloc selectionner
+      "vmap <Return> "*y"               "Return realise la copie du bloc selectionner
       "vmap <S-Return> "*y" "Shift Return aussi
 
       " Coller aka Insert (generic's style)
       function! NormalPaste()
-	      if @* != ""
-	         normal "*gP
-	      endif
+              if @* != ""
+                 normal "*gP
+              endif
       endfunction
       function! SelectPaste()
-	      if @* != ""
-	         if col(".") < col("'<")
-	            normal "*gp
-	         else
-	            normal "*gP
-	         endif
-	      endif
+              if @* != ""
+                 if col(".") < col("'<")
+                    normal "*gp
+                 else
+                    normal "*gP
+                 endif
+              endif
       endfunction
 
-      "map <S-Insert>		 :call NormalPaste()<CR>
-      "imap <S-Insert>		 x<Esc>:call NormalPaste()<CR>s
+      "map <S-Insert>            :call NormalPaste()<CR>
+      "imap <S-Insert>           x<Esc>:call NormalPaste()<CR>s
       "cmap <S-Insert> <C-R>*
-      "vmap <S-Insert>		 "-x:call SelectPaste()<CR>
+      "vmap <S-Insert>           "-x:call SelectPaste()<CR>
    endif
 endif
 
@@ -453,8 +443,8 @@ map <silent> <C-F10> "<Esc>:silent setlocal nospell<CR>"
 " -----------------------------------------------------------
 
 " MiniBuf plugin
-let g:miniBufExplMapWindowNavVim = 1      " Control + [hjkl] 
-"let g:miniBufExplMapWindowNavArrows = 1   " Control + Arrow Keys 
+let g:miniBufExplMapWindowNavVim = 1      " Control + [hjkl]
+"let g:miniBufExplMapWindowNavArrows = 1   " Control + Arrow Keys
 let g:miniBufExplMapCTabSwitchBufs = 1    " <C-TAB> and <C-S-TAB>
 let g:miniBufExplModSelTarget = 1
 let g:miniBufExplUseSingleClick = 1
@@ -477,7 +467,7 @@ map <Leader>t :TMiniBufExplorer<cr>
 " Commande Automatique
 " -----------------------------------------------------------
 if has("autocmd")
-   ":autocmd!	" Supprime TOUTES les autocmd pour le groupe <courant.
+   ":autocmd!   " Supprime TOUTES les autocmd pour le groupe <courant.
 
    " Enable file type detection.
    " Use the default filetype settings, so that mail gets 'tw' set to 72,
@@ -523,9 +513,9 @@ if has("autocmd")
    " 11.2 En fonction du type de fichier
    autocmd FileType text setlocal textwidth=78 lbr "fo+=a "spell spelllang=fr     " Text
    autocmd FileType tex setlocal textwidth=78 "spell spelllang=fr                " Tex
-   autocmd FileType camptocamp setlocal spell spelllang=fr		                  " C2C
-   autocmd FileType css setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2	" CSS
-   autocmd FileType c,cpp,slang setlocal cindent			                        " C, C++
+   autocmd FileType camptocamp setlocal spell spelllang=fr                                " C2C
+   autocmd FileType css setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2 " CSS
+   autocmd FileType c,cpp,slang setlocal cindent                                                " C, C++
    autocmd FileType ruby setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2 " Ruby
    autocmd FileType php setlocal shiftwidth=8 tabstop=8 softtabstop=8            " PHP
    autocmd FileType html,xml setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2   " HTML
@@ -533,7 +523,7 @@ if has("autocmd")
    autocmd FileType javascript setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2 " JS
 
    "autocmd Filetype html,xml,xsl source ~/.vim/plugin/closetag.vim              " HTML ...
-   "autocmd Filetype idlang :source ~/.vim/syntax/idlang.vim "IDL mode"	         " IDL
+   "autocmd Filetype idlang :source ~/.vim/syntax/idlang.vim "IDL mode"          " IDL
    "autocmd FileType py source ~/.vim/scripts/python.vim
    "autocmd FileType php set dictionary=~/.vim/dictionaries/PHP.dict keywordprg=~/.vim/external/phpmanual.sh
 
@@ -571,8 +561,8 @@ augroup END
 " Langage C
 "let c_minlines = 200
 let c_comment_strings = 1
-"set cinoptions=(0			 " Options d'indentation pour un fichier C
-" some nice options for cindenting	by FOLKE
+"set cinoptions=(0                       " Options d'indentation pour un fichier C
+" some nice options for cindenting      by FOLKE
 set cinoptions={.5s,+.5s,t0,n-2,p2s,(03s,=.5s,>1s,=1s,:1s
 "g:C_CCompiler             "gcc"
 "g:C_CplusCompiler         "g++"
@@ -587,8 +577,8 @@ let php_parent_error_close = 1
 "let php_minlines=300
 "let php_htmlInStrings=1
 "let php_folding = 1
-let php_sql_query = 1		 "Coloration des requetes SQL
-let php_htmlInStrings = 1	 "Coloration des balises html
+let php_sql_query = 1            "Coloration des requetes SQL
+let php_htmlInStrings = 1        "Coloration des balises html
 
 " Javascript
 let javascript_enable_domhtmlcss=1
@@ -611,9 +601,9 @@ endif
 
 " Aller dans le répertoire du fichier édité.
 function! ChangeToFileDirectory()
-	if bufname("") !~ "^ftp://" " C'est impératif d'avoir un fichier local !
-		lcd %:p:h
-	endif
+        if bufname("") !~ "^ftp://" " C'est impératif d'avoir un fichier local !
+                lcd %:p:h
+        endif
 endfunction
 
 map ,fd :call ChangeToFileDirectory()<CR>
@@ -647,7 +637,7 @@ map ,fd :call ChangeToFileDirectory()<CR>
 " Only define it when not defined already.
 if !exists(":DiffOrig")
   command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
-		  \ | wincmd p | diffthis
+                  \ | wincmd p | diffthis
 endif
 
 " -----------------------------------------------------------

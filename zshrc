@@ -14,7 +14,7 @@ export PATH="$HOME/bin:$HOME/.zsh/bin:$HOME/.cabal/bin:/usr/local/bin:$PATH"
 export PYTHONPATH="$HOME/lib/python:$PYTHONPATH"
 export PYTHONSTARTUP="$HOME/.pythonrc"
 
-#export TERM='urxvt'
+#export TERM='rxvt-256color'
 export VISUAL="emacsclient -c"
 export EDITOR="emacsclient -c"
 #export EDITOR="gvim -f"
