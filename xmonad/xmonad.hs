@@ -227,12 +227,12 @@ myManageHook = (composeAll . concat $
     name = stringProperty "WM_NAME"
 
     myMails       = ["Thunderbird","mutt","irssi","Gajim.py"]
-    myFloats      = ["MPlayer","gnome-mplayer","vlc","totem"] ++ -- media players
-                    ["feh","gimp","gimp-2.6","Gpicview"] ++      -- image viewers
+    myFloats      = ["feh","gimp","gimp-2.6","Gpicview"] ++      -- image viewers
                     ["Zenity","file_properties","Ediff","Sonata", "xine"]
     myCFloats     = ["Xmessage","Save As...","XFontSel","gmrun"] ++
+                    ["MPlayer","gnome-mplayer","Vlc","Totem"] ++ -- media players
                     ["gcalctool","Idl","Toplevel"]
-    myOtherFloats = ["Bibliothèque Multimédia","VLC media player"] ++
+    myOtherFloats = ["Bibliothèque Multimédia"] ++
                     ["Bookmarks","Downloads","Add-ons"] ++
                     ["Téléchargements","Préférences de Firefox"] ++
                     ["Open...","Enregistrer sous...","Ouvrir","Delete"]
