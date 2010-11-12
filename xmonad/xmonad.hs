@@ -142,7 +142,7 @@ colorFG6             = "#ffffba" -- yellowy
 
 barHeight            = "20"
 leftBarWidth         = "700"
-rightBarWidth        = "640"
+rightBarWidth        = "540"
 
 leftBarWidthL        = "970"
 rightBarWidthL       = "870"
@@ -231,7 +231,7 @@ myManageHook = (composeAll . concat $
                     ["Zenity","file_properties","Ediff","Sonata", "xine"]
     myCFloats     = ["Xmessage","Save As...","XFontSel","gmrun"] ++
                     ["MPlayer","gnome-mplayer","Vlc","Totem"] ++ -- media players
-                    ["gcalctool","Idl","Toplevel"]
+                    ["gcalctool","Idl","Toplevel","Wicd-client.py"]
     myOtherFloats = ["Bibliothèque Multimédia"] ++
                     ["Bookmarks","Downloads","Add-ons"] ++
                     ["Téléchargements","Préférences de Firefox"] ++
