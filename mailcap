@@ -24,10 +24,12 @@ multipart/x-zip;                file-roller '%s'
 multipart/x-gzip;               file-roller '%s'
 
 image/*;                        mirage '%s'
-audio/*;                        vlc'%s'
-video/*;                        vlc'%s'
+audio/*;                        vlc '%s'
+video/*;                        vlc '%s'
 
 text/html;                      firefox '%s'
-text/html;                      lynx -dump %s;          copiousoutput
+text/html;                      uzbl-browser '%s'
+text/html;                      lynx -dump %s
+text/html;                      html2text.py %s;          copiousoutput
 text/plain;                     emacsclient -c '%s'
 text/plain;                     gvim '%s'

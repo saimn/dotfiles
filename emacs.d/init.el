@@ -607,9 +607,9 @@
       ("[Mm]akefile\\'" . makefile-mode)
       ("\\.mk\\'" . makefile-mode)
       ("\\.p[lm]\\'" . cperl-mode)
-      ("/mutt" . mail-mode)
       ("\\.conf\\'" . conf-mode)
       ("\\rc\\'" . conf-mode)
+      ("/mutt" . mail-mode)
       ("\\PKGBUILD\\'" . pkgbuild-mode)
      )
      auto-mode-alist
