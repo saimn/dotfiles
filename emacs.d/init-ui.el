@@ -44,11 +44,11 @@
   (if tool-bar-mode
       (progn
         (tool-bar-mode -1)
-        ;; (scroll-bar-mode -1)
+        (scroll-bar-mode -1)
         )
     (progn
       (tool-bar-mode 1)
-      ;; (scroll-bar-mode 1)
+      (scroll-bar-mode 1)
       )))
 
 ;;------------------------------------------------------------

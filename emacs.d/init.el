@@ -87,7 +87,6 @@
 (require 'color-theme-wombat)
 (require 'color-theme-tangotango)
 (require 'zenburn)
-;; (color-theme-vim-colors)
 (color-theme-tangotango)
 (setq frame-background-mode 'dark)
 
@@ -238,6 +237,7 @@
 (setq ido-enable-flex-matching t) ; enable fuzzy matching
 (setq ido-everywhere t)           ; use ido everywhere
 (setq ido-show-dot-for-dired t)   ; always show dot for current directory
+;(setq ido-file-extensions-order '(".org" ".txt" ".py" ".el" ".ini" ".cfg"))
 
 (require 'anything-config)
 (defun my-anything ()

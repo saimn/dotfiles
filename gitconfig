@@ -17,8 +17,9 @@
    logv = log -p
    last = log --oneline -1 HEAD
    oneline = log --oneline --decorate
-   # summary of what you're going to push
-   out = log --oneline origin/master..HEAD
+   # summary of what you're going to pull/push
+   incoming = "git fetch && git log ..origin/master"
+   outgoing = log --oneline origin/master..HEAD
    # changes since we last did a push
    wo = whatchanged -p origin/master..HEAD
    # diff
