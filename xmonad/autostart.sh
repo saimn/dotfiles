@@ -31,6 +31,7 @@ if [[ $(hostname) == "goudes" ]]; then
     wicd-client &
     alunn &
     dropboxd &
+    mail-notification &
 elif [[ $(hostname) == "fireball" ]]; then
     /usr/libexec/gnome-settings-daemon &
     gpk-update-icon &

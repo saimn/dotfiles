@@ -142,7 +142,7 @@ colorFG6             = "#ffffba" -- yellowy
 
 barHeight            = "20"
 leftBarWidth         = "700"
-rightBarWidth        = "540"
+rightBarWidth        = "600"
 
 leftBarWidthL        = "970"
 rightBarWidthL       = "870"
@@ -346,7 +346,7 @@ myLogHook h ico = dynamicLogWithPP $ defaultPP     -- the h here...
     -- current window's title
   , ppTitle           = dzenColor colorFG4 colorBG . shorten 50
   , ppWsSep           = ""                                -- separator between workspaces
-  , ppSep             = " ^fg(" ++ colorFG4 ++ ")|^fg() " -- between each object
+  , ppSep             = " "                               -- between each object
   , ppOutput          = hPutStrLn h                       -- ... must match the h here
   }
   where
