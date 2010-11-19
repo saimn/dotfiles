@@ -7,7 +7,7 @@ source $HOME/.dzen/dzconf.sh
 
 colorBarBG=$colorFG
 colorBarFG=$colorFG5
-barWidth=60
+barWidth=50
 barHeight=7
 
 # Configuration
@@ -41,8 +41,8 @@ ftime() {
 # }
 
 fcputemp() {
-   print -n ${(@)$(</proc/acpi/thermal_zone/TZ00/temperature)[2,3]} "/ "
-   print -n ${(@)$(</proc/acpi/thermal_zone/TZ01/temperature)[2,3]} "/ "
+   print -n ${(@)$(</proc/acpi/thermal_zone/TZ00/temperature)[2,3]} " "
+   print -n ${(@)$(</proc/acpi/thermal_zone/TZ01/temperature)[2,3]} " "
    print -n ${(@)$(</proc/acpi/thermal_zone/TZ02/temperature)[2,3]}
 }
 
@@ -87,8 +87,8 @@ fcpubar() {
 fupdate() {
     if [ "$HOST" = "fireball" ]; then
         yum check-update -q | grep '.' | wc -l
-    elif [ "$HOST" = "goudes" ]; then
-        print -n "todo"
+    # elif [ "$HOST" = "goudes" ]; then
+    #     print -n "todo"
     fi
 }
 
@@ -110,15 +110,15 @@ while true; do
      datecounter=0
    fi
 
-   if [ $mailcounter -ge $mailival ]; then
-     tmail=$(fmail)
-       if [ $tmail ]; then
-         pmail="^fg(${colorFG4})^i(${dzen_iconpath}/envelope.xbm)^p(3)${tmail}^fg()"
-       else
-         pmail="^i(${dzen_iconpath}/envelope.xbm)"
-       fi
-     mailcounter=0
-   fi
+   # if [ $mailcounter -ge $mailival ]; then
+   #   tmail=$(fmail)
+   #     if [ $tmail ]; then
+   #       pmail="^fg(${colorFG4})^i(${dzen_iconpath}/envelope.xbm)^p(3)${tmail}^fg()"
+   #     else
+   #       pmail="^i(${dzen_iconpath}/envelope.xbm)"
+   #     fi
+   #   mailcounter=0
+   # fi
 
    if [ $cputempcounter -ge $cputempival ]; then
      pcputemp=$(fcputemp)
@@ -140,13 +140,13 @@ while true; do
 
    pcpubar="^fg(${colorBarFG})^i(${dzen_iconpath}/cpu.xbm)$(fcpubar)^fg()"
 
-   # arrange and print the status line
-   pcommon="${pdate} ${ptime} • ${pmail} • ${pupdate} • ${pmemfree} ${pcpubar} ${pvolume}"
+   # arrange and print the status line ${pmail} •
+   pcommon="${pdate} ${ptime} • ${pmemfree} ${pcpubar} ${pvolume}"
 
    if  [ "$HOST" = "goudes" ]; then
-       print "${pcputemp} ${pcommon}"
-   else
-       print "${pcommon}"
+       print "${pcputemp} • ${pcommon}"
+   elif [ "$HOST" = "fireball" ]; then
+       print "${pupdate} • ${pcommon}"
    fi
 
    datecounter=$((datecounter+1))

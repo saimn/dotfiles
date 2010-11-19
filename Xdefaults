@@ -49,6 +49,7 @@ URxvt*boldItalicFont: xft:DejaVu Sans Mono:style=BoldOblique:pixelsize=12
 
 !URxvt*termName:                 rxvt-256color
 URxvt*termName:                 rxvt-unicode
+URxvt.iconFile:                 /usr/share/pixmaps/rxvt-unicode.png
 urxvt*depth:                    32
 !URxvt*inheritPixmap:   true    ! transparency
 !URxvt*tintColor: #121212
