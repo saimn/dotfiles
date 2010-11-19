@@ -15,8 +15,8 @@
 (add-hook 'python-mode-hook
           (lambda ()
             (eldoc-mode 1)
-            (define-key python-mode-map "\C-m"
-              'python-reindent-then-newline-and-indent)
+            ;; (define-key python-mode-map "\C-m"
+            ;;   'python-reindent-then-newline-and-indent)
             (add-hook 'local-write-file-hooks
                       '(lambda()
                          (save-excursion
