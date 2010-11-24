@@ -85,7 +85,7 @@ main = do
 
 myTerminal          = "urxvtc"
 myWorkspaces        = ["main","mail","web","code"] ++ map show [5..9]
-myBorderWidth       = 3
+myBorderWidth       = 1
 
 -- mod1Mask ("left alt"). mod3Mask ("right alt"). mod4Mask ("windows").
 myModMask           = mod4Mask
@@ -227,11 +227,12 @@ myManageHook = (composeAll . concat $
     name = stringProperty "WM_NAME"
 
     myMails       = ["Thunderbird","mutt","irssi","Gajim.py"]
-    myFloats      = ["feh","gimp","gimp-2.6","Gpicview"] ++      -- image viewers
-                    ["Zenity","file_properties","Ediff","Sonata", "xine"]
-    myCFloats     = ["Xmessage","Save As...","XFontSel","gmrun"] ++
-                    ["MPlayer","gnome-mplayer","Vlc","Totem"] ++ -- media players
-                    ["gcalctool","Idl","Toplevel","Wicd-client.py"]
+    myFloats      = ["gimp","gimp-2.6"] ++      -- image viewers
+                    ["Zenity","file_properties","Ediff","Sonata"] ++
+                    ["Gnome-agenda"]
+    myCFloats     = ["feh","Xmessage","Save As...","XFontSel","gmrun"] ++
+                    ["MPlayer","Gnome-mplayer","Vlc","Totem"] ++ -- media players
+                    ["Gcalctool","Idl","Toplevel","Wicd-client.py"]
     myOtherFloats = ["Bibliothèque Multimédia"] ++
                     ["Bookmarks","Downloads","Add-ons"] ++
                     ["Téléchargements","Préférences de Firefox"] ++

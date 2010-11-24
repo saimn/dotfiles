@@ -26,8 +26,8 @@ Emacs*toolBar:                  0
 ! Emacs*ScrollBars:               right
 Emacs*ScrollBars:               off
 Emacs*.verticalScrollBars:      off
-Emacs*.pane.menubar.background: #242424
-Emacs*.pane.menubar.foreground: #f6f3e8
+Emacs*pane.menubar.background: #242424
+Emacs*pane.menubar.foreground: #f6f3e8
 Emacs*menubar.margin:           0
 Emacs*shadowThickness:          1
 

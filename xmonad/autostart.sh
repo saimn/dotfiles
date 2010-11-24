@@ -1,16 +1,11 @@
 #!/bin/sh
 
 # gnome stuff
-#gnome-volume-manager &
 gnome-screensaver &
 #gnome-keyring-daemon --start --components=pkcs11
 #gnome-keyring-daemon --start --components=ssh
 #gnome-keyring-daemon --start --components=secrets
-
-#mpd &
-#urxvtc -e htop &
-#~/.dzen/volumeter &
-#~/.dzen/mpc &
+#gnome-keyring-daemon -s -c &
 
 #feh --bg-scale ~/Downloads/118-e.jpg &
 #feh --bg-tile ~/.xmonad/background.png &
@@ -28,15 +23,17 @@ nitrogen --restore &
 if [[ $(hostname) == "goudes" ]]; then
     gnome-settings-daemon &
     gnome-power-manager &
+    #nm-applet --sm-disable &
     wicd-client &
     alunn &
-    dropboxd &
     mail-notification &
+    volumeicon &
+    dropboxd &
+    gnome-agenda &
 elif [[ $(hostname) == "fireball" ]]; then
     /usr/libexec/gnome-settings-daemon &
     gpk-update-icon &
     numlockx &
     dropbox start &
 fi
-#nm-applet --sm-disable &
 

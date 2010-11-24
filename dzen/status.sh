@@ -99,7 +99,7 @@ fupdate() {
 # initialize data
 cputempcounter=$cputempival
 datecounter=$dateival
-mailcounter=$mailival
+# mailcounter=$mailival
 memfreecounter=$memfreeival
 updatecounter=$updateival
 
@@ -136,12 +136,12 @@ while true; do
      updatecounter=0
    fi
 
-   pvolume="^fg(${colorBarFG})^i(${dzen_iconpath}/volume.xbm)$(fvolume)^fg()"
+   # pvolume="^fg(${colorBarFG})^i(${dzen_iconpath}/volume.xbm)$(fvolume)^fg()"
 
    pcpubar="^fg(${colorBarFG})^i(${dzen_iconpath}/cpu.xbm)$(fcpubar)^fg()"
 
-   # arrange and print the status line ${pmail} •
-   pcommon="${pdate} ${ptime} • ${pmemfree} ${pcpubar} ${pvolume}"
+   # arrange and print the status line ${pmail} •  ${pvolume}
+   pcommon="${pdate} ${ptime} • ${pmemfree} ${pcpubar}"
 
    if  [ "$HOST" = "goudes" ]; then
        print "${pcputemp} • ${pcommon}"
@@ -150,7 +150,7 @@ while true; do
    fi
 
    datecounter=$((datecounter+1))
-   mailcounter=$((mailcounter+1))
+   # mailcounter=$((mailcounter+1))
    gtimecounter=$((gtimecounter+1))
    cputempcounter=$((cputempcounter+1))
    updatecounter=$((updatecounter+1))
