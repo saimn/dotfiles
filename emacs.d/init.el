@@ -21,12 +21,9 @@
 ;; Global settings
 ;;----------------------------------------------------------------------
 
-;; enable emacsclient
-(server-start)
-
-;; start in text-mode
-(setq major-mode 'text-mode)
-
+(server-start)                        ; enable emacsclient
+(setq major-mode 'text-mode)          ; start in text-mode
+(setq inhibit-startup-message t)      ; Don't show startup buffer
 (set-language-environment 'utf-8)
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
@@ -35,9 +32,6 @@
 (defalias 'yes-or-no-p 'y-or-n-p)
 (define-key query-replace-map [return] 'act)
 (define-key query-replace-map [?\C-m] 'act)
-
-;; Don't show startup buffer
-(setq inhibit-startup-message t)
 
 ;; Mouse
 (defun up-slightly () (interactive) (scroll-up 5))
@@ -80,18 +74,19 @@
 ;; Interface
 ;;----------------------------------------------------------------------
 (require 'init-ui)
+(require 'init-completion)
 
 ;; Installer avant color-theme
 (require 'color-theme)
 (color-theme-initialize)
 (require 'color-theme-wombat)
 (require 'color-theme-tangotango)
-(require 'zenburn)
 (color-theme-tangotango)
 (setq frame-background-mode 'dark)
 
-(unless (zenburn-format-spec-works-p)
-  (zenburn-define-format-spec))
+;; (require 'zenburn)
+;; (unless (zenburn-format-spec-works-p)
+;;   (zenburn-define-format-spec))
 
 ;;----------------------------------------------------------------------
 ;; Browser
@@ -190,9 +185,6 @@
 (require 'browse-kill-ring)
 (browse-kill-ring-default-keybindings)
 
-;;----------------------------------------------------------------------
-;; twitter
-;;----------------------------------------------------------------------
 (require 'twittering-mode)
 (setq twittering-icon-mode t)         ; Show icons
 (setq twittering-timer-interval 900)  ; Update your timeline each x sec
@@ -217,65 +209,6 @@
                    "New tweets"
                    (format "You have %d new tweet%s"
                            n (if (> n 1) "s" ""))))))
-
-;;----------------------------------------------------------------------
-;; Completion
-;;----------------------------------------------------------------------
-
-;(setq tab-always-indent 'complete)
-; Completion of acronyms and initialisms
-;(setq completion-styles (append completion-style '(initials)))
-
-;; minibuffer completion
-(icomplete-mode) ; complete as you type
-(setq completion-ignored-extensions '(".o" "~" ".bin" ".aux"))
-(partial-completion-mode)
-
-;; InteractivelyDoThings
-(require 'ido)
-(ido-mode t)
-(setq ido-enable-flex-matching t) ; enable fuzzy matching
-(setq ido-everywhere t)           ; use ido everywhere
-(setq ido-show-dot-for-dired t)   ; always show dot for current directory
-;(setq ido-file-extensions-order '(".org" ".txt" ".py" ".el" ".ini" ".cfg"))
-
-(require 'anything-config)
-(defun my-anything ()
-  (interactive)
-  (anything-other-buffer
-   '(anything-c-source-emacs-commands
-     anything-c-source-buffers
-     anything-c-source-files-in-current-dir
-     anything-c-source-file-name-history
-     ;; anything-c-source-info-pages
-     ;; anything-c-source-man-pages
-     ;; anything-c-source-file-cache
-     anything-c-source-locate)
-   " *my-anything*"))
-(global-set-key (kbd "M-X") 'my-anything)
-
-(require 'yasnippet)
-(yas/initialize)
-(yas/load-directory "~/.emacs.d/site-lisp/yasnippet/snippets")
-(yas/load-directory "~/.emacs.d/snippets")
-
-(require 'smart-tab)
-
-(require 'auto-complete-config)
-(add-to-list 'ac-dictionary-directories "~/.emacs.d/site-lisp/auto-complete/dict")
-(ac-config-default)
-(add-to-list 'ac-modes 'text-mode)
-(add-to-list 'ac-modes 'idlwave-mode)
-(global-auto-complete-mode t)
-
-;; C-n/C-p to select candidates
-;; (define-key ac-complete-mode-map "\C-n" 'ac-next)
-;; (define-key ac-complete-mode-map "\C-p" 'ac-previous)
-
-;; enable autopair in all buffers
-(require 'autopair)
-(autopair-global-mode)
-(setq autopair-autowrap t)
 
 ;;----------------------------------------------------------------------
 ;; Edit
@@ -339,8 +272,6 @@
 ;;----------------------------------------------------------------------
 ;; Whitespace mode
 ;;----------------------------------------------------------------------
-
-;; Choix des éléments mis en exergue :
 ;; - space      => montrer les espaces (KO car gestion intégrée d'Emacs)
 ;; - tabs       => montrer les tabulations
 ;; - trailing   => montrer les espaces superflus en fin de ligne
@@ -491,19 +422,8 @@
 (global-set-key (kbd "<C-f10>") 'kill-compilation)
 
 ;;----------------------------------------------------------------------
-;; Text mode
-;;----------------------------------------------------------------------
-
-;; Markdown, rst, bbcode, ...
-(require 'init-text)
-
-;; spell check
-(require 'init-spell)
-
-;;----------------------------------------------------------------------
 ;; Mail
 ;;----------------------------------------------------------------------
-
 (defun my-mail-mode-hook ()
   (auto-fill-mode 1)
   (setq fill-column 72)
@@ -513,57 +433,23 @@
 (add-hook 'mail-mode-hook 'my-mail-mode-hook)
 
 ;;----------------------------------------------------------------------
-;; Useful functions
+;; Config
 ;;----------------------------------------------------------------------
-(require 'init-functions)
+(require 'init-text)      ; Markdown, rst, bbcode, ...
+(require 'init-spell)     ; spell check
+(require 'init-functions) ; Useful functions
+(require 'init-org)       ; Org-mode
+(require 'init-latex)     ; LaTeX mode
+(require 'init-c)         ; C
+(require 'init-python)    ; Python
+(require 'init-haskell)   ; Haskell
+(require 'init-idlwave)   ; IDL - IDLwave
+(require 'init-lisp)      ; Emacs-Lisp
+(require 'init-html)      ; PHP - HTML - CSS
+(require 'init-tags)      ; Ctags
 
 ;;----------------------------------------------------------------------
-;; Org-mode
-;;----------------------------------------------------------------------
-(require 'init-org)
-
-;;----------------------------------------------------------------------
-;; LaTeX mode
-;;----------------------------------------------------------------------
-(require 'init-latex)
-
-;;----------------------------------------------------------------------
-;; C
-;;----------------------------------------------------------------------
-(require 'init-c)
-
-;;----------------------------------------------------------------------
-;; Python
-;;----------------------------------------------------------------------
-(require 'init-python)
-
-;;----------------------------------------------------------------------
-;; Haskell
-;;----------------------------------------------------------------------
-(require 'init-haskell)
-
-;;----------------------------------------------------------------------
-;; IDL - IDLwave
-;;----------------------------------------------------------------------
-(require 'init-idlwave)
-
-;;----------------------------------------------------------------------
-;; mode Emacs-Lisp...
-;;----------------------------------------------------------------------
-(require 'init-lisp)
-
-;;----------------------------------------------------------------------
-;; PHP - HTML - CSS
-;;----------------------------------------------------------------------
-(require 'init-html)
-
-;;----------------------------------------------------------------------
-;; Ctags
-;;----------------------------------------------------------------------
-(require 'init-tags)
-
-;;----------------------------------------------------------------------
-;; Modes divers
+;; Other prog modes
 ;;----------------------------------------------------------------------
 
 ;; shell
