@@ -84,7 +84,7 @@ set previouspattern=\bprev|previous|Previous|précédent|Précédent\b,^<$,^(<<|
 
 " Keys {{{
 
-let mapleader = ","
+set mapleader=","
 
 " Show/hide toolbars
 map <F9> :set go+=mT<CR>
