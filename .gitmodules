@@ -25,3 +25,6 @@
 [submodule "emacs.d/site-lisp/anything"]
 	path = emacs.d/site-lisp/anything
 	url = git://repo.or.cz/anything-config.git
+[submodule "emacs.d/site-lisp/idlwave-mode"]
+	path = emacs.d/site-lisp/idlwave-mode
+	url = https://github.com/jdtsmith/idlwave.git
