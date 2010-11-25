@@ -1,7 +1,6 @@
 #!/bin/sh
 
 # gnome stuff
-gnome-screensaver &
 #gnome-keyring-daemon --start --components=pkcs11
 #gnome-keyring-daemon --start --components=ssh
 #gnome-keyring-daemon --start --components=secrets
@@ -16,7 +15,6 @@ gnome-screensaver &
 #trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --width 15 --height 12 --transparent true --tint 0x000000 &
 
 stalonetray &
-nitrogen --restore &
 
 #exec xcompmgr &
 
@@ -32,8 +30,11 @@ if [[ $(hostname) == "goudes" ]]; then
     gnome-agenda &
 elif [[ $(hostname) == "fireball" ]]; then
     /usr/libexec/gnome-settings-daemon &
+    gnome-volume-control-applet &
     gpk-update-icon &
     numlockx &
     dropbox start &
 fi
 
+nitrogen --restore &
+gnome-screensaver &

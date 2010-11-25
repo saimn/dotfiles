@@ -27,6 +27,8 @@ import XMonad.Util.WorkspaceCompare (getSortByXineramaRule)
 
 -- actions
 import XMonad.Actions.CycleWS
+import XMonad.Actions.FindEmptyWorkspace
+import XMonad.Actions.WithAll (killAll)
 
 -- layouts
 import XMonad.Layout.Grid
@@ -65,6 +67,7 @@ main = do
    d <- spawnPipe dzenbar
    spawnPipe dzenobar
 
+   -- ewmh just makes wmctrl work
    xmonad $ ewmh $ withUrgencyHook NoUrgencyHook $ defaultConfig
        { terminal           = myTerminal
        , borderWidth        = myBorderWidth
@@ -72,13 +75,13 @@ main = do
        , normalBorderColor  = myNormalBorderColor
        , focusedBorderColor = myFocusedBorderColor
        , modMask            = myModMask
-       , keys               = myKeys
+       -- , keys               = myKeys
        , manageHook         = myManageHook
        , layoutHook         = myLayout
        , logHook            = myLogHook d (homedir ++ "/.dzen/bitmaps")
        -- , handleEventHook    = mappend myEventHook
        , startupHook        = myStartupHook
-       }
+       } `additionalKeysP` myKeys
 
 ------------------------------------------------------------------------
 -- Simple stuff
@@ -175,9 +178,12 @@ myDmenuBar  = "dmenu_run -i -p '>' -nb '" ++ colorBG ++ "' -nf '" ++ colorFG2 ++
 --  spiral (6/7) |||
 --
 myLayout = avoidStruts $ onWorkspace "9" simplestFloat $ layouts
+
   where
+
     layouts = smartBorders tiled ||| spaced ||| smartBorders (Mirror tiled) |||
               full ||| grid ||| simplestFloat
+
     spaced = named "Spacing" $ maximize $ hinted $ spacing 6 $ ResizableTall 1 (2/100) (1/2) []
     tiled  = named "Tiled" $ maximize $ hinted $ ResizableTall 1 (2/100) (1/2) []
     grid   = named "Grid" $ maximize $ hinted $ Grid
@@ -375,99 +381,134 @@ myStartupHook = ewmhDesktopsStartup >> setWMName "LG3D"
 ------------------------------------------------------------------------
 -- Key bindings. Add, modify or remove key bindings here.
 --
-myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
+-- myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
+--     -- launch a terminal
+--     [ ((modm .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)
+--      -- Rotate through the available layout algorithms
+--     , ((modm,               xK_space ), sendMessage NextLayout)
+--     --  Reset the layouts on the current workspace to default
+--     , ((modm .|. shiftMask, xK_space ), setLayout $ XMonad.layoutHook conf)
+--     -- Push window back into tiling
+--     , ((modm,               xK_t     ), withFocused $ windows . W.sink)
+--     -- Resize viewed windows to the correct size
+--     , ((modm,               xK_n     ), refresh)
 
-    -- launch a terminal
-    [ ((modm .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)
+--     -- Move focus to the next/previous/master window
+--     , ((modm,               xK_Tab   ), windows W.focusDown)
+--     , ((modm,               xK_j     ), windows W.focusDown)
+--     , ((modm,               xK_k     ), windows W.focusUp  )
+--     , ((modm,               xK_m     ), windows W.focusMaster  )
 
-    -- launchers
-    , ((modm,               xK_w     ), spawn myDmenuBar)
-    , ((modm,               xK_p     ), spawn "gmrun")
-    , ((modm .|. shiftMask, xK_p     ), spawn "kupfer")
+--     -- Swap the focused window and the master/next/previous window
+--     , ((modm,               xK_Return), windows W.swapMaster)
+--     , ((modm .|. shiftMask, xK_j     ), windows W.swapDown  )
+--     , ((modm .|. shiftMask, xK_k     ), windows W.swapUp    )
 
-    -- launch apps
-    , ((modm,               xK_a     ), spawn "nautilus ~/")
-    -- , ((modm .|. shiftMask, xK_a     ), spawn "nautilus --browser ~/")
-    , ((modm .|. shiftMask, xK_f     ), spawn "firefox")
-    , ((modm .|. shiftMask, xK_t     ), spawn "thunderbird")
-    , ((modm,               xK_Print ), spawn "scrot -q 90 ~/Images/screenshots/%F-%T.png")
+--     -- Increment/Deincrement the number of windows in the master area
+--     , ((modm              , xK_comma ), sendMessage (IncMasterN 1))
+--     , ((modm              , xK_semicolon), sendMessage (IncMasterN (-1)))
+--     ]
+--     ++
+--     -- mod-[1..9], Switch to workspace N
+--     -- mod-shift-[1..9], Move client to workspace N
+--     [((m .|. modm, k), windows $ f i)
+--         | (i, k) <- zip (XMonad.workspaces conf) [xK_F1 .. xK_F9]
+--         , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
+--     -- ++
+--     -- mod-{w,e,r}, Switch to physical/Xinerama screens 1, 2, or 3
+--     -- mod-shift-{w,e,r}, Move client to screen 1, 2, or 3
+--     -- [((m .|. modm, key), screenWorkspace sc >>= flip whenJust (windows . f))
+--     --     | (key, sc) <- zip [xK_w, xK_e, xK_r] [0..]
+--     --     , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
 
-    , ((modm,               xK_z     ), withFocused (sendMessage . maximizeRestore))
+myKeys = [ ("M-p"                   , spawn "gmrun"           ) -- app launcher
+         , ("M-S-p"                 , spawn "kupfer"          ) -- app launcher
+         , ("M-w"                   , spawn myDmenuBar        ) -- app launcher
 
-    -- close focused window
-    , ((modm,               xK_c     ), kill)
+         -- opening apps with Win
+         , ("M-a"                   , spawn "nautilus ~/"     ) -- browse folders
+         , ("M-s"                   , scratchTerm             ) -- bring me a term
+         , ("M-S-m"                 , scratchMixer            ) -- bring me a mixer
+         , ("M-S-t"                 , spawn "thunderbird"     ) -- open mail client
+         , ("M-S-f"                 , spawn "firefox"         ) -- open web client
+         -- , ("M-S-l"                 , spawn myLock            ) -- W-l to lock screen
+         , ("M-<Print>"             , spawn myPrint           ) -- print screen
 
-     -- Rotate through the available layout algorithms
-    , ((modm,               xK_space ), sendMessage NextLayout)
-    --  Reset the layouts on the current workspace to default
-    , ((modm .|. shiftMask, xK_space ), setLayout $ XMonad.layoutHook conf)
-    -- Push window back into tiling
-    , ((modm,               xK_t     ), withFocused $ windows . W.sink)
+         -- cycle workspaces
+         , ("M-<Right>"             , nextWS                  )
+         , ("M-<Left>"              , prevWS                  )
+         , ("M-S-<Left>"            , shiftToPrev             )
+         , ("M-S-<Right>"           , shiftToNext             )
 
-    -- Resize viewed windows to the correct size
-    , ((modm,               xK_n     ), refresh)
+         -- extended workspace navigations
+         , ("M-`"                   , toggleWS                ) -- switch to the most recently viewed ws
+         , ("M-<Backspace>"         , focusUrgent             ) -- focus most recently urgent window
+         , ("M-S-<Backspace>"       , clearUrgents            ) -- make urgents go away
+         , ("M-0"                   , viewEmptyWorkspace      ) -- go to next empty workspace
+         , ("M-S-0"                 , tagToEmptyWorkspace     ) -- targ window to empty workspace and view it
 
-    -- scratchpad
-    , ((modm,               xK_s     ), scratchTerm)
+         -- extended window movements
+         -- , ("M-h"                   , sendMessage Shrink      ) -- shink slave panes vertically
+         -- , ("M-l"                   , sendMessage Expand      ) -- expand slave panes vertically
+         -- , ("M-S-h"                 , sendMessage MirrorShrink) -- shink slave panes vertically
+         -- , ("M-S-l"                 , sendMessage MirrorExpand) -- expand slave panes vertically
+         -- , ("M-f"                   , jumpToFull              ) -- jump to full layout
+         -- , ("M-z"                   , maxWin                  ) -- maximize window
+         , ("M-b"                   , sendMessage ToggleStruts) -- toggle the status bar gap
 
-    -- Move focus to the next/previous/master window
-    , ((modm,               xK_Tab   ), windows W.focusDown)
-    , ((modm,               xK_j     ), windows W.focusDown)
-    , ((modm,               xK_k     ), windows W.focusUp  )
-    , ((modm,               xK_m     ), windows W.focusMaster  )
+         -- mpd and oss volume
+         -- , ("<XF86AudioPlay>"       , spawn "mpc toggle"      ) -- play/pause mpd
+         -- , ("<XF86AudioStop>"       , spawn "mpc stop"        ) -- stop mpd
+         -- , ("<XF86AudioPrev>"       , spawn "mpc prev"        ) -- prev song
+         -- , ("<XF86AudioNext>"       , spawn "mpc next"        ) -- next song
+         -- , ("<XF86AudioMute>"       , spawn "ossvol -t"       ) -- toggle mute
+         -- , ("<XF86AudioLowerVolume>", spawn "ossvol -d 1"     ) -- volume down
+         -- , ("<XF86AudioRaiseVolume>", spawn "ossvol -i 1"     ) -- volume up
 
-    -- Swap the focused window and the master/next/previous window
-    , ((modm,               xK_Return), windows W.swapMaster)
-    , ((modm .|. shiftMask, xK_j     ), windows W.swapDown  )
-    , ((modm .|. shiftMask, xK_k     ), windows W.swapUp    )
+         -- kill, reconfigure, exit commands
+         , ("M-c"                   , kill                    ) -- close focused window
+         , ("M-S-c"                 , killAll                 ) -- close all windows on this ws
+         , ("M-q"                   , spawn myRestart         ) -- restart xmonad
+         , ("M-S-q"                 , io (exitWith ExitSuccess)) -- logout/shutdow/restart menu
+         -- , ("M-S-q"                 , spawn "leave"           ) -- logout/shutdow/restart menu
+         ]
+         ++
+         -- mod-[1..9], Switch to workspace N
+         -- mod-shift-[1..9], Move client to workspace N
+         [ (otherModMasks ++ "M-" ++ key, action tag)
+             | (tag, key)  <- zip myWorkspaces (map (\x -> "<F" ++ show x ++ ">") [1..12])
+             , (otherModMasks, action) <- [ ("", windows . W.greedyView) -- or W.view
+                                          , ("S-", windows . W.shift)]
+         ]
 
-    -- Shrink/Expand the master area
-    , ((modm,               xK_h     ), sendMessage Shrink)
-    , ((modm,               xK_l     ), sendMessage Expand)
-    , ((modm .|. shiftMask, xK_h     ), sendMessage MirrorShrink)
-    , ((modm .|. shiftMask, xK_l     ), sendMessage MirrorExpand)
+         where
 
-    -- Increment/Deincrement the number of windows in the master area
-    , ((modm              , xK_comma ), sendMessage (IncMasterN 1))
-    , ((modm              , xK_semicolon), sendMessage (IncMasterN (-1)))
+           -- jumpToFull    = sendMessage $ JumpToLayout "Hinted Full"
+           -- maxWin        = withFocused (sendMessage . maximizeRestore))
 
-    -- cycle workspaces
-    , ((modm,               xK_Right ),  nextWS)
-    , ((modm,               xK_Left  ),  prevWS)
-    , ((modm .|. shiftMask, xK_Left  ),  shiftToPrev)
-    , ((modm .|. shiftMask, xK_Right ),  shiftToNext)
+           scratchTerm   = namedScratchpadAction myScratchPads "terminal"
+           scratchMixer  = namedScratchpadAction myScratchPads "mixer"
 
-    -- Toggle the status bar gap
-    -- Use this binding with avoidStruts from Hooks.ManageDocks.
-    -- See also the statusBar function from Hooks.DynamicLog.
-    , ((modm              , xK_b     ), sendMessage ToggleStruts)
+           myPrint       = "scrot -q 90 ~/Images/screenshots/%F-%T.png"
+           -- myBrowser     = "$BROWSER"
+           -- myLock        = "slock"
+           -- myMail        = myTerminal ++ " -e mutt"
+           -- myIRC         = myScreen "irssi"
+           -- myTorrents    = myScreen "rtorrent"
 
-    -- Quit or restart xmonad
-    , ((modm .|. shiftMask, xK_q     ), io (exitWith ExitSuccess))
---     , ((modm              , xK_q     ), spawn "xmonad --recompile; xmonad --restart")
-    , ((modm              , xK_q     ), spawn myRestart)
-    ]
-    ++
-    -- mod-[1..9], Switch to workspace N
-    -- mod-shift-[1..9], Move client to workspace N
-    [((m .|. modm, k), windows $ f i)
-        | (i, k) <- zip (XMonad.workspaces conf) [xK_F1 .. xK_F9]
-        , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
-    -- ++
-    -- mod-{w,e,r}, Switch to physical/Xinerama screens 1, 2, or 3
-    -- mod-shift-{w,e,r}, Move client to screen 1, 2, or 3
-    -- [((m .|. modm, key), screenWorkspace sc >>= flip whenJust (windows . f))
-    --     | (key, sc) <- zip [xK_w, xK_e, xK_r] [0..]
-    --     , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
+           -- see http://pbrisbin.com:8080/pages/screen_tricks.html
+           myScreen s    = myTerminal ++ " -title "                    ++ s
+                                      ++ " -e bash -cl \"SCREEN_CONF=" ++ s
+                                      ++ " screen -S "                 ++ s
+                                      ++ " -R -D "                     ++ s
+                                      ++ "\""
 
-    where
+           -- see http://pbrisbin.com:8080/pages/mplayer-control.html
+           -- mPlay s       = spawn $ unwords [ "echo", s, "> $HOME/.mplayer_fifo" ]
 
-      myRestart     = "for pid in `pgrep conky`; do kill -9 $pid; done && " ++
-                      "for pid in `pgrep dzen2`; do kill -9 $pid; done && " ++
-                      "xmonad --recompile && xmonad --restart"
-
-      scratchTerm   = namedScratchpadAction myScratchPads "terminal"
-
-
+           -- kill all conky/dzen2 before executing default restart command
+           myRestart     = "for pid in `pgrep conky`; do kill -9 $pid; done && " ++
+                           "for pid in `pgrep dzen2`; do kill -9 $pid; done && " ++
+                           "xmonad --recompile && xmonad --restart"
 
 -- vim:ts=2:sw=2:ai:et
