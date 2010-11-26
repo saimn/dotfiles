@@ -1,5 +1,6 @@
 
-import XMonad
+-- import XMonad
+import XMonad hiding ( (|||) )
 
 import Data.List
 import Data.Maybe
@@ -12,13 +13,14 @@ import System.IO
 import System.Posix.Unistd
 
 import qualified XMonad.StackSet as W
-import qualified Data.Map        as M
+import qualified XMonad.Actions.FlexibleResize as Flex
+-- import qualified Data.Map        as M
 
 import Graphics.X11.Xlib
 import IO (Handle, hPutStrLn)
 
 -- utils
-import XMonad.Util.EZConfig (additionalKeysP)
+import XMonad.Util.EZConfig (additionalKeysP,additionalMouseBindings)
 import XMonad.Util.Loggers (maildirNew,logCmd,dzenColorL,wrapL,shortenL)
 import XMonad.Util.NamedScratchpad
 import XMonad.Util.Run (spawnPipe)
@@ -28,10 +30,13 @@ import XMonad.Util.WorkspaceCompare (getSortByXineramaRule)
 -- actions
 import XMonad.Actions.CycleWS
 import XMonad.Actions.FindEmptyWorkspace
-import XMonad.Actions.WithAll (killAll)
+import XMonad.Actions.WithAll (killAll,sinkAll)
 
 -- layouts
+import XMonad.Layout.BorderResize
 import XMonad.Layout.Grid
+import XMonad.Layout.LayoutCombinators (JumpToLayout)
+import XMonad.Layout.LayoutCombinators
 import XMonad.Layout.LayoutHints (layoutHintsWithPlacement)
 import XMonad.Layout.Maximize
 import XMonad.Layout.Named
@@ -46,11 +51,18 @@ import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops (ewmhDesktopsStartup,ewmh)
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.ManageDocks
+import XMonad.Hooks.Place
 import XMonad.Hooks.SetWMName
 import XMonad.Hooks.UrgencyHook
 
+import XMonad.Prompt
+import XMonad.Prompt.Shell
+
+-- import XMonad.Actions.MouseResize
+-- import XMonad.Layout.WindowArranger
+
 ------------------------------------------------------------------------
--- Now run xmonad with all the defaults we set up.
+-- Main
 --
 main = do
    host <- fmap nodeName getSystemID
@@ -66,9 +78,10 @@ main = do
 
    d <- spawnPipe dzenbar
    spawnPipe dzenobar
+   spawn "conky -c ~/.conkycolors/conkyrc"
 
    -- ewmh just makes wmctrl work
-   xmonad $ ewmh $ withUrgencyHook NoUrgencyHook $ defaultConfig
+   xmonad $ ewmh $ withUrgencyHookC myUrgencyHook myUrgencyConfig $ defaultConfig
        { terminal           = myTerminal
        , borderWidth        = myBorderWidth
        , workspaces         = myWorkspaces
@@ -82,13 +95,14 @@ main = do
        -- , handleEventHook    = mappend myEventHook
        , startupHook        = myStartupHook
        } `additionalKeysP` myKeys
+       -- `additionalMouseBindings` myMouse
 
 ------------------------------------------------------------------------
 -- Simple stuff
 
 myTerminal          = "urxvtc"
 myWorkspaces        = ["main","mail","web","code"] ++ map show [5..9]
-myBorderWidth       = 1
+myBorderWidth       = 2
 
 -- mod1Mask ("left alt"). mod3Mask ("right alt"). mod4Mask ("windows").
 myModMask           = mod4Mask
@@ -101,7 +115,7 @@ myFocusedBorderColor = colorFG4
 barFont  = "-*-terminus-*-r-normal-*-*-140-*-*-*-*-iso8859-*"
 -- barFont  = "terminus"
 barXFont = "inconsolata:size=10:bold"
-xftFont  = "xft: inconsolata-10"
+xftFont  = "xft:inconsolata-10"
 
 -- <colors>
 -- colorBlack = "#000000"
@@ -144,15 +158,16 @@ colorFG5             = "#c4df90" -- peachy
 colorFG6             = "#ffffba" -- yellowy
 
 barHeight            = "20"
+
+-- for medium screen (1440px)
 leftBarWidth         = "700"
 rightBarWidth        = "600"
 
+-- for wide screen (1920px)
 leftBarWidthL        = "970"
 rightBarWidthL       = "870"
 
--- Status bar
--- myStatusBar= "dzen2 -bg '#222222' -fg '#FFFFFF' -h 14 -w 580 -sa c -e '' -fn '-*-terminus-*-r-normal-*-*-120-*-*-*-*-iso8859-*' -ta l"
--- sets up dzen options for two bars displayed as one spanning my 1920 px wide monitor
+-- Status bar (two bars displayed as one)
 myStatusBar w = "dzen2 -p -ta l -x 0 -y 0 -fn '" ++ barXFont ++ "'" ++
                 " -w " ++ w ++ " -h " ++ barHeight ++
                 " -fg '" ++ colorFG ++ "' -bg '" ++ colorBG ++ "'" ++
@@ -169,6 +184,17 @@ myOtherBar w x = "~/.dzen/status.sh |" ++
 myDmenuBar  = "dmenu_run -i -p '>' -nb '" ++ colorBG ++ "' -nf '" ++ colorFG2 ++
               "' -sb '" ++ colorFG5 ++ "' -sf '" ++ colorFG2 ++ "' -fn '" ++ barFont ++ "'"
 
+myPrompt :: XPConfig
+myPrompt = defaultXPConfig { font              = xftFont
+                           , bgColor           = colorBG
+                           , fgColor           = colorFG2
+                           , fgHLight          = colorFG4
+                           , bgHLight          = colorFG
+                           , promptBorderWidth = 0
+                           , position          = Bottom
+                           , height            = 18
+                           , historySize       = 128 }
+
 ------------------------------------------------------------------------
 -- Layouts:
 
@@ -176,20 +202,21 @@ myDmenuBar  = "dmenu_run -i -p '>' -nb '" ++ colorBG ++ "' -nf '" ++ colorFG2 ++
 -- restarting (with 'mod-q') to reset your layout state to the new
 -- defaults, as xmonad preserves your old layout settings by default.
 --  spiral (6/7) |||
---
-myLayout = avoidStruts $ onWorkspace "9" simplestFloat $ layouts
+-- mouseResize $ windowArrange $
+myLayout = avoidStruts $ onWorkspace "9" bfloat $ layouts
 
   where
 
     layouts = smartBorders tiled ||| spaced ||| smartBorders (Mirror tiled) |||
-              full ||| grid ||| simplestFloat
+              full ||| grid ||| bfloat
 
     spaced = named "Spacing" $ maximize $ hinted $ spacing 6 $ ResizableTall 1 (2/100) (1/2) []
-    tiled  = named "Tiled" $ maximize $ hinted $ ResizableTall 1 (2/100) (1/2) []
-    grid   = named "Grid" $ maximize $ hinted $ Grid
-    full   = named "Full" $ noBorders Full
+    tiled  = named "Tiled"   $ maximize $ hinted $ ResizableTall 1 (2/100) (1/2) []
+    grid   = named "Grid"    $ maximize $ hinted $ Grid
+    full   = named "Full"    $ noBorders Full
+    bfloat = named "Float"   $ borderResize $ simplestFloat
 
-    hinted l = layoutHintsWithPlacement (0,0) l
+    hinted l = layoutHintsWithPlacement (0.5,0.5) l
 
      -- default tiling algorithm partitions the screen into two panes
      --tiled   = Tall nmaster delta ratio
@@ -212,10 +239,10 @@ myLayout = avoidStruts $ onWorkspace "9" simplestFloat $ layouts
 -- To match on the WM_NAME, you can use 'title' in the same way that
 -- 'className' and 'resource' are used below.
 --
-myManageHook = (composeAll . concat $
+myManageHook = (placeHook simpleSmart) <+> (composeAll . concat $
   [ [resource  =? r  --> doIgnore         |  r <- myIgnores] -- ignore
   , [className =? c  --> doShift "web"    |  c <- myWebs   ] -- webs
-  , [className =? c  --> doShift "mail"   |  c <- myMails  ] -- mails, chats
+  , [resource  =? r  --> doShift "mail"   |  r <- myMails  ] -- mails, chats
   -- , [title     =? t  --> doShift "mail"   |  t <- myMails  ] -- mails, chats
   , [className =? c  --> doFloat          |  c <- myFloats ] -- floats
   , [className =? c  --> doCenterFloat    |  c <- myCFloats] -- centered floats
@@ -232,7 +259,7 @@ myManageHook = (composeAll . concat $
     role = stringProperty "WM_WINDOW_ROLE"
     name = stringProperty "WM_NAME"
 
-    myMails       = ["Thunderbird","mutt","irssi","Gajim.py"]
+    myMails       = ["Mail","mutt","Gajim.py"]
     myFloats      = ["gimp","gimp-2.6"] ++      -- image viewers
                     ["Zenity","file_properties","Ediff","Sonata"] ++
                     ["Gnome-agenda"]
@@ -279,31 +306,29 @@ myManageHook = (composeAll . concat $
 ------------------------------------------------------------------------
 -- ScratchPads
 --
-myScratchPads = [ NS "mixer"    spawnMixer findMixer manageMixer
-                , NS "terminal" spawnTerm  findTerm  manageTerm
+myScratchPads = [ NS "mixer"    spawnMixer findMixer manageScratch
+                , NS "terminal" spawnTerm  findTerm  manageScratch
+                , NS "htop"     spawnHtop  findHtop  manageScratch
                 ]
 
   where
-    spawnMixer  = "ossxmix"
-    findMixer   = className =? "Ossxmix"
-    manageMixer = customFloating $ W.RationalRect l t w h
+
+    spawnMixer  = myTerminal ++ " -name alsamixer -e alsamixer"
+    findMixer   = resource  =? "alsamixer"
+
+    spawnTerm   = myTerminal ++ " -name scratchpad"
+    findTerm    = resource  =? "scratchpad"
+
+    spawnHtop   = myTerminal ++ " -name htop -e htop"
+    findHtop    = resource  =? "htop"
+
+    manageScratch = customFloating $ W.RationalRect l t w h
 
       where
         h = 0.6       -- height, 60%
         w = 0.6       -- width, 60%
         t = (1 - h)/2 -- centered top/bottom
         l = (1 - w)/2 -- centered left/right
-
-    spawnTerm  = myTerminal ++ " -name scratchpad"
-    findTerm   = resource  =? "scratchpad"
-    manageTerm = customFloating $ W.RationalRect l t w h
-
-      where
-        h = 0.5       -- height, 10%
-        w = 0.5       -- width, 100%
-        t = (1 - h)/2 -- centered top/bottom
-        l = (1 - w)/2 -- centered left/right
-
 
 ------------------------------------------------------------------------
 -- Event handling
@@ -337,16 +362,7 @@ myLogHook h ico = dynamicLogWithPP $ defaultPP     -- the h here...
     -- other workspaces no windows
   , ppHiddenNoWindows = dzenColor colorFG2 colorBG . pad
     -- current layout
-  , ppLayout          = dzenColor colorFG5 colorBG . --pad
-                        (\x -> case x of
-                            "Mirror Tiled" -> "^i(" ++ ico ++ "/mtall.xbm)"
-                            "Spacing" -> "^i(" ++ ico ++ "/tall.xbm)"
-                            "Tiled" -> "^i(" ++ ico ++ "/tall.xbm)"
-                            "Full" -> "^i(" ++ ico ++ "/full.xbm)"
-                            "Grid" -> "^i(" ++ ico ++ "/grid.xbm)"
-                            "SimplestFloat" -> "~"
-                            _ -> x
-                        )
+  , ppLayout          = dzenColor colorFG5 colorBG . myRename
     -- window that needs attention
   , ppUrgent          = dzenColor colorFG4 colorBG . pad .
                         wrap ("^i(" ++ ico ++ "/alert.xbm)") "" . dzenStrip
@@ -359,16 +375,25 @@ myLogHook h ico = dynamicLogWithPP $ defaultPP     -- the h here...
   where
 
     -- L needed for loggers
-    dzenFG  c = dzenColor  c ""
-    dzenFGL c = dzenColorL c ""
+    -- dzenFG  c = dzenColor  c ""
+    -- dzenFGL c = dzenColorL c ""
 
     -- filter out scratchpad function
     noScratchPad ws = if ws == "NSP" then "" else ws
 
+    myRename = (\x -> case x of
+                   "Mirror Tiled" -> "^i(" ++ ico ++ "/mtall.xbm)"
+                   "Spacing"      -> "^i(" ++ ico ++ "/tall.xbm)"
+                   "Tiled"        -> "^i(" ++ ico ++ "/tall.xbm)"
+                   "Full"         -> "^i(" ++ ico ++ "/full.xbm)"
+                   "Grid"         -> "^i(" ++ ico ++ "/grid.xbm)"
+                   "Float"        -> "~"
+                   _ -> x
+               )
 
 ------------------------------------------------------------------------
 -- Startup hook
-
+--
 -- Perform an arbitrary action each time xmonad starts or is restarted
 -- with mod-q.  Used by, e.g., XMonad.Layout.PerWorkspace to initialize
 -- per-workspace layout choices.
@@ -377,6 +402,27 @@ myLogHook h ico = dynamicLogWithPP $ defaultPP     -- the h here...
 -- startup = do
 --           spawn "source $HOME/.xmonad/autostart.sh"
 myStartupHook = ewmhDesktopsStartup >> setWMName "LG3D"
+
+------------------------------------------------------------------------
+-- My SpawnHook
+--
+-- spawn an arbitrary command on urgent
+--
+data MySpawnHook = MySpawnHook String deriving (Read, Show)
+
+instance UrgencyHook MySpawnHook where
+  urgencyHook (MySpawnHook s) w = spawn s
+
+-- 'ding!'
+myUrgencyHook :: MySpawnHook
+myUrgencyHook = MySpawnHook "aplay -q /usr/share/sounds/purple/receive.wav"
+
+-- show hooks even on nonfocused but visible screen, and remind me every
+-- 30 seconds if i don't listen -- for some reason, ppUrgent doesn't
+-- work if it's a visible/nonfocused screen even though i'm using
+-- dzenStrip
+myUrgencyConfig :: UrgencyConfig
+myUrgencyConfig = UrgencyConfig OnScreen (Repeatedly 1 30)
 
 ------------------------------------------------------------------------
 -- Key bindings. Add, modify or remove key bindings here.
@@ -408,31 +454,21 @@ myStartupHook = ewmhDesktopsStartup >> setWMName "LG3D"
 --     , ((modm              , xK_comma ), sendMessage (IncMasterN 1))
 --     , ((modm              , xK_semicolon), sendMessage (IncMasterN (-1)))
 --     ]
---     ++
---     -- mod-[1..9], Switch to workspace N
---     -- mod-shift-[1..9], Move client to workspace N
---     [((m .|. modm, k), windows $ f i)
---         | (i, k) <- zip (XMonad.workspaces conf) [xK_F1 .. xK_F9]
---         , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
---     -- ++
---     -- mod-{w,e,r}, Switch to physical/Xinerama screens 1, 2, or 3
---     -- mod-shift-{w,e,r}, Move client to screen 1, 2, or 3
---     -- [((m .|. modm, key), screenWorkspace sc >>= flip whenJust (windows . f))
---     --     | (key, sc) <- zip [xK_w, xK_e, xK_r] [0..]
---     --     , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
 
 myKeys = [ ("M-p"                   , spawn "gmrun"           ) -- app launcher
          , ("M-S-p"                 , spawn "kupfer"          ) -- app launcher
-         , ("M-w"                   , spawn myDmenuBar        ) -- app launcher
+         -- , ("M-w"                   , spawn myDmenuBar        ) -- app launcher
+         , ("M-x"                   , shellPrompt myPrompt    )
 
          -- opening apps with Win
          , ("M-a"                   , spawn "nautilus ~/"     ) -- browse folders
-         , ("M-s"                   , scratchTerm             ) -- bring me a term
-         , ("M-S-m"                 , scratchMixer            ) -- bring me a mixer
          , ("M-S-t"                 , spawn "thunderbird"     ) -- open mail client
          , ("M-S-f"                 , spawn "firefox"         ) -- open web client
          -- , ("M-S-l"                 , spawn myLock            ) -- W-l to lock screen
          , ("M-<Print>"             , spawn myPrint           ) -- print screen
+         , ("M-s"                   , scratchTerm             ) -- bring me a term
+         -- , ("M-S-m"                 , scratchMixer            ) -- bring me a mixer
+         -- , ("M-S-h"                 , scratchHtop             ) -- bring me a htop
 
          -- cycle workspaces
          , ("M-<Right>"             , nextWS                  )
@@ -448,13 +484,15 @@ myKeys = [ ("M-p"                   , spawn "gmrun"           ) -- app launcher
          , ("M-S-0"                 , tagToEmptyWorkspace     ) -- targ window to empty workspace and view it
 
          -- extended window movements
-         -- , ("M-h"                   , sendMessage Shrink      ) -- shink slave panes vertically
-         -- , ("M-l"                   , sendMessage Expand      ) -- expand slave panes vertically
-         -- , ("M-S-h"                 , sendMessage MirrorShrink) -- shink slave panes vertically
-         -- , ("M-S-l"                 , sendMessage MirrorExpand) -- expand slave panes vertically
-         -- , ("M-f"                   , jumpToFull              ) -- jump to full layout
-         -- , ("M-z"                   , maxWin                  ) -- maximize window
+         , ("M-h"                   , sendMessage Shrink      ) -- shink slave panes vertically
+         , ("M-l"                   , sendMessage Expand      ) -- expand slave panes vertically
+         , ("M-S-h"                 , sendMessage MirrorShrink) -- shink slave panes vertically
+         , ("M-S-l"                 , sendMessage MirrorExpand) -- expand slave panes vertically
+         , ("M-f"                   , jumpToFull              ) -- jump to full layout
+         , ("M-z"                   , maxWin                  ) -- maximize window
          , ("M-b"                   , sendMessage ToggleStruts) -- toggle the status bar gap
+         , ("M-S-t"                 , sinkAll                 ) -- tile all windows
+         , ("M-w"                   , placeFocused simpleSmart)
 
          -- mpd and oss volume
          -- , ("<XF86AudioPlay>"       , spawn "mpc toggle"      ) -- play/pause mpd
@@ -483,11 +521,12 @@ myKeys = [ ("M-p"                   , spawn "gmrun"           ) -- app launcher
 
          where
 
-           -- jumpToFull    = sendMessage $ JumpToLayout "Hinted Full"
-           -- maxWin        = withFocused (sendMessage . maximizeRestore))
+           jumpToFull    = sendMessage $ JumpToLayout "Full"
+           maxWin        = withFocused (sendMessage . maximizeRestore)
 
            scratchTerm   = namedScratchpadAction myScratchPads "terminal"
            scratchMixer  = namedScratchpadAction myScratchPads "mixer"
+           scratchHtop   = namedScratchpadAction myScratchPads "htop"
 
            myPrint       = "scrot -q 90 ~/Images/screenshots/%F-%T.png"
            -- myBrowser     = "$BROWSER"
@@ -510,5 +549,12 @@ myKeys = [ ("M-p"                   , spawn "gmrun"           ) -- app launcher
            myRestart     = "for pid in `pgrep conky`; do kill -9 $pid; done && " ++
                            "for pid in `pgrep dzen2`; do kill -9 $pid; done && " ++
                            "xmonad --recompile && xmonad --restart"
+
+------------------------------------------------------------------------
+-- Key bindings. Add, modify or remove key bindings here.
+--
+-- myMouse = [ ((mod4Mask, button3), (\w -> focus w >> Flex.mouseResizeWindow w)) ]
+
+
 
 -- vim:ts=2:sw=2:ai:et
