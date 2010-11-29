@@ -259,7 +259,6 @@ myManageHook = (placeHook simpleSmart) <+> (composeAll . concat $
     role = stringProperty "WM_WINDOW_ROLE"
     name = stringProperty "WM_NAME"
 
-    myMails       = ["Mail","mutt","Gajim.py"]
     myFloats      = ["gimp","gimp-2.6"] ++      -- image viewers
                     ["Zenity","file_properties","Ediff","Sonata"] ++
                     ["Gnome-agenda"]
@@ -270,6 +269,7 @@ myManageHook = (placeHook simpleSmart) <+> (composeAll . concat $
                     ["Bookmarks","Downloads","Add-ons"] ++
                     ["Téléchargements","Préférences de Firefox"] ++
                     ["Open...","Enregistrer sous...","Ouvrir","Delete"]
+    myMails       = ["Mail","mutt","Gajim.py"]
     myWebs        = ["Navigator","Shiretoko","Firefox"]     ++ -- firefox
                     ["Uzbl","uzbl","Uzbl-core","uzbl-core"] ++ -- uzbl
                     ["Google-chrome","Chromium"]               -- chrom(e|ium)
@@ -306,21 +306,21 @@ myManageHook = (placeHook simpleSmart) <+> (composeAll . concat $
 ------------------------------------------------------------------------
 -- ScratchPads
 --
-myScratchPads = [ NS "mixer"    spawnMixer findMixer manageScratch
-                , NS "terminal" spawnTerm  findTerm  manageScratch
-                , NS "htop"     spawnHtop  findHtop  manageScratch
+myScratchPads = [ NS "terminal" spawnTerm  findTerm  manageScratch
+                -- , NS "mixer"    spawnMixer findMixer manageScratch
+                -- , NS "htop"     spawnHtop  findHtop  manageScratch
                 ]
 
   where
 
-    spawnMixer  = myTerminal ++ " -name alsamixer -e alsamixer"
-    findMixer   = resource  =? "alsamixer"
-
     spawnTerm   = myTerminal ++ " -name scratchpad"
     findTerm    = resource  =? "scratchpad"
 
-    spawnHtop   = myTerminal ++ " -name htop -e htop"
-    findHtop    = resource  =? "htop"
+    -- spawnHtop   = myTerminal ++ " -name htop -e htop"
+    -- findHtop    = resource  =? "htop"
+
+    -- spawnMixer  = myTerminal ++ " -name alsamixer -e alsamixer"
+    -- findMixer   = resource  =? "alsamixer"
 
     manageScratch = customFloating $ W.RationalRect l t w h
 
@@ -525,8 +525,8 @@ myKeys = [ ("M-p"                   , spawn "gmrun"           ) -- app launcher
            maxWin        = withFocused (sendMessage . maximizeRestore)
 
            scratchTerm   = namedScratchpadAction myScratchPads "terminal"
-           scratchMixer  = namedScratchpadAction myScratchPads "mixer"
-           scratchHtop   = namedScratchpadAction myScratchPads "htop"
+           -- scratchMixer  = namedScratchpadAction myScratchPads "mixer"
+           -- scratchHtop   = namedScratchpadAction myScratchPads "htop"
 
            myPrint       = "scrot -q 90 ~/Images/screenshots/%F-%T.png"
            -- myBrowser     = "$BROWSER"
@@ -536,11 +536,11 @@ myKeys = [ ("M-p"                   , spawn "gmrun"           ) -- app launcher
            -- myTorrents    = myScreen "rtorrent"
 
            -- see http://pbrisbin.com:8080/pages/screen_tricks.html
-           myScreen s    = myTerminal ++ " -title "                    ++ s
-                                      ++ " -e bash -cl \"SCREEN_CONF=" ++ s
-                                      ++ " screen -S "                 ++ s
-                                      ++ " -R -D "                     ++ s
-                                      ++ "\""
+           -- myScreen s    = myTerminal ++ " -title "                    ++ s
+           --                            ++ " -e bash -cl \"SCREEN_CONF=" ++ s
+           --                            ++ " screen -S "                 ++ s
+           --                            ++ " -R -D "                     ++ s
+           --                            ++ "\""
 
            -- see http://pbrisbin.com:8080/pages/mplayer-control.html
            -- mPlay s       = spawn $ unwords [ "echo", s, "> $HOME/.mplayer_fifo" ]
