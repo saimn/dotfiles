@@ -180,8 +180,6 @@
 ;; distinguish files with the same name
 ;; (require 'uniquify)
 
-(require 'magit)
-
 (require 'browse-kill-ring)
 (browse-kill-ring-default-keybindings)
 
@@ -209,6 +207,15 @@
                    "New tweets"
                    (format "You have %d new tweet%s"
                            n (if (> n 1) "s" ""))))))
+
+;;----------------------------------------------------------------------
+;; Version Control
+;;----------------------------------------------------------------------
+
+(require 'magit)
+(require 'psvn)
+(setq vc-svn-diff-switches 'nil)
+(setq vc-diff-switches '("-bBu"))
 
 ;;----------------------------------------------------------------------
 ;; Edit
