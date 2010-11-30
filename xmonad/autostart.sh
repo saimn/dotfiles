@@ -21,10 +21,9 @@ stalonetray &
 if [[ $(hostname) == "goudes" ]]; then
     gnome-settings-daemon &
     gnome-power-manager &
-    #nm-applet --sm-disable &
+    # nm-applet --sm-disable &
     wicd-client &
     alunn &
-    mail-notification &
     volumeicon &
     dropboxd &
     gnome-agenda &
