@@ -20,21 +20,27 @@ export EDITOR="emacsclient -c"
 #export EDITOR="gvim -f"
 export ALTERNATE_EDITOR="emacs"
 
-if [ -x `which most` ]; then
-   export PAGER=most
-elif [ -x `which less` ]; then
-   export PAGER=less
-   export LESS="-ir"
-   export LESSOPEN="| /usr/bin/lesspipe %s"
-   export LESSCLOSE="/usr/bin/lesspipe %s %s"
-   export LESS_TERMCAP_mb=$'\E[01;31m'    # debut de blink !
-   export LESS_TERMCAP_md=$'\E[01;31m'    # debut de gras
-   export LESS_TERMCAP_me=$'\E[0m'        # fin
-   export LESS_TERMCAP_so=$'\E[01;44;33m' # début de la ligne d'état
-   export LESS_TERMCAP_se=$'\E[0m'        # fin
-   export LESS_TERMCAP_us=$'\E[01;32m'    # début de souligné
-   export LESS_TERMCAP_ue=$'\E[0m'        # fin
-   export LESSHISTFILE="-"                # turn off .lesshst file
+# if [ -x `which most` ]; then
+#    export PAGER=most
+# elif [ -x `which less` ]; then
+
+export PAGER=less
+export LESS="-ir"
+export LESS_TERMCAP_mb=$'\E[01;31m'    # begin blink !
+export LESS_TERMCAP_md=$'\E[01;31m'    # begin bold
+export LESS_TERMCAP_me=$'\E[0m'        # end
+export LESS_TERMCAP_so=$'\E[01;44;33m' # début statusbar
+export LESS_TERMCAP_se=$'\E[0m'        # end
+export LESS_TERMCAP_us=$'\E[01;32m'    # begin underline
+export LESS_TERMCAP_ue=$'\E[0m'        # end
+export LESSHISTFILE="-"                # turn off .lesshst file
+
+if [ "$HOSTNAME" = "goudes" ]; then
+    export LESSOPEN="| /usr/bin/lesspipe %s"
+    export LESSCLOSE="/usr/bin/lesspipe %s %s"
+elif [ "$HOSTNAME" = "fireball" ]; then
+    export LESSOPEN="| /usr/bin/lesspipe.sh %s"
+    export LESSCLOSE="/usr/bin/lesspipe.sh %s %s"
 fi
 
 # Permissions rw-r--r-- pour les fichiers crées

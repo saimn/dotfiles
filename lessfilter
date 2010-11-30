@@ -1,0 +1,73 @@
+#!/bin/sh
+# ~/.lessfilter: add commands for lesspipe
+
+case `echo "$1" | tr '[:upper:]' '[:lower:]'` in
+    *.odt)
+        if [ -x `which odt2txt` ]; then odt2txt "$1";
+        else echo "No odt2txt available"; fi
+        ;;
+
+    *.doc)
+        if [ -x `which antiword.bin` ]; then antiword.bin "$1";
+        else echo "No antiword available"; fi
+        ;;
+
+    *.pdf)
+        if [ -x `which pdftotext` ]; then pdftotext "$1" -;
+        else echo "No pdftotext available"; fi
+        ;;
+
+    *.jpg|*.jpeg|*.gif|*.bmp|*.png)
+        # voir la description de l'image
+        # c'est le comportement par défaut de lesspipe (nécessite imagemagick)
+        identify "$1" > /tmp/lessout
+        # voir l'image en ASCII en dessous (nécessite caca-utils)
+        # il faut ajouter l'option -r à less pour voir la couleur (export LESS=-r)
+        img2txt "$1" >> /tmp/lessout
+        # récupère la description avec l'image en ASCII dessous :
+        cat /tmp/lessout
+        rm /tmp/lessout
+        ;;
+
+    *.mp3)
+        if [ -x `which eyeD3` ]; then eyeD3 "$1";
+        else echo "No eyeD3 available"; fi
+        ;;
+
+    *.ogg)
+        if [ -x `which avinfo` ]; then avinfo "$1";
+        else echo "No avinfo available"; fi
+        ;;
+
+    *.mpg|*.avi|*.wmv)
+        if [ -x `which avinfo` ]; then avinfo --far "$1";
+        else echo "No avinfo available"; fi
+        ;;
+
+    *.c|*.h|*.py|*.pl)
+        if [ -x `which highlight` ]; then highlight -A "$1";
+        else echo "No highlight available"; fi
+        ;;
+
+    *makefile)
+        if [ -x `which highlight` ]; then highlight -S qmake -A "$1";
+        else echo "No highlight available"; fi
+        ;;
+
+    *)
+        case `file "$1"` in
+            *directory)
+                ls -la "$1"
+                ;;
+
+            *POSIX*shell*script*executable)
+                if [ -x `which highlight` ]; then highlight -S bash -A "$1";
+                else echo "No highlight available"; fi
+                ;;
+
+            *)
+                exit 1
+        esac
+esac
+
+exit 0
