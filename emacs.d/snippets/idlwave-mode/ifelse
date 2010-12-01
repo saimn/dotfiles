@@ -2,8 +2,8 @@
 # name: ifelse
 # key: ifelse
 # --
-if $0 then begin
-  $1
+if $1 then begin
+   $2
 endif else begin
-  $2
+   $0
 endelse

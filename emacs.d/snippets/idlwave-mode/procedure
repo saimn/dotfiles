@@ -2,6 +2,6 @@
 # name: procedure
 # key: pro
 # --
-pro $0
-  $1
+pro $1
+  $0
 end

@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: if keyword_set
+# key: ifk
+# --
+if keyword_set($1) then $0

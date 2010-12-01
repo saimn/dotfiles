@@ -2,7 +2,7 @@
 # name: function
 # key: fun
 # --
-function $0
-  $1
-  return
+function $1
+  $0
+  return, 0
 end
