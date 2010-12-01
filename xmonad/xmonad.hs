@@ -33,7 +33,7 @@ import XMonad.Actions.FindEmptyWorkspace
 import XMonad.Actions.WithAll (killAll,sinkAll)
 
 -- layouts
-import XMonad.Layout.BorderResize
+-- import XMonad.Layout.BorderResize
 import XMonad.Layout.Grid
 import XMonad.Layout.LayoutCombinators (JumpToLayout)
 import XMonad.Layout.LayoutCombinators
@@ -58,7 +58,7 @@ import XMonad.Hooks.UrgencyHook
 import XMonad.Prompt
 import XMonad.Prompt.Shell
 
--- import XMonad.Actions.MouseResize
+import XMonad.Actions.MouseResize
 -- import XMonad.Layout.WindowArranger
 
 ------------------------------------------------------------------------
@@ -94,8 +94,7 @@ main = do
        , logHook            = myLogHook d (homedir ++ "/.dzen/bitmaps")
        -- , handleEventHook    = mappend myEventHook
        , startupHook        = myStartupHook
-       } `additionalKeysP` myKeys
-       -- `additionalMouseBindings` myMouse
+       } `additionalKeysP` myKeys `additionalMouseBindings` myMouse
 
 ------------------------------------------------------------------------
 -- Simple stuff
@@ -191,7 +190,7 @@ myPrompt = defaultXPConfig { font              = xftFont
                            , fgHLight          = colorFG4
                            , bgHLight          = colorFG
                            , promptBorderWidth = 0
-                           , position          = Bottom
+                           , position          = Top
                            , height            = 18
                            , historySize       = 128 }
 
@@ -201,8 +200,7 @@ myPrompt = defaultXPConfig { font              = xftFont
 -- If you change layout bindings be sure to use 'mod-shift-space' after
 -- restarting (with 'mod-q') to reset your layout state to the new
 -- defaults, as xmonad preserves your old layout settings by default.
---  spiral (6/7) |||
--- mouseResize $ windowArrange $
+-- windowArrange $ borderResize $
 myLayout = avoidStruts $ onWorkspace "9" bfloat $ layouts
 
   where
@@ -214,7 +212,7 @@ myLayout = avoidStruts $ onWorkspace "9" bfloat $ layouts
     tiled  = named "Tiled"   $ maximize $ hinted $ ResizableTall 1 (2/100) (1/2) []
     grid   = named "Grid"    $ maximize $ hinted $ Grid
     full   = named "Full"    $ noBorders Full
-    bfloat = named "Float"   $ borderResize $ simplestFloat
+    bfloat = named "Float"   $ mouseResize $ simplestFloat
 
     hinted l = layoutHintsWithPlacement (0.5,0.5) l
 
@@ -238,8 +236,8 @@ myLayout = avoidStruts $ onWorkspace "9" bfloat $ layouts
 --
 -- To match on the WM_NAME, you can use 'title' in the same way that
 -- 'className' and 'resource' are used below.
---
-myManageHook = (placeHook simpleSmart) <+> (composeAll . concat $
+-- (placeHook simpleSmart) <+>
+myManageHook = (composeAll . concat $
   [ [resource  =? r  --> doIgnore         |  r <- myIgnores] -- ignore
   , [className =? c  --> doShift "web"    |  c <- myWebs   ] -- webs
   , [resource  =? r  --> doShift "mail"   |  r <- myMails  ] -- mails, chats
@@ -266,7 +264,7 @@ myManageHook = (placeHook simpleSmart) <+> (composeAll . concat $
                     ["MPlayer","Gnome-mplayer","Vlc","Totem"] ++ -- media players
                     ["Gcalctool","Idl","Toplevel","Wicd-client.py"]
     myOtherFloats = ["Bibliothèque Multimédia"] ++
-                    ["Bookmarks","Downloads","Add-ons"] ++
+                    ["Bookmarks","Downloads","Add-ons","IDL"] ++
                     ["Téléchargements","Préférences de Firefox"] ++
                     ["Open...","Enregistrer sous...","Ouvrir","Delete"]
     myMails       = ["Mail","mutt","Gajim.py"]
@@ -456,7 +454,7 @@ myUrgencyConfig = UrgencyConfig OnScreen (Repeatedly 1 30)
 --     ]
 
 myKeys = [ ("M-p"                   , spawn "gmrun"           ) -- app launcher
-         , ("M-S-p"                 , spawn "kupfer"          ) -- app launcher
+         -- , ("M-S-p"                 , spawn "kupfer"          ) -- app launcher
          -- , ("M-w"                   , spawn myDmenuBar        ) -- app launcher
          , ("M-x"                   , shellPrompt myPrompt    )
 
@@ -511,8 +509,8 @@ myKeys = [ ("M-p"                   , spawn "gmrun"           ) -- app launcher
          -- , ("M-S-q"                 , spawn "leave"           ) -- logout/shutdow/restart menu
          ]
          ++
-         -- mod-[1..9], Switch to workspace N
-         -- mod-shift-[1..9], Move client to workspace N
+         -- mod-[F1..F9], Switch to workspace N
+         -- mod-shift-[F1..F9], Move client to workspace N
          [ (otherModMasks ++ "M-" ++ key, action tag)
              | (tag, key)  <- zip myWorkspaces (map (\x -> "<F" ++ show x ++ ">") [1..12])
              , (otherModMasks, action) <- [ ("", windows . W.greedyView) -- or W.view
@@ -533,7 +531,6 @@ myKeys = [ ("M-p"                   , spawn "gmrun"           ) -- app launcher
            -- myLock        = "slock"
            -- myMail        = myTerminal ++ " -e mutt"
            -- myIRC         = myScreen "irssi"
-           -- myTorrents    = myScreen "rtorrent"
 
            -- see http://pbrisbin.com:8080/pages/screen_tricks.html
            -- myScreen s    = myTerminal ++ " -title "                    ++ s
@@ -553,7 +550,7 @@ myKeys = [ ("M-p"                   , spawn "gmrun"           ) -- app launcher
 ------------------------------------------------------------------------
 -- Key bindings. Add, modify or remove key bindings here.
 --
--- myMouse = [ ((mod4Mask, button3), (\w -> focus w >> Flex.mouseResizeWindow w)) ]
+myMouse = [ ((mod4Mask, button3), (\w -> focus w >> Flex.mouseResizeWindow w)) ]
 
 
 
