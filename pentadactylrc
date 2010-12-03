@@ -23,7 +23,7 @@ set visualbell
 
 " open all commands in a new tab
 set newtab=all
-set showstatuslinks=2
+" set showstatuslinks=2
 
 set wildmode=list:longest,list:full
 "set wildoptions=auto
@@ -40,16 +40,16 @@ set strictfocus
 "nmap <silent> <A-u> :set invbuftabs<CR>
 
 " RSS icon in statusbar
-javascript <<EOF
-(function(){
-   var feedPanel = document.createElement("statusbarpanel");
-   feedPanel.setAttribute("id", "feed-panel-clone");
-   feedPanel.appendChild(document.getElementById("feed-button"));
-   feedPanel.firstChild.setAttribute("style", "padding: 0; max-height: 16px;");
-   document.getElementById("status-bar")
-           .insertBefore(feedPanel, document.getElementById("security-button"));
-})();
-EOF
+" javascript <<EOF
+" (function(){
+"    var feedPanel = document.createElement("statusbarpanel");
+"    feedPanel.setAttribute("id", "feed-panel-clone");
+"    feedPanel.appendChild(document.getElementById("feed-button"));
+"    feedPanel.firstChild.setAttribute("style", "padding: 0; max-height: 16px;");
+"    document.getElementById("status-bar")
+"            .insertBefore(feedPanel, document.getElementById("security-button"));
+" })();
+" EOF
 
 " {{{ Quickmarks / Bookmarks
 " Quickmarks
@@ -113,7 +113,7 @@ nmap <silent> <Leader>S :loaduserstyles<CR>:styledisable -name global<CR>
 " Firefox options {{{
 
 " hide close button
-set! browser.tabs.closeButtons=2
+"set! browser.tabs.closeButtons=2
 " open bookmarks in background
 "set! browser.tabs.loadBookmarksInBackground=true
 " open tabs by javascript in background
