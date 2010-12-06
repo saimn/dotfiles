@@ -33,7 +33,7 @@ var loaduserstyles = function()
 
         [
             "camptocamp:dark",
-            "camptocamp.org",
+            "www.camptocamp.org",
             "camptocamp-dark.css",
         ],
 
