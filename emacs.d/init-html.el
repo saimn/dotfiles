@@ -39,7 +39,7 @@
 
 (defun my-css-mode-hook ()
   (setq css-indent-offset 2)
-  (define-key css-mode-map "\C-s" 'css-insert-section)
+  (define-key css-mode-map "\C-c s" 'css-insert-section)
   (rainbow-mode 1))
 
 (add-hook 'css-mode-hook 'my-css-mode-hook)

@@ -443,7 +443,7 @@
 ;; Config
 ;;----------------------------------------------------------------------
 (require 'init-text)      ; Markdown, rst, bbcode, ...
-(require 'init-spell)     ; spell check
+;(require 'init-spell)     ; spell check
 (require 'init-functions) ; Useful functions
 (require 'init-org)       ; Org-mode
 (require 'init-latex)     ; LaTeX mode
@@ -488,6 +488,10 @@
 ;; (defun my-fortran-mode-hook ()
 ;;   (lambda () (local-set-key (kbd "RET") 'reindent-then-newline-and-indent)))
 ;; (add-hook 'f90-mode-hook 'my-fortran-mode-hook)
+
+;; Lua
+(setq auto-mode-alist (cons '("\.lua$" . lua-mode) auto-mode-alist))
+(autoload 'lua-mode "lua-mode" "Lua editing mode." t)
 
 ;;----------------------------------------------------------------------
 ;; Mode for each file type

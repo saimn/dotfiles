@@ -28,11 +28,11 @@
 ;;----------------------------------------------------------------------
 ;; IPython
 ;;----------------------------------------------------------------------
-(setq ipython-command "ipython")
-(require 'ipython)
-;; (setq python-python-command "ipython")
-(setq py-python-command-args '( "-colors" "Linux"))
-(setq ipython-completion-command-string "print(';'.join(__IP.Completer.all_completions('%s')))\n")
+;; (setq ipython-command "ipython")
+;; (require 'ipython)
+;; ;; (setq python-python-command "ipython")
+;; (setq py-python-command-args '( "-colors" "Linux"))
+;; (setq ipython-completion-command-string "print(';'.join(__IP.Completer.all_completions('%s')))\n")
 
 ;;----------------------------------------------------------------------
 ;; Fonctions
