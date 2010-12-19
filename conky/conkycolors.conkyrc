@@ -1,0 +1,113 @@
+######################
+# - Conky settings - #
+######################
+update_interval 1
+total_run_times 0
+net_avg_samples 1
+cpu_avg_samples 1
+
+imlib_cache_size 0
+double_buffer yes
+no_buffers yes
+
+format_human_readable
+
+#####################
+# - Text settings - #
+#####################
+use_xft yes
+xftfont Droid Sans:size=8
+override_utf8_locale yes
+text_buffer_size 2048
+
+#############################
+# - Window specifications - #
+#############################
+own_window_class Conky
+own_window yes
+own_window_type override
+own_window_transparent yes
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+
+alignment top_right
+gap_x 0
+gap_y 40
+minimum_size 182 0
+maximum_width 182
+
+default_bar_size 60 8
+
+#########################
+# - Graphics settings - #
+#########################
+draw_shades no
+
+default_color E2DACB
+
+color0 F0EBE2
+color1 F56F6E
+color2 E6E6E6
+
+lua_load /usr/share/conky-colors/scripts/conkyCairo.lua
+lua_draw_hook_pre conky_widgets white 2 off_ORC off_Swap cairo off_Player off_Player on
+
+TEXT
+##############
+# - SYSTEM - #
+##############
+# |--CPU
+${voffset 12}
+${goto 100}${font Droid Sans:style=Bold:size=8}${color2}${freq_g (1)}${color} GHZ${font}
+${goto 100}CPU1: ${font Droid Sans:style=Bold:size=8}${color1}${cpu cpu1}%${color}${font}
+${goto 100}Temp: ${font Droid Sans:style=Bold:size=8}${color1}${execi 30 sensors | grep 'Core 0' | cut -c15-16}°C${color}${font}
+${voffset 12}
+${goto 100}${font Droid Sans:style=Bold:size=8}${color2}${freq_g (2)}${color} GHZ${font}
+${goto 100}CPU2: ${font Droid Sans:style=Bold:size=8}${color1}${cpu cpu2}%${color}${font}
+${goto 100}Temp: ${font Droid Sans:style=Bold:size=8}${color1}${execi 30 sensors | grep 'Core 1' | cut -c15-16}°C${color}${font}
+# |--MEM
+${voffset 12}
+${goto 100}RAM: ${font Droid Sans:style=Bold:size=8}${color1}$memperc%${color}${font}
+${goto 100}F: ${font Droid Sans:style=Bold:size=8}${color2}${memeasyfree}${color}${font}
+${goto 100}U: ${font Droid Sans:style=Bold:size=8}${color2}${mem}${color}${font}
+#############
+# - CLOCK - #
+#############
+${voffset 10}
+${alignr 78}${font Droid Sans:style=Bold:size=11}${color2}${time %H}${time :%M}${time :%S}${color}${font}
+${alignr 66}${voffset -2}${font Droid Sans:style=Bold:size=8}${color2}${time %A}${color}${font}
+${alignr 64}${time %d %b %Y}
+##########
+# - HD - #
+##########
+${voffset 12}
+${goto 100}Root: ${font Liberation Sans:style=Bold:size=8}${color1}${fs_free_perc /}%${color}${font}
+${goto 100}F: ${font Droid Sans:style=Bold:size=8}${color2}${fs_free /}${color}${font}
+${goto 100}U: ${font Droid Sans:style=Bold:size=8}${color2}${fs_used /}${color}${font}
+${voffset 12}
+${goto 100}Home: ${font Liberation Sans:style=Bold:size=8}${color1}${fs_free_perc /home}%${color}${font}
+${goto 100}F: ${font Droid Sans:style=Bold:size=8}${color2}${fs_free /home}${color}${font}
+${goto 100}U: ${font Droid Sans:style=Bold:size=8}${color2}${fs_used /home}${color}${font}
+###############
+# - NETWORK - #
+###############
+${voffset -2}
+# |--WLAN0
+${if_up wlan0}
+${goto 100}Up: ${font Droid Sans:style=Bold:size=8}${color1}${upspeed wlan0}${color}${font}
+${goto 100}Total: ${font Droid Sans:style=Bold:size=8}${color2}${totalup wlan0}${color}${font}
+${goto 100}Down: ${font Droid Sans:style=Bold:size=8}${color1}${downspeed wlan0}${color}${font}
+${goto 100}Total: ${font Droid Sans:style=Bold:size=8}${color2}${totaldown wlan0}${color}${font}
+${goto 100}Signal: ${font Droid Sans:style=Bold:size=8}${color1}${wireless_link_qual wlan0}%${color}${font}
+# |--ETH0
+${else}${if_up eth0}
+${goto 100}Up: ${font Droid Sans:style=Bold:size=8}${color1}${upspeed eth0}${color}${font}
+${goto 100}Total: ${font Droid Sans:style=Bold:size=8}${color2}${totalup eth0}${color}${font}
+${goto 100}Down: ${font Droid Sans:style=Bold:size=8}${color1}${downspeed eth0}${color}${font}
+${goto 100}Total: ${font Droid Sans:style=Bold:size=8}${color2}${totaldown eth0}${color}${font}
+# |--PPP0
+${else}${if_up ppp0}
+${goto 100}Up: ${font Droid Sans:style=Bold:size=8}${color1}${upspeed ppp0}${color}${font}
+${goto 100}Total: ${font Droid Sans:style=Bold:size=8}${color2}${totalup ppp0}${color}${font}
+${goto 100}Down: ${font Droid Sans:style=Bold:size=8}${color1}${downspeed ppp0}${color}${font}
+${goto 100}Total: ${font Droid Sans:style=Bold:size=8}${color2}${totaldown ppp0}${color}${font}
+${endif}${endif}${endif}
