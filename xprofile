@@ -32,12 +32,8 @@ test -r $HOME/.Xmodmap && xmodmap $HOME/.Xmodmap
 test -r $HOME/.Xresources && xrdb -load $HOME/.Xresources
 test -r $HOME/.Xdefaults && xrdb -load $HOME/.Xdefaults
 
-#[[ $(hostname) == "devenson" ]] &&
-source $HOME/.xmonad/autostart.sh
-
-#emacs --daemon &
-urxvtd -q -f -o &
-#xbindkeys &
+#[[ $(hostname) == "goudes" ]] &&
+source $HOME/dotfiles/config/autostart.sh
 
 # Start ssh-agent
 #eval `ssh-agent -s`

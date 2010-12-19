@@ -1,10 +1,7 @@
 #!/bin/sh
 
-# gnome stuff
-#gnome-keyring-daemon --start --components=pkcs11
-#gnome-keyring-daemon --start --components=ssh
-#gnome-keyring-daemon --start --components=secrets
-#gnome-keyring-daemon -s -c &
+# gnome keyring
+eval $(gnome-keyring-daemon -s --components=pkcs11,secrets,ssh,gpg)
 
 #feh --bg-scale ~/Downloads/118-e.jpg &
 #feh --bg-tile ~/.xmonad/background.png &
@@ -14,9 +11,8 @@
 
 #trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --width 15 --height 12 --transparent true --tint 0x000000 &
 
-stalonetray &
-
-#exec xcompmgr &
+# stalonetray &
+# exec xcompmgr &
 
 if [[ $(hostname) == "goudes" ]]; then
     gnome-settings-daemon &
@@ -24,7 +20,6 @@ if [[ $(hostname) == "goudes" ]]; then
     # nm-applet --sm-disable &
     wicd-client &
     alunn &
-    volumeicon &
     dropboxd &
     gnome-agenda &
 elif [[ $(hostname) == "fireball" ]]; then
@@ -35,5 +30,8 @@ elif [[ $(hostname) == "fireball" ]]; then
     dropbox start &
 fi
 
-nitrogen --restore &
+#nitrogen --restore &
 gnome-screensaver &
+urxvtd -q -f -o &
+# emacs --daemon &
+# xbindkeys &

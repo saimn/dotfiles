@@ -52,7 +52,7 @@ URL_pd = ${TermExec} 'perldoc %s'
 # {{{ Extension handlers
 # Customize your own extension handler.
 EXT:doc,rtf,txt,cc,cpp,h,java,html,htm,epl,tex,latex,js,css,xml,xsl,am,ps,pdf = xdg-open %s
-EXT:ps = zathura %s
+EXT:ps = evince %s
 EXT:pdf = zathura %s
 # EXT:doc,rtf = oowriter %s
 # EXT:html,htm = x-www-browser %s
