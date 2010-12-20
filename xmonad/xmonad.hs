@@ -78,7 +78,7 @@ main = do
 
    d <- spawnPipe dzenbar
    spawnPipe dzenobar
-   spawn "conky -c ~/.conkycolors/conkyrc"
+   -- spawn "conky -c ~/.conkycolors/conkyrc"
 
    -- ewmh just makes wmctrl work
    xmonad $ ewmh $ withUrgencyHookC myUrgencyHook myUrgencyConfig $ defaultConfig

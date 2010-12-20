@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # gnome keyring
-eval $(gnome-keyring-daemon -s --components=pkcs11,secrets,ssh,gpg)
+#eval $(gnome-keyring-daemon -s --components=pkcs11,secrets,ssh,gpg)
 
 #feh --bg-scale ~/Downloads/118-e.jpg &
 #feh --bg-tile ~/.xmonad/background.png &
@@ -23,7 +23,7 @@ if [[ $(hostname) == "goudes" ]]; then
     dropboxd &
     gnome-agenda &
 elif [[ $(hostname) == "fireball" ]]; then
-    /usr/libexec/gnome-settings-daemon &
+    # /usr/libexec/gnome-settings-daemon &
     gnome-volume-control-applet &
     gpk-update-icon &
     numlockx &
@@ -31,7 +31,7 @@ elif [[ $(hostname) == "fireball" ]]; then
 fi
 
 #nitrogen --restore &
-gnome-screensaver &
+# gnome-screensaver &
 urxvtd -q -f -o &
 # emacs --daemon &
 # xbindkeys &

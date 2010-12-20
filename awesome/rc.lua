@@ -53,14 +53,14 @@ layouts = {
 
 -- {{{ Tags
 tags = {
-  names  = { "term", "code", "web", "mail", "im", 6, 7, 8, "media" },
+  names  = { "mail", "web", "term", "code", "misc", 6, 7, 8, "media" },
   layout = { layouts[1], layouts[1], layouts[1], layouts[1], layouts[1],
              layouts[1], layouts[1], layouts[1], layouts[1]
 }}
 
 for s = 1, screen.count() do
     tags[s] = awful.tag(tags.names, s, tags.layout)
-    awful.tag.setproperty(tags[s][5], "mwfact", 0.13)
+    -- awful.tag.setproperty(tags[s][5], "mwfact", 0.13)
     awful.tag.setproperty(tags[s][6], "hide",   true)
     awful.tag.setproperty(tags[s][7], "hide",   true)
     awful.tag.setproperty(tags[s][8], "hide",   true)
@@ -180,8 +180,8 @@ upicon.image = image(beautiful.widget_netup)
 netwidget = widget({ type = "textbox" })
 -- Register widget
 vicious.register(netwidget, vicious.widgets.net, '<span color="'
-  .. beautiful.fg_netdn_widget ..'">${wlan0 down_kb}</span> <span color="'
-  .. beautiful.fg_netup_widget ..'">${wlan0 up_kb}</span>', 3)
+  .. beautiful.fg_netdn_widget ..'">${eth0 down_kb}</span> <span color="'
+  .. beautiful.fg_netup_widget ..'">${eth0 up_kb}</span>', 3)
 -- }}}
 
 -- {{{ Mail subject
@@ -225,29 +225,29 @@ vicious.register(netwidget, vicious.widgets.net, '<span color="'
 -- }}}
 
 -- {{{ Volume level
-volicon = widget({ type = "imagebox" })
-volicon.image = image(beautiful.widget_vol)
--- Initialize widgets
-volbar    = awful.widget.progressbar()
-volwidget = widget({ type = "textbox" })
--- Progressbar properties
-volbar:set_vertical(true):set_ticks(true)
-volbar:set_height(16):set_width(8):set_ticks_size(2)
-volbar:set_background_color(beautiful.fg_off_widget)
-volbar:set_gradient_colors({ beautiful.fg_widget,
-   beautiful.fg_center_widget, beautiful.fg_end_widget
-}) -- Enable caching
-vicious.cache(vicious.widgets.volume)
--- Register widgets
-vicious.register(volbar,    vicious.widgets.volume,  "$1",  2, "Master")
-vicious.register(volwidget, vicious.widgets.volume, " $1%", 2, "Master")
--- Register buttons
-volbar.widget:buttons(awful.util.table.join(
-   awful.button({ }, 1, function () exec("urxvt -e alsamixer") end),
-   awful.button({ }, 4, function () exec("amixer -q set Master 2dB+", false) end),
-   awful.button({ }, 5, function () exec("amixer -q set Master 2dB-", false) end)
-)) -- Register assigned buttons
-volwidget:buttons(volbar.widget:buttons())
+-- volicon = widget({ type = "imagebox" })
+-- volicon.image = image(beautiful.widget_vol)
+-- -- Initialize widgets
+-- volbar    = awful.widget.progressbar()
+-- volwidget = widget({ type = "textbox" })
+-- -- Progressbar properties
+-- volbar:set_vertical(true):set_ticks(true)
+-- volbar:set_height(16):set_width(8):set_ticks_size(2)
+-- volbar:set_background_color(beautiful.fg_off_widget)
+-- volbar:set_gradient_colors({ beautiful.fg_widget,
+--    beautiful.fg_center_widget, beautiful.fg_end_widget
+-- }) -- Enable caching
+-- vicious.cache(vicious.widgets.volume)
+-- -- Register widgets
+-- vicious.register(volbar,    vicious.widgets.volume,  "$1",  2, "Master")
+-- vicious.register(volwidget, vicious.widgets.volume, " $1%", 2, "Master")
+-- -- Register buttons
+-- volbar.widget:buttons(awful.util.table.join(
+--    awful.button({ }, 1, function () exec("urxvt -e alsamixer") end),
+--    awful.button({ }, 4, function () exec("amixer -q set Master 2dB+", false) end),
+--    awful.button({ }, 5, function () exec("amixer -q set Master 2dB-", false) end)
+-- )) -- Register assigned buttons
+-- volwidget:buttons(volbar.widget:buttons())
 -- }}}
 
 -- {{{ Date and time
@@ -310,7 +310,7 @@ for s = 1, screen.count() do
         },
         s == screen.count() and systray or nil,
         separator, datewidget, dateicon,
-        separator, volwidget,  volbar.widget, volicon,
+        -- separator, volwidget,  volbar.widget, volicon,
         -- separator, orgwidget,  orgicon,
         -- separator, mailwidget, mailicon,
         separator, upicon,     netwidget, dnicon,
@@ -387,7 +387,7 @@ globalkeys = awful.util.table.join(
         awful.prompt.run({ prompt = "Web: " }, promptbox[mouse.screen].widget,
             function (command)
                 sexec("firefox 'http://yubnub.org/parser/parse?command="..command.."'")
-                awful.tag.viewonly(tags[screen.count()][3])
+                awful.tag.viewonly(tags[screen.count()][2])
             end)
     end),
     awful.key({ altkey }, "F5", function ()
@@ -540,7 +540,7 @@ awful.rules.rules = {
          border_color = beautiful.border_normal }
     },
     { rule = { class = "Firefox",  instance = "Navigator" },
-      properties = { tag = tags[screen.count()][3] } },
+      properties = { tag = tags[screen.count()][2] } },
     { rule = { instance = "firefox-bin" },
       properties = { floating = true }, callback = awful.titlebar.add  },
     -- { rule = { class = "Emacs",    instance = "emacs" },
@@ -549,7 +549,7 @@ awful.rules.rules = {
       properties = { floating = true }, callback = awful.titlebar.add  },
     { rule = { class = "Xmessage", instance = "xmessage" },
       properties = { floating = true }, callback = awful.titlebar.add  },
-    { rule = { name  = "Alpine" },      properties = { tag = tags[1][4]} },
+    { rule = { class = "Thunderbird" }, properties = { tag = tags[1][1]} },
     { rule = { class = "Gajim.py" },    properties = { tag = tags[1][5]} },
     { rule = { class = "Ark" },         properties = { floating = true } },
     { rule = { class = "ROX-Filer" },   properties = { floating = true } },

@@ -553,6 +553,7 @@ th.tcl, th.tcr, .tc2, .tc3, blockquote, .codebox, .infldset>dl>dd {
 #brdheader a { color: white !important; }
 .blockpost h2 { background: #1a1a1a !important; }
 #punviewtopic div.box { border: 1px solid #343434 !important; }
+.forum_desc { background: transparent !important; }
 
 .pun h2, #brdmenu {
   background: transparent !important;

@@ -1,6 +1,7 @@
 ! Cursor theme {{{
 
-Xcursor.theme: Vanilla-DMZ
+! Xcursor.theme: Vanilla-DMZ
+Xcursor.theme: dmz-aa
 Xcursor.size:   22
 
 ! Xft settings {{{
@@ -49,7 +50,7 @@ URxvt*boldItalicFont: xft:DejaVu Sans Mono:style=BoldOblique:pixelsize=12
 
 !URxvt*termName:                 rxvt-256color
 URxvt*termName:                 rxvt-unicode
-URxvt.iconFile:                 /usr/share/pixmaps/rxvt-unicode.png
+!URxvt.iconFile:                 /usr/share/pixmaps/rxvt-unicode.png
 urxvt*depth:                    32
 !URxvt*inheritPixmap:   true    ! transparency
 !URxvt*tintColor: #121212
