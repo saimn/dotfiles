@@ -74,7 +74,7 @@ end
 myawesomemenu = {
    { "manual", terminal .. " -e man awesome" },
    { "edit config", editor_cmd .. " " .. awful.util.getdir("config") .. "/rc.lua" },
-   { "lock", "gnome-screensaver-command --lock" },
+   { "lock", "xlock" },
    { "restart", awesome.restart },
    { "quit", awesome.quit }
 }
@@ -147,10 +147,8 @@ vicious.register(membar, vicious.widgets.mem, "$1", 13)
 fsicon = widget({ type = "imagebox" })
 fsicon.image = image(beautiful.widget_fs)
 -- Initialize widgets
-fs = {
-  r = awful.widget.progressbar(), h = awful.widget.progressbar(),
-  s = awful.widget.progressbar(), b = awful.widget.progressbar()
-}
+fs = { r = awful.widget.progressbar(), h = awful.widget.progressbar(),
+       d = awful.widget.progressbar() }
 -- Progressbar properties
 for _, w in pairs(fs) do
   w:set_vertical(true):set_ticks(true)
@@ -166,10 +164,9 @@ for _, w in pairs(fs) do
 end -- Enable caching
 vicious.cache(vicious.widgets.fs)
 -- Register widgets
-vicious.register(fs.r, vicious.widgets.fs, "${/ used_p}",            599)
-vicious.register(fs.h, vicious.widgets.fs, "${/home used_p}",        599)
--- vicious.register(fs.s, vicious.widgets.fs, "${/data used_p}", 599)
--- vicious.register(fs.b, vicious.widgets.fs, "${/mnt/backup used_p}",  599)
+vicious.register(fs.r, vicious.widgets.fs, "${/ used_p}",     599)
+vicious.register(fs.h, vicious.widgets.fs, "${/home used_p}", 599)
+vicious.register(fs.d, vicious.widgets.fs, "${/data used_p}", 599)
 -- }}}
 
 -- {{{ Network usage
@@ -195,7 +192,7 @@ vicious.register(netwidget, vicious.widgets.net, '<span color="'
 -- vicious.register(mailwidget, vicious.widgets.mbox, "$1", 181, {home .. "/Mail/INBOX", 15})
 -- -- Register buttons
 -- mailwidget:buttons(awful.util.table.join(
---   awful.button({ }, 1, function () exec("urxvt -T Mutt -e mutt") end)
+--   awful.button({ }, 1, function () exec(terminal.." -T Mutt -e mutt") end)
 -- ))
 -- }}}
 
@@ -247,7 +244,7 @@ if host == "goudes" then
 end
 -- Register buttons
 volbar.widget:buttons(awful.util.table.join(
-   awful.button({ }, 1, function () exec("urxvt -e alsamixer") end),
+   awful.button({ }, 1, function () exec(terminal.." -e alsamixer") end),
    awful.button({ }, 4, function () exec("amixer -q set Master 2dB+", false) end),
    awful.button({ }, 5, function () exec("amixer -q set Master 2dB-", false) end)
 )) -- Register assigned buttons
@@ -317,14 +314,13 @@ for s = 1, screen.count() do
            promptbox[s],
            ["layout"] = awful.widget.layout.horizontal.leftright
         },
-        s == screen.count() and systray or nil,
-        separator, datewidget, dateicon,
+        datewidget, dateicon,
+        separator, s == screen.count() and systray or nil,
         separator, volwidget, volbar.widget, volicon,
         -- separator, orgwidget,  orgicon,
         -- separator, mailwidget, mailicon,
         separator, upicon, netwidget, dnicon,
-        separator, fs.h.widget, fs.r.widget, fsicon,
-        -- separator, fs.b.widget, fs.s.widget, fs.h.widget, fs.r.widget, fsicon,
+        separator, fs.r.widget, fs.h.widget, fs.d.widget, fsicon,
         separator, membar.widget, memicon,
         separator, batwidget, baticon,
         separator, tzswidget, cpugraph.widget, cpuicon,
@@ -356,12 +352,12 @@ clientbuttons = awful.util.table.join(
 -- {{{ Global keys
 globalkeys = awful.util.table.join(
     -- {{{ Applications
-    awful.key({ modkey }, "Return", function () exec(terminal) end),
-    awful.key({ modkey }, "e", function () exec("emacsclient -n -c") end),
-    -- awful.key({ altkey }, "#49", function () scratch.drop("urxvt", "bottom") end),
-    -- awful.key({ modkey }, "a", function () exec("urxvt -T Alpine -e alpine.exp") end),
+    awful.key({ modkey, "Shift" }, "e", function () exec("emacsclient -n -c") end),
+    awful.key({ modkey, "Shift" }, "m", function () exec(terminal.." -T Mutt -e mutt") end),
+    awful.key({ modkey, "Shift" }, "r", function () exec("emacsclient --eval '(make-remember-frame)'") end),
+    awful.key({ modkey, "Shift" }, "s", function () scratch.drop(terminal, "center", "center", 0.6, 0.6) end),
+    awful.key({ modkey, "Shift" }, "Return", function () exec(terminal) end),
     -- awful.key({ modkey }, "g", function () sexec("GTK2_RC_FILES=~/.gtkrc-gajim gajim") end),
-    -- awful.key({ modkey }, "q", function () exec("emacsclient --eval '(make-remember-frame)'") end),
     -- }}}
 
     -- {{{ Multimedia keys
@@ -407,7 +403,7 @@ globalkeys = awful.util.table.join(
 
     -- {{{ Awesome controls
     awful.key({ modkey, "Control" }, "r", awesome.restart),
-    awful.key({ modkey, "Shift"   }, "q", awesome.quit),
+    awful.key({ modkey, "Control" }, "q", awesome.quit),
     -- awful.key({ modkey, "Shift" }, "r", function ()
     --     promptbox[mouse.screen].text = awful.util.escape(awful.util.restart())
     -- end),
@@ -462,6 +458,7 @@ globalkeys = awful.util.table.join(
 
 -- {{{ Client manipulation
 clientkeys = awful.util.table.join(
+    awful.key({ modkey }, "b", function () wibox[mouse.screen].visible = not wibox[mouse.screen].visible end),
     awful.key({ modkey }, "c", function (c) c:kill() end),
     awful.key({ modkey }, "d", function (c) scratch.pad.set(c, 0.60, 0.60, true) end),
     awful.key({ modkey }, "f", function (c) c.fullscreen = not c.fullscreen end),
@@ -469,25 +466,22 @@ clientkeys = awful.util.table.join(
         c.maximized_horizontal = not c.maximized_horizontal
         c.maximized_vertical   = not c.maximized_vertical
     end),
-    awful.key({ modkey }, "b", function ()
-        wibox[mouse.screen].visible = not wibox[mouse.screen].visible
-    end),
-    awful.key({ modkey }, "t", function (c) c.ontop = not c.ontop            end),
-    awful.key({ modkey }, "n", function (c) c.minimized = not c.minimized    end),
+    awful.key({ modkey }, "n", function (c) c.minimized = not c.minimized end),
     awful.key({ modkey }, "o", awful.client.movetoscreen),
-    awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ),
-    awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end),
-    awful.key({ modkey, "Control" }, "Next",   function () awful.client.moveresize( 20,  20, -40, -40) end),
-    awful.key({ modkey, "Control" }, "Prior",  function () awful.client.moveresize(-20, -20,  40,  40) end),
-    awful.key({ modkey, "Control" }, "Down",   function () awful.client.moveresize(  0,  20,   0,   0) end),
-    awful.key({ modkey, "Control" }, "Up",     function () awful.client.moveresize(  0, -20,   0,   0) end),
-    awful.key({ modkey, "Control" }, "Left",   function () awful.client.moveresize(-20,   0,   0,   0) end),
-    awful.key({ modkey, "Control" }, "Right",  function () awful.client.moveresize( 20,   0,   0,   0) end),
-    awful.key({ modkey, "Shift" }, "r", function (c) c:redraw() end),
+    awful.key({ modkey }, "r", function (c) c:redraw() end),
+    awful.key({ modkey }, "t", function (c) c.ontop = not c.ontop end),
+    awful.key({ modkey }, "Return",  function (c) c:swap(awful.client.getmaster()) end),
+    awful.key({ modkey, "Control" }, "space",   awful.client.floating.toggle),
+    -- move and resize floaters with the keyboard
+    awful.key({ modkey, "Control" }, "Next",  function () awful.client.moveresize( 20,  20, -40, -40) end),
+    awful.key({ modkey, "Control" }, "Prior", function () awful.client.moveresize(-20, -20,  40,  40) end),
+    awful.key({ modkey, "Control" }, "Down",  function () awful.client.moveresize(  0,  20,   0,   0) end),
+    awful.key({ modkey, "Control" }, "Up",    function () awful.client.moveresize(  0, -20,   0,   0) end),
+    awful.key({ modkey, "Control" }, "Left",  function () awful.client.moveresize(-20,   0,   0,   0) end),
+    awful.key({ modkey, "Control" }, "Right", function () awful.client.moveresize( 20,   0,   0,   0) end),
+    -- awful.key({ modkey, "Shift" }, "c", function (c) exec("kill -CONT " .. c.pid) end),
+    -- awful.key({ modkey, "Shift" }, "s", function (c) exec("kill -STOP " .. c.pid) end),
     awful.key({ modkey, "Shift" }, "0", function (c) c.sticky = not c.sticky end),
-    awful.key({ modkey, "Shift" }, "m", function (c) c:swap(awful.client.getmaster()) end),
-    awful.key({ modkey, "Shift" }, "c", function (c) exec("kill -CONT " .. c.pid) end),
-    awful.key({ modkey, "Shift" }, "s", function (c) exec("kill -STOP " .. c.pid) end),
     awful.key({ modkey, "Shift" }, "t", function (c)
         if   c.titlebar then awful.titlebar.remove(c)
         else awful.titlebar.add(c, { modkey = modkey }) end
@@ -545,6 +539,8 @@ awful.rules.rules = {
          size_hints_honor = false,
          keys = clientkeys,
          buttons = clientbuttons,
+         maximized_vertical   = false,
+         maximized_horizontal = false,
          border_width = beautiful.border_width,
          border_color = beautiful.border_normal }
     },
