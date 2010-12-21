@@ -424,6 +424,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "l",     function () awful.tag.incncol(-1)         end),
     awful.key({ modkey,           }, "space", function () awful.layout.inc(layouts,  1) end),
     awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(layouts, -1) end),
+    awful.key({ modkey, "Control" }, "space", function () awful.layout.set(layouts[1]) end),
     -- }}}
 
     -- {{{ Focus controls
@@ -471,7 +472,6 @@ clientkeys = awful.util.table.join(
     awful.key({ modkey }, "r", function (c) c:redraw() end),
     awful.key({ modkey }, "t", function (c) c.ontop = not c.ontop end),
     awful.key({ modkey }, "Return",  function (c) c:swap(awful.client.getmaster()) end),
-    awful.key({ modkey, "Control" }, "space",   awful.client.floating.toggle),
     -- move and resize floaters with the keyboard
     awful.key({ modkey, "Control" }, "Next",  function () awful.client.moveresize( 20,  20, -40, -40) end),
     awful.key({ modkey, "Control" }, "Prior", function () awful.client.moveresize(-20, -20,  40,  40) end),
@@ -486,7 +486,9 @@ clientkeys = awful.util.table.join(
         if   c.titlebar then awful.titlebar.remove(c)
         else awful.titlebar.add(c, { modkey = modkey }) end
     end),
-    awful.key({ modkey, "Shift" }, "f", function (c) if awful.client.floating.get(c)
+    -- floating windows
+    awful.key({ modkey, "Control" }, "f", awful.client.floating.toggle),
+    awful.key({ modkey, "Shift"   }, "f", function (c) if awful.client.floating.get(c)
         then awful.client.floating.delete(c);    awful.titlebar.remove(c)
         else awful.client.floating.set(c, true); awful.titlebar.add(c) end
     end)
@@ -556,7 +558,7 @@ awful.rules.rules = {
       properties = { floating = true }, callback = awful.titlebar.add  },
     { rule = { class = "Thunderbird" }, properties = { tag = tags[1][1]} },
     { rule = { class = "Gajim.py" },    properties = { tag = tags[1][5]} },
-    { rule = { class = "Ark" },         properties = { floating = true } },
+    { rule = { class = "Osmo" },        properties = { floating = true } },
     { rule = { class = "ROX-Filer" },   properties = { floating = true } },
     { rule = { class = "Pinentry.*" },  properties = { floating = true } },
 }
