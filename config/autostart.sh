@@ -21,7 +21,7 @@ if [[ $(hostname) == "goudes" ]]; then
     wicd-client &
     alunn &
     dropboxd &
-    gnome-agenda &
+    #gnome-agenda &
 elif [[ $(hostname) == "fireball" ]]; then
     # /usr/libexec/gnome-settings-daemon &
     gnome-volume-control-applet &

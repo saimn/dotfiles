@@ -18,19 +18,20 @@ require("beautiful")
 -- Notification library
 require("naughty")
 -- User libraries
+require("functions")
 require("vicious")
 require("scratch")
 -- }}}
-
 
 -- {{{ Variable definitions
 local altkey = "Mod1"
 local modkey = "Mod4"
 
 local home   = os.getenv("HOME")
+local host   = oscapture("hostname")
 local exec   = awful.util.spawn
 local sexec  = awful.util.spawn_with_shell
-local terminal   = "urxvt"
+local terminal   = "urxvtc"
 local editor     = os.getenv("EDITOR") or "vim"
 local editor_cmd = terminal .. " -e " .. editor
 
@@ -178,10 +179,11 @@ dnicon.image = image(beautiful.widget_net)
 upicon.image = image(beautiful.widget_netup)
 -- Initialize widget
 netwidget = widget({ type = "textbox" })
+if host == "goudes" then netv = "wlan0" else netv = "eth0" end
 -- Register widget
 vicious.register(netwidget, vicious.widgets.net, '<span color="'
-  .. beautiful.fg_netdn_widget ..'">${eth0 down_kb}</span> <span color="'
-  .. beautiful.fg_netup_widget ..'">${eth0 up_kb}</span>', 3)
+  .. beautiful.fg_netdn_widget ..'">${'.. netv ..' down_kb}</span> <span color="'
+  .. beautiful.fg_netup_widget ..'">${'.. netv ..' up_kb}</span>', 3)
 -- }}}
 
 -- {{{ Mail subject
@@ -225,29 +227,31 @@ vicious.register(netwidget, vicious.widgets.net, '<span color="'
 -- }}}
 
 -- {{{ Volume level
--- volicon = widget({ type = "imagebox" })
--- volicon.image = image(beautiful.widget_vol)
--- -- Initialize widgets
--- volbar    = awful.widget.progressbar()
--- volwidget = widget({ type = "textbox" })
--- -- Progressbar properties
--- volbar:set_vertical(true):set_ticks(true)
--- volbar:set_height(16):set_width(8):set_ticks_size(2)
--- volbar:set_background_color(beautiful.fg_off_widget)
--- volbar:set_gradient_colors({ beautiful.fg_widget,
---    beautiful.fg_center_widget, beautiful.fg_end_widget
--- }) -- Enable caching
--- vicious.cache(vicious.widgets.volume)
--- -- Register widgets
--- vicious.register(volbar,    vicious.widgets.volume,  "$1",  2, "Master")
--- vicious.register(volwidget, vicious.widgets.volume, " $1%", 2, "Master")
--- -- Register buttons
--- volbar.widget:buttons(awful.util.table.join(
---    awful.button({ }, 1, function () exec("urxvt -e alsamixer") end),
---    awful.button({ }, 4, function () exec("amixer -q set Master 2dB+", false) end),
---    awful.button({ }, 5, function () exec("amixer -q set Master 2dB-", false) end)
--- )) -- Register assigned buttons
--- volwidget:buttons(volbar.widget:buttons())
+volicon = widget({ type = "imagebox" })
+volicon.image = image(beautiful.widget_vol)
+-- Initialize widgets
+volbar    = awful.widget.progressbar()
+volwidget = widget({ type = "textbox" })
+-- Progressbar properties
+volbar:set_vertical(true):set_ticks(true)
+volbar:set_height(16):set_width(8):set_ticks_size(2)
+volbar:set_background_color(beautiful.fg_off_widget)
+volbar:set_gradient_colors({ beautiful.fg_widget,
+   beautiful.fg_center_widget, beautiful.fg_end_widget
+}) -- Enable caching
+vicious.cache(vicious.widgets.volume)
+-- Register widgets
+if host == "goudes" then
+   vicious.register(volbar,    vicious.widgets.volume,  "$1",  2, "Master")
+   vicious.register(volwidget, vicious.widgets.volume, " $1%", 2, "Master")
+end
+-- Register buttons
+volbar.widget:buttons(awful.util.table.join(
+   awful.button({ }, 1, function () exec("urxvt -e alsamixer") end),
+   awful.button({ }, 4, function () exec("amixer -q set Master 2dB+", false) end),
+   awful.button({ }, 5, function () exec("amixer -q set Master 2dB-", false) end)
+)) -- Register assigned buttons
+volwidget:buttons(volbar.widget:buttons())
 -- }}}
 
 -- {{{ Date and time
@@ -256,7 +260,7 @@ dateicon.image = image(beautiful.widget_date)
 -- Initialize widget
 datewidget = widget({ type = "textbox" })
 -- Register widget
-vicious.register(datewidget, vicious.widgets.date, "%R", 61)
+vicious.register(datewidget, vicious.widgets.date, "%d %b - %R", 61)
 -- Register buttons
 datewidget:buttons(awful.util.table.join(
   awful.button({ }, 1, function () exec("pylendar.py") end)
@@ -305,15 +309,20 @@ for s = 1, screen.count() do
     })
     -- Add widgets to the wibox
     wibox[s].widgets = {
-        {   taglist[s], layoutbox[s], separator, promptbox[s],
-            ["layout"] = awful.widget.layout.horizontal.leftright
+        {
+           mylauncher,
+           taglist[s],
+           layoutbox[s],
+           separator,
+           promptbox[s],
+           ["layout"] = awful.widget.layout.horizontal.leftright
         },
         s == screen.count() and systray or nil,
         separator, datewidget, dateicon,
-        -- separator, volwidget,  volbar.widget, volicon,
+        separator, volwidget, volbar.widget, volicon,
         -- separator, orgwidget,  orgicon,
         -- separator, mailwidget, mailicon,
-        separator, upicon,     netwidget, dnicon,
+        separator, upicon, netwidget, dnicon,
         separator, fs.h.widget, fs.r.widget, fsicon,
         -- separator, fs.b.widget, fs.s.widget, fs.h.widget, fs.r.widget, fsicon,
         separator, membar.widget, memicon,

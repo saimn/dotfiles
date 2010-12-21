@@ -223,6 +223,7 @@ alias -s conf="vim"
 alias ht='urxvt -name htop -title htop +sb -geometry 80x6 -e htop &'
 alias firedev='firefox -no-remote -P Webdev'
 alias svnd='svn diff --diff-cmd "~/bin/svnvimdiff"'
+alias xp='xprop | grep "WM_WINDOW_ROLE\|WM_CLASS" && echo "WM_CLASS(STRING) = \"NAME\", \"CLASS\""'
 
 alias e="emacsclient"
 alias ec="emacsclient -c"
