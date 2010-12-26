@@ -4,8 +4,20 @@ keycode 9 = Caps_Lock
 keycode 66 = Escape
 add lock = Caps_Lock
 
+!! Swap Caps_Lock and Control_L
+!remove Lock = Caps_Lock
+!remove Control = Control_L
+!keysym Control_L = Caps_Lock
+!keysym Caps_Lock = Control_L
+!add Lock = Caps_Lock
+!add Control = Control_L
+
 !! Compose -> CTRL R
 keycode 105 = Multi_key
 
 !! Deactivate mod2 (numlock)
 !!clear mod2
+
+! keycode 113 = XF86AudioMute
+! keycode 114 = XF86AudioLowerVolume
+! keycode 115 = XF86AudioRaiseVolume
