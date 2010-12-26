@@ -21,6 +21,7 @@ require("naughty")
 require("functions")
 require("vicious")
 require("scratch")
+require("revelation")
 -- }}}
 
 -- {{{ Variable definitions
@@ -260,7 +261,7 @@ dateicon.image = image(beautiful.widget_date)
 -- Initialize widget
 datewidget = widget({ type = "textbox" })
 -- Register widget
-vicious.register(datewidget, vicious.widgets.date, "%d %b - %R", 61)
+vicious.register(datewidget, vicious.widgets.date, "%d %b - %R ", 61)
 -- Register buttons
 datewidget:buttons(awful.util.table.join(
   awful.button({ }, 1, function () exec("pylendar.py") end)
@@ -380,25 +381,25 @@ globalkeys = awful.util.table.join(
 
     -- {{{ Prompt menus
     awful.key({ modkey,}, "w", function () mymainmenu:show({keygrabber=true}) end),
-    awful.key({ altkey }, "F2", function ()
+    awful.key({ modkey }, "F2", function ()
         awful.prompt.run({ prompt = "Run: " }, promptbox[mouse.screen].widget,
             function (...) promptbox[mouse.screen].text = exec(unpack(arg), false) end,
             awful.completion.shell, awful.util.getdir("cache") .. "/history")
     end),
-    awful.key({ altkey }, "F3", function ()
-        awful.prompt.run({ prompt = "Dictionary: " }, promptbox[mouse.screen].widget,
-            function (words)
-                sexec("crodict "..words.." | ".."xmessage -timeout 10 -file -")
-            end)
-    end),
-    awful.key({ altkey }, "F4", function ()
+    -- awful.key({ modkey }, "F3", function ()
+    --     awful.prompt.run({ prompt = "Dictionary: " }, promptbox[mouse.screen].widget,
+    --         function (words)
+    --             sexec("crodict "..words.." | ".."xmessage -timeout 10 -file -")
+    --         end)
+    -- end),
+    awful.key({ modkey }, "F4", function ()
         awful.prompt.run({ prompt = "Web: " }, promptbox[mouse.screen].widget,
             function (command)
-                sexec("firefox 'http://yubnub.org/parser/parse?command="..command.."'")
+                sexec("firefox 'http://duckduckgo.com/?q="..command.."'")
                 awful.tag.viewonly(tags[screen.count()][2])
             end)
     end),
-    awful.key({ altkey }, "F5", function ()
+    awful.key({ modkey }, "F5", function ()
         awful.prompt.run({ prompt = "Lua: " }, promptbox[mouse.screen].widget,
         awful.util.eval, nil, awful.util.getdir("cache") .. "/history_eval")
     end),
@@ -431,6 +432,7 @@ globalkeys = awful.util.table.join(
     -- }}}
 
     -- {{{ Focus controls
+    awful.key({ modkey }, "e",  revelation.revelation),
     awful.key({ modkey }, "j", function ()
         awful.client.focus.byidx(1)
         if client.focus then client.focus:raise() end
