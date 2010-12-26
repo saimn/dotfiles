@@ -4,67 +4,67 @@
 " author:  Adrian C. <anrxc..sysphere.org>
 " license: GNU General Public License v2
 " == Zenburn color scheme settings ==
-hi Bell					border: 0 none; background-color: black;
-hi Boolean				color: #CC9393;
-hi CmdLine				font-family: terminus; padding: 1px;
-hi CmdOutput				white-space: pre;
-hi CompDesc				color: #808080; width: 50%;
+hi Bell					border: 0 none !important; background-color: black !important;
+hi Boolean				color: #CC9393 !important;
+hi CmdLine				font-family: "DejaVu Sans Mono" !important; padding: 1px !important;
+hi CmdOutput				white-space: pre !important;
+hi CompDesc				color: #808080 !important; width: 50% !important;
 hi CompGroup
-hi CompGroup:not(:first-of-type)	margin-top: .5em;
-hi CompIcon				width: 16px; min-width: 16px; display: inline-block; margin-right: .5ex;
-hi CompIcon>img				max-width: 16px; max-height: 16px; vertical-align: middle;
-hi CompItem				font-family: terminus; font-size: 11px;
-hi CompItem>*				padding: 0 .5ex;
-hi CompItem[selected]			color: #2E4340; background: #CCDC90;
-hi CompLess				text-align: center; height: 0; line-height: .5ex; padding-top: 1ex;
+hi CompGroup:not(:first-of-type)	margin-top: .5em !important;
+hi CompIcon				width: 16px !important; min-width: 16px !important; display: inline-block !important; margin-right: .5ex !important;
+hi CompIcon>img				max-width: 16px !important; max-height: 16px !important; vertical-align: middle !important;
+hi CompItem				font-family: "DejaVu Sans Mono" !important; font-size: 10px !important;
+hi CompItem>*				padding: 0 .5ex !important;
+hi CompItem[selected]			color: #2E4340 !important; background: #CCDC90 !important;
+hi CompLess				text-align: center !important; height: 0 !important; line-height: .5ex !important; padding-top: 1ex !important;
 hi CompLess::after			content: "\2303" /* Unicode up arrowhead */
-hi CompMore				text-align: center; height: .5ex; line-height: .5ex; margin-bottom: -.5ex;
+hi CompMore				text-align: center !important; height: .5ex !important; line-height: .5ex !important; margin-bottom: -.5ex !important;
 hi CompMore::after			content: "\2304" /* Unicode down arrowhead */
-hi CompMsg				font-style: italic; margin-left: 16px;
-hi CompResult				width: 45%; overfloaw: hidden;
-hi CompTitle				color: #ACBC90; background: #3F3F3F; font-weight: bold;
-hi CompTitle>*				padding: 0 .5ex;
-hi ErrorMsg				color: #3F3F3F; background: #CC9393; font-weight: bold;
-hi Filter				color: #2E4340; background: #CCDC90; font-weight: bold;
-hi FrameIndicator			background-color: #CC9393; opacity: 0.5; z-index: 999; position: fixed; top: 0; bottom: 0; left: 0; right: 0;
-hi Function				color: navy;
-hi Gradient				height: 1px; margin-bottom: -1px; margin-top: -1px;
-hi GradientLeft				background-color: #ACBC90;
-hi GradientRight			background-color: #3F3F3F;
-hi Hint					font-family: monospace; font-size: 10px; font-weight: bold; color: #385F38; background-color: #F8F893; border-color: ButtonShadow; border-width: 0px; border-style: solid; padding 0px 1px 0px 1px;
-hi Hint::after				content: attr(number);
-hi HintActive				background: #F18C96; color: #333333;
-hi HintElem				background-color: #8FAF9F; color: #000D18;
-hi HintImage				opacity: .5;
-hi Indicator				color: #94BFF3;
-hi InfoMsg				color: #DCDCCD; background: #3F3F3F;
-hi LineNr				color: orange; background: #3F3F3F;
-hi Message				white-space: normal; min-width: 100%; padding-left: 2em; text-indent: -2em; display: block;
-hi ModeMsg				color: #DCDCCD; background: #3F3F3F;
-hi MoreMsg				color: #9ECE9E; background: #3F3F3F;
-hi NonText				color: #94BFF3; min-height: 16px; padding-left: 2px;
-hi Normal				color: #DCDCCD; background: #3F3F3F;
-hi Null					color: #94BFF3;
-hi Number				color: #94BFF3;
-hi Object				color: maroon;
-hi Preview				color: gray;
-hi Question				color: #9ECE9E; background: #3F3F3F; font-weight: bold;
-hi Search				font-size: inherit; padding: 0; color: #385F38; background-color: #F8F893; padding: 0;
-hi StatusLine				color: #ACBC90; background: #1E2320;
-hi StatusLineBroken			color: #CC9393; background: #1E2320;
-hi StatusLineSecure			color: #F0DFAF; background: #1E2320;
-hi String				color: #9ECE9E;
+hi CompMsg				font-style: italic !important; margin-left: 16px !important;
+hi CompResult				width: 45% !important; overfloaw: hidden !important;
+hi CompTitle				color: #ACBC90 !important; background: #3F3F3F !important; font-weight: bold !important;
+hi CompTitle>*				padding: 0 .5ex !important;
+hi ErrorMsg				color: #3F3F3F !important; background: #CC9393 !important; font-weight: bold !important;
+hi Filter				color: #2E4340 !important; background: #CCDC90 !important; font-weight: bold !important;
+hi FrameIndicator			background-color: #CC9393 !important; opacity: 0.5 !important; z-index: 999 !important; position: fixed !important; top: 0 !important; bottom: 0 !important; left: 0 !important; right: 0 !important;
+hi Function				color: navy !important;
+hi Gradient				height: 1px !important; margin-bottom: -1px !important; margin-top: -1px !important;
+hi GradientLeft				background-color: #ACBC90 !important;
+hi GradientRight			background-color: #3F3F3F !important;
+hi Hint					font-family: "DejaVu Sans Mono" !important; font-size: 10px !important; font-weight: bold !important; color: #385F38 !important; background-color: #F8F893 !important; border-color: ButtonShadow !important; border-width: 0px !important; border-style: solid !important; padding 0px 1px 0px 1px !important;
+hi Hint::after				content: attr(number) !important;
+hi HintActive				background: #F18C96 !important; color: #333333 !important;
+hi HintElem				background-color: #8FAF9F !important; color: #000D18 !important;
+hi HintImage				opacity: .5 !important;
+hi Indicator				color: #94BFF3 !important;
+hi InfoMsg				color: #DCDCCD !important; background: #3F3F3F !important;
+hi LineNr				color: orange !important; background: #3F3F3F !important;
+hi Message				white-space: normal !important; min-width: 100% !important; padding-left: 2em !important; text-indent: -2em !important; display: block !important;
+hi ModeMsg				color: #DCDCCD !important; background: #3F3F3F !important;
+hi MoreMsg				color: #9ECE9E !important; background: #3F3F3F !important;
+hi NonText				color: #94BFF3 !important; min-height: 16px !important; padding-left: 2px !important;
+hi Normal				color: #DCDCCD !important; background: #3F3F3F !important;
+hi Null					color: #94BFF3 !important;
+hi Number				color: #94BFF3 !important;
+hi Object				color: maroon !important;
+hi Preview				color: gray !important;
+hi Question				color: #9ECE9E !important; background: #3F3F3F !important; font-weight: bold !important;
+hi Search				font-size: 10px !important; padding: 0 !important; color: #385F38 !important; background-color: #F8F893 !important; padding: 0 !important;
+hi StatusLine				color: #ACBC90 !important; background: #1E2320 !important;
+hi StatusLineBroken			color: #CC9393 !important; background: #1E2320 !important;
+hi StatusLineSecure			color: #F0DFAF !important; background: #1E2320 !important;
+hi String				color: #9ECE9E !important;
 hi TabClose
 hi TabIcon
-hi TabIconNumber			font-weight: normal; color: #DCDCCD; text-align: center; text-shadow: black -1px 0 1px, black 0 1px 1px, black 1px 0 1px, black 0 -1px 1px;
-hi TabNumber				font-weight: bold; margin: 0; padding-right: .3ex;
+hi TabIconNumber			font-weight: normal !important; color: #DCDCCD !important; text-align: center !important; text-shadow: black -1px 0 1px, black 0 1px 1px, black 1px 0 1px, black 0 -1px 1px !important;
+hi TabNumber				font-weight: bold !important; margin: 0 !important; padding-right: .3ex !important;
 hi TabText
-hi Tag					color: #94BFF3;
-hi Title				color: #ACBC90; background: #3F3F3F; font-weight: bold;
-hi URL					text-decoration: none; color: #9ECE9E; background: inherit;
-hi URL:hover				text-decoration: underline; cursor: pointer;
-hi WarningMsg				color: #CC9393; background: #3F3F3F;
+hi Tag					color: #94BFF3 !important;
+hi Title				color: #ACBC90 !important; background: #3F3F3F !important; font-weight: bold !important;
+hi URL					text-decoration: none !important; color: #9ECE9E !important; background: inherit !important;
+hi URL:hover				text-decoration: underline !important; cursor: pointer !important;
+hi WarningMsg				color: #CC9393 !important; background: #3F3F3F !important;
 
 style -name statusbar chrome://* <<EOM
-					#liberator-statusline { font-family: terminus ! important; }
+					#liberator-statusline { font-family: "DejaVu Sans Mono" ! important; }
 EOM
