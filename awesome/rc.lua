@@ -54,7 +54,7 @@ layouts = {
 
 -- {{{ Tags
 tags = {
-  names  = { "mail", "web", "term", "code", "misc", 6, 7, 8, "media" },
+  names  = { " mail ", " web ", " term ", " code ", " misc ", 6, 7, 8, " media " },
   layout = { layouts[1], layouts[1], layouts[1], layouts[1], layouts[1],
              layouts[1], layouts[1], layouts[1], layouts[1]
 }}
@@ -73,18 +73,18 @@ end
 -- Create a laucher widget and a main menu
 myawesomemenu = {
    { "manual", terminal .. " -e man awesome" },
-   { "edit config", editor_cmd .. " " .. awful.util.getdir("config") .. "/rc.lua" },
-   { "lock", "xlock" },
-   { "restart", awesome.restart },
-   { "quit", awesome.quit }
+   { "edit config", editor_cmd .. " " .. awful.util.getdir("config") .. "/rc.lua" }
 }
 
 mymainmenu = awful.menu({ items = {
-                              { "open terminal", terminal },
+                              { "awesome", myawesomemenu, beautiful.awesome_icon },
+                              { "term", terminal },
                               { "browser", "firefox-beta-bin" },
                               { "mail", "thunderbird" },
                               { "files", "nautilus --no-desktop" },
-                              { "awesome", myawesomemenu, beautiful.awesome_icon },
+                              { "lock", "xlock" },
+                              { "restart", awesome.restart },
+                              { "quit", awesome.quit }
                            }
                         })
 
@@ -106,8 +106,9 @@ separator.image = image(beautiful.widget_sep)
 cpuicon = widget({ type = "imagebox" })
 cpuicon.image = image(beautiful.widget_cpu)
 -- Initialize widgets
-cpugraph  = awful.widget.graph()
-tzswidget = widget({ type = "textbox" })
+cpugraph   = awful.widget.graph()
+tzswidget  = widget({ type = "textbox" })
+loadwidget = widget({ type = "textbox" })
 -- Graph properties
 cpugraph:set_width(40):set_height(14)
 cpugraph:set_background_color(beautiful.fg_off_widget)
@@ -115,8 +116,9 @@ cpugraph:set_gradient_angle(0):set_gradient_colors({
    beautiful.fg_end_widget, beautiful.fg_center_widget, beautiful.fg_widget
 })
 -- Register widgets
-vicious.register(cpugraph,  vicious.widgets.cpu,      "$1")
-vicious.register(tzswidget, vicious.widgets.thermal, " $1°C", 19, "thermal_zone0")
+vicious.register(cpugraph,   vicious.widgets.cpu,      "$1")
+vicious.register(tzswidget,  vicious.widgets.thermal, " $1°C", 19, "thermal_zone0")
+vicious.register(loadwidget, vicious.widgets.uptime, " $4/$5")
 -- }}}
 
 -- {{{ Battery state
@@ -189,7 +191,8 @@ vicious.register(netwidget, vicious.widgets.net, '<span color="'
 -- -- Initialize widget
 -- mailwidget = widget({ type = "textbox" })
 -- -- Register widget
--- vicious.register(mailwidget, vicious.widgets.mbox, "$1", 181, {home .. "/Mail/INBOX", 15})
+-- maildirs = {home .. "/Mail/INBOX"}
+-- vicious.register(mailwidget, vicious.widgets.mdir, "$1", 301, maildirs)
 -- -- Register buttons
 -- mailwidget:buttons(awful.util.table.join(
 --   awful.button({ }, 1, function () exec(terminal.." -T Mutt -e mutt") end)
@@ -309,11 +312,11 @@ for s = 1, screen.count() do
         {
            mylauncher,
            taglist[s],
-           layoutbox[s],
            separator,
            promptbox[s],
            ["layout"] = awful.widget.layout.horizontal.leftright
         },
+        layoutbox[s],
         datewidget, dateicon,
         separator, s == screen.count() and systray or nil,
         separator, volwidget, volbar.widget, volicon,
@@ -323,7 +326,7 @@ for s = 1, screen.count() do
         separator, fs.r.widget, fs.h.widget, fs.d.widget, fsicon,
         separator, membar.widget, memicon,
         separator, batwidget, baticon,
-        separator, tzswidget, cpugraph.widget, cpuicon,
+        separator, loadwidget, tzswidget, cpugraph.widget, cpuicon,
         separator, ["layout"] = awful.widget.layout.horizontal.rightleft
     }
 end
