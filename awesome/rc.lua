@@ -246,6 +246,10 @@ if host == "goudes" then
    vicious.register(volbar,    vicious.widgets.volume,  "$1",  2, "Master")
    vicious.register(volwidget, vicious.widgets.volume, " $1%", 2, "Master")
 end
+if host == "fireball" then
+   vicious.register(volbar,    vicious.widgets.volume,  "$1",  2, "Master -c 0")
+   vicious.register(volwidget, vicious.widgets.volume, " $1%", 2, "Master -c 0")
+end
 -- Register buttons
 volbar.widget:buttons(awful.util.table.join(
    awful.button({ }, 1, function () exec(terminal.." -e alsamixer") end),
