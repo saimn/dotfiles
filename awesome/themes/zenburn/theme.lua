@@ -14,7 +14,9 @@ theme.wallpaper_cmd = { "awsetbg /usr/share/awesome/themes/zenburn/zenburn-backg
 
 
 -- {{{ Styles
-theme.font      = "sans 8"
+-- theme.font      = "sans 8"
+-- theme.font      = "Inconsolata 8"
+theme.font      = "HeldustryFTVBasic Black 8"
 
 -- {{{ Colors
 theme.fg_normal = "#DCDCCC"

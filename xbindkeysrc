@@ -3,19 +3,12 @@
 # xbindkeys configuration #
 ###########################
 #
-# Version: 1.8.3
-#
-# If you edit this file, do not forget to uncomment any lines
-# that you change.
-# The pound(#) symbol may be used anywhere for comments.
-#
 # To specify a key, you can use 'xbindkeys --key' or
 # 'xbindkeys --multikey' and put one of the two lines in this file.
 #
 # The format of a command line is:
 #    "command to start"
 #       associated key
-#
 #
 # A list of keys is in /usr/include/X11/keysym.h and in
 # /usr/include/X11/keysymdef.h
@@ -24,7 +17,6 @@
 # List of modifier:
 #   Release, Control, Shift, Mod1 (Alt), Mod2 (NumLock),
 #   Mod3 (CapsLock), Mod4, Mod5 (Scroll).
-#
 
 # The release modifier is not a standard X modifier, but you can
 # use it if you want to catch release events instead of press events
@@ -37,8 +29,6 @@
 #keystate_capslock = enable
 #keystate_scrolllock= enable
 
-# Examples of commands:
-
 "xbindkeys_show"
   control+shift + q
 
@@ -46,26 +36,15 @@
 #"xterm"
   #c:41 + m:0x4
 
-#Dzen2 menu
-#"dzmenu.sh"
-  #control + b:2
-
-# urxvt
 # "urxvt"
 #   control + b:2
-
-# "urxvt"
-#   Mod4+x
 
 # "gmrun"
 #   Mod4+p
 
-# "firefox"
-#   Mod4+shift+f
-
 # pop-up a remember window
-"emacsclient -c -e '(remember-other-frame)'"
-  Mod4+shift+r
+# "emacsclient -c -e '(remember-other-frame)'"
+#   Mod4+shift+r
 
 #"xterm -geom 50x20+20+20"
 #   Shift+Mod2+alt + s
@@ -81,6 +60,26 @@
 ## Control + mouse button 2 release event starts rxvt
 #"rxvt"
 #  Control + b:2 + Release
+
+
+# XF86AudioLowerVolume
+# "amixer -q sset Master 2dB-"
+# "pvol.py -c -2"
+"dvol -d 2"
+  m:0x10 + c:122
+
+# XF86AudioRaiseVolume
+# "amixer -q sset Master 2dB+"
+# "pvol.py -c +2"
+"dvol -i 2"
+  m:0x10 + c:123
+
+# XF86AudioMute
+# "amixer -q sset Master toggle"
+# "pvol.py -m"
+"dvol -t"
+  m:0x10 + c:121
+
 
 ##################################
 # End of xbindkeys configuration #

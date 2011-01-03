@@ -15,13 +15,13 @@
 # exec xcompmgr &
 
 if [[ $(hostname) == "goudes" ]]; then
-    gnome-settings-daemon &
+    #gnome-settings-daemon &
     gnome-power-manager &
     # nm-applet --sm-disable &
     wicd-client &
     alunn &
     dropboxd &
-    #gnome-agenda &
+    xbindkeys &
 elif [[ $(hostname) == "fireball" ]]; then
     # /usr/libexec/gnome-settings-daemon &
     gnome-volume-control-applet &
