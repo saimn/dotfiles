@@ -70,6 +70,8 @@
 (setq custom-file (expand-file-name "~/.emacs.d/customize.el"))
 (load custom-file)
 
+(setq delete-by-moving-to-trash t)
+
 ;;----------------------------------------------------------------------
 ;; Interface
 ;;----------------------------------------------------------------------
