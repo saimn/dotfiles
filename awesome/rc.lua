@@ -83,7 +83,7 @@ mymainmenu = awful.menu({ items = {
                               { "browser", "firefox-beta-bin" },
                               { "mail", "thunderbird" },
                               { "files", "nautilus --no-desktop" },
-                              { "lock", "xlock" },
+                              { "lock", "slock" },
                               { "restart", awesome.restart },
                               { "quit", awesome.quit }
                            }
