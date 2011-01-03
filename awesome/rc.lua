@@ -625,3 +625,7 @@ for s = 1, screen.count() do screen[s]:add_signal("arrange", function ()
 end
 -- }}}
 -- }}}
+
+-- {{{ Autostart apps
+run_once(home .. "/dotfiles/config/autostart.sh")
+-- }}}

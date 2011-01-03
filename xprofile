@@ -33,7 +33,7 @@ test -r $HOME/.Xresources && xrdb -load $HOME/.Xresources
 test -r $HOME/.Xdefaults && xrdb -load $HOME/.Xdefaults
 
 #[[ $(hostname) == "goudes" ]] &&
-source $HOME/dotfiles/config/autostart.sh
+# source $HOME/dotfiles/config/autostart.sh
 
 # Start ssh-agent
 #eval `ssh-agent -s`
