@@ -34,6 +34,9 @@
 ;; (setq py-python-command-args '( "-colors" "Linux"))
 ;; (setq ipython-completion-command-string "print(';'.join(__IP.Completer.all_completions('%s')))\n")
 
+;; (if (maybe-load-library "ipython")
+;;     (setq py-python-command-args '( "-colors" "Linux")))
+
 ;;----------------------------------------------------------------------
 ;; Fonctions
 ;;----------------------------------------------------------------------

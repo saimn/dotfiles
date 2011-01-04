@@ -63,9 +63,9 @@ tags = {
 for s = 1, screen.count() do
     tags[s] = awful.tag(tags.names, s, tags.layout)
     -- awful.tag.setproperty(tags[s][5], "mwfact", 0.13)
-    awful.tag.setproperty(tags[s][6], "hide",   true)
-    awful.tag.setproperty(tags[s][7], "hide",   true)
-    awful.tag.setproperty(tags[s][8], "hide",   true)
+    -- awful.tag.setproperty(tags[s][6], "hide",   true)
+    -- awful.tag.setproperty(tags[s][7], "hide",   true)
+    -- awful.tag.setproperty(tags[s][8], "hide",   true)
 end
 -- }}}
 
@@ -254,6 +254,15 @@ volbar.widget:buttons(awful.util.table.join(
 volwidget:buttons(volbar.widget:buttons())
 -- }}}
 
+-- {{{ Weather widget
+-- Initialize widget
+weathericon = widget({ type = "imagebox" })
+weathericon.image = image(beautiful.widget_weather)
+weatherwidget = widget({ type = "textbox" })
+-- Register widget
+vicious.register(weatherwidget, vicious.widgets.weather, "${tempc}° ${wind} ${windkmh} ${weather} ${sky}", 3601, "LFML")
+-- }}}
+
 -- {{{ Date and time
 dateicon = widget({ type = "imagebox" })
 dateicon.image = image(beautiful.widget_date)
@@ -312,13 +321,14 @@ for s = 1, screen.count() do
         {
            mylauncher,
            taglist[s],
+           layoutbox[s],
            separator,
            promptbox[s],
            ["layout"] = awful.widget.layout.horizontal.leftright
         },
-        layoutbox[s],
-        datewidget, dateicon,
-        separator, s == screen.count() and systray or nil,
+        s == screen.count() and systray or nil,
+        separator, datewidget, dateicon,
+        separator, weatherwidget, weathericon,
         separator, volwidget, volbar.widget, volicon,
         -- separator, orgwidget,  orgicon,
         -- separator, mailwidget, mailicon,

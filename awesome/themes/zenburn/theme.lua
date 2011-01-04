@@ -113,19 +113,20 @@ theme.layout_floating   = theme.confdir .. "/icons/layouts/floating.png"
 -- }}}
 
 -- {{{ Widget icons
-theme.widget_cpu    = theme.confdir .. "/icons/cpu.png"
-theme.widget_bat    = theme.confdir .. "/icons/bat.png"
-theme.widget_mem    = theme.confdir .. "/icons/mem.png"
-theme.widget_fs     = theme.confdir .. "/icons/disk.png"
-theme.widget_net    = theme.confdir .. "/icons/down.png"
-theme.widget_netup  = theme.confdir .. "/icons/up.png"
-theme.widget_wifi   = theme.confdir .. "/icons/wifi.png"
-theme.widget_mail   = theme.confdir .. "/icons/mail.png"
-theme.widget_vol    = theme.confdir .. "/icons/vol.png"
-theme.widget_org    = theme.confdir .. "/icons/cal.png"
-theme.widget_date   = theme.confdir .. "/icons/time.png"
-theme.widget_crypto = theme.confdir .. "/icons/crypto.png"
-theme.widget_sep    = theme.confdir .. "/icons/separator.png"
+theme.widget_cpu     = theme.confdir .. "/icons/cpu.png"
+theme.widget_bat     = theme.confdir .. "/icons/bat.png"
+theme.widget_mem     = theme.confdir .. "/icons/mem.png"
+theme.widget_fs      = theme.confdir .. "/icons/disk.png"
+theme.widget_net     = theme.confdir .. "/icons/down.png"
+theme.widget_netup   = theme.confdir .. "/icons/up.png"
+theme.widget_wifi    = theme.confdir .. "/icons/wifi.png"
+theme.widget_mail    = theme.confdir .. "/icons/mail.png"
+theme.widget_vol     = theme.confdir .. "/icons/vol.png"
+theme.widget_org     = theme.confdir .. "/icons/cal.png"
+theme.widget_date    = theme.confdir .. "/icons/time.png"
+theme.widget_crypto  = theme.confdir .. "/icons/crypto.png"
+theme.widget_sep     = theme.confdir .. "/icons/separator.png"
+theme.widget_weather = theme.confdir .. "/icons/sun.png"
 -- }}}
 
 -- {{{ Titlebar icons
