@@ -82,7 +82,7 @@ mymainmenu = awful.menu({ items = {
                               { "term", terminal },
                               { "browser", "firefox-beta-bin" },
                               { "mail", "thunderbird" },
-                              { "files", "nautilus --no-desktop" },
+                              { "files", "pcmanfm" },
                               { "lock", "slock" },
                               { "restart", awesome.restart },
                               { "quit", awesome.quit }
@@ -242,19 +242,14 @@ volbar:set_gradient_colors({ beautiful.fg_widget,
 }) -- Enable caching
 vicious.cache(vicious.widgets.volume)
 -- Register widgets
-if host == "goudes" then
-   vicious.register(volbar,    vicious.widgets.volume,  "$1",  2, "Master")
-   vicious.register(volwidget, vicious.widgets.volume, " $1%", 2, "Master")
-end
-if host == "fireball" then
-   vicious.register(volbar,    vicious.widgets.volume,  "$1",  2, "Master -c 0")
-   vicious.register(volwidget, vicious.widgets.volume, " $1%", 2, "Master -c 0")
-end
+if host == "fireball" then volchan = "Master -c 0" else volchan = "Master" end
+vicious.register(volbar,    vicious.widgets.volume,  "$1",  2, volchan)
+vicious.register(volwidget, vicious.widgets.volume, " $1%", 2, volchan)
 -- Register buttons
 volbar.widget:buttons(awful.util.table.join(
    awful.button({ }, 1, function () exec(terminal.." -e alsamixer") end),
-   awful.button({ }, 4, function () exec("amixer -q set Master 2dB+", false) end),
-   awful.button({ }, 5, function () exec("amixer -q set Master 2dB-", false) end)
+   awful.button({ }, 4, function () exec("amixer -q set "..volchan.." 2dB+", false) end),
+   awful.button({ }, 5, function () exec("amixer -q set "..volchan.." 2dB-", false) end)
 )) -- Register assigned buttons
 volwidget:buttons(volbar.widget:buttons())
 -- }}}

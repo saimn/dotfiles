@@ -147,8 +147,8 @@ xterm*charClass: 33:48,35-38:48,39:43,42-47:48,58-59:48,61:48,63-64:48,126:48
 *color6: #06989A
 *color14: #34E2E2
 ! White
-! *color7: #D3D7CF
-*color7: #9f9f9f
+*color7: #D3D7CF
+! *color7: #9f9f9f
 *color15: #e0e0e0
 
 !}}}

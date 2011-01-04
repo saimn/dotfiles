@@ -19,7 +19,7 @@ if [[ $(hostname) == "goudes" ]]; then
     dropboxd &
 elif [[ $(hostname) == "fireball" ]]; then
     # /usr/libexec/gnome-settings-daemon &
-    gnome-volume-control-applet &
+    # gnome-volume-control-applet &
     gpk-update-icon &
     numlockx &
     dropbox start &
