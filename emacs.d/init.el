@@ -96,20 +96,20 @@
 (setq browse-url-browser-function 'browse-url-generic
       browse-url-generic-program "/usr/bin/firefox")
 
-(defun uzbl-browse (url &rest ignore)
-  "Browse URL using uzbl."
-  (interactive "sURL: ")
-  (shell-command (concat "uzbl-browser " url))
-  (pop-to-buffer "*Shell Command Output*")
-  (setq truncate-lines t))
+;; (defun uzbl-browse (url &rest ignore)
+;;   "Browse URL using uzbl."
+;;   (interactive "sURL: ")
+;;   (shell-command (concat "uzbl-browser " url))
+;;   (pop-to-buffer "*Shell Command Output*")
+;;   (setq truncate-lines t))
 
-(defun choose-browser (url &rest args)
-  (interactive "sURL: ")
-  (if (y-or-n-p "Use external browser? ")
-      (browse-url-generic url)
-    (uzbl-browse url)))
+;; (defun choose-browser (url &rest args)
+;;   (interactive "sURL: ")
+;;   (if (y-or-n-p "Use external browser? ")
+;;       (browse-url-generic url)
+;;     (uzbl-browse url)))
 
-(setq browse-url-browser-function 'choose-browser)
+;; (setq browse-url-browser-function 'choose-browser)
 (global-set-key "\C-xm" 'browse-url-at-point)
 
 ;;----------------------------------------------------------------------
@@ -451,7 +451,7 @@
 (require 'init-latex)     ; LaTeX mode
 (require 'init-c)         ; C
 (require 'init-python)    ; Python
-(require 'init-haskell)   ; Haskell
+;; (require 'init-haskell)   ; Haskell
 (require 'init-idlwave)   ; IDL - IDLwave
 (require 'init-lisp)      ; Emacs-Lisp
 (require 'init-html)      ; PHP - HTML - CSS

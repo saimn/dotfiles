@@ -14,6 +14,9 @@
 (setq visible-bell t)
 (setq cursor-type 'bar)
 
+;; Use the clipboard, pretty please, so that copy/paste "works"
+(setq x-select-enable-clipboard t)
+
 ;; Choix de la police de caractères en environnement graphique
 ;; (if (eq window-system 'x)
 ;;   (progn
