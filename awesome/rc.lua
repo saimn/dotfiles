@@ -260,7 +260,8 @@ weathericon = widget({ type = "imagebox" })
 weathericon.image = image(beautiful.widget_weather)
 weatherwidget = widget({ type = "textbox" })
 -- Register widget
-vicious.register(weatherwidget, vicious.widgets.weather, "${tempc}° ${wind} ${windkmh} ${weather} ${sky}", 3601, "LFML")
+-- http://weather.noaa.gov/pub/data/observations/metar/decoded/LFML.TXT
+vicious.register(weatherwidget, vicious.widgets.weather, "${tempc}° ${wind}, ${windkmh}km/h, ${weather}, ${sky}", 3601, "LFML")
 -- }}}
 
 -- {{{ Date and time

@@ -1,16 +1,25 @@
 !! Switch Caps_lock and escape key
-clear lock
-keycode 9 = Caps_Lock
-keycode 66 = Escape
-add lock = Caps_Lock
+clear Lock
+clear Control
+clear Mod4
+! keycode 9 = Caps_Lock
+! keycode 66 = Escape
+keycode 9   = Escape
+keycode 66  = Control_L
+keycode 134 = Caps_Lock
+add Lock    = Caps_Lock
+add Control = Control_L Control_R
+add Mod4    = Super_L Super_R
+
+! keycodes: 9 = Echap, 66 = capslock, 37 = Control_L, 134 = Super_L
 
 !! Swap Caps_Lock and Control_L
-!remove Lock = Caps_Lock
-!remove Control = Control_L
-!keysym Control_L = Caps_Lock
-!keysym Caps_Lock = Control_L
-!add Lock = Caps_Lock
-!add Control = Control_L
+! remove Lock = Caps_Lock
+! remove Control = Control_L
+! keysym Control_L = Caps_Lock
+! keysym Caps_Lock = Control_L
+! add Lock = Caps_Lock
+! add Control = Control_L
 
 !! Compose -> CTRL R
 keycode 105 = Multi_key
