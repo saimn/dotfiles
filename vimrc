@@ -6,7 +6,7 @@
 " -----------------------------------------------------------
 
 set nocompatible        " Use Vim defaults (much better!)
-"set viminfo='20,\"50   " .viminfo: don't store more than 50 lines of registers
+set viminfo='20,\"50    " .viminfo: don't store more than 50 lines of registers
 set history=100         " nb of command line history
 set undolevels=150
 
@@ -52,8 +52,16 @@ endif
 "endif
 
 " Encodage par défaut des buffers et des fichiers
-set encoding=utf-8
-set fileencoding=utf-8
+"set encoding=utf-8
+"set fileencoding=utf-8
+
+" Always check for UTF-8 when trying to determine encodings.
+"if &amp;fileencodings !~? "utf-8"
+  "set fileencodings+=utf-8
+"endif
+
+" Make sure we have a sane fallback for encoding detection
+set fileencodings+=default
 
 " -----------------------------------------------------------
 " Indentation
@@ -83,6 +91,11 @@ set list
 "set listchars=tab:>-,eol:$,trail:-
 set listchars=tab:»·,trail:·,extends:~,nbsp:.
 
+"  go with smartindent if there is no plugin indent file.
+"  but don't outdent hashes
+"set smartindent
+"inoremap # X#
+
 " -----------------------------------------------------------
 " Folding
 " -----------------------------------------------------------
@@ -99,7 +112,8 @@ endif
 " Wrap
 " -----------------------------------------------------------
 
-set wrap " les lignes plus longues que la largeur de l'écran sont enroulées
+set wrap          " les lignes plus longues que la largeur de l'écran sont enroulées
+set linebreak     " ne casse pas les mots en fin de ligne
 
 " Largeur maxi du texte inséré
 " '72' permet de wrapper automatiquement à 72 caractères
@@ -217,6 +231,11 @@ set statusline=%<%t\(%n\)\ %y%h%m%r%=[%l,%c]\ %P
 "set statusline=%<%f%m\ %r\ %h\ %w%=%l,%c\ %p%%
 "set statusline=[%l,%c\ %P%M]\ %f\ %r%h%w
 
+" When doing tab completion, give the following files lower priority. You may
+" wish to set 'wildignore' to completely ignore files, and 'wildmenu' to enable
+" enhanced tab completion. These can be done in the user vimrc file.
+set suffixes+=.info,.aux,.log,.dvi,.bbl,.out,.o,.lo
+
 " how command line completion works
 "set wildmode=list:longest
 
@@ -226,9 +245,6 @@ set wildignore=*.o,*.r,*.so,*.sl,*.tar,*.tgz,*.pyc,*~
 set wildchar=<tab>
 set wildmenu
 set wildmode=longest:full,full
-
-" some filetypes got lower priority
-set su=.h,.bak,~,.o,.info,.swp,.obj
 
 " -----------------------------------------------------------
 " window handling
@@ -265,6 +281,10 @@ endif
 " -----------------------------------------------------------
 " Mapping
 " -----------------------------------------------------------
+
+" sets leader to ',' and localleader to "\"
+let mapleader=","
+let maplocalleader="\\"
 
 " Don't use Ex mode, use Q for formatting
 map Q gq
@@ -421,6 +441,10 @@ endif
 " -----------------------------------------------------------
 " Vimspell - Correction orthographique
 " -----------------------------------------------------------
+
+" Dictionnaire français
+" Liste des propositions par CTRL-X_CTRL-K
+"set dictionary+=/usr/share/dict/french
 
 map <silent> <S-F10> "<Esc>:silent setlocal spell! spelllang=en<CR>"
 map <silent> <F10> "<Esc>:silent setlocal spell! spelllang=fr<CR>"
@@ -589,11 +613,6 @@ let html_use_css = 1
 " For syntaxt/2html.vim
 let use_xhtml=1
 let html_ignore_folding=1
-
-" Include DokuVimKi Configuration
-if filereadable($HOME."/.vim/dokuvimkirc")
-   source $HOME/.vim/dokuvimkirc
-endif
 
 " -----------------------------------------------------------
 " Functions
