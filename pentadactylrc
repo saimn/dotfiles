@@ -17,7 +17,7 @@ set editor="emacsclient -c"
 set defsearch="duck"
 
 " don't show tab line if only one tab
-" set showtabline=always
+set showtabline=multitab
 
 set visualbell
 
@@ -62,8 +62,23 @@ source ~/.pentadactyl/qmarks
 
 " Commands {{{
 
-" Add a :Google command to search via google:
-":command -nargs=* Google open google <args>
+command! -description 'duck ssl'       -nargs=* d     tabopen https://duckduckgo.com/?q=<args>&v=
+command! -description 'google ssl'     -nargs=* g     tabopen https://encrypted.google.com/search?q=<args>
+command! -description 'scroogle ssl'   -nargs=* s     tabopen https://ssl.scroogle.org/cgi-bin/nbbwssl.cgi?Gw=<args>
+
+command! -description python.org       -nargs=0 py    tabopen http://python.org
+command! -description 'python doc'     -nargs=1 pydoc tabopen http://docs.python.org/<args>
+command! -description 'python library' -nargs=1 pylib tabopen http://docs.python.org/library/<args>.html
+command! -description 'search pypi'    -nargs=* pypi  tabopen http://pypi.python.org/pypi?%3Aaction=search&term=<args>&submit=search
+
+command! -nargs=1 wpf   tabopen http://fr.wikipedia.org/wiki/<args>
+command! -nargs=* wpfs  tabopen http://fr.wikipedia.org/Special:Search?search=<args>&go=Go&fulltext=search
+command! -nargs=1 wpe   tabopen http://en.wikipedia.org/wiki/<args>
+command! -nargs=* wpes  tabopen http://en.wikipedia.org/Special:Search?search=<args>&go=Go&fulltext=search
+command! -nargs=* dict  tabopen http://fr.wiktionary.org/wiki/<args>
+
+command! -description 'translate en2fr' -nargs=* wr2fr tabopen http://www.wordreference.com/enfr/<args>
+command! -description 'translate fr2en' -nargs=* wr2en tabopen http://www.wordreference.com/fren/<args>
 
 " Disable pentadactyl keys on Google mail and Google reader
 ":autocmd LocationChange .* js modes.passAllKeys = /(www|mail)\.google\.com/.test(buffer.URL)
@@ -104,9 +119,6 @@ map <A-b> :dialog bookmarks<CR>
 nmap <silent> <Leader>s :styletoggle<CR>:styledisable -name global<CR>
 nmap <silent> <Leader>h :styletoggle -name global<CR>
 nmap <silent> <Leader>S :loaduserstyles<CR>:styledisable -name global<CR>
-
-" Show/hide the buftabbar
-"nmap <silent> <A-u> :set invbuftabs<CR>
 
 " }}}
 
