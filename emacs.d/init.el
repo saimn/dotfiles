@@ -1,7 +1,7 @@
 ;;-*- Mode: Emacs-Lisp -*-
 ;; .emacs - Emacs configuration file
 
-;; (message "Loading ~/.emacs/init.el")
+(message "Loading ~/.emacs.d/init.el")
 
 ;;----------------------------------------------------------------------
 ;; Help
@@ -36,14 +36,14 @@
 ;; Mouse
 (defun up-slightly () (interactive) (scroll-up 5))
 (defun down-slightly () (interactive) (scroll-down 5))
-(global-set-key [mouse-4] 'down-slightly)
-(global-set-key [mouse-5] 'up-slightly)
 (defun up-one () (interactive) (scroll-up 1))
 (defun down-one () (interactive) (scroll-down 1))
-(global-set-key [S-mouse-4] 'down-one)
-(global-set-key [S-mouse-5] 'up-one)
 (defun up-a-lot () (interactive) (scroll-up))
 (defun down-a-lot () (interactive) (scroll-down))
+(global-set-key [mouse-4] 'down-slightly)
+(global-set-key [mouse-5] 'up-slightly)
+(global-set-key [S-mouse-4] 'down-one)
+(global-set-key [S-mouse-5] 'up-one)
 (global-set-key [C-mouse-4] 'down-a-lot)
 (global-set-key [C-mouse-5] 'up-a-lot)
 ;; (setq scroll-step 1)
@@ -142,6 +142,7 @@
                        (mode . muse-mode)))
                ("Programming" (or
                                (mode . python-mode)
+                               (mode . lua-mode)
                                (mode . haskell-mode)
                                (name . "\\*Python.*\\*")
                                (name . "\\*haskell.*\\*")
@@ -237,6 +238,7 @@
 ;; (global-linum-mode 1)           ; display line numbers in margin (Emacs 23)
 (setq kill-whole-line t)          ; kill-line including the line ending char
 (setq blink-cursor-mode nil)
+(setq next-line-add-newlines t)   ; C-n add new line
 
 (put 'downcase-region 'disabled nil) ; enable region-down(up)casing
 (put 'upcase-region 'disabled nil)
@@ -281,48 +283,21 @@
 ;;----------------------------------------------------------------------
 ;; Whitespace mode
 ;;----------------------------------------------------------------------
-;; - space      => montrer les espaces (KO car gestion intégrée d'Emacs)
+;; - space      => montrer les espaces
 ;; - tabs       => montrer les tabulations
 ;; - trailing   => montrer les espaces superflus en fin de ligne
 ;; - lines-tail => montrer les lignes trop longues (excédent seulement)
 ;;
-;; On peut en outre déclencher un nettoyage du tampon via la commande
-;; « M-x whitespace-cleanup ». Cette commande lancera les actions annoncées
-;; dans whitespace-style :
-;; - empty            => suppression des lignes vides en début et fin de
-;;                        tampon
-;; - indentation      => substitution des tabulations de début de ligne par
-;;                        des espaces
-;; - space-before-tab => substitution des tabulations précédant des espaces
-;;                        par des espaces
-;; - space-after-tab  => substitution des tabulations suivant des espaces par
-;;                        des espaces
-;; - trailing         => suppression des espaces et tabulations superflus en
-;;                        fin de ligne
-;;
-;; Le mode whitespace interfère avec la visualisation des espaces insécables
-;; intégrée à Emacs (variable nobreak-char-display) et je n'ai pas réussi à
-;; imposer à Emacs le paramétrage que j'avais défini au sein du mode
-;; whitespace (si une âme charitable a la solution, j'en suis preneur). J'ai
-;; donc fini par altérer le paramètre « nobreak-space » qui, dans le mode
-;; intégré à Emacs, détermine l'affichage des espaces insécables. Pour ce
-;; faire, j'ai eu recours à « custom-set-faces » et pour éviter un double
-;; appel de cette fonction (fortement déconseillé), j'ai déporté l'instruction
-;; dans le fichier ~/.emacs.d/custom.el. Le voici pour mémoire :
-;;
-;; (custom-set-faces
-;;   '(nobreak-space
-;;     (;; Paramétrage si fond foncé et grand nombre de couleurs disponible
-;;      (((class color) (min-colors 88) (background dark))
-;;       (:background "#483838"       :foreground "black" :underline nil))
-;;      ;; Paramétrage si fond clair et grand nombre de couleurs disponible
-;;      (((class color) (min-colors 88) (background light))
-;;       (:background "LemonChiffon3" :foreground "cornsilk4" :underline nil))
-;;      ;; Paramétrage dans les autres cas de figure
-;;      (t (:inverse-video t)))))
+;; « M-x whitespace-cleanup »: déclenche un nettoyage du tampon
+;; Cette commande lancera les actions annoncées dans whitespace-style :
+;; - empty            => suppression des lignes vides en début et fin de tampon
+;; - indentation      => remplace les tabulations de début de ligne par des espaces
+;; - space-before-tab => remplace les tabulations précédant des espaces par des espaces
+;; - space-after-tab  => remplace les tabulations suivant des espaces par des espaces
+;; - trailing         => suppression des espaces et tabulations superflus en fin de ligne
 
 ;; make whitespace-mode use just basic coloring
-(setq whitespace-style '(tabs trailing lines-tail newline ))
+(setq whitespace-style '(tabs trailing lines-tail newline))
 ;; empty indentation space-before-tab space-after-tab spaces
 
 ;; Nombre de colonnes au delà duquel on considère qu'une ligne est trop longue
