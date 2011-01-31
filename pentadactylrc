@@ -101,24 +101,29 @@ set previouspattern=\bprev|previous|Previous|précédent|Précédent\b,^<$,^(<<|
 
 set mapleader=","
 
+map <leader>n -silent :bnext<CR>
+map <leader>p -silent :bprev<CR>
+map <C-right> -silent :bnext<CR>
+map <C-left> -silent :bprev<CR>
+
 " Show/hide toolbars
 map <F9> :set go+=mT<CR>
-map <silent> <F10> :set go-=mT<CR>
+map <F10> :set go-=mT<CR>
 
 " contrast plugin
-map <c-j> :contrast 10<cr>
-map <c-k> :contrast -10<cr>
+map <C-j> :contrast 10<CR>
+map <C-k> :contrast -10<CR>
 
 " restart pentadactyl
 map <C-r> :restart<CR>
 
-map <C-a> :dialog addbookmark<CR>
+map <A-a> :dialog addbookmark<CR>
 map <A-b> :dialog bookmarks<CR>
 
 " Toggle userstyles/userscripts
-nmap <silent> <Leader>s :styletoggle<CR>:styledisable -name global<CR>
-nmap <silent> <Leader>h :styletoggle -name global<CR>
-nmap <silent> <Leader>S :loaduserstyles<CR>:styledisable -name global<CR>
+nmap <Leader>s -silent :styletoggle<CR>:styledisable -name global<CR>
+nmap <Leader>h -silent :styletoggle -name global<CR>
+nmap <Leader>S -silent :loaduserstyles<CR>:styledisable -name global<CR>
 
 " }}}
 
