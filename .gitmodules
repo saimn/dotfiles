@@ -31,3 +31,6 @@
 [submodule "emacs.d/site-lisp/full-ack"]
 	path = emacs.d/site-lisp/full-ack
 	url = https://github.com/nschum/full-ack.git
+[submodule "emacs.d/site-lisp/yasnippet"]
+	path = emacs.d/site-lisp/yasnippet
+	url = https://github.com/emacsmirror/yasnippet.git
