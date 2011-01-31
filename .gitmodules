@@ -34,3 +34,6 @@
 [submodule "emacs.d/site-lisp/yasnippet"]
 	path = emacs.d/site-lisp/yasnippet
 	url = https://github.com/emacsmirror/yasnippet.git
+[submodule "emacs.d/site-lisp/ical2org"]
+	path = emacs.d/site-lisp/ical2org
+	url = https://github.com/cofi/ical2org.git

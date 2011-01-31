@@ -1,4 +1,6 @@
 
+(require 'ical2org)
+
 ;; Calendar (M-x calendar)
 (setq calendar-date-style 'european) ; format jour/mois/an
 (setq calendar-week-start-day 1)     ; week starts on monday
