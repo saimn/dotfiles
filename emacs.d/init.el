@@ -21,6 +21,11 @@
 ;; Global settings
 ;;----------------------------------------------------------------------
 
+;; Turn off mouse interface early in startup to avoid momentary display
+(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
+(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
+(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
+
 (server-start)                        ; enable emacsclient
 (setq major-mode 'text-mode)          ; start in text-mode
 (setq inhibit-startup-message t)      ; Don't show startup buffer
@@ -221,8 +226,8 @@
 ;; Version Control
 ;;----------------------------------------------------------------------
 
-(require 'magit)
-(require 'psvn)
+(autoload 'magit-status "magit" nil t)
+(autoload 'svn-status "psvn" nil t)
 (setq vc-svn-diff-switches 'nil)
 (setq vc-diff-switches '("-bBu"))
 
@@ -452,7 +457,8 @@
      (define-key shell-mode-map "\C-p" 'comint-previous-input)
      (define-key shell-mode-map "\C-n" 'comint-next-input)))
 
-(require 'pkgbuild-mode)
+;; pkgbuild
+(autoload 'pkgbuild-mode "pkgbuild-mode" nil t)
 
 ;; mode Perl
 ;; (defalias 'perl-mode 'cperl-mode)
