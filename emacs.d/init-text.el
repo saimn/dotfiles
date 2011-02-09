@@ -39,6 +39,36 @@
                                  (local-set-key [tab] 'yas/expand)))
 
 ;;------------------------------------------------------------
+;; ReStructured Text
+;;------------------------------------------------------------
+;; autoload rst hook
+(autoload 'rst-text-mode-bindings "rst")
+
+;; ReStructuredText editing
+(setq
+ ;; no indentation in headlines
+ rst-default-indent 0
+ ;; headline decoration preference
+ ;; (following the python documentation style)
+ ;; rst-preferred-decorations '(;; # with overline for parts
+ ;;                             (35 over-and-under 0)
+ ;;                             ;; * with overline for chapters
+ ;;                             (42 over-and-under 0)
+ ;;                             ;; = for sections
+ ;;                             (61 simple 0)
+ ;;                             ;; - for subsections
+ ;;                             (45 simple 0)
+ ;;                             ;; ^ for subsubsections
+ ;;                             (94 simple 0)
+ ;;                             ;; " for paragraphs
+ ;;                             (34 simple 0))
+ )
+
+;; auto filling
+(add-hook 'rst-mode-hook 'auto-fill-mode)
+
+
+;;------------------------------------------------------------
 ;; Other text modes
 ;;------------------------------------------------------------
 (autoload 'c2c-mode "c2c-mode"

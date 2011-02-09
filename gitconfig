@@ -56,6 +56,7 @@
    untracked = cyan
 [merge]
    tool = meld
+   stat = true
 [giggle]
 	main-window-view = HistoryView
 	main-window-maximized = false
