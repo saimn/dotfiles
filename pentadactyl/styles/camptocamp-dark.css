@@ -493,6 +493,8 @@ table.toc {
   padding: 0 !important;
 }
 
+.pun TABLE { width: auto !important; }
+
 /*#brdheader .box, #punredirect.pun, .tc2, .tcr, .postleft dd, .postfootleft {
   display: none !important;
   }*/
@@ -526,7 +528,7 @@ td.tcl, td.tcr, #brdwelcome .box, #idx1>.box, #idx2>.box, #idx3>.box, #idx4>.box
   border-color: #343434 !important;
 }
 
-th.tcl, th.tcr, .tc2, .tc3, blockquote, .codebox, .infldset>dl>dd {
+th, th.tcl, th.tcr, .tc2, .tc3, blockquote, .codebox, .infldset>dl>dd {
   background-color: #242424 !important;
   border-color: #343434 !important;
 }
