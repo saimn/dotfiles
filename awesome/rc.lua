@@ -33,6 +33,7 @@ local host   = oscapture("hostname")
 local exec   = awful.util.spawn
 local sexec  = awful.util.spawn_with_shell
 local terminal   = "urxvtc"
+local browser    = os.getenv("BROWSER") or "firefox"
 local editor     = os.getenv("EDITOR") or "vim"
 local editor_cmd = terminal .. " -e " .. editor
 
@@ -74,13 +75,13 @@ end
 -- Create a laucher widget and a main menu
 myawesomemenu = {
    { "manual", terminal .. " -e man awesome" },
-   { "edit config", editor_cmd .. " " .. awful.util.getdir("config") .. "/rc.lua" }
+   { "edit config", editor_cmd.." "..awful.util.getdir("config").."/rc.lua" }
 }
 
 mymainmenu = awful.menu({ items = {
                               { "awesome", myawesomemenu, beautiful.awesome_icon },
                               { "term", terminal },
-                              { "browser", "firefox-beta-bin" },
+                              { "browser", browser },
                               { "mail", "thunderbird" },
                               { "files", "pcmanfm" },
                               { "lock", "slock" },
@@ -206,10 +207,10 @@ vicious.register(netwidget, vicious.widgets.net, '<span color="'
 -- -- Initialize widget
 -- orgwidget = widget({ type = "textbox" })
 -- -- Configure widget
+-- local orgdir = home.."/.org"
 -- local orgmode = {
---   files = { home.."/.org/computers.org",
---     home.."/.org/index.org", home.."/.org/personal.org",
---   },
+--   files = { orgdir.."/agenda.org.gpg", orgdir.."/home.org.gpg",
+--             orgdir.."/work.org.gpg" },
 --   color = {
 --     past   = '<span color="'..beautiful.fg_urgent..'">',
 --     today  = '<span color="'..beautiful.fg_normal..'">',
@@ -367,6 +368,7 @@ clientbuttons = awful.util.table.join(
 globalkeys = awful.util.table.join(
     -- {{{ Applications
     awful.key({ modkey, "Shift" }, "e", function () exec("emacsclient -n -c") end),
+    awful.key({ modkey, "Shift" }, "f", function () exec(browser) end),
     awful.key({ modkey, "Shift" }, "m", function () exec(terminal.." -T Mutt -e mutt") end),
     awful.key({ modkey, "Shift" }, "r", function () exec("emacsclient --eval '(make-remember-frame)'") end),
     awful.key({ modkey, "Shift" }, "s", function () scratch.drop(terminal, "center", "center", 0.6, 0.6) end),
@@ -405,7 +407,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey }, "F4", function ()
         awful.prompt.run({ prompt = "Web: " }, promptbox[mouse.screen].widget,
             function (command)
-                sexec("firefox 'http://duckduckgo.com/?q="..command.."'")
+                sexec(browser.." 'http://duckduckgo.com/?q="..command.."'")
                 awful.tag.viewonly(tags[screen.count()][2])
             end)
     end),
