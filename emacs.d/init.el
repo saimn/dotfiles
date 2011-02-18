@@ -187,20 +187,24 @@
 (autoload 'ack-find-same-file "full-ack" nil t)
 (autoload 'ack-find-file "full-ack" nil t)
 
-;; EasyPG
-(require 'epa-file)
-(epa-file-enable)
+;; EasyPG - enabled by default
+;; (require 'epa-file)
+;; (epa-file-enable)
 
 ;; distinguish files with the same name
-;; (require 'uniquify)
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'post-forward)
 
 (require 'browse-kill-ring)
 (browse-kill-ring-default-keybindings)
 
 (require 'twittering-mode)
-(setq twittering-icon-mode t)         ; Show icons
-(setq twittering-timer-interval 900)  ; Update your timeline each x sec
-(setq twittering-use-master-password t)
+(eval-after-load "twittering-mode"
+  '(progn
+     (twittering-icon-mode)))            ; Show icons
+(setq twittering-timer-interval 900      ; Update your timeline each x sec
+      ;; twittering-tinyurl-service 'bit.ly
+      twittering-use-master-password t)
 
 (add-hook 'twittering-mode-hook
           (lambda ()
@@ -388,6 +392,7 @@
 
 (global-set-key (kbd "C-c c") 'server-edit)
 (global-set-key (kbd "C-c f") 'flyspell-buffer)
+;; (global-set-key (kbd "C-c h") 'htmlfontify-buffer)
 (global-set-key (kbd "C-c k") 'kill-this-buffer)
 (global-set-key (kbd "C-c m") 'magit-status)
 (global-set-key (kbd "C-c n") 'clean-up-buffer-or-region)

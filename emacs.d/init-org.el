@@ -25,13 +25,16 @@
 (setq org-agenda-skip-scheduled-if-done t)
 (setq org-hide-leading-stars t)
 
-(setq org-agenda-files '("~/Dropbox/org/"))
-(setq org-agenda-file-regexp "\\`[^.].*\\.org")
-(setq org-directory "~/Dropbox/org/")
+(setq org-agenda-files '("~/.org/work.org.gpg"
+                         "~/.org/home.org.gpg"
+                         "~/.org/agenda.org.gpg"))
+;; (setq org-agenda-files '("~/.org/"))
+;; (setq org-agenda-file-regexp "\\`[^.].*\\.org")
+(setq org-directory "~/.org/")
 
 (setq org-agenda-custom-commands
       '(("c" "Desk Work" todo "TODO"
-         ((org-agenda-files '("~/Dropbox/org/work.org.gpg"))
+         ((org-agenda-files '("~/.org/work.org.gpg"))
           (org-agenda-sorting-strategy '(priority-up effort-down)))
          ("~/work.html"))
         ))

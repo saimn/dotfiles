@@ -1,5 +1,5 @@
 ;; $Id: pkgbuild-mode.el,v 1.23 2007/10/20 16:02:14 juergen Exp $
-;; Copyright (C) 2005-2007 Juergen Hoetzel
+;; Copyright (C) 2005-2010 Juergen Hoetzel
 
 ;;; License
 
@@ -32,6 +32,9 @@
 ;;                                auto-mode-alist))
 
 ;;; Changelog:
+
+;; 0.10
+;; made the calculation of sums generic (use makepkg.conf setting)
 
 ;; 0.9
 ;;    fixed `pkgbuild-tar' (empty directory name: thanks Stefan Husmann)
@@ -86,11 +89,11 @@
 (require 'sh-script)
 (require 'advice)
 
-(defconst pkgbuild-mode-version "0.9" "Version of `pkgbuild-mode'.")
+(defconst pkgbuild-mode-version "0.10" "Version of `pkgbuild-mode'.")
 
 (defconst pkgbuild-mode-menu
   (purecopy '("PKGBUILD"
-              ["Update md5sums" pkgbuild-update-md5sums-line t]
+              ["Update sums" pkgbuild-update-sums-line t]
               ["Browse url" pkgbuild-browse-url t]
               ["Increase release tag"    pkgbuild-increase-release-tag t]
               "---"
@@ -117,23 +120,40 @@ pkgname=%s
 pkgver=VERSION
 pkgrel=1 
 pkgdesc=\"\"
+arch=('i686' 'x86_64')
 url=\"\"
-arch=('i686')
 license=('GPL')
+groups=()
 depends=()
 makedepends=()
+optdepends=()
+provides=()
 conflicts=()
 replaces=()
 backup=()
+options=()
 install=
+changelog=
 source=($pkgname-$pkgver.tar.gz)
+noextract=()
 md5sums=()
+
 build() {
   cd $startdir/src/$pkgname-$pkgver
+
   ./configure --prefix=/usr
-  make || return 1
+  make
+}
+
+package() {
+
+  cd $startdir/src/$pkgname-$pkgver
+
   make DESTDIR=$startdir/pkg install
-}"
+}
+
+# vim:set ts=2 sw=2 et:
+"
   "Template for new PKGBUILDs"
   :type 'string
   :group 'pkgbuild)
@@ -149,8 +169,8 @@ the placeholder for the toplevel directory and tagsfile"
   :type 'boolean
   :group 'pkgbuild)
 
-(defcustom pkgbuild-update-md5sums-on-save t
-  "*Non-nil means buffer-safe will call a hook to update the md5sums line."
+(defcustom pkgbuild-update-sums-on-save t
+  "*Non-nil means buffer-safe will call a hook to update the sums line."
   :type 'boolean
   :group 'pkgbuild)
 
@@ -189,8 +209,8 @@ value of `user-mail-address'."
   :type 'string
   :group 'pkgbuild)
 
-(defcustom pkgbuild-md5sums-command "makepkg -g 2>/dev/null"
-  "shell command to generate mds5sums"
+(defcustom pkgbuild-sums-command "makepkg -g 2>/dev/null"
+  "shell command to generate *sums lines"
   :type 'string
   :group 'pkgbuild)
 
@@ -213,6 +233,8 @@ Otherwise, it saves all modified buffers without asking."
 
 (defvar pkgbuild-makepkg-history nil)
 
+(defvar pkgbuild-hashtype "md5")
+
 (defvar pkgbuild-in-hook-recursion nil) ;avoid recursion
 
 (defvar pkgbuild-emacs                  ;helper variable for xemacs compatibility
@@ -230,7 +252,7 @@ Otherwise, it saves all modified buffers without asking."
   (define-key pkgbuild-mode-map "\C-c\C-b" 'pkgbuild-makepkg)
   (define-key pkgbuild-mode-map "\C-c\C-a" 'pkgbuild-tar)
   (define-key pkgbuild-mode-map "\C-c\C-u" 'pkgbuild-browse-url)
-  (define-key pkgbuild-mode-map "\C-c\C-m" 'pkgbuild-update-md5sums-line)
+  (define-key pkgbuild-mode-map "\C-c\C-m" 'pkgbuild-update-sums-line)
   (define-key pkgbuild-mode-map "\C-c\C-e" 'pkgbuild-etags)
   )
 
@@ -319,45 +341,25 @@ Otherwise, it saves all modified buffers without asking."
   "Find file in multible locations"
   (remove-if-not 'file-readable-p (mapcar (lambda (dir) (expand-file-name file dir)) locations)))
 
-(defun pkgbuild-md5sum (&rest files)
-  (if (not (null files))
-      (let* ((file (car files))
-             (abspath (pkgbuild-find-file file (split-string pkgbuild-source-directory-locations ":"))))
-        (if (null abspath)
-            (error "File %s not found in directories %s" file pkgbuild-source-directory-locations))
-        (cons (car (split-string (pkgbuild-shell-command-to-string (concat "md5sum " (car abspath)))))
-              (apply 'pkgbuild-md5sum (cdr files))))))
+(defun pkgbuild-sums-line ()
+  "calculate *sums=() line in PKGBUILDs"
+  (pkgbuild-shell-command-to-string pkgbuild-sums-command))
 
-(defun pkgbuild-md5sums-line (&rest files)
-  "calculate md5sums=() line in PKGBUILDs"
-  (let ((sums (apply 'pkgbuild-md5sum files)))
-    (format "md5sums=(%s)" 
-            (apply 'concat (loop 
-                            for item in sums
-                            for position = 0 then (1+ position)
-                            for offset = (% position 2)
-                            collect (cond 
-                                     ((= position 0) (format "'%s'" item))
-                                     ((= offset 0) (format "         '%s'" item))
-                                     ((= offset 1) (format " '%s'%s" item (if (= position (1- (length sums))) "" "\\\n" )))
-                                     (t (error))))))))
-
-(defun pkgbuild-update-md5sums-line ()
-  "Update the md5sums line in a PKGBUILD."
+(defun pkgbuild-update-sums-line ()
+  "Update the sums line in a PKGBUILD."
   (interactive)
   (if (not (file-readable-p "PKGBUILD")) (error "Missing PKGBUILD")
     (if (not (pkgbuild-syntax-check)) (error "Syntax Error")
       (if (pkgbuild-source-check)       ;all sources available
           (save-excursion 
             (goto-char (point-min))
-            (if (re-search-forward "^md5sums=([^()]*)[ \f\t\r\v]*\n?" (point-max) t) ;md5sum line exists
-                (delete-region (match-beginning 0) (match-end 0)))
-            (goto-char (point-min))
-            (if (re-search-forward "^source=([^()]*)" (point-max) t)
+	    (while (re-search-forward "^[[:alnum:]]+sums=([^()]*)[ \f\t\r\v]*\n?" (point-max) t) ;sum line exists
+	      (delete-region (match-beginning 0) (match-end 0)))
+	    (goto-char (point-min))
+	    (if (re-search-forward "^source=([^()]*)" (point-max) t)
                 (insert "\n")
               (error "Missing source line"))
-            (insert (pkgbuild-trim-right (apply 'pkgbuild-md5sums-line
-                                                 (split-string (pkgbuild-shell-command-to-string "source PKGBUILD 2>/dev/null && for source in ${source[@]};do echo $source|sed 's|^.*://.*/||g';done"))))))))))
+            (insert (pkgbuild-trim-right (pkgbuild-sums-line))))))))
 
 (defun pkgbuild-about-pkgbuild-mode (&optional arg)
   "About `pkgbuild-mode'."
@@ -367,14 +369,14 @@ Otherwise, it saves all modified buffers without asking."
            pkgbuild-mode-version
            " by Juergen Hoetzel, <juergen@hoetzel.info>")))
 
-(defun pkgbuild-update-md5sums-line-hook ()
-  "Update md5lines if the file was modified"
-  (if (and pkgbuild-update-md5sums-on-save (not pkgbuild-in-hook-recursion))
+(defun pkgbuild-update-sums-line-hook ()
+  "Update sum lines if the file was modified"
+  (if (and pkgbuild-update-sums-on-save (not pkgbuild-in-hook-recursion))
       (progn
         (setq pkgbuild-in-hook-recursion t)
-        (save-buffer)                   ;always save BUFFER 2 times so we get the correct md5sums in this hook
+        (save-buffer)                   ;always save BUFFER 2 times so we get the correct sums in this hook
         (setq pkgbuild-in-hook-recursion nil)
-        (pkgbuild-update-md5sums-line))))
+        (pkgbuild-update-sums-line))))
 
 (defun pkgbuild-initialize ()
   "Create a default pkgbuild if one does not exist or is empty."
@@ -470,7 +472,7 @@ command."
   (let (line err-p)
     (save-excursion
       (set-buffer buf)
-      (beginning-of-buffer)
+      (goto-char (point-min))
       (if (re-search-forward pkgbuild-bash-error-line-re nil t)
           (progn
             (setq line (string-to-number (match-string 1)))
@@ -521,8 +523,7 @@ command."
 (defun pkgbuild-browse-url ()
   "Vist URL (if defined in PKGBUILD)"
   (interactive)
-  (if (not (file-readable-p "PKGBUILD")) (error "No PKGBUILD in current directory"))
-  (let ((url (pkgbuild-shell-command-to-string "source PKGBUILD 2>/dev/null && echo -n $url")))
+  (let ((url (pkgbuild-shell-command-to-string (concat (buffer-string) "\nsource /dev/stdin >/dev/null 2>&1 && echo -n $url" ))))
     (if (string= url "")
         (message "No URL defined in PKGBUILD") 
       (browse-url url))))
@@ -539,7 +540,7 @@ with no args, if that value is non-nil."
   (sh-set-shell "/bin/bash")
   (easy-menu-add pkgbuild-mode-menu)
   ;; This does not work because makepkg requires safed file
-  (add-hook 'local-write-file-hooks 'pkgbuild-update-md5sums-line-hook nil t)
+  (add-hook 'local-write-file-hooks 'pkgbuild-update-sums-line-hook nil t)
   (if (= (buffer-size) 0)              
       (pkgbuild-initialize)
     (and (pkgbuild-syntax-check) (pkgbuild-source-check))))
