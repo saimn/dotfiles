@@ -1,19 +1,27 @@
 #!/bin/sh
 
-on(){
-   xrandr --output VGA_1 --mode 1440x900 --below PANEL
+dual(){
+   xrandr --output VGA_1 --auto --below PANEL
 }
 
 clone(){
-   xrandr --output VGA_1 --mode 1440x900
+   xrandr --output VGA_1 --auto
+}
+
+on(){
+   xrandr --output LVDS --off --output VGA_1 --auto
 }
 
 off(){
-   xrandr --output VGA_1 --off
+   xrandr --output VGA_1 --off --output LVDS --auto
 }
 
 case $1 in
-  "on")     on;      exit 0;;
+  "dual")   dual;    exit 0;;
   "clone")  clone;   exit 0;;
+  "on")     on;      exit 0;;
   "off")    off;     exit 0;;
 esac
+
+## memo
+# xrandr --output VGA_1 --mode 1440x900
