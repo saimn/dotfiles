@@ -81,12 +81,10 @@ command! -description 'emacs wiki'      -nargs=1 emacs tabopen http://www.emacsw
 command! -description 'translate en2fr' -nargs=* wr2fr tabopen http://www.wordreference.com/enfr/<args>
 command! -description 'translate fr2en' -nargs=* wr2en tabopen http://www.wordreference.com/fren/<args>
 
-" Disable pentadactyl keys on Google mail and Google reader
-":autocmd LocationChange .* js modes.passAllKeys = /(www|mail)\.google\.com/.test(buffer.URL)
-:autocmd LocationChange .* js modes.passAllKeys = false
 ":autocmd LocationChange mail\.google\.com js modes.passAllKeys = true
 ":autocmd LocationChange google(\.(com|fr)\/(reader|calendar)) js modes.passAllKeys = true
-:autocmd LocationChange ssl3\.ovh\.net\/~climbr\/tt-rss js modes.passAllKeys = true
+:autocmd LocationChange .* -js modes.reset()
+:autocmd LocationChange ssl3\.ovh\.net\/~climbr\/tt-rss -js modes.set(modes.PASS_THROUGH)
 
 " Set the Vim filetype to "mail" when editing mail in GMail with the external editor:
 ":autocmd LocationChange .* :set editor=gvim\ -f
@@ -130,8 +128,9 @@ nmap <Leader>S -silent :loaduserstyles<CR>:styledisable -name global<CR>
 
 " Firefox options {{{
 
+set! browser.tabs.closeWindowWithLastTab=false
 " hide close button
-"set! browser.tabs.closeButtons=2
+set! browser.tabs.closeButtons=3
 " open bookmarks in background
 "set! browser.tabs.loadBookmarksInBackground=true
 " open tabs by javascript in background
