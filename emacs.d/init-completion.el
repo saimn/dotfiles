@@ -62,13 +62,14 @@
 (yas/load-directory "~/.emacs.d/site-lisp/yasnippet/snippets")
 (yas/load-directory "~/.emacs.d/snippets")
 
-(require 'autoinsert)
-(auto-insert-mode)                                   ; Adds hook to find-files-hook
+;; (require 'autoinsert)
+;; (auto-insert-mode)                                   ; Adds hook to find-files-hook
+(add-hook 'find-file-hooks 'auto-insert)
 (setq auto-insert-directory "~/dotfiles/templates/") ; *NOTE* Trailing slash important
+;; (setq auto-insert-directory (concat (getenv "HOME") "/.dossier/"))
 (setq auto-insert-query nil)                         ; don't prompt before insertion
 (define-auto-insert "\.py" "module.py")
 ;; (define-auto-insert "\.php" "my-php-template.php")
-;(add-hook 'find-file-hook 'auto-insert)
 
 (setq auto-insert-alist
       '(
@@ -88,6 +89,31 @@
           nil
           "#!/bin/sh\n"
           "# -*- coding: UTF8 -*-\n\n")
+        ("\\.py$" . ["module.py" auto-update-header-file])
         ))
+(setq auto-insert 'other)
+
+;; Function replaces the string '%xxx%' by the relevant information.
+(defun auto-update-header-file ()
+  (save-excursion
+    (while (search-forward "%file%" nil t)
+      (save-restriction
+        (narrow-to-region (match-beginning 0) (match-end 0))
+        (replace-match (file-name-nondirectory buffer-file-name))
+        ))
+    (while (search-forward "%date%" nil t)
+      (save-restriction
+        (narrow-to-region (match-beginning 0) (match-end 0))
+        (replace-match (format-time-string "%e %B %Y" (current-time)))
+        ))
+    (while (search-forward "%year%" nil t)
+      (save-restriction
+        (narrow-to-region (match-beginning 0) (match-end 0))
+        (replace-match (format-time-string "%Y" (current-time)))
+        ))
+    )
+  )
+
 
 (provide 'init-completion)
+
