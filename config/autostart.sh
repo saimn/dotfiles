@@ -1,5 +1,6 @@
 #!/bin/sh
 
+xset -b
 # feh --bg-scale ~/Downloads/118-e.jpg &
 # feh --bg-tile ~/.xmonad/background.png &
 # nitrogen --restore &
