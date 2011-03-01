@@ -20,7 +20,7 @@ if [[ $(hostname) == "goudes" ]]; then
 elif [[ $(hostname) == "fireball" ]]; then
     # /usr/libexec/gnome-settings-daemon &
     # gnome-volume-control-applet &
-    gpk-update-icon &
+    # gpk-update-icon &
     numlockx &
     dropbox start &
 fi

@@ -102,7 +102,7 @@ setopt extended_glob    # in order to use #, ~ and ^ for filename generation
 setopt always_to_end    # move to cursor to the end after completion
 setopt notify           # report the status of backgrounds jobs immediately
 setopt correct          # try to correct the spelling if possible
-setopt rmstarwait       # wait 10 seconds before querying for a rm which contains a *
+#setopt rmstarwait       # wait 10 seconds before querying for a rm which contains a *
 setopt printexitvalue   # show the exit-value if > 0
 setopt auto_pushd       # Always push directory in stack
 setopt pushdminus       # Invert the behavior of cd -<tab> cd +<tab>
