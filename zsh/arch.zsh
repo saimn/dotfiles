@@ -1,6 +1,8 @@
 #!/usr/bin/env zsh
 # Archlinux configuration
 
+export PACMAN=pacman-color
+
 # search
 function pacs {
 echo -e "$(pacman -Ss $@ | sed \
