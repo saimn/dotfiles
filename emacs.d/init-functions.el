@@ -118,5 +118,11 @@ Replaces default behaviour of comment-dwim, when it inserts comment at the end o
         (kill-buffer buffer)
         (message "File '%s' successfully removed" filename)))))
 
+;; (defun maybe-load-library (libname)
+;;   "Try and load library 'libname' if it is in the path"
+;;   (if (locate-library libname)
+;;       (load-library libname)))
+
+;; (when (require 'some-lib nil 'noerror)
 
 (provide 'init-functions)

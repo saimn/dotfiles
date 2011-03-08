@@ -8,14 +8,22 @@
 ;;----------------------------------------------------------------------
 ;; IPython
 ;;----------------------------------------------------------------------
-;; (setq ipython-command "ipython")
-;; (require 'ipython)
-;; ;; (setq python-python-command "ipython")
-;; (setq py-python-command-args '( "-colors" "Linux"))
-;; (setq ipython-completion-command-string "print(';'.join(__IP.Completer.all_completions('%s')))\n")
+;; load ipython.el if ipython is available
+(when (executable-find "ipython")
+  (require 'ipython nil 'noerror))
+(when (featurep 'ipython)
+  (setq python-python-command "ipython") ; -cl for classic prompt
+  (setq python-command python-python-command)
+  ;; (setq ipython-command "ipython")
+  (setq py-python-command-args '( "-colors" "Linux"))
+  (setq ipython-completion-command-string
+        "print(';'.join(__IP.Completer.all_completions('%s')))\n")
+  (autoload 'py-shell "ipython"
+    "Use IPython as the Python interpreter." t))
 
-;; (if (maybe-load-library "ipython")
-;;     (setq py-python-command-args '( "-colors" "Linux")))
+;; Set PYTHONPATH
+;; python-load-file not defined, may need to address this
+(setenv "PYTHONPATH" ".")
 
 ;;----------------------------------------------------------------------
 ;; Fonctions
@@ -44,75 +52,49 @@
     (beginning-of-line)
     (search-forward "#" (point-at-eol) t)))
 
-(provide 'init-python)
-
-
-;;----------------------------------------------------------------------
-;; Pymacs and Rope for Python
-;;----------------------------------------------------------------------
-(require 'pymacs)
-;; (eval-after-load "pymacs"
-;;  '(add-to-list 'pymacs-load-path "~/.emacs.d/site-lisp/"))
-(setq pymacs-load-path (list (expand-file-name "~/.emacs.d/site-lisp")))
-
-;; some python tools
-;; (pymacs-load "python")
-;; python refactoring and support
-(pymacs-load "ropemacs" "rope-")
-;; shortcut function to insert license headers
-(pymacs-load "license")
-
-;; rope settings
-(setq ropemacs-guess-project t
-      ropemacs-enable-autoimport t)
-
-;; (add-hook 'python-mode-hook
-;;           (lambda ()
-;;             (require 'pymacs)
-;;             (pymacs-load "ropemacs" "rope-")))
-
 ;;----------------------------------------------------------------------------
 ;; On-the-fly syntax checking via flymake
 ;;----------------------------------------------------------------------------
+(when (load "flymake" t)
+  ;; (setq flymake-python-pyflakes-executable "pyflakes")
+  ;; (load-library "flymake-cursor.el")
 
-(require 'flymake)
-;; (setq flymake-python-pyflakes-executable "pyflakes")
-;; (load-library "flymake-cursor.el")
+  ;; (add-hook 'python-mode-hook 'flymake-python-load)
 
-;; (add-hook 'python-mode-hook 'flymake-python-load)
+  (defun flymake-pyflakes-init ()
+    "Initialize flymake for python checking"
+    (let* ((temp-file (flymake-init-create-temp-buffer-copy
+                       'flymake-create-temp-inplace))
+           (local-file (file-relative-name
+                        temp-file
+                        (file-name-directory buffer-file-name))))
+      (list "pyflakes" (list local-file))))
 
-;; load flymake and
-(defun flymake-pyflakes-init ()
-  "Initialize flymake for python checking"
-  (let* ((temp-file (flymake-init-create-temp-buffer-copy
-                     'flymake-create-temp-inplace))
-         (local-file (file-relative-name
-                      temp-file
-                      (file-name-directory buffer-file-name))))
-    (list "pyflakes" (list local-file))))
+  ;; use flymake for python for flymake-find-file-hook
+  (add-to-list 'flymake-allowed-file-name-masks
+               '("\\.pyw?\\'" flymake-pyflakes-init))
 
-;; use flymake for python for flymake-find-file-hook
-(add-to-list 'flymake-allowed-file-name-masks
-             '("\\.pyw?\\'" flymake-pyflakes-init))
+  (add-hook 'python-mode-hook
+            (lambda ()
+              (flymake-pyflakes-init)
+              ;; prevent flymake from running over temporary interpreter buffers
+              (unless (eq buffer-file-name nil) (flymake-mode 1))
+              ;; flymake shortcuts
+            (local-(setq  )et-key [f2] 'flymake-goto-prev-error)
+            (local-set-key [f3] 'flymake-goto-next-error)
+            )))
 
-;; eldoc may always resize echo area
-(setq eldoc-echo-area-use-multiline-p t
-      ;; comment indentation affects general indentation
-      py-honour-comment-indentation t
-      ;; source code checking with pylint
-      py-pychecker-command "pylint"
+;;----------------------------------------------------------------------------
+
+(setq eldoc-echo-area-use-multiline-p t ; eldoc may always resize echo area
+      py-honour-comment-indentation t   ; comment indentation affects general indentation
+      py-pychecker-command "pylint"     ; source code checking with pylint
       py-pychecker-command-args '("--output-format=parseable"))
 
 
 (add-hook 'python-mode-hook
           (lambda ()
             (eldoc-mode t)
-            (flymake-pyflakes-init)
-            ;; prevent flymake from running over temporary interpreter buffers
-            (unless (eq buffer-file-name nil) (flymake-mode 1))
-            ;; flymake shortcuts
-            (local-set-key [f2] 'flymake-goto-prev-error)
-            (local-set-key [f3] 'flymake-goto-next-error)
             ;; disable highlighting of unknown includes
             (semantic-toggle-decoration-style
              "semantic-decoration-on-includes" nil)
@@ -125,4 +107,6 @@
                            (delete-trailing-whitespace))))
             (set (make-local-variable 'tab-width) 4)
             (set (make-local-variable 'indent-tabs-mode) 'nil)))
+
+(provide 'init-python)
 

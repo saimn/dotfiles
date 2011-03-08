@@ -66,4 +66,4 @@
                 )
               auto-mode-alist))
 
-(provide 'init-html)
+(provide 'init-web)
