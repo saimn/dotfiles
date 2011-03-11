@@ -3,6 +3,7 @@
 (setq auto-mode-alist (cons '("\\.pyw?$" . python-mode) auto-mode-alist))
 (setq interpreter-mode-alist (cons '("python" . python-mode)
                                    interpreter-mode-alist))
+(setq python-remove-cwd-from-path 'nil)
 (autoload 'python-mode "python" "Python editing mode." t)
 
 ;;----------------------------------------------------------------------

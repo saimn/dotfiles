@@ -226,7 +226,8 @@ alias svnd='svn diff --diff-cmd "~/bin/svnvimdiff"'
 alias xp='xprop | grep "WM_WINDOW_ROLE\|WM_CLASS" && echo "WM_CLASS(STRING) = \"NAME\", \"CLASS\""'
 
 alias e="emacsclient"
-alias ec="emacsclient -c"
+alias ec="emacsclient -n -c"
+alias et="emacsclient -t"
 alias v='exec urxvtc -e "bash" -c "exec vim $@" >> /dev/null &'
 alias vi="vim"
 alias sv='exec urxvtc -e "bash" -c "exec sudo vim $@" >> /dev/null &'
