@@ -16,7 +16,7 @@
    # log
    logv = log -p
    last = log --oneline -1 HEAD
-   oneline = log --oneline --decorate
+   oneline = log --oneline --decorate --graph --all
    hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
    # summary of what you're going to pull/push
    incoming = "git fetch && git log ..origin/master"
