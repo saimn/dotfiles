@@ -44,8 +44,8 @@
 
 ;;------------------------------------------------------------
 ;; Utiliser PSGML pour les fichiers SGML, HTML, XML
-(autoload 'sgml-mode "psgml" "Major mode to edit SGML files." t)
-(autoload 'xml-mode "psgml" "Major mode to edit XML files." t)
+;; (autoload 'sgml-mode "psgml" "Major mode to edit SGML files." t)
+;; (autoload 'xml-mode "psgml" "Major mode to edit XML files." t)
 (autoload 'css-mode "css-mode" "CSS editing mode" t)
 (autoload 'rainbow-mode "rainbow-mode" "Highlight color names in buffer" t)
 (autoload 'javascript-mode "javascript-mode.el" nil t)
