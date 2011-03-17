@@ -120,7 +120,7 @@ map <A-a> :dialog addbookmark<CR>
 map <A-b> :dialog bookmarks<CR>
 
 " Toggle userstyles/userscripts
-nmap <Leader>s -silent :styletoggle<CR>:styledisable -name global<CR>
+nmap <Leader>s -silent :styletoggle!<CR>:styledisable -name global<CR>
 nmap <Leader>h -silent :styletoggle -name global<CR>
 nmap <Leader>S -silent :loaduserstyles<CR>:styledisable -name global<CR>
 
