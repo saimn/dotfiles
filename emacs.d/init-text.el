@@ -32,8 +32,8 @@
 ;;                (local-set-key [tab] 'yas/expand))))
 
 (add-hook 'markdown-mode-hook '(lambda ()
-                                 (setq yas/fallback-behavior
-                                       '(apply 'original-command))
+                                 ;; (setq yas/fallback-behavior
+                                 ;;       '(apply 'original-command))
                                  (setq paragraph-start "\\*\\|$"
                                        paragraph-separate "$")
                                  (local-set-key [tab] 'yas/expand)))

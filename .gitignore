@@ -2,6 +2,7 @@
 *.hi
 *.local
 *.o
+*.pyc
 *cache*
 *~
 \#*\#

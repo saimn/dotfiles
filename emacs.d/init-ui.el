@@ -54,6 +54,9 @@
       (scroll-bar-mode 1)
       )))
 
+(require 'popwin)
+(setq display-buffer-function 'popwin:display-buffer)
+
 ;;------------------------------------------------------------
 ;; Speedbar
 ;;------------------------------------------------------------

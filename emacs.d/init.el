@@ -241,7 +241,7 @@
   ;; some python tools
   ;; (pymacs-load "python")
   ;; python refactoring and support
-  (pymacs-load "ropemacs" "rope-")
+  ;;(pymacs-load "ropemacs" "rope-")
   ;; shortcut function to insert license headers
   (pymacs-load "license")
 
