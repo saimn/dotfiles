@@ -1,9 +1,9 @@
 " Camptocamp.org syntax file
 " Language: Mix of BBCode & Markdown
 " Maintainer: Saïmon <contact at saimon dot org>
-" URL: http://saimon.org/
+" URL: http://github.com/saimn/c2c-tools/
 " Version: 1
-" Last Change: 2009 Jul 29
+" Last Change: 2010 Oct 27
 " Remark: Uses HTML syntax file. Based on Markdown & BBCode syntax files.
 
 " Read the HTML syntax to start with

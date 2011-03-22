@@ -1,11 +1,11 @@
 ;; c2c-mode.el --- Major mode to edit Camptocamp.org files in Emacs
 
-;; Copyright (C) 2009 Simon - saimon.org
+;; Copyright (C) 2009-2011 Simon - saimon.org
 
-;; Version: 0.1
+;; Version: 0.2
 ;; Keywords: C2C major mode
-;; Author: Saïmon <contact at saimon.org>
-;; URL: http://hg.saimon.org/camptocamp
+;; Author: Saïmon <contact at saimon dot org>
+;; URL: https://github.com/saimn/c2c-tools
 
 ;; This file is not part of GNU Emacs.
 
@@ -29,9 +29,9 @@
 
 ;;; Installation:
 
-;; Make sure to place `c2c-mode.el` somewhere in the load-path and add
-;; the following lines to your `.emacs` file to associate c2c-mode
-;; with `.text` files:
+;; Make sure to place `c2c-mode.el` somewhere in the load-path and add the
+;; following lines to your `.emacs` file to associate c2c-mode with `.text`
+;; files:
 ;;
 ;;     (autoload 'c2c-mode "c2c-mode.el"
 ;;        "Major mode for editing C2C files" t)
@@ -40,34 +40,16 @@
 
 ;;; Customization:
 
-;; Although no configuration is *necessary* there are a few things
-;; that can be customized.  The `M-x customize-mode` command
-;; provides an interface to all of the possible customizations:
-;;
-;;   * `c2c-hr-length` - the length of horizontal rules
-;;     (default: `5`).
-;;
-;;   * `c2c-indent-function` - the function to use for automatic
-;;     indentation (default: `c2c-indent-line`).
-;;
-;;   * `c2c-indent-on-enter` - set to a non-nil value to
-;;     automatically indent new lines when the enter key is pressed
-;;     (default: `t`)
-;;
-;;   * `c2c-uri-types` - a list of protocols for URIs that
-;;     `c2c-mode' should highlight.
-;;
-;; Additionally, the faces used for syntax highlighting can be modified to
-;; your liking by issuing `M-x customize-group RET c2c-faces`
-;; or by using the "C2C Faces" link at the bottom of the mode
-;; customization screen.
+;; the faces used for syntax highlighting can be modified to your liking by
+;; issuing `M-x customize-group RET c2c-faces` or by using the "C2C Faces"
+;; link at the bottom of the mode customization screen.
 
 ;;; Usage:
 
-;; Keybindings are grouped by prefixes based on their function.  For
-;; example, commands dealing with headers begin with `C-c C-t`.  The
-;; primary commands in each group will are described below.  You can
-;; obtain a list of all keybindings by pressing `C-c C-h`.
+;; Keybindings are grouped by prefixes based on their function. For example,
+;; commands dealing with headers begin with `C-c C-t`. The primary commands in
+;; each group will are described below. You can obtain a list of all
+;; keybindings by pressing `C-c C-h`.
 ;;
 ;;   * Anchors: `C-c C-a`
 ;;
@@ -135,6 +117,7 @@
 ;; results.
 
 ;;; Acknowledgments:
+
 ;; c2c-mode is based on markdown-mode from Jason Blevins
 ;; http://jblevins.org/projects/c2c-mode/
 
@@ -150,34 +133,12 @@
 
 ;;; Customizable variables ====================================================
 
-(defgroup c2c nil
-  "Major mode for editing text files in C2c format."
-  :prefix "c2c-"
-  :group 'wp
-  :link '(url-link "http://saimon.org/public/c2c/c2c-mode.el"))
+(defvar c2c-hr-length 5)
 
-;; (defcustom c2c-hr-length 5
-;;   "Length of horizonal rules."
-;;   :group 'c2c
-;;   :type 'integer)
-
-(defcustom c2c-indent-function 'c2c-indent-line
-  "Function to use to indent."
-  :group 'c2c
-  :type 'function)
-
-(defcustom c2c-indent-on-enter t
-  "Automatically indent new lines when enter key is pressed."
-  :group 'c2c
-  :type 'boolean)
-
-(defcustom c2c-uri-types
+(defvar c2c-uri-types
   '("acap" "cid" "data" "dav" "fax" "file" "ftp" "gopher" "http" "https"
     "imap" "ldap" "mailto" "mid" "modem" "news" "nfs" "nntp" "pop" "prospero"
-    "rtsp" "service" "sip" "tel" "telnet" "tip" "urn" "vemmi" "wais")
-  "Link types for syntax highlighting of URIs."
-  :group 'c2c
-  :type 'list)
+    "rtsp" "service" "sip" "tel" "telnet" "tip" "urn" "vemmi" "wais"))
 
 ;;; Font lock =================================================================
 
@@ -348,7 +309,7 @@
   "Regular expression for matching inline code fragments.")
 
 (defconst c2c-regex-link-inline
-  "\\(\\[url\\(=.*\\)?\\]\\)\\(.*?\\)\\(\\[\\/url\\]\\)"
+  "\\(\\[url\\(=.*?\\)?\\]\\)\\(.*?\\)\\(\\[\\/url\\]\\)"
   ;"\\(!?\\[[^]]*?\\]\\)\\(([^\\)]*)\\)"
   "Regular expression for links: [url=link]text[/url].")
 
@@ -363,14 +324,6 @@
 (defconst c2c-regex-acronym
   "\\(\\[acronym\\(=.*\\)?\\]\\)\\(.*?\\)\\(\\[\\/acronym\\]\\)"
   "Regular expression for links: [acronym=link]text[/acronym].")
-
-;(defconst c2c-regex-link-reference
-;  "\\(!?\\[[^]]+?\\]\\)[ ]?\\(\\[[^]]*?\\]\\)"
-;  "Regular expression for a reference link [text][id].")
-
-;(defconst c2c-regex-reference-definition
-;  "^ \\{0,3\\}\\(\\[.+?\\]\\):\\s *\\(.*?\\)\\s *\\( \"[^\"]*\"$\\|$\\)"
-;  "Regular expression for a link definition [id]: ...")
 
 (defconst c2c-regex-header-1-atx
   "^\\(# \\)\\(.*?\\)\\($\\| #+$\\)"
@@ -444,7 +397,7 @@
   "Regular expression for matching line breaks.")
 
 (defconst c2c-regex-wiki-link
-  "\\[\\[[^]]+\\]\\]"
+  "\\[\\[\\(.*?\\)|\\(.*?\\)\\]\\]"
   "Regular expression for matching wiki links.")
 
 (defconst c2c-regex-uri
@@ -469,21 +422,9 @@
   "^\\(\\s *\\)\\([0-9]+\\.\\|[\\*\\+-]\\)\\(\\s +\\)"
   "Regular expression for matching indentation of list items.")
 
-; From html-helper-mode
-(defun c2c-match-comments (last)
-  "Matches HTML comments from the point to LAST"
-  (cond ((search-forward "<!--" last t)
-         (backward-char 4)
-         (let ((beg (point)))
-           (cond ((search-forward-regexp "--[ \t]*>" last t)
-                  (set-match-data (list beg (point)))
-                  t)
-                 (t nil))))
-        (t nil)))
-
 (defvar c2c-mode-font-lock-keywords-basic
   (list
-   '(c2c-match-comments 0 c2c-comment-face t t)
+;;   '(c2c-match-comments 0 c2c-comment-face t t)
    (cons c2c-regex-keyword 'c2c-keyword-face)
    (cons c2c-regex-code '(2 c2c-inline-code-face))
    (cons c2c-regex-pre 'c2c-pre-face)
@@ -514,10 +455,8 @@
 			     (2 c2c-inline-code-face t)
 			     (3 c2c-link-title-face t)
 			     (4 c2c-link-face t)))
-   ;; (cons c2c-regex-link-reference
-   ;;       '((1 c2c-link-face t)
-   ;;         (2 c2c-reference-face t)))
-   (cons c2c-regex-wiki-link 'c2c-link-face)
+   (cons c2c-regex-wiki-link '((1 c2c-url-face t)
+                               (2 c2c-link-title-face t)))
    (cons c2c-regex-bold '(2 c2c-bold-face))
    (cons c2c-regex-italic '(3 c2c-italic-face))
    (cons c2c-regex-underline '(3 c2c-underline-face))
@@ -556,14 +495,14 @@ and S2 around the region."
        (insert s2))
    (insert s1 s2)))
 
-;; (defun c2c-insert-hr ()
-;;   "Insert a horizonal rule."
-;;   (interactive)
-;;   (let (hr)
-;;     (dotimes (count (- c2c-hr-length 1) hr)        ; Count to n - 1
-;;       (setq hr (concat "* " hr)))                       ; Build HR string
-;;     (setq hr (concat hr "*\n"))                         ; Add the n-th *
-;;     (insert hr)))
+(defun c2c-insert-hr ()
+  "Insert a horizonal rule."
+  (interactive)
+  (let (hr)
+    (dotimes (count (- c2c-hr-length 1) hr)        ; Count to n - 1
+      (setq hr (concat "* " hr)))                       ; Build HR string
+    (setq hr (concat hr "*\n"))                         ; Add the n-th *
+    (insert hr)))
 
 (defun c2c-insert-bold ()
   "Insert markup for a bold word or phrase.
@@ -865,8 +804,7 @@ Arguments BEG and END specify the beginning and end of the region."
   "Insert a newline and optionally indent the next line."
   (interactive)
   (newline)
-  (if c2c-indent-on-enter
-      (funcall indent-line-function)))
+  (funcall indent-line-function))
 
 
 ;;; Keymap ====================================================================
@@ -894,7 +832,7 @@ Arguments BEG and END specify the beginning and end of the region."
     (define-key c2c-mode-map "\C-c\C-s\C-b" 'c2c-blockquote-region)
     (define-key c2c-mode-map "\C-c\C-sp" 'c2c-insert-pre)
     (define-key c2c-mode-map "\C-c\C-s\C-p" 'c2c-pre-region)
-;    (define-key c2c-mode-map "\C-c-" 'c2c-insert-hr)
+    (define-key c2c-mode-map "\C-c-" 'c2c-insert-hr)
     (define-key c2c-mode-map "\C-c\C-tt" 'c2c-insert-title)
     (define-key c2c-mode-map "\C-c\C-ts" 'c2c-insert-section)
     ;; Indentation
@@ -933,7 +871,7 @@ Arguments BEG and END specify the beginning and end of the region."
     "---"
     ["Insert inline link" c2c-insert-link]
     ["Insert image" c2c-insert-image]
-;    ["Insert horizontal rule" c2c-insert-hr]
+    ["Insert horizontal rule" c2c-insert-hr]
     ))
 
 
@@ -1073,15 +1011,6 @@ This is an exact copy of `line-number-at-pos' for use in emacs21."
 
 (define-derived-mode c2c-mode text-mode "C2C"
   "Major mode for editing C2c files."
-  ;; Comments
-  (make-local-variable 'comment-start)
-  (setq comment-start "<!-- ")
-  (make-local-variable 'comment-end)
-  (setq comment-end " -->")
-  (make-local-variable 'comment-start-skip)
-  (setq comment-start-skip "<!--[ \t]*")
-  (make-local-variable 'comment-column)
-  (setq comment-column 0)
   ;; Font lock.
   (set (make-local-variable 'font-lock-defaults)
        '(c2c-mode-font-lock-keywords))
@@ -1099,7 +1028,7 @@ This is an exact copy of `line-number-at-pos' for use in emacs21."
   ;; Indentation and filling
   (make-local-variable 'fill-nobreak-predicate)
   (add-hook 'fill-nobreak-predicate 'c2c-nobreak-p)
-  (setq indent-line-function c2c-indent-function))
+  (setq indent-line-function 'c2c-indent-line))
 
 ;(add-to-list 'auto-mode-alist '("\\.text$" . c2c-mode))
 
