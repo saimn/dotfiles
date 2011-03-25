@@ -9,7 +9,7 @@ loadplugins
 source ~/.pentadactyl/styles/styles.js
 styledisable -name global
 
-"colorscheme desert
+colorscheme zenburn
 
 set editor="emacsclient -c"
 

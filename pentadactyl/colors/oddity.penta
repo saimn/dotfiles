@@ -11,7 +11,8 @@ hi StatusLineSecure     color: #000000  !important; background: #afffaf  !import
 hi Normal               color: #afafaf; background: #222222; font-weight: bold !important;
 hi CmdLine              background: #ffffff; color: #000000; font-weight: normal !important; "font-size: 9pt !important;
 hi CompDesc             color: #c6c6c6; width: 50%; font-size: 8pt;
-hi CompIcon             width: 16px; min-width: 16px; display: inline-block; margin-right: .5ex;
+"hi CompIcon             width: 16px; min-width: 16px; display: inline-block; margin-right: .5ex;
+hi CompIcon 		display: none;
 hi CompItem[selected]   background: #666666; color: #afafaf; 
 hi CompLess             text-align: center; height: 0; line-height: .5ex; padding-top: 1ex;
 hi CompMore             text-align: center; height: .5ex; line-height: .5ex; margin-bottom: -.5ex;
@@ -22,9 +23,7 @@ hi CompTitle>*          padding: 0 .5ex;
 hi Filter               font-weight: bold; color: #afafaf !important;
 
 "When using tab complete in CmdLine, line separating Title from function and description
-hi Gradient             height: 1px; margin-bottom: -1px; margin-top: -1px;
-hi GradientLeft         background-color: #00bbff;
-hi GradientRight        background-color: #222222;
+hi CompTitleSep			 -a background: #00bbff; background: -moz-linear-gradient(60deg, #00bbff, #222222);
 
 "Used with ]f and [f
 hi FrameIndicator       background-color: #222222; opacity: 0.5; z-index: 999; position: fixed; top: 0; bottom: 0; left: 0; right: 0;
@@ -42,7 +41,7 @@ hi HintElem             background-color: inherit !important; "#ffffff !importan
 hi HintImage            opacity: .5;
 
 "Other important stuff
-hi Indicator		color: inherit !important; font-weight: bold;
+hi Indicator		color: inherit !important; font-weight: bold; width: 4px;
 hi InfoMsg              color: #afafaf !important; background: inherit !important;
 hi Message              color: #222222 !important; background: inherit !important; font-weight: bold; white-space: normal; min-width: 100%; padding-left: 2em; text-indent: -2em; display: block;
 hi WarningMsg           color: red !important; background: #ffffff !important;

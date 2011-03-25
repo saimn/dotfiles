@@ -1,70 +1,56 @@
-" == Zenburn color scheme ==
-" name:    Zenburn
-" file:    zenburn.vimp
-" author:  Adrian C. <anrxc..sysphere.org>
-" license: GNU General Public License v2
-" == Zenburn color scheme settings ==
-hi Bell					border: 0 none !important; background-color: black !important;
-hi Boolean				color: #CC9393 !important;
-hi CmdLine				font-family: "DejaVu Sans Mono" !important; padding: 1px !important;
-hi CmdOutput				white-space: pre !important;
-hi CompDesc				color: #808080 !important; width: 50% !important;
-hi CompGroup
-hi CompGroup:not(:first-of-type)	margin-top: .5em !important;
-hi CompIcon				width: 16px !important; min-width: 16px !important; display: inline-block !important; margin-right: .5ex !important;
-hi CompIcon>img				max-width: 16px !important; max-height: 16px !important; vertical-align: middle !important;
-hi CompItem				font-family: "DejaVu Sans Mono" !important; font-size: 10px !important;
-hi CompItem>*				padding: 0 .5ex !important;
-hi CompItem[selected]			color: #2E4340 !important; background: #CCDC90 !important;
-hi CompLess				text-align: center !important; height: 0 !important; line-height: .5ex !important; padding-top: 1ex !important;
-hi CompLess::after			content: "\2303" /* Unicode up arrowhead */
-hi CompMore				text-align: center !important; height: .5ex !important; line-height: .5ex !important; margin-bottom: -.5ex !important;
-hi CompMore::after			content: "\2304" /* Unicode down arrowhead */
-hi CompMsg				font-style: italic !important; margin-left: 16px !important;
-hi CompResult				width: 45% !important; overfloaw: hidden !important;
-hi CompTitle				color: #ACBC90 !important; background: #3F3F3F !important; font-weight: bold !important;
-hi CompTitle>*				padding: 0 .5ex !important;
-hi ErrorMsg				color: #3F3F3F !important; background: #CC9393 !important; font-weight: bold !important;
-hi Filter				color: #2E4340 !important; background: #CCDC90 !important; font-weight: bold !important;
-hi FrameIndicator			background-color: #CC9393 !important; opacity: 0.5 !important; z-index: 999 !important; position: fixed !important; top: 0 !important; bottom: 0 !important; left: 0 !important; right: 0 !important;
-hi Function				color: navy !important;
-hi Gradient				height: 1px !important; margin-bottom: -1px !important; margin-top: -1px !important;
-hi GradientLeft				background-color: #ACBC90 !important;
-hi GradientRight			background-color: #3F3F3F !important;
-hi Hint					font-family: "DejaVu Sans Mono" !important; font-size: 10px !important; font-weight: bold !important; color: #385F38 !important; background-color: #F8F893 !important; border-color: ButtonShadow !important; border-width: 0px !important; border-style: solid !important; padding 0px 1px 0px 1px !important;
-hi Hint::after				content: attr(number) !important;
-hi HintActive				background: #F18C96 !important; color: #333333 !important;
-hi HintElem				background-color: #8FAF9F !important; color: #000D18 !important;
-hi HintImage				opacity: .5 !important;
-hi Indicator				color: #94BFF3 !important;
-hi InfoMsg				color: #DCDCCD !important; background: #3F3F3F !important;
-hi LineNr				color: orange !important; background: #3F3F3F !important;
-hi Message				white-space: normal !important; min-width: 100% !important; padding-left: 2em !important; text-indent: -2em !important; display: block !important;
-hi ModeMsg				color: #DCDCCD !important; background: #3F3F3F !important;
-hi MoreMsg				color: #9ECE9E !important; background: #3F3F3F !important;
-hi NonText				color: #94BFF3 !important; min-height: 16px !important; padding-left: 2px !important;
-hi Normal				color: #DCDCCD !important; background: #3F3F3F !important;
-hi Null					color: #94BFF3 !important;
-hi Number				color: #94BFF3 !important;
-hi Object				color: maroon !important;
-hi Preview				color: gray !important;
-hi Question				color: #9ECE9E !important; background: #3F3F3F !important; font-weight: bold !important;
-hi Search				font-size: 10px !important; padding: 0 !important; color: #385F38 !important; background-color: #F8F893 !important; padding: 0 !important;
-hi StatusLine				color: #ACBC90 !important; background: #1E2320 !important;
-hi StatusLineBroken			color: #CC9393 !important; background: #1E2320 !important;
-hi StatusLineSecure			color: #F0DFAF !important; background: #1E2320 !important;
-hi String				color: #9ECE9E !important;
-hi TabClose
-hi TabIcon
-hi TabIconNumber			font-weight: normal !important; color: #DCDCCD !important; text-align: center !important; text-shadow: black -1px 0 1px, black 0 1px 1px, black 1px 0 1px, black 0 -1px 1px !important;
-hi TabNumber				font-weight: bold !important; margin: 0 !important; padding-right: .3ex !important;
-hi TabText
-hi Tag					color: #94BFF3 !important;
-hi Title				color: #ACBC90 !important; background: #3F3F3F !important; font-weight: bold !important;
-hi URL					text-decoration: none !important; color: #9ECE9E !important; background: inherit !important;
-hi URL:hover				text-decoration: underline !important; cursor: pointer !important;
-hi WarningMsg				color: #CC9393 !important; background: #3F3F3F !important;
+" FileName: zenburn.penta
+" Author: zouyang
+" Last Updated: Sat 08 Jan 2011 09:46:19 PM CST
+hi Cmd background-color:#313633; font-size:9pt;
+hi -a StatusLineNormal      color:#ccdc90; background-color:#313633 !important; margin-bottom:-2px; font-size:9pt;
 
-style -name statusbar chrome://* <<EOM
-					#liberator-statusline { font-family: "DejaVu Sans Mono" ! important; }
-EOM
+hi -l StatusLineNormal StatusLineSecure         color:#87af87;
+hi -l StatusLineNormal StatusLineBroken         color:#ffa0a0;
+hi -l StatusLineNormal StatusLineExtended       color:#a0ffa0;
+hi -a String                color:#cc9393;
+hi -a Boolean               color:#dca3a3;
+hi -a Function              color:#efef8f;
+hi -a Number                color:#8cd0d3;
+hi WarningMsg            color:#ffffff; background-color:#333333 !important; font-weight:bold;
+hi -l WarningMsg StatusWarningMsg
+hi -l WarningMsg CmdWarningMsg
+hi ErrorMsg              color:#80d4aa !important; background-color:#2f2f2f !important; font-weight:bold; font-size:9pt;
+hi -l ErrorMsg StatusErrorMsg
+hi -l ErrorMsg CmdErrorMsg
+hi -a ModeMsg               color:#ffcfaf; background-color:transparent !important;
+hi -l ModeMsg StatusModeMsg
+hi -l ModeMsg CmdModeMsg
+hi -a MoreMsg               color:#ffffff !important; background-color:inherit !important; font-weight:bold;
+hi -l MoreMsg StatusMoreMsg
+hi -l MoreMsg CmdMoreMsg
+hi -l Cmd InfoMsg               color:#cccccc !important;
+hi -l InfoMsg StatusInfoMsg
+hi -l InfoMsg CmdInfoMsg
+hi Question              color:#ffffff !important; background-color:inherit !important; font-weight:bold;
+hi -l Question StatusQuestion
+hi -l Question CmdQuestion
+hi -a Tag                   color:#e89393; font-weight:bold;
+hi -a CmdLine               font-weight:normal; padding:0 3px;
+hi -a NonText               color:#404040; font-weight:bold;
+hi Normal                color:#dcdccc !important; background-color:#313633 !important; font-size:9pt;
+hi -l Normal CmdNormal
+hi -l Normal StatusNormal
+hi -a Title                 color:#efefef; background-color:inherit; font-weight:bold;
+hi -a CompItem[selected]    background-color:#4c504d !important;
+hi -a CompMore              margin-bottom:0;margin-top:.5ex;
+" hi -a CompMore::after       content:"﹀"
+hi -a CompLess              margin-top:.5ex;margin-bottom:1ex;
+" hi -a CompLess::after       content:"︿"
+hi -a CompTitle             color:lightblue; background-color:transparent;
+hi -a CompTitleSep          background:-moz-linear-gradient(60deg, lightblue, white); height:1px;
+hi -a Filter                font-style:normal; font-weight:bold;
+hi -a Keyword               color:#f0dfaf; font-weight:bold;
+hi -a URL                   text-decoration:none; color:#9ECE9E; background-color:inherit;
+hi -a URL:hover             text-decoration:underline; cursor: pointer;
+hi -a LineNr                color:#9fafaf; background-color:#262626;
+
+" plugin styles
+hi -a BufTabSelected        color:#2e3330; background-color:#88b090; padding:0 4px;
+hi -a BufTabs               margin:0 4px; overflow:hidden;
+hi -a BufTab                padding:0 2px;
+" vim: set ft=pentadactyl:ts=4:sw=4:tw=0:
