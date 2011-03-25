@@ -46,15 +46,18 @@
 
   (define-key idlwave-mode-map [(control tab)] 'other-window)
   (define-key idlwave-mode-map "\C-m" 'reindent-then-newline-and-indent)
-)
 
-  ;; (lambda ()
-  ;;   (local-set-key [f4] 'idlwave-shell-retall)
-  ;;   (local-set-key [f5] 'idlwave-shell-break-here)
-  ;;   (local-set-key [f6] 'idlwave-shell-clear-current-bp)
-  ;;   (local-set-key [f7] 'idlwave-shell-cont)
-  ;;   (local-set-key [f8] 'idlwave-shell-clear-all-bp)
-  ;;   (local-set-key [kp-enter] 'idlwave-newline)))
+  (lambda ()
+    ;; (local-set-key [f4] 'idlwave-shell-retall)
+    ;; (local-set-key [f5] 'idlwave-shell-break-here)
+    ;; (local-set-key [f6] 'idlwave-shell-clear-current-bp)
+    ;; (local-set-key [f7] 'idlwave-shell-cont)
+    ;; (local-set-key [f8] 'idlwave-shell-clear-all-bp)
+    (local-set-key [f9] 'idlwave-shell-save-and-compile)
+    ;; (local-set-key [kp-enter] 'idlwave-newline)
+    )
+  )
+
 
 ;; Then for the shell buffer
 ;; (add-hook 'idlwave-shell-mode-hook
