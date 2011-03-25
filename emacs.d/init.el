@@ -51,6 +51,9 @@
 (global-set-key [C-mouse-5] 'up-a-lot)
 ;; (setq scroll-step 1)
 
+;; disable vc to speed up saves
+;(setq vc-handled-backends nil)
+
 ;;----------------------------------------------------------------------------
 ;; paths
 ;;----------------------------------------------------------------------------

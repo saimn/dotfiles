@@ -14,10 +14,9 @@
 ;; volée (le fonctionnement pouvant être encore accéléré en remplaçant
 ;; « fast » par « ultra ») mais je préfère la pertinence à la rapidité.
 
-
-;; (setq ispell-extra-args '("--sug-mode=fast"))
-(setq ispell-program-name "aspell")
-(setq ispell-dictionary "francais")
+(setq ispell-program-name "aspell"
+      ispell-dictionary "francais"
+      ispell-extra-args '("--sug-mode=ultra" "--run-together"))
 
 (dolist (hook '(lisp-mode-hook
                 emacs-lisp-mode-hook
