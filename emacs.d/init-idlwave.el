@@ -20,9 +20,9 @@
   (setq idlwave-shell-automatic-start t)      ; Automatically start the shell when needed
   (setq idlwave-show-block t)                 ; point blinks to block beginning for idlwave-show-begin
   (setq idlwave-begin-line-comment "^;[^;]")  ; Leave ";" but not ";;" anchored at start of line
-  ;(setq idlwave-reserved-word-upcase t)       ; uppercase for keywords
-  ;(setq idlwave-shell-use-dedicated-frame t)  ; shell in a dedicated frame
-  ;(setq idlwave-shell-use-toolbar nil)        ; No toolbar
+  ;;(setq idlwave-reserved-word-upcase t)       ; uppercase for keywords
+  ;;(setq idlwave-shell-use-dedicated-frame t)  ; shell in a dedicated frame
+  ;;(setq idlwave-shell-use-toolbar nil)        ; No toolbar
 
   ;; Pad operators with spaces
   (setq idlwave-do-actions t)
@@ -37,7 +37,7 @@
   ;;(setq idlwave-main-block-indent 2)
   (setq idlwave-block-indent 3)
   (setq idlwave-end-offset -3)
-  ;(setq tab-width 4)
+  ;; (setq tab-width 4)
 
   ;; C-S-b for setting a breakpoint, C-S-c for compiling the current source
   ;; file, C-S-a for deleting all breakpoints
@@ -47,15 +47,13 @@
   (define-key idlwave-mode-map [(control tab)] 'other-window)
   (define-key idlwave-mode-map "\C-m" 'reindent-then-newline-and-indent)
 
-  (lambda ()
-    ;; (local-set-key [f4] 'idlwave-shell-retall)
-    ;; (local-set-key [f5] 'idlwave-shell-break-here)
-    ;; (local-set-key [f6] 'idlwave-shell-clear-current-bp)
-    ;; (local-set-key [f7] 'idlwave-shell-cont)
-    ;; (local-set-key [f8] 'idlwave-shell-clear-all-bp)
-    (local-set-key [f9] 'idlwave-shell-save-and-compile)
-    ;; (local-set-key [kp-enter] 'idlwave-newline)
-    )
+  (local-set-key [f9] 'idlwave-shell-save-and-compile)
+  ;; (local-set-key [f4] 'idlwave-shell-retall)
+  ;; (local-set-key [f5] 'idlwave-shell-break-here)
+  ;; (local-set-key [f6] 'idlwave-shell-clear-current-bp)
+  ;; (local-set-key [f7] 'idlwave-shell-cont)
+  ;; (local-set-key [f8] 'idlwave-shell-clear-all-bp)
+  ;; (local-set-key [kp-enter] 'idlwave-newline)
   )
 
 
@@ -70,7 +68,11 @@
 
 ;; auto-complete setup
 (defun ac-idlwave-mode-setup ()
-  (setq ac-sources (append '(ac-source-filename ac-source-yasnippet ac-source-dictionary ac-source-words-in-same-mode-buffers) ac-sources)))
+  (setq ac-sources (append '(ac-source-filename
+                             ac-source-yasnippet
+                             ac-source-dictionary
+                             ac-source-words-in-same-mode-buffers)
+                           ac-sources)))
 
 (add-hook 'idlwave-mode-hook 'ac-idlwave-mode-setup)
 (add-hook 'idlwave-mode-hook 'my-idlwave-mode-hook)
