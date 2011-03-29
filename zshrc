@@ -292,10 +292,10 @@ zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path ~/.cache/zsh
 
 # prevent CVS files/directory completion
-if [[ -x $(which cvs) ]]; then
-  zstyle ':completion:*:(all-|)files' ignored-patterns '(|*/)CVS'
-  zstyle ':completion:*:cd:*' ignored-patterns '(*/)#CVS'
-fi
+# if [[ -x $(which cvs) ]]; then
+#   zstyle ':completion:*:(all-|)files' ignored-patterns '(|*/)CVS'
+#   zstyle ':completion:*:cd:*' ignored-patterns '(*/)#CVS'
+# fi
 
 zstyle ':completion:*' ignore-parents parent pwd
 
