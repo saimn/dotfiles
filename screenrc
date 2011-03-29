@@ -7,34 +7,35 @@
 # SCREEN SETTINGS
 # ------------------------------------------------------------------------------
 
-# don't display the copyright page
-startup_message off
+
+startup_message off                # don't display the copyright page
 #nethack on
+defutf8 on                         # utf-8 encoding
+#defflow on                        # will force screen to process ^S/^Q
+autodetach on                      # detach on hangup
+vbell on                           # turn visual bell on
 
-#defflow on # will force screen to process ^S/^Q
-deflogin on
-
-# detach on hangup
-autodetach on
-
-# turn visual bell on
-vbell on
 vbell_msg "   Wuff  ----  Wuff!!  "
-bell_msg "bell: %n (%t) [%w:%s]^G" 
+bell_msg "bell: %n (%t) [%w:%s]^G"
 
-# define a bigger scrollback, default	a is 100 lines
-defscrollback 1024
+defscrollback 1024                 # define a bigger scrollback
+nonblock on                        # don't block everything, waiting for an unresponsive window
+# bufferfile $HOME/.screenex         # the file to use for "readbuf" ('<') and  "writebuf" ('>'):
+shell -$SHELL                      # make the shell in every window a login shell
+deflogin on                        # log new screen windows in utmp
 
 # emulate .logout message
 pow_detach_msg "Screen session of $LOGNAME $:cr:$:nl:ended."
 
-# Enable 256 colors
-term screen-256color
+term screen-256color              # Enable 256 colors
+termcapinfo rxvt* ti@:te@:XT      # improve mouse scrolling,
 
 # Termcap, fix 256 colors
-termcapinfo rxvt 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm' 
-termcapinfo rxvt-unicode 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm' 
-termcapinfo rxvt-256color 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm' 
+termcapinfo rxvt 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
+termcapinfo rxvt-unicode 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
+termcapinfo rxvt-256color 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
+
+altscreen on                      # and text will go into terminal scrollback buffer
 
 # ------------------------------------------------------------------------------
 # SCREEN KEYBINDINGS
@@ -122,6 +123,10 @@ hardstatus alwayslastline "%{b kB}%{b kG}%c:%s%{b kB} %{b kB}%H %{b kB}%{b kR}%l
 #hardstatus alwayslastline "%{+b}%c%{kg}%="
 #hardstatus alwayslastline "  %{= kK}%-w%{+b W}%n %t%{-}%+w%=%{+b W}%h  %{= dd}"
 
+# sorendition Wk                    # status: normal text on black bg
+#                                   # [ hostname ][(0*$ zsh) (1-$ emacs)][ hostname ]
+# hardstatus alwayslastline "%{G}[ %{Y}%H %{G}][%{w}%?%-Lw%?%{G}(%{W}%n*%f %t%?(%u)%?%{G})%{w}%?%+Lw%?%?%= %{G}][%{Y} %H %{G}]"
+
 # set these terminals up to be 'optimal' instead of vt100
 termcapinfo xterm*|linux*|rxvt*|Eterm* OP
 
@@ -146,7 +151,7 @@ termcapinfo xterm*|linux*|rxvt*|Eterm* ti@:te@
 #screen -t dl   4  rtor
 #screen -t mt   5  mutt
 
-sorendition =s WB 
+sorendition =s WB
 #sorendition "=b ky"
 msgwait 3
 bell "^GBell in window %"
