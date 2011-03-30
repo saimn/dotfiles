@@ -95,6 +95,7 @@
 ;; (require 'zenburn)
 ;; (unless (zenburn-format-spec-works-p)
 ;;   (zenburn-define-format-spec))
+;; (zenburn)
 
 ;;----------------------------------------------------------------------
 ;; Browser
