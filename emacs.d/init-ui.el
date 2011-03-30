@@ -17,20 +17,16 @@
 ;; Use the clipboard, pretty please, so that copy/paste "works"
 (setq x-select-enable-clipboard t)
 
+;; Stop cursor from blinking
+(blink-cursor-mode nil)
+
 ;; Choix de la police de caractères en environnement graphique
 ;; (if (eq window-system 'x)
 ;;   (progn
-;;     ;; Je préfère voir apparaître le curseur sous la forme d'une barre
-;;     ;; verticale clignotante.
 ;;     (bar-cursor-mode 1)
 ;;     (blink-cursor-mode 1)
-
-;;     ;; Le menu est pratique lorsqu'on est en mode graphique mais encombrant et
-;;     ;; moins utile dans une console texte.
 ;;     (menu-bar-mode 1)
 ;;   )
-;;   ;; Le menu est pratique lorsqu'on est en mode graphique mais encombrant et
-;;   ;; moins utile dans une console texte.
 ;;   (menu-bar-mode 0)
 ;; )
 
