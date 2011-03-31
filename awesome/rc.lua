@@ -36,6 +36,7 @@ local terminal   = "urxvtc"
 local browser    = os.getenv("BROWSER") or "firefox"
 local editor     = os.getenv("EDITOR") or "vim"
 local editor_cmd = terminal .. " -e " .. editor
+local filemgr    = "pcmanfm"
 
 -- Beautiful theme
 beautiful.init(home .. "/.config/awesome/themes/zenburn/theme.lua")
@@ -83,8 +84,8 @@ mymainmenu = awful.menu({ items = {
                               { "term", terminal },
                               { "browser", browser },
                               { "mail", "thunderbird" },
-                              { "files", "pcmanfm" },
-                              { "lock", "slock" },
+                              { "files", filemgr },
+                              { "lock", "lock" },
                               { "restart", awesome.restart },
                               { "quit", awesome.quit }
                            }
@@ -163,7 +164,7 @@ for _, w in pairs(fs) do
      beautiful.fg_center_widget, beautiful.fg_end_widget
   }) -- Register buttons
   w.widget:buttons(awful.util.table.join(
-    awful.button({ }, 1, function () exec("rox", false) end)
+    awful.button({ }, 1, function () exec(filemgr, false) end)
   ))
 end -- Enable caching
 vicious.cache(vicious.widgets.fs)
@@ -374,10 +375,10 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Shift" }, "s", function () scratch.drop(terminal, "center", "center", 0.6, 0.6) end),
     awful.key({ modkey, "Shift" }, "Return", function () exec(terminal) end),
     -- awful.key({ modkey }, "g", function () sexec("GTK2_RC_FILES=~/.gtkrc-gajim gajim") end),
+    awful.key({ modkey }, "Print", function () exec("scrot -e 'mv $f ~/Images/screenshots/ 2>/dev/null'") end),
     -- }}}
 
     -- {{{ Multimedia keys
-    -- awful.key({}, "#160", function () exec("kscreenlocker --forcelock") end),
     -- awful.key({}, "#121", function () exec("pvol.py -m") end),
     -- awful.key({}, "#122", function () exec("pvol.py -p -c -2") end),
     -- awful.key({}, "#123", function () exec("pvol.py -p -c 2")  end),
@@ -458,14 +459,24 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "j",     function () awful.screen.focus_relative( 1) end),
     awful.key({ modkey, "Control" }, "k",     function () awful.screen.focus_relative(-1) end),
 
-    awful.key({ modkey }, "p", function () awful.screen.focus_relative(1) end),
-    awful.key({ modkey }, "s", function () scratch.pad.toggle() end),
-    awful.key({ modkey }, "u", awful.client.urgent.jumpto),
+    awful.key({ modkey            }, "p",     function () awful.screen.focus_relative(1)  end),
+    awful.key({ modkey            }, "s",     function () scratch.pad.toggle()            end),
+    awful.key({ modkey            }, "u",     awful.client.urgent.jumpto),
 
-    awful.key({ modkey }, "Tab", function ()
-        awful.client.focus.history.previous()
-        if client.focus then client.focus:raise() end
+    awful.key({ modkey,           }, "Tab", function ()
+        awful.client.cycle(true)
+        awful.client.focus.byidx(-1)
+        client.focus:raise()
     end),
+    awful.key({ modkey, "Shift"   }, "Tab", function ()
+        awful.client.cycle(false)
+        awful.client.focus.byidx(1)
+        client.focus:raise()
+    end),
+    -- awful.key({ modkey }, "Tab", function ()
+    --     awful.client.focus.history.previous()
+    --     if client.focus then client.focus:raise() end
+    -- end),
     awful.key({ altkey }, "Escape", function ()
         awful.menu.menu_keys.down = { "Down", "Alt_L" }
         local cmenu = awful.menu.clients({width=230}, { keygrabber=true, coords={x=525, y=330} })
@@ -656,8 +667,8 @@ end
 
 run_once("urxvtd","-q -f -o")
 run_once("xbindkeys")
-run_once("thunderbird")
-run_once("firefox")
+-- run_once("thunderbird")
+-- run_once("firefox")
 run_once("urxvtc")
 
 -- }}}
