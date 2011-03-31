@@ -635,5 +635,29 @@ end
 -- }}}
 
 -- {{{ Autostart apps
-run_once(home .. "/dotfiles/config/autostart.sh")
+
+-- run_once(home .. "/dotfiles/config/autostart.sh")
+-- gnome-settings-daemon &
+-- nm-applet --sm-disable &
+-- /usr/libexec/gnome-settings-daemon &
+-- gnome-volume-control-applet &
+-- gpk-update-icon &
+-- emacs --daemon &
+
+-- run_once("thunderbird",nil,nil,1)
+
+if host == "goudes" then
+   run_once("gnome-power-manager")
+   run_once("wicd-client",nil,"/usr/bin/python2 -O /usr/share/wicd/gtk/wicd-client.py")
+   run_once("dropboxd")
+elseif host == "fireball" then
+   run_once("dropbox", "start")
+end
+
+run_once("urxvtd","-q -f -o")
+run_once("xbindkeys")
+run_once("thunderbird")
+run_once("firefox")
+run_once("urxvtc")
+
 -- }}}

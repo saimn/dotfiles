@@ -8,13 +8,14 @@
 # Executed by startx (run your window manager from here)
 #xset s off
 
+# no bell
+xset -b
+
 #(scale,tile,seemless,center)
 #setxkbmap -option ctrl:swapcaps &
 #autocutsel -selection CLIPBOARD -fork &
 #autocutsel -selection PRIMARY -fork &
 
-#sets the background to black
-#xsetroot -solid black
 xset +fp /usr/share/fonts/local
 xset +fp /usr/share/fonts/TTF
 xset fp rehash
@@ -22,8 +23,16 @@ xset fp rehash
 # set the cursor
 xsetroot -cursor_name left_ptr
 
-# Set a background color
-#xsetroot -solid "#303030"
+# background
+# xsetroot -solid "#303030"
+# feh --bg-scale ~/Downloads/118-e.jpg &
+# feh --bg-tile ~/.xmonad/background.png &
+# nitrogen --restore &
+
+# export OOO_FORCE_DESKTOP=gnome &
+# xrandr --output default --mode 1440x900 --pos 0x0 &
+# trayer --edge top --align right --SetDockType true --SetPartialStrut true \
+#     --expand true --width 15 --height 12 --transparent true --tint 0x000000 &
 
 # Load local modmap
 test -r $HOME/.Xmodmap && xmodmap $HOME/.Xmodmap
@@ -35,12 +44,14 @@ test -r $HOME/.Xdefaults && xrdb -load $HOME/.Xdefaults
 #[[ $(hostname) == "goudes" ]] &&
 # source $HOME/dotfiles/config/autostart.sh
 
-# Start ssh-agent
-#eval `ssh-agent -s`
+# Start agents
+eval $(gpg-agent --daemon)
+# eval `ssh-agent -s`
+# eval $(gnome-keyring-daemon -s --components=pkcs11,secrets,ssh,gpg)
 
 # Start awesome
-#awesome
-#exec ck-launch-session awesome
+# awesome
+# exec ck-launch-session awesome
 
 # Terminate ssh-agent
-#eval `ssh-agent -k`
+# eval `ssh-agent -k`
