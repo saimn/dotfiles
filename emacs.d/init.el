@@ -100,8 +100,10 @@
 ;;----------------------------------------------------------------------
 ;; Browser
 ;;----------------------------------------------------------------------
-(setq browse-url-browser-function 'browse-url-generic
-      browse-url-generic-program "/usr/bin/firefox")
+;; Default Web Browser
+(setq browse-url-browser-function 'browse-url-firefox)
+;; (setq browse-url-browser-function 'browse-url-generic
+;;       browse-url-generic-program "/usr/bin/firefox")
 
 ;; (defun uzbl-browse (url &rest ignore)
 ;;   "Browse URL using uzbl."
