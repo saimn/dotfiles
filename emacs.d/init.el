@@ -92,6 +92,10 @@
 (color-theme-tangotango)
 (setq frame-background-mode 'dark)
 
+;; (if window-system
+;;      (color-theme-tangotango)
+;;    (some-term-theme))
+
 ;; (require 'zenburn)
 ;; (unless (zenburn-format-spec-works-p)
 ;;   (zenburn-define-format-spec))
@@ -192,6 +196,14 @@
 ;; EasyPG - enabled by default
 ;; (require 'epa-file)
 ;; (epa-file-enable)
+
+;; Tramp (remote files editing)
+;; (require 'tramp)
+(setq tramp-default-method "ssh")
+
+;; Folding
+;;   - http://www.emacswiki.org/emacs/FoldIngo
+;; (require 'foldingo)
 
 ;; distinguish files with the same name
 (require 'uniquify)
@@ -301,7 +313,7 @@
 
 (global-set-key (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-c l") 'org-store-link)
-(global-set-key (kbd "C-c r") 'remember)
+(global-set-key (kbd "C-c r") 'org-remember)
 
 (global-set-key (kbd "C-c c") 'server-edit)
 (global-set-key (kbd "C-c f") 'flyspell-buffer)
@@ -316,6 +328,10 @@
 (global-set-key (kbd "C-c y") '(lambda ()
                                  (interactive)
                                  (popup-menu 'yank-menu)))
+
+(global-set-key  [f1]  (lambda () (interactive) (manual-entry (current-word))))
+(global-set-key  [f2]  (lambda () (interactive) (find-file "~/.org/notes.org")))
+(global-set-key  [f3]  's/org-agenda)
 
 (global-set-key (kbd "<f5>") 'kill-this-buffer)
 (global-set-key (kbd "<f6>") 'buffer-menu)

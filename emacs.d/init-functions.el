@@ -125,4 +125,46 @@ Replaces default behaviour of comment-dwim, when it inserts comment at the end o
 
 ;; (when (require 'some-lib nil 'noerror)
 
+;{{{ Quick acces to coding functions
+;    - I deal with utf8, latin-2 and cp1250
+;
+(defun s/recode-buffer ()
+  "Define the coding system for a file."
+  (interactive)
+  (call-interactively 'set-buffer-file-coding-system)
+)
+(defun s/encode-buffer ()
+  "Revisit the buffer with another coding system."
+  (interactive)
+  (call-interactively 'revert-buffer-with-coding-system)
+)
+;}}}
+
+;{{{ Kill all buffers except scratch
+;
+(defun s/nuke-all-buffers ()
+  "Kill all buffers, leaving *scratch* only."
+  (interactive)
+  (mapcar (lambda (x) (kill-buffer x)) (buffer-list))
+  (delete-other-windows)
+)
+;}}}
+
+;{{{ Alias some custom functions
+;
+(defalias 'recode-buffer 's/recode-buffer)
+(defalias 'encode-buffer 's/encode-buffer)
+(defalias 'nuke          's/nuke-all-buffers)
+;}}}
+
+;{{{ Shortcut a few commonly used functions
+;
+(defalias 'cr            'comment-region)
+(defalias 'ucr           'uncomment-region)
+(defalias 'eb            'eval-buffer)
+(defalias 'er            'eval-region)
+(defalias 'ee            'eval-expression)
+(defalias 'fold          'fold-enter-fold-mode-close-all-folds)
+;}}}
+
 (provide 'init-functions)

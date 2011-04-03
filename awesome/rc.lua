@@ -275,7 +275,9 @@ datewidget = widget({ type = "textbox" })
 vicious.register(datewidget, vicious.widgets.date, "%d %b - %R ", 61)
 -- Register buttons
 datewidget:buttons(awful.util.table.join(
-  awful.button({ }, 1, function () exec("pylendar.py") end)
+  awful.button({ }, 1, function () exec("emacsclient -c --eval '(org-agenda-list)'") end),
+  awful.button({ }, 3, function () exec("emacsclient -c --eval '(make-remember-frame)'") end)
+  -- awful.button({ }, 1, function () exec("pylendar.py") end)
 ))
 -- }}}
 
@@ -466,12 +468,12 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "Tab", function ()
         awful.client.cycle(true)
         awful.client.focus.byidx(-1)
-        client.focus:raise()
+        -- client.focus:raise()
     end),
     awful.key({ modkey, "Shift"   }, "Tab", function ()
         awful.client.cycle(false)
         awful.client.focus.byidx(1)
-        client.focus:raise()
+        -- client.focus:raise()
     end),
     -- awful.key({ modkey }, "Tab", function ()
     --     awful.client.focus.history.previous()

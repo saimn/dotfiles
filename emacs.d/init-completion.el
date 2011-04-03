@@ -14,9 +14,13 @@
 ;; InteractivelyDoThings
 (require 'ido)
 (ido-mode t)
-(setq ido-enable-flex-matching t) ; enable fuzzy matching
-(setq ido-everywhere t)           ; use ido everywhere
-(setq ido-show-dot-for-dired t)   ; always show dot for current directory
+(setq
+ ido-enable-flex-matching t ; enable fuzzy matching
+ ido-everywhere t           ; use ido everywhere
+ ido-show-dot-for-dired t   ; always show dot for current directory
+ ido-ignore-buffers         ; Ignore buffers:
+   '("\\` " "^\*Back" "^\*Compile-Log" ".*Completion" "^\*Ido")
+ )
 ;(setq ido-file-extensions-order '(".org" ".txt" ".py" ".el" ".ini" ".cfg"))
 
 (require 'anything-config)
