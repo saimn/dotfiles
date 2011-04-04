@@ -36,7 +36,9 @@
 
 (setq org-agenda-files '("~/.org/work.org.gpg"
                          "~/.org/home.org.gpg"
-                         "~/.org/agenda.org.gpg"))
+                         "~/.org/agenda.org.gpg"
+                         "~/.calendar/stef.org"
+                         ))
 
 (setq org-agenda-custom-commands
       '(("c" "Desk Work" todo "TODO"
@@ -120,9 +122,5 @@
   (select-frame-by-name "*Remember*")
   (org-remember)
 )
-
-
-(require 'ical2org)
-
 
 (provide 'init-org)
