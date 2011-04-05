@@ -14,7 +14,6 @@
 (auto-revert-mode 1)              ; detect changes on file
 ;; (global-linum-mode 1)           ; display line numbers in margin (Emacs 23)
 (setq kill-whole-line t)          ; kill-line including the line ending char
-(setq blink-cursor-mode nil)
 (setq next-line-add-newlines t)   ; C-n add new line
 
 (put 'downcase-region 'disabled nil) ; enable region-down(up)casing

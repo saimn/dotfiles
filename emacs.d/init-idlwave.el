@@ -5,7 +5,7 @@
 (defun my-idlwave-mode-hook ()
   (setq idlwave-system-directory "/opt/apps/rsi/idl71/")
   (setq idlwave-shell-explicit-file-name "/opt/apps/rsi/idl71/bin/idl")
-  (setq idlwave-html-system-help-location "help/")
+  (setq idlwave-html-system-help-location "/opt/apps/rsi/idl71/help")
 
   ;; regular expressions matching special library directories for labeling
   ;; in routine-info display
