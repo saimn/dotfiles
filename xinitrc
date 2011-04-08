@@ -1,8 +1,7 @@
 #!/bin/sh
 # -*- coding: utf-8 -*-
 #
-# ~/.xprofile
-# Executed by gdm at login
+# ~/.xinitrc
 #
 
 # Executed by startx (run your window manager from here)
@@ -16,9 +15,9 @@ xset -b
 #autocutsel -selection CLIPBOARD -fork &
 #autocutsel -selection PRIMARY -fork &
 
-xset +fp /usr/share/fonts/local
-xset +fp /usr/share/fonts/TTF
-xset fp rehash
+#xset +fp /usr/share/fonts/local
+#xset +fp /usr/share/fonts/TTF
+#xset fp rehash
 
 # set the cursor
 xsetroot -cursor_name left_ptr
@@ -54,7 +53,7 @@ eval $(gpg-agent --daemon)
 
 # Start awesome
 # awesome
-# exec ck-launch-session awesome
+exec ck-launch-session awesome
 
 # Terminate ssh-agent
 # eval `ssh-agent -k`
