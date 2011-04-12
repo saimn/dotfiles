@@ -229,6 +229,22 @@ vicious.register(netwidget, vicious.widgets.net, '<span color="'
 -- ))
 -- }}}
 
+-- {{{ MPD
+mpdicon = widget({ type = "imagebox" })
+mpdicon.image = image(beautiful.widget_music)
+-- Initialize widget
+mpdwidget = widget({ type = "textbox" })
+-- Register widget
+vicious.register(mpdwidget, vicious.widgets.mpd,
+    function (widget, args)
+        if args["{state}"] == "Stop" then
+            return " - "
+        else
+            return ' '..args["{Artist}"]..' - '.. args["{Title}"]..' '
+        end
+    end, 10)
+-- }}}
+
 -- {{{ Volume level
 volicon = widget({ type = "imagebox" })
 volicon.image = image(beautiful.widget_vol)
@@ -374,6 +390,7 @@ for s = 1, screen.count() do
         separator, membar.widget, memicon,
         separator, batwidget, baticon,
         separator, loadwidget, tzswidget, cpugraph.widget, cpuicon,
+        separator, mpdwidget, mpdicon,
         separator, tasklist[s],
         ["layout"] = awful.widget.layout.horizontal.rightleft
     }
@@ -597,6 +614,7 @@ root.keys(globalkeys)
 
 -- {{{ Rules
 awful.rules.rules = {
+    -- All clients will match this rule.
     { rule = { },
       properties = {
          focus = true,
@@ -606,23 +624,30 @@ awful.rules.rules = {
          maximized_vertical   = false,
          maximized_horizontal = false,
          border_width = beautiful.border_width,
-         border_color = beautiful.border_normal }
+         border_color = beautiful.border_normal },
+      callback = awful.titlebar.add
     },
     { rule = { class = "Firefox",  instance = "Navigator" },
-      properties = { tag = tags[screen.count()][2] } },
-    { rule = { instance = "firefox-bin" },
-      properties = { floating = true }, callback = awful.titlebar.add  },
+      properties = { tag = tags[screen.count()][2], floating = true },
+      callback = awful.titlebar.remove },
     -- { rule = { class = "Emacs",    instance = "emacs" },
     --   properties = { tag = tags[screen.count()][2] } },
     { rule = { class = "Emacs",    instance = "_Remember_" },
-      properties = { floating = true }, callback = awful.titlebar.add  },
+      properties = { floating = true }, callback = awful.titlebar.remove },
     { rule = { class = "Xmessage", instance = "xmessage" },
-      properties = { floating = true }, callback = awful.titlebar.add  },
+      properties = { floating = true }, callback = awful.titlebar.remove },
     { rule = { class = "Thunderbird" }, properties = { tag = tags[1][1]} },
-    { rule = { class = "Gajim.py" },    properties = { tag = tags[1][5]} },
-    { rule = { class = "MPlayer" },     properties = { floating = true } },
-    { rule = { class = "Pinentry.*" },  properties = { floating = true } },
+    { rule = { class = "Gajim.py" },    properties = { tag = tags[1][1]} },
     { rule = { class = "gimp" },        properties = { floating = true } },
+    -- float & centered
+    { rule_any = { class = { "Mirage", "feh", "Pinentry.*" } },
+      properties = { floating = true }, callback = awful.placement.centered },
+    -- float, centered & no titlebar
+    { rule_any = { class = { "MPlayer", "Vlc" } },
+      properties = { floating = true }, callback = function(c)
+                                                      awful.titlebar.remove(c)
+                                                      awful.placement.centered(c)
+                                                   end },
 }
 -- }}}
 
@@ -632,12 +657,14 @@ awful.rules.rules = {
 -- {{{ Manage signal handler
 client.add_signal("manage", function (c, startup)
     -- Add a titlebar
-    awful.titlebar.add(c, { modkey = modkey })
+    -- awful.titlebar.add(c, { modkey = modkey })
     -- Add titlebar to floaters, but remove those from rule callback
     -- if awful.client.floating.get(c)
     -- or awful.layout.get(c.screen) == awful.layout.suit.floating then
     --     if   c.titlebar then awful.titlebar.remove(c)
     --     else awful.titlebar.add(c, {modkey = modkey}) end
+    -- else
+    --     awful.titlebar.add(c, { modkey = modkey })
     -- end
 
     -- Enable sloppy focus
@@ -704,10 +731,10 @@ elseif host == "fireball" then
    run_once("dropbox", "start")
 end
 
-run_once("urxvtd","-q -f -o")
+run_once("urxvtd", "-q -f -o", "urxvtd -q -f -o")
 run_once("xbindkeys")
 -- run_once("thunderbird")
 -- run_once("firefox")
-run_once("urxvtc")
+-- run_once("urxvtc")
 
 -- }}}
