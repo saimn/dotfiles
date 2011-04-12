@@ -263,7 +263,8 @@ weathericon.image = image(beautiful.widget_weather)
 weatherwidget = widget({ type = "textbox" })
 -- Register widget
 -- http://weather.noaa.gov/pub/data/observations/metar/decoded/LFML.TXT
-vicious.register(weatherwidget, vicious.widgets.weather, "${tempc}° ${wind}, ${windkmh}km/h, ${weather}, ${sky}", 3601, "LFML")
+-- vicious.register(weatherwidget, vicious.widgets.weather, "${tempc}° ${wind}, ${windkmh}km/h, ${weather}, ${sky}", 3601, "LFML")
+vicious.register(weatherwidget, vicious.widgets.weather, "${tempc}° ${wind}, ${windkmh}km/h", 3601, "LFML")
 -- }}}
 
 -- {{{ Date and time
@@ -297,8 +298,33 @@ taglist.buttons = awful.util.table.join(
     awful.button({ },        3, awful.tag.viewtoggle),
     awful.button({ modkey }, 3, awful.client.toggletag),
     awful.button({ },        4, awful.tag.viewnext),
-    awful.button({ },        5, awful.tag.viewprev
-))
+    awful.button({ },        5, awful.tag.viewprev)
+)
+tasklist = {}
+tasklist.buttons = awful.util.table.join(
+   awful.button({ }, 1, function (c)
+                           if not c:isvisible() then
+                              awful.tag.viewonly(c:tags()[1])
+                           end
+                           client.focus = c
+                           c:raise()
+                        end),
+   awful.button({ }, 3, function ()
+                           if instance then
+                              instance:hide()
+                              instance = nil
+                           else
+                              instance = awful.menu.clients({ width=250 })
+                           end
+                        end),
+   awful.button({ }, 4, function ()
+                           awful.client.focus.byidx(1)
+                           if client.focus then client.focus:raise() end
+                        end),
+   awful.button({ }, 5, function ()
+                           awful.client.focus.byidx(-1)
+                           if client.focus then client.focus:raise() end
+                        end))
 
 for s = 1, screen.count() do
     -- Create a promptbox
@@ -312,8 +338,14 @@ for s = 1, screen.count() do
         awful.button({ }, 5, function () awful.layout.inc(layouts, -1) end)
     ))
 
-    -- Create the taglist
+    -- Create a taglist widget
     taglist[s] = awful.widget.taglist(s, awful.widget.taglist.label.all, taglist.buttons)
+
+    -- Create a tasklist widget
+    tasklist[s] = awful.widget.tasklist(function(c)
+                                              return awful.widget.tasklist.label.currenttags(c, s)
+                                          end, tasklist.buttons)
+
     -- Create the wibox
     wibox[s] = awful.wibox({      screen = s,
         fg = beautiful.fg_normal, height = 18,
@@ -342,7 +374,8 @@ for s = 1, screen.count() do
         separator, membar.widget, memicon,
         separator, batwidget, baticon,
         separator, loadwidget, tzswidget, cpugraph.widget, cpuicon,
-        separator, ["layout"] = awful.widget.layout.horizontal.rightleft
+        separator, tasklist[s],
+        ["layout"] = awful.widget.layout.horizontal.rightleft
     }
 end
 -- }}}
@@ -466,19 +499,16 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey            }, "u",     awful.client.urgent.jumpto),
 
     awful.key({ modkey,           }, "Tab", function ()
+        -- awful.client.focus.history.previous()
         awful.client.cycle(true)
         awful.client.focus.byidx(-1)
-        -- client.focus:raise()
+        if client.focus then client.focus:raise() end
     end),
     awful.key({ modkey, "Shift"   }, "Tab", function ()
         awful.client.cycle(false)
         awful.client.focus.byidx(1)
-        -- client.focus:raise()
+        if client.focus then client.focus:raise() end
     end),
-    -- awful.key({ modkey }, "Tab", function ()
-    --     awful.client.focus.history.previous()
-    --     if client.focus then client.focus:raise() end
-    -- end),
     awful.key({ altkey }, "Escape", function ()
         awful.menu.menu_keys.down = { "Down", "Alt_L" }
         local cmenu = awful.menu.clients({width=230}, { keygrabber=true, coords={x=525, y=330} })
@@ -496,6 +526,8 @@ clientkeys = awful.util.table.join(
     awful.key({ modkey }, "m", function (c)
         c.maximized_horizontal = not c.maximized_horizontal
         c.maximized_vertical   = not c.maximized_vertical
+        if   c.titlebar then awful.titlebar.remove(c)
+        else awful.titlebar.add(c, { modkey = modkey }) end
     end),
     awful.key({ modkey }, "n", function (c) c.minimized = not c.minimized end),
     awful.key({ modkey }, "o", awful.client.movetoscreen),
@@ -588,9 +620,9 @@ awful.rules.rules = {
       properties = { floating = true }, callback = awful.titlebar.add  },
     { rule = { class = "Thunderbird" }, properties = { tag = tags[1][1]} },
     { rule = { class = "Gajim.py" },    properties = { tag = tags[1][5]} },
-    { rule = { class = "Osmo" },        properties = { floating = true } },
-    { rule = { class = "ROX-Filer" },   properties = { floating = true } },
+    { rule = { class = "MPlayer" },     properties = { floating = true } },
     { rule = { class = "Pinentry.*" },  properties = { floating = true } },
+    { rule = { class = "gimp" },        properties = { floating = true } },
 }
 -- }}}
 
@@ -599,12 +631,14 @@ awful.rules.rules = {
 --
 -- {{{ Manage signal handler
 client.add_signal("manage", function (c, startup)
+    -- Add a titlebar
+    awful.titlebar.add(c, { modkey = modkey })
     -- Add titlebar to floaters, but remove those from rule callback
-    if awful.client.floating.get(c)
-    or awful.layout.get(c.screen) == awful.layout.suit.floating then
-        if   c.titlebar then awful.titlebar.remove(c)
-        else awful.titlebar.add(c, {modkey = modkey}) end
-    end
+    -- if awful.client.floating.get(c)
+    -- or awful.layout.get(c.screen) == awful.layout.suit.floating then
+    --     if   c.titlebar then awful.titlebar.remove(c)
+    --     else awful.titlebar.add(c, {modkey = modkey}) end
+    -- end
 
     -- Enable sloppy focus
     c:add_signal("mouse::enter", function (c)
@@ -616,8 +650,11 @@ client.add_signal("manage", function (c, startup)
 
     -- Client placement
     if not startup then
+        -- Set the windows at the slave,
+        -- i.e. put it at the end of others instead of setting it master.
         awful.client.setslave(c)
 
+        -- Put windows in a smart way, only if they does not set an initial position.
         if  not c.size_hints.program_position
         and not c.size_hints.user_position then
             awful.placement.no_overlap(c)
