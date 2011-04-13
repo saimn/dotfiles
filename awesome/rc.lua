@@ -121,7 +121,7 @@ cpugraph:set_gradient_angle(0):set_gradient_colors({
 -- Register widgets
 vicious.register(cpugraph,   vicious.widgets.cpu,      "$1")
 vicious.register(tzswidget,  vicious.widgets.thermal, " $1°C", 19, "thermal_zone0")
-vicious.register(loadwidget, vicious.widgets.uptime, " $4/$5")
+-- vicious.register(loadwidget, vicious.widgets.uptime, " $4/$5")
 -- }}}
 
 -- {{{ Battery state
@@ -189,17 +189,17 @@ vicious.register(netwidget, vicious.widgets.net, '<span color="'
 -- }}}
 
 -- {{{ Mail subject
--- mailicon = widget({ type = "imagebox" })
--- mailicon.image = image(beautiful.widget_mail)
--- -- Initialize widget
--- mailwidget = widget({ type = "textbox" })
--- -- Register widget
--- maildirs = {home .. "/Mail/INBOX"}
--- vicious.register(mailwidget, vicious.widgets.mdir, "$1", 301, maildirs)
--- -- Register buttons
--- mailwidget:buttons(awful.util.table.join(
---   awful.button({ }, 1, function () exec(terminal.." -T Mutt -e mutt") end)
--- ))
+mailicon = widget({ type = "imagebox" })
+mailicon.image = image(beautiful.widget_mail)
+-- Initialize widget
+mailwidget = widget({ type = "textbox" })
+-- Register widget
+maildirs = {home .. "/Mail/INBOX/", home .. "/Mail/INBOX2/"}
+vicious.register(mailwidget, vicious.widgets.mdir, "$1 / $2", 301, maildirs)
+-- Register buttons
+mailwidget:buttons(awful.util.table.join(
+  awful.button({ }, 1, function () exec(terminal.." -T Mutt -e mutt") end)
+))
 -- }}}
 
 -- {{{ Org-mode agenda
@@ -384,13 +384,13 @@ for s = 1, screen.count() do
         separator, weatherwidget, weathericon,
         separator, volwidget, volbar.widget, volicon,
         -- separator, orgwidget,  orgicon,
-        -- separator, mailwidget, mailicon,
+        separator, mailwidget, mailicon,
         separator, upicon, netwidget, dnicon,
         separator, fs.r.widget, fs.h.widget, fs.d.widget, fsicon,
         separator, membar.widget, memicon,
         separator, batwidget, baticon,
         separator, loadwidget, tzswidget, cpugraph.widget, cpuicon,
-        separator, mpdwidget, mpdicon,
+        -- separator, mpdwidget, mpdicon,
         separator, tasklist[s],
         ["layout"] = awful.widget.layout.horizontal.rightleft
     }
@@ -543,8 +543,8 @@ clientkeys = awful.util.table.join(
     awful.key({ modkey }, "m", function (c)
         c.maximized_horizontal = not c.maximized_horizontal
         c.maximized_vertical   = not c.maximized_vertical
-        if   c.titlebar then awful.titlebar.remove(c)
-        else awful.titlebar.add(c, { modkey = modkey }) end
+        -- if   c.titlebar then awful.titlebar.remove(c)
+        -- else awful.titlebar.add(c, { modkey = modkey }) end
     end),
     awful.key({ modkey }, "n", function (c) c.minimized = not c.minimized end),
     awful.key({ modkey }, "o", awful.client.movetoscreen),
