@@ -664,8 +664,8 @@ endif
 " -----------------------------------------------------------
 
 " Inclusion d'un autre fichier avec des options
-"if filereadable(expand("~/.vimrc_local.vim"))
-"    source ~/.vimrc_local.vim
-"endif
+if filereadable(expand("~/.vim/local.vim"))
+    source ~/.vim/local.vim
+endif
 
 " vim:fdm=marker

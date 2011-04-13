@@ -20,6 +20,7 @@ perso/
 vim/.netrwhist
 vim/.VimballRecord
 vim/backup/
+vim/local.vim
 vimperator/info/
 xmonad/history
 xmonad/xmonad-x86_64-linux
