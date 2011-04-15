@@ -89,8 +89,9 @@
 (color-theme-initialize)
 (require 'color-theme-wombat)
 (require 'color-theme-tangotango)
-(color-theme-tangotango)
 (setq frame-background-mode 'dark)
+
+(color-theme-tangotango)
 
 ;; (if window-system
 ;;      (color-theme-tangotango)

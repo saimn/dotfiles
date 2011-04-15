@@ -1,4 +1,5 @@
-;; Calendar (M-x calendar)
+;{{{ Calendar (M-x calendar)
+;
 (setq calendar-date-style 'european) ; format jour/mois/an
 (setq calendar-week-start-day 1)     ; week starts on monday
 
@@ -11,8 +12,10 @@
    "juillet" "août" "septembre" "octobre" "novembre" "décembre"])
 (defvar calendar-month-abbrev-array
   ["jan" "fév" "mar" "avr" "mai" "jun" "jul" "aoû" "sep" "oct" "nov" "déc"])
+;}}}
 
-
+;{{{ Org
+;
 (require 'org-install)
 (require 'org-mouse)                 ; Extended mouse functionality
 ;; (load "~/.emacs.d/org/lisp/org-mouse.el")
@@ -53,6 +56,7 @@
                       ("mail" . ?m)
                       ("web" . ?w)
                       ("phone" . ?p)))
+;}}}
 
 ;{{{ Quick access to OrgMode and the OrgMode agenda
 ;    - org-mode configuration defined below
@@ -68,6 +72,7 @@
   "Show the org-mode agenda."
   (interactive)
   (call-interactively 'org-agenda-list)
+  (delete-other-windows)
 )
 
 (defalias 'org           's/org-index)
@@ -75,6 +80,30 @@
 
 ;}}}
 
+;{{{ Notifications
+;
+;; the appointment notification facility
+(setq
+  appt-message-warning-time 15 ;; warn 15 min in advance
+
+  appt-display-mode-line t     ;; show in the modeline
+  appt-display-format 'window) ;; use our func
+(appt-activate 1)              ;; active appt (appointment notification)
+(display-time)                 ;; time display is required for this...
+
+ ;; update appt each time agenda opened
+(add-hook 'org-finalize-agenda-hook 'org-agenda-to-appt)
+
+;; our little façade-function for djcb-popup
+(defun s/appt-display (min-to-app new-time msg)
+  (s/popup (format "Appointment in %s minute(s)" min-to-app) msg
+           "/usr/share/icons/gnome/32x32/status/appointment-soon.png"
+           "/usr/share/sounds/freedesktop/stereo/bell.oga"))
+(setq appt-disp-window-function (function s/appt-display))
+;}}}
+
+;{{{ Remember
+;
 (require 'remember)
 (org-remember-insinuate)
 
@@ -122,5 +151,6 @@
   (select-frame-by-name "*Remember*")
   (org-remember)
 )
+;}}}
 
 (provide 'init-org)
