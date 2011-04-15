@@ -357,16 +357,22 @@
 (defun my-mail-mode-hook ()
   (auto-fill-mode 1)
   (setq fill-column 72)
-  ;(abbrev-mode 1)
-  (local-set-key "\C-Xk" 'server-edit)
-  )
+  (flyspell-mode)
+  ;; (abbrev-mode 1)
+  (local-set-key "\C-Xk" 'server-edit))
 (add-hook 'mail-mode-hook 'my-mail-mode-hook)
+
+(autoload 'muttrc-mode "muttrc-mode.el"
+  "Major mode to edit muttrc files" t)
+(setq auto-mode-alist
+      (append '(("muttrc\\'" . muttrc-mode))
+              auto-mode-alist))
 
 ;;----------------------------------------------------------------------
 ;; Config
 ;;----------------------------------------------------------------------
 (require 'init-text)      ; Markdown, rst, bbcode, ...
-;(require 'init-spell)     ; spell check
+(require 'init-spell)     ; spell check
 (require 'init-functions) ; Useful functions
 (require 'init-org)       ; Org-mode
 (require 'init-latex)     ; LaTeX mode
