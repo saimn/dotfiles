@@ -11,15 +11,21 @@
 (global-font-lock-mode t)         ; coloration syntaxique
 (setq font-lock-maximum-size nil) ; Mettre un maximum de couleurs
 (hl-line-mode 1)                  ; highlight current line
-(auto-revert-mode 1)              ; detect changes on file
+;; (auto-revert-mode 1)              ; detect changes on file
+(global-auto-revert-mode 1)
 ;; (global-linum-mode 1)           ; display line numbers in margin (Emacs 23)
 (setq kill-whole-line t)          ; kill-line including the line ending char
 (setq next-line-add-newlines t)   ; C-n add new line
 
-(put 'downcase-region 'disabled nil) ; enable region-down(up)casing
-(put 'upcase-region 'disabled nil)
 (setq-default indent-tabs-mode nil)  ; Indent with spaces
 (setq c-basic-offset 2)              ; default indent: 2 spaces
+
+;; enable some functions
+(put 'narrow-to-defun 'disabled nil)
+(put 'narrow-to-page 'disabled nil)
+(put 'narrow-to-region 'disabled nil)
+(put 'downcase-region 'disabled nil) ; enable region-down(up)casing
+(put 'upcase-region 'disabled nil)
 
 ;; No truncate line -> replaced by visual-line-mode
 ;; (setq truncate-lines nil)

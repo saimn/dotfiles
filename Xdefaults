@@ -41,15 +41,13 @@ Emacs*shadowThickness:          1
 ! URxvt settings {{{
 
 
-URxvt*font: xft:DejaVu Sans Mono:style=Book:pixelsize=12
-URxvt*boldFont: xft:DejaVu Sans Mono:style=Bold:pixelsize=12
-URxvt*italicFont: xft:DejaVu Sans Mono:style=Oblique:pixelsize=12
-URxvt*boldItalicFont: xft:DejaVu Sans Mono:style=BoldOblique:pixelsize=12
+! URxvt*font: xft:DejaVu Sans Mono:style=Book:pixelsize=12
+! URxvt*boldFont: xft:DejaVu Sans Mono:style=Bold:pixelsize=12
+! URxvt*italicFont: xft:DejaVu Sans Mono:style=Oblique:pixelsize=12
+! URxvt*boldItalicFont: xft:DejaVu Sans Mono:style=BoldOblique:pixelsize=12
 
-!URxvt*font: xft:Inconsolata:style=Medium:pixelsize=14
-!URxvt*boldFont: xft:Inconsolata:style=Bold:pixelsize=14
-!URxvt*italicFont: xft:Inconsolata:style=Oblique:pixelsize=14
-!URxvt*boldItalicFont: xft:Inconsolata:style=BoldOblique:pixelsize=14
+URxvt*font: xft:Droid Sans Mono:style=Regular:pixelsize=12
+! URxvt*font: xft:Inconsolata:style=Medium:pixelsize=12
 
 !URxvt*geometry: 80x27
 !URxvt*chdir: /home/simon
