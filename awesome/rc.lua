@@ -34,9 +34,11 @@ local exec   = awful.util.spawn
 local sexec  = awful.util.spawn_with_shell
 local terminal   = "urxvtc"
 local browser    = os.getenv("BROWSER") or "firefox"
+local mail_cmd   = terminal.." -T Mutt -name Mutt -e mutt"
 local editor     = os.getenv("EDITOR") or "vim"
 local editor_cmd = terminal .. " -e " .. editor
 local filemgr    = "pcmanfm"
+local htop_cmd   = terminal.." -name htop -geometry 80x7 -e htop"
 
 -- Beautiful theme
 beautiful.init(home .. "/.config/awesome/themes/zenburn/theme.lua")
@@ -82,8 +84,9 @@ myawesomemenu = {
 mymainmenu = awful.menu({ items = {
                               { "awesome", myawesomemenu, beautiful.awesome_icon },
                               { "term", terminal },
+                              { "htop", htop_cmd },
                               { "browser", browser },
-                              { "mail", "thunderbird" },
+                              { "mail", mail_cmd },
                               { "files", filemgr },
                               { "lock", "lock" },
                               { "restart", awesome.restart },
@@ -122,6 +125,10 @@ cpugraph:set_gradient_angle(0):set_gradient_colors({
 vicious.register(cpugraph,   vicious.widgets.cpu,      "$1")
 vicious.register(tzswidget,  vicious.widgets.thermal, " $1°C", 19, "thermal_zone0")
 -- vicious.register(loadwidget, vicious.widgets.uptime, " $4/$5")
+-- Register buttons
+cpugraph.widget:buttons(awful.util.table.join(
+  awful.button({ }, 1, function () exec(htop_cmd) end)
+))
 -- }}}
 
 -- {{{ Battery state
@@ -146,6 +153,10 @@ membar:set_gradient_colors({ beautiful.fg_widget,
    beautiful.fg_center_widget, beautiful.fg_end_widget
 }) -- Register widget
 vicious.register(membar, vicious.widgets.mem, "$1", 13)
+-- Register buttons
+membar.widget:buttons(awful.util.table.join(
+  awful.button({ }, 1, function () exec(htop_cmd) end)
+))
 -- }}}
 
 -- {{{ File system usage
@@ -198,7 +209,7 @@ maildirs = {home .. "/Mail/INBOX/", home .. "/Mail/INBOX2/"}
 vicious.register(mailwidget, vicious.widgets.mdir, "$1 / $2", 301, maildirs)
 -- Register buttons
 mailwidget:buttons(awful.util.table.join(
-  awful.button({ }, 1, function () exec(terminal.." -T Mutt -e mutt") end)
+  awful.button({ }, 1, function () exec(mail_cmd) end)
 ))
 -- }}}
 
@@ -422,7 +433,7 @@ globalkeys = awful.util.table.join(
     -- {{{ Applications
     awful.key({ modkey, "Shift" }, "e", function () exec("emacsclient -n -c") end),
     awful.key({ modkey, "Shift" }, "f", function () exec(browser) end),
-    awful.key({ modkey, "Shift" }, "m", function () exec(terminal.." -T Mutt -e mutt") end),
+    awful.key({ modkey, "Shift" }, "m", function () exec(mail_cmd) end),
     awful.key({ modkey, "Shift" }, "r", function () exec("emacsclient --eval '(make-remember-frame)'") end),
     awful.key({ modkey, "Shift" }, "s", function () scratch.drop(terminal, "center", "center", 0.6, 0.6) end),
     awful.key({ modkey, "Shift" }, "Return", function () exec(terminal) end),
@@ -630,6 +641,8 @@ awful.rules.rules = {
     { rule = { class = "Firefox",  instance = "Navigator" },
       properties = { tag = tags[screen.count()][2], floating = true },
       callback = awful.titlebar.remove },
+    { rule = { class = "URxvt",  instance = "htop" },
+      properties = { floating = true }, callback = awful.titlebar.remove },
     -- { rule = { class = "Emacs",    instance = "emacs" },
     --   properties = { tag = tags[screen.count()][2] } },
     { rule = { class = "Emacs",    instance = "_Remember_" },
