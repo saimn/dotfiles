@@ -359,9 +359,12 @@
   (setq fill-column 72)
   (flyspell-mode)
   ;; (abbrev-mode 1)
+  (setq sc-nested-citation-p t)
   (local-set-key "\C-Xk" 'server-edit))
 (add-hook 'mail-mode-hook 'my-mail-mode-hook)
+(add-hook 'mail-citation-hook 'sc-cite-original)
 
+(autoload 'sc-cite-original "supercite" nil t)
 (autoload 'muttrc-mode "muttrc-mode.el"
   "Major mode to edit muttrc files" t)
 (setq auto-mode-alist

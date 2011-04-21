@@ -1,35 +1,37 @@
-application/excel;              oocalc '%s'
-application/x-excel;            oocalc '%s'
-application/x-msexcel;          oocalc '%s'
-application/vnd.ms-excel;       oocalc '%s'
-application/ms-word;            antiword '%s';          copiousoutput
-application/ms-word;            oowriter '%s'
-application/powerpoint;         ooimpress '%s'
-application/mspowerpoint;       ooimpress '%s'
-application/vnd.ms-powerpoint;  ooimpress '%s'
+application/excel;              oocalc %s
+application/x-excel;            oocalc %s
+application/x-msexcel;          oocalc %s
+application/vnd.ms-excel;       oocalc %s
+application/ms-word;            antiword %s;          copiousoutput
+application/ms-word;            oowriter %s
+application/powerpoint;         ooimpress %s
+application/mspowerpoint;       ooimpress %s
+application/vnd.ms-powerpoint;  ooimpress %s
 
-application/pdf;                zathura '%s'
-application/ps;                 evince '%s'
+application/pdf;                zathura %s
+application/pdf;                apvlv %s
+application/pdf;                evince %s
+application/ps;                 evince %s
 
-application/x-bz;               file-roller '%s'
-application/x-bzip2;            file-roller '%s'
-application/x-compress;         file-roller '%s'
-application/x-compressed;       file-roller '%s'
-application/x-gtar;             file-roller '%s'
-application/x-gzip;             file-roller '%s'
-application/x-zip-compressed;   file-roller '%s'
-application/x-tar;              file-roller '%s'
-application/zip;                file-roller '%s'
-multipart/x-zip;                file-roller '%s'
-multipart/x-gzip;               file-roller '%s'
+application/x-bz;               file-roller %s
+application/x-bzip2;            file-roller %s
+application/x-compress;         file-roller %s
+application/x-compressed;       file-roller %s
+application/x-gtar;             file-roller %s
+application/x-gzip;             file-roller %s
+application/x-zip-compressed;   file-roller %s
+application/x-tar;              file-roller %s
+application/zip;                file-roller %s
+multipart/x-zip;                file-roller %s
+multipart/x-gzip;               file-roller %s
 
-image/*;                        mirage '%s'
-audio/*;                        vlc '%s'
-video/*;                        vlc '%s'
+image/*;                        mirage %s
+audio/*;                        vlc %s
+video/*;                        vlc %s
 
-text/html;                      firefox '%s'
-text/html;                      uzbl-browser '%s'
+text/html;                      uzbl-browser %s
+text/html;                      firefox %s
 text/html;                      lynx -dump %s
 text/html;                      html2text.py %s;          copiousoutput
-text/plain;                     emacsclient -c '%s'
-text/plain;                     gvim '%s'
+text/plain;                     emacsclient -c %s
+text/plain;                     gvim %s
