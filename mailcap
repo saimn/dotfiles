@@ -1,12 +1,13 @@
-application/excel;              oocalc %s
-application/x-excel;            oocalc %s
-application/x-msexcel;          oocalc %s
-application/vnd.ms-excel;       oocalc %s
-application/ms-word;            antiword %s;          copiousoutput
-application/ms-word;            oowriter %s
-application/powerpoint;         ooimpress %s
-application/mspowerpoint;       ooimpress %s
-application/vnd.ms-powerpoint;  ooimpress %s
+application/excel;                        libreoffice %s
+application/x-excel;                      libreoffice %s
+application/x-msexcel;                    libreoffice %s
+application/vnd.ms-excel;                 libreoffice %s
+application/ms-word;                      antiword %s;          copiousoutput
+application/ms-word;                      libreoffice %s
+application/powerpoint;                   libreoffice %s
+application/mspowerpoint;                 libreoffice %s
+application/vnd.ms-powerpoint;            libreoffice %s
+application/vnd.oasis.opendocument.text;  libreoffice %s
 
 application/pdf;                zathura %s
 application/pdf;                apvlv %s
@@ -29,7 +30,7 @@ image/*;                        mirage %s
 audio/*;                        vlc %s
 video/*;                        vlc %s
 
-text/html;                      uzbl-browser %s
+#text/html;                      uzbl-browser %s
 text/html;                      firefox %s
 text/html;                      lynx -dump %s
 text/html;                      html2text.py %s;          copiousoutput
