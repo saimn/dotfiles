@@ -1,0 +1,18 @@
+#!/bin/sh
+
+dpath=$HOME/dotfiles
+
+cd $dpath
+for l in $(git submodule status | cut -d ' ' -f 3)
+do
+   echo ":: Updating $l"
+   cd $dpath/$l
+   git checkout master
+   git pull
+done
+
+cd $dpath
+git submodule status
+git submodule summary
+
+exit 0
