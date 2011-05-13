@@ -56,8 +56,8 @@
 (setq auto-mode-alist
       (append '(("\\.sgml\\'" . nxml-mode)
                 ("\\.x[ms]l\\'" . nxml-mode)
-                ("\\.[sx]?html?\\'" . nxml-mode)
-                ("\\.tpl\\'" . nxml-mode)
+                ("\\.[sx]?html?\\'" . html-mode)
+                ("\\.tpl\\'" . html-mode)
                 ("\\.php\\'" . php-mode)
                 ("\\.inc\\'" . php-mode)
                 ("\\.sql\\'" . sql-mode)
