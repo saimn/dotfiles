@@ -1,5 +1,4 @@
 #!/usr/bin/env python2
-
 #-----------------------------------------------------------------------------
 # Copyright (c) 2006-2009  Gerard Flanagan
 #
@@ -222,6 +221,25 @@ class Parser(SGMLParser):
         if self.link:
             self.data(' <%s>`__' % self.link)
             self.link = None
+
+    def start_img(self, attrs):
+        href = dict(attrs).get('src', None)
+        if not href or href.startswith('#'):
+            return
+        self.src = href
+        self.alt = dict(attrs).get('alt', None)
+        self.writeline()
+
+    def end_img(self):
+        if self.src:
+            self.data('.. image:: %s' % self.src)
+            self.writeline()
+            self.src = None
+        if self.alt:
+            self.write('    ')
+            self.data(':alt: %s' % self.alt)
+            self.writeline()
+            self.alt = None
 
     def start_pre(self, attrs):
         if self.lists:
