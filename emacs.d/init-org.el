@@ -56,6 +56,36 @@
                       ("mail" . ?m)
                       ("web" . ?w)
                       ("phone" . ?p)))
+
+(setq org-agenda-custom-commands
+      '(("h" "Agenda and tasks"
+         ((agenda)
+          (alltodo))
+         nil
+         ("~/agenda/agenda.html" "~/agenda/agenda.txt"))))
+
+        ;; Examples :
+        ;; ("X" agenda "" nil ("~/agenda/agenda.html" "~/agenda/agenda.txt"))
+        ;; ("Y" alltodo "" nil ("~/agenda/todo.html" "~/agenda/todo.txt"))
+        ;; ("h" "Agenda and Home-related tasks"
+        ;;  ((agenda "")
+        ;;   (tags-todo "home")
+        ;;   (org-agenda-span month)
+        ;;   ;; (tags "garden")
+        ;;   )
+        ;;  nil
+        ;;  ("~/agenda/home.html"))
+        ;; ("o" "Agenda and Office-related tasks"
+        ;;  ((agenda)
+        ;;   (tags-todo "work")
+        ;;   (tags "office")
+        ;;   (org-agenda-span month)
+        ;;   )
+        ;;  nil
+        ;;  ("~/agenda/work.html" "~/agenda/work.ics"))
+
+(add-hook 'org-finalize-agenda-hook 'org-store-agenda-views)
+
 ;}}}
 
 ;{{{ Quick access to OrgMode and the OrgMode agenda
