@@ -100,10 +100,12 @@ blockquote {
 }
 
 input, select, textarea, .c2cui_btn {
-  -moz-appearance: none !important;
+  /* -moz-appearance: none !important; */
   border: 1px solid #343434 !important;
   color: white !important;
   background-color: #141414 !important;
+}
+input, textarea, .c2cui_btn {
   background: #141414 !important;
 }
 input:hover { background-color: #343434 !important; }
@@ -246,19 +248,20 @@ div.current_lang {
 
 .sbox select {
   width: 20px !important;
-  border: 0 !important;
-  margin: 0 0 0 8px !important;
-  padding-left: 25px !important;
+  /* border: 0 !important; */
+  /* margin: 0 0 0 8px !important; */
+  /* padding-left: 25px !important; */
+  background-image: url("http://s.camptocamp.org/static/images/modules/modules_mini.png") !important;
 }
 .sbox input {
   width: 250px !important;
-  margin: 0 !important;
   padding: 2px !important;
+  background-image: none !important;
 }
 .sbox option {
-  margin: 0 0 0 5px !important;
-  padding-left: 25px !important;
-  width: 225px !important;
+  /* margin: 0 0 0 5px !important; */
+  /* padding-left: 25px !important; */
+  width: 235px !important;
 }
 /* input.action_filter { background: transparent !important; } */
 
