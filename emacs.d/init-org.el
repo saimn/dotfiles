@@ -84,7 +84,7 @@
         ;;  nil
         ;;  ("~/agenda/work.html" "~/agenda/work.ics"))
 
-(add-hook 'org-finalize-agenda-hook 'org-store-agenda-views)
+;; (add-hook 'org-finalize-agenda-hook 'org-store-agenda-views)
 
 ;}}}
 
