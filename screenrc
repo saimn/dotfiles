@@ -18,7 +18,7 @@ vbell on                           # turn visual bell on
 vbell_msg "   Wuff  ----  Wuff!!  "
 bell_msg "bell: %n (%t) [%w:%s]^G"
 
-defscrollback 1024                 # define a bigger scrollback
+defscrollback 65535                # define a bigger scrollback
 nonblock on                        # don't block everything, waiting for an unresponsive window
 # bufferfile $HOME/.screenex         # the file to use for "readbuf" ('<') and  "writebuf" ('>'):
 shell -$SHELL                      # make the shell in every window a login shell
@@ -82,6 +82,14 @@ bind f eval "hardstatus alwayslastline"
 # on Debian backspace should send char `\177':
 #bindkey -k kb stuff "\177"
 
+# Bind arrow keys
+# to know signals, try cat > /dev/null and press keys
+bindkey ^[[D prev       # Ctl-left, prev window
+bindkey ^[[C next       # Ctl-right, next window
+bindkey ^T screen       # Ctl-t, new window
+bindkey ^W kill         # Ctl-w, kill window
+bindkey -k k2 title     # F2, rename
+
 # ------------------------------------------------------------------------------
 # TERMINAL SETTINGS
 # ------------------------------------------------------------------------------
@@ -135,10 +143,12 @@ termcapinfo xterm*|linux*|rxvt*|Eterm* OP
 #  in bug #134198)
 termcapinfo xterm 'is=\E[r\E[m\E[2J\E[H\E[?7h\E[?1;4;6l'
 
-termcapinfo xterm*|linux*|rxvt*|Eterm* ti@:te@
-
 # Do not use xterms alternate window buffer (won't add lines to scrollback bfr)
 #termcapinfo xterm|xterms|xs ti=\E7\E[?47l
+
+# See history with shift+Pg Up
+termcapinfo xterm|xterms|xs|rxvt ti@:te@
+# termcapinfo xterm*|linux*|rxvt*|Eterm* ti@:te@
 
 # ------------------------------------------------------------------------------
 # STARTUP SCREENS
