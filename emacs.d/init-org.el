@@ -40,7 +40,7 @@
 (setq org-agenda-files '("~/.org/work.org.gpg"
                          "~/.org/home.org.gpg"
                          "~/.org/agenda.org.gpg"
-                         "~/.calendar/stef.org"
+                         "~/agenda/stef.org"
                          ))
 
 (setq org-agenda-custom-commands
