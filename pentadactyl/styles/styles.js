@@ -31,6 +31,12 @@ var loaduserstyles = function()
         //     "archlinux.forum.css",
         // ],
 
+        // [
+        //     "camptocamp:clear",
+        //     "www.camptocamp.org",
+        //     "camptocamp-clear.css",
+        // ],
+
         [
             "camptocamp:dark",
             "www.camptocamp.org",
