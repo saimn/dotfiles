@@ -37,7 +37,7 @@ local browser    = os.getenv("BROWSER") or "firefox"
 local mail_cmd   = terminal.." -T Mutt -name Mutt -e mutt"
 local editor     = os.getenv("EDITOR") or "vim"
 local editor_cmd = terminal .. " -e " .. editor
-local filemgr    = "pcmanfm"
+local filemgr    = "thunar"
 local htop_cmd   = terminal.." -name htop -geometry 80x7 -e htop"
 
 -- Beautiful theme

@@ -24,9 +24,7 @@ xsetroot -cursor_name left_ptr
 
 # background
 # xsetroot -solid "#303030"
-# feh --bg-scale ~/Downloads/118-e.jpg &
-# feh --bg-tile ~/.xmonad/background.png &
-# nitrogen --restore &
+# `cat  $HOME/.fehbg`
 
 # export OOO_FORCE_DESKTOP=gnome &
 # xrandr --output default --mode 1440x900 --pos 0x0 &
