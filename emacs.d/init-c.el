@@ -8,8 +8,13 @@
 ;;   adaptée qui peut s'avérer pratique.
 
 (defun my-c-mode-common-hook ()
-  (setq tab-width 4)
-  (setq c-auto-newline t) ; va a la ligne quand on tape un ; ou {}
+  (setq c-default-style "linux"
+        c-basic-offset 4
+        tab-width 4
+        c-brace-offset -4
+        indent-tabs-mode nil
+        c-auto-newline t ; va a la ligne quand on tape un ; ou {}
+        )
   (define-key c-mode-map "\C-m" 'reindent-then-newline-and-indent)
   (define-key c-mode-map "\C-ce" 'c-comment-edit)
 
@@ -20,23 +25,22 @@
   (setq gdb-many-windows 1)
 
   ;; Style d'indentation BSD
-  (setq c-indent-level 4)
-  (setq c-continued-statement-offset 4)
-  (setq c-brace-offset -4)
-  (setq c-argdecl-indent 0)
-  (setq c-label-offset -4)
+  ;; (setq c-indent-level 4)
+  ;; (setq c-continued-statement-offset 4)
+  ;; (setq c-argdecl-indent 0)
+  ;; (setq c-label-offset -4)
 )
 
 (defun my-c-mode-hook ()
-  (setq c-auto-hungry-initial-state 'none)
+  (setq c-auto-hungry-initial-state 't)
   (setq c-delete-function 'backward-delete-char)
-  (setq c-tab-always-indent t)
+  (setq c-tab-always-indent 'nil)
   )
 
 (defun my-c++-mode-hook ()
-  (setq c++-auto-hungry-initial-state 'none)
+  (setq c++-auto-hungry-initial-state 't)
   (setq c++-delete-function 'backward-delete-char)
-  (setq c++-tab-always-indent t)
+  (setq c++-tab-always-indent 'nil)
   (setq c++-empty-arglist-indent 4)
   )
 
