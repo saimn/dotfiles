@@ -1,20 +1,24 @@
 #!/bin/sh
 
 dual(){
-   xrandr --output VGA_1 --auto --below PANEL
+   xrandr --output $output --auto --right-of LVDS
 }
 
 clone(){
-   xrandr --output VGA_1 --auto
+   xrandr --output $output --auto
 }
 
 on(){
-   xrandr --output LVDS --off --output VGA_1 --auto
+   xrandr --output LVDS --off --output $output --auto
 }
 
 off(){
-   xrandr --output VGA_1 --off --output LVDS --auto
+   xrandr --output $output --off --output LVDS --auto
 }
+
+# default output: VGA-0
+output="VGA-0"
+[ $# -eq 2 ] && output=$2
 
 case $1 in
   "dual")   dual;    exit 0;;
@@ -24,4 +28,4 @@ case $1 in
 esac
 
 ## memo
-# xrandr --output VGA_1 --mode 1440x900
+# xrandr --output VGA-0 --mode 1440x900
