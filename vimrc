@@ -19,7 +19,7 @@ set scrolloff=2         " Nb de lignes visible autour du curseur
 "set number             " afficher les numéros de ligne
 set autowrite
 set previewheight=5
-set paste
+"set paste
 
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
