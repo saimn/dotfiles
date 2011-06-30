@@ -1,9 +1,6 @@
 [submodule "emacs.d/site-lisp/rainbow-mode"]
 	path = emacs.d/site-lisp/rainbow-mode
 	url = git://git.naquadah.org/rainbow.git
-[submodule "emacs.d/site-lisp/twittering-mode"]
-	path = emacs.d/site-lisp/twittering-mode
-	url = git://github.com/hayamiz/twittering-mode.git
 [submodule "emacs.d/site-lisp/auto-complete"]
 	path = emacs.d/site-lisp/auto-complete
 	url = http://github.com/m2ym/auto-complete.git
