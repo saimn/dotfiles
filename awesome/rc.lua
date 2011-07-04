@@ -20,6 +20,7 @@ require("naughty")
 -- User libraries
 require("functions")
 require("vicious")
+require("vicious.contrib")
 require("scratch")
 require("revelation")
 -- }}}
@@ -268,18 +269,33 @@ volbar:set_height(16):set_width(8):set_ticks_size(2)
 volbar:set_background_color(beautiful.fg_off_widget)
 volbar:set_gradient_colors({ beautiful.fg_widget,
    beautiful.fg_center_widget, beautiful.fg_end_widget
-}) -- Enable caching
-vicious.cache(vicious.widgets.volume)
+})
+-- Enable caching
+-- vicious.cache(vicious.widgets.volume)
+
+-- -- Register widgets
+-- if host == "fireball" then volchan = "Master -c 0" else volchan = "Master" end
+-- vicious.register(volbar,    vicious.widgets.volume,  "$1",  2, volchan)
+-- vicious.register(volwidget, vicious.widgets.volume, " $1%", 2, volchan)
+-- -- Register buttons
+-- volbar.widget:buttons(awful.util.table.join(
+--    awful.button({ }, 1, function () exec(terminal.." -e alsamixer") end),
+--    awful.button({ }, 4, function () exec("amixer -q set "..volchan.." 2dB+", false) end),
+--    awful.button({ }, 5, function () exec("amixer -q set "..volchan.." 2dB-", false) end)
+-- ))
+
 -- Register widgets
-if host == "fireball" then volchan = "Master -c 0" else volchan = "Master" end
-vicious.register(volbar,    vicious.widgets.volume,  "$1",  2, volchan)
-vicious.register(volwidget, vicious.widgets.volume, " $1%", 2, volchan)
+volchan = "alsa_output.pci-0000_00_1b.0.analog-stereo"
+vicious.register(volbar,    vicious.contrib.pulse, " $1",  2, volchan)
+-- vicious.register(volwidget, vicious.contrib.pulse, " $1%", 2, volchan)
 -- Register buttons
 volbar.widget:buttons(awful.util.table.join(
-   awful.button({ }, 1, function () exec(terminal.." -e alsamixer") end),
-   awful.button({ }, 4, function () exec("amixer -q set "..volchan.." 2dB+", false) end),
-   awful.button({ }, 5, function () exec("amixer -q set "..volchan.." 2dB-", false) end)
-)) -- Register assigned buttons
+   awful.button({ }, 1, function () awful.util.spawn("pavucontrol") end),
+   awful.button({ }, 4, function () vicious.contrib.pulse.add(5, volchan) end),
+   awful.button({ }, 5, function () vicious.contrib.pulse.add(-5, volchan) end)
+  ))
+
+-- Register assigned buttons
 volwidget:buttons(volbar.widget:buttons())
 -- }}}
 
@@ -740,11 +756,12 @@ if host == "goudes" then
    run_once("gnome-power-manager")
    run_once("wicd-client",nil,"/usr/bin/python2 -O /usr/share/wicd/gtk/wicd-client.py")
    run_once("dropboxd")
+   run_once("urxvtd", "-q -f -o", "urxvtd -q -f -o")
 elseif host == "fireball" then
    run_once("dropbox", "start")
+   run_once("urxvt256c-mld", "-q -f -o", "urxvt256c-mld -q -f -o")
 end
 
-run_once("urxvtd", "-q -f -o", "urxvtd -q -f -o")
 run_once("xbindkeys")
 -- run_once("thunderbird")
 -- run_once("firefox")

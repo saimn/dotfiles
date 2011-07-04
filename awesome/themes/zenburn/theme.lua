@@ -28,7 +28,7 @@ theme.bg_urgent = theme.bg_normal
 -- }}}
 
 -- {{{ Borders
-theme.border_width  = 1
+theme.border_width  = 2
 theme.border_focus  = "#6F6F6F"
 theme.border_normal = theme.bg_normal
 theme.border_marked = theme.fg_urgent
@@ -77,8 +77,10 @@ theme.mouse_finder_color = theme.fg_urgent
 -- Variables set for theming the menu:
 -- menu_[bg|fg]_[normal|focus]
 -- menu_[border_color|border_width]
-theme.menu_height = "15"
+theme.menu_height = "18"
 theme.menu_width  = "100"
+theme.menu_border_width = 2
+theme.menu_border_color = "#6F6F6F"
 -- }}}
 -- }}}
 

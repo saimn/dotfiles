@@ -191,12 +191,13 @@ if has("gui_running")
    colorscheme wombat
    "let g:zenburn_high_Contrast = 1
    "colorscheme zenburn
-elseif $HOSTNAME == "goudes"
+"elseif $HOSTNAME == "goudes"
+else
    set t_Co=256
    colorscheme 256-grayvim
-else
-   set t_Co=8
-   set termencoding=utf-8
+"else
+   "set t_Co=8
+   "set termencoding=utf-8
    "set ttymouse=xterm
 endif
 
