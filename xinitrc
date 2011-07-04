@@ -10,44 +10,9 @@
 # no bell
 xset -b
 
-#(scale,tile,seemless,center)
-#setxkbmap -option ctrl:swapcaps &
-#autocutsel -selection CLIPBOARD -fork &
-#autocutsel -selection PRIMARY -fork &
-
-#xset +fp /usr/share/fonts/local
-#xset +fp /usr/share/fonts/TTF
-#xset fp rehash
-
-# set the cursor
-xsetroot -cursor_name left_ptr
-
-# background
-# xsetroot -solid "#303030"
-# `cat  $HOME/.fehbg`
-
-# export OOO_FORCE_DESKTOP=gnome &
-# xrandr --output default --mode 1440x900 --pos 0x0 &
-# trayer --edge top --align right --SetDockType true --SetPartialStrut true \
-#     --expand true --width 15 --height 12 --transparent true --tint 0x000000 &
-
-# Fix Java GUIs
-# wmname LG3D
-
-# Load local modmap
-test -r $HOME/.Xmodmap && xmodmap $HOME/.Xmodmap
-
-# Load .Xdefaults
-test -r $HOME/.Xresources && xrdb -load $HOME/.Xresources
-test -r $HOME/.Xdefaults && xrdb -load $HOME/.Xdefaults
-
-#[[ $(hostname) == "goudes" ]] &&
-# source $HOME/dotfiles/config/autostart.sh
-
-# Start agents
-eval $(gpg-agent --daemon)
-# eval `ssh-agent -s`
-# eval $(gnome-keyring-daemon -s --components=pkcs11,secrets,ssh,gpg)
+# Make sure this is before the 'exec' command or it won't be executed.
+[ -f /etc/xprofile ] && . /etc/xprofile
+[ -f ~/.xprofile ] && . ~/.xprofile
 
 # Start awesome
 # awesome
