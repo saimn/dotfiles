@@ -43,3 +43,6 @@
 [submodule "awesome/vicious"]
 	path = awesome/vicious
 	url = http://git.sysphere.org/vicious
+[submodule "emacs.d/site-lisp/calfw"]
+	path = emacs.d/site-lisp/calfw
+	url = https://github.com/kiwanami/emacs-calfw.git
