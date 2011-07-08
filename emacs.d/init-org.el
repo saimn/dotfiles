@@ -12,6 +12,11 @@
    "juillet" "août" "septembre" "octobre" "novembre" "décembre"])
 (defvar calendar-month-abbrev-array
   ["jan" "fév" "mar" "avr" "mai" "jun" "jul" "aoû" "sep" "oct" "nov" "déc"])
+
+;; calendar
+(require 'calfw-org)
+(require 'calfw-ical)
+
 ;}}}
 
 ;{{{ Org
