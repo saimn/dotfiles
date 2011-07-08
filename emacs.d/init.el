@@ -213,34 +213,6 @@
 (require 'browse-kill-ring)
 (browse-kill-ring-default-keybindings)
 
-(require 'twittering-mode)
-(eval-after-load "twittering-mode"
-  '(progn
-     (twittering-icon-mode)))            ; Show icons
-(setq twittering-timer-interval 900      ; Update your timeline each x sec
-      ;; twittering-tinyurl-service 'bit.ly
-      twittering-use-master-password t)
-
-(add-hook 'twittering-mode-hook
-          (lambda ()
-            (mapc (lambda (pair)
-                    (let ((key (car pair))
-                          (func (cdr pair)))
-                      (define-key twittering-mode-map
-                        (read-kbd-macro key) func)))
-                  '(("F" . twittering-friends-timeline)
-                    ("R" . twittering-replies-timeline)
-                    ("U" . twittering-user-timeline)
-                    ("W" . twittering-update-status-interactive)))))
-
-(add-hook 'twittering-new-tweets-hook (lambda ()
-  (let ((n twittering-new-tweets-count))
-    (start-process "twittering-notify" nil "notify-send"
-                   "-i" "/usr/share/pixmaps/gnome-emacs.png"
-                   "New tweets"
-                   (format "You have %d new tweet%s"
-                           n (if (> n 1) "s" ""))))))
-
 ;;----------------------------------------------------------------------
 ;; Version Control
 ;;----------------------------------------------------------------------

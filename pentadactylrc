@@ -85,6 +85,7 @@ command! -description 'translate fr2en' -nargs=* wr2en tabopen http://www.wordre
 ":autocmd LocationChange google(\.(com|fr)\/(reader|calendar)) js modes.passAllKeys = true
 :autocmd LocationChange .* -js modes.reset()
 :autocmd LocationChange ssl3\.ovh\.net\/~climbr\/tt-rss -js modes.set(modes.PASS_THROUGH)
+:autocmd LocationChange saimon\.org\/rsslounge -js modes.set(modes.PASS_THROUGH)
 
 " Set the Vim filetype to "mail" when editing mail in GMail with the external editor:
 ":autocmd LocationChange .* :set editor=gvim\ -f
