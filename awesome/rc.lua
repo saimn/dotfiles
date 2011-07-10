@@ -755,10 +755,10 @@ end
 if host == "goudes" then
    run_once("gnome-power-manager")
    run_once("wicd-client",nil,"/usr/bin/python2 -O /usr/share/wicd/gtk/wicd-client.py")
-   run_once("dropboxd")
+   -- run_once("dropboxd")
    run_once("urxvtd", "-q -f -o", "urxvtd -q -f -o")
 elseif host == "fireball" then
-   run_once("dropbox", "start")
+   -- run_once("dropbox", "start")
    run_once("urxvt256c-mld", "-q -f -o", "urxvt256c-mld -q -f -o")
 end
 
