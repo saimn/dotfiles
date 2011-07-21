@@ -27,13 +27,17 @@ deflogin on                        # log new screen windows in utmp
 # emulate .logout message
 pow_detach_msg "Screen session of $LOGNAME $:cr:$:nl:ended."
 
-term screen-256color              # Enable 256 colors
-termcapinfo rxvt* ti@:te@:XT      # improve mouse scrolling,
+term xterm-256color              # Enable 256 colors
+#termcapinfo rxvt* ti@:te@:XT      # improve mouse scrolling,
 
-# Termcap, fix 256 colors
-termcapinfo rxvt 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
-termcapinfo rxvt-unicode 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
-termcapinfo rxvt-256color 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
+#
+#
+## Termcap, fix 256 colors
+#termcapinfo rxvt 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
+#termcapinfo rxvt-unicode 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
+#termcapinfo rxvt-256color 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
+terminfo rxvt-unicode 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
+terminfo rxvt-256color 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
 
 altscreen on                      # and text will go into terminal scrollback buffer
 
@@ -44,19 +48,19 @@ altscreen on                      # and text will go into terminal scrollback bu
 #bind ^a windowlist -b
 
 # Remove some stupid / dangerous key bindings
-bind '^k'
-bind 'L'
-bind '^\'
-bind .
-bind ^h
-bind h
+#bind '^k'
+#bind 'L'
+#bind '^\'
+#bind .
+#bind ^h
+#bind h
 
 # Make them better
-bind '\\' quit
-bind 'K' kill
-bind 'I' login on
-bind 'O' login off
-bind '}' history
+#bind '\\' quit
+#bind 'K' kill
+#bind 'I' login on
+#bind 'O' login off
+#bind '}' history
 
 # Add toggle bindings for the statusbar
 bind ^f eval "hardstatus ignore"
@@ -84,10 +88,12 @@ bind f eval "hardstatus alwayslastline"
 
 # Bind arrow keys
 # to know signals, try cat > /dev/null and press keys
-bindkey ^[[D prev       # Ctl-left, prev window
-bindkey ^[[C next       # Ctl-right, next window
+#bindkey ^[[D prev       # Ctl-left, prev window
+#bindkey ^[[C next       # Ctl-right, next window
+bindkey ^[Od prev       # Ctl-left, prev window
+bindkey ^[Oc next       # Ctl-right, next window
 bindkey ^T screen       # Ctl-t, new window
-bindkey ^W kill         # Ctl-w, kill window
+#bindkey ^W kill         # Ctl-w, kill window
 bindkey -k k2 title     # F2, rename
 
 # ------------------------------------------------------------------------------

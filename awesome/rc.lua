@@ -759,12 +759,12 @@ if host == "goudes" then
    run_once("urxvtd", "-q -f -o", "urxvtd -q -f -o")
 elseif host == "fireball" then
    -- run_once("dropbox", "start")
+   run_once("pulseaudio", "--start")
    run_once("urxvt256c-mld", "-q -f -o", "urxvt256c-mld -q -f -o")
 end
 
 run_once("xbindkeys")
--- run_once("thunderbird")
--- run_once("firefox")
+run_once("emacs", "--daemon")
 -- run_once("urxvtc")
 
 -- }}}
