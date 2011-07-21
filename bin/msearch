@@ -14,4 +14,4 @@ ${mairix} -v -p
 ### Exécution de la recherche de Mairix
 ${mairix} $*
 ### Voir les résultats dans un nouveau Mutt
-mutt -f $RESULTS_DIR
+# mutt -f $RESULTS_DIR

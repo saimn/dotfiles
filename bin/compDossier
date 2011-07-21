@@ -5,9 +5,38 @@
 # 12/01/09 : v1.1 : ajout commentaires et %
 # 19/03/10 : v2 : simplification de la commande 'find'
 #		  nouveau traitement des différences
+# 12/06/10 : v2.1 : option -i ; traitement des dossiers
+# 02/07/11 : v3 : tient compte de la date de modification également (option -t)
 
-#compare 2 dossiers et affiche les différences
-#par rapport aux NOMS et à la TAILLE des fichiers
+# Compare 2 dossiers et affiche les différences
+# par rapport aux NOMS et à la TAILLE des fichiers
+# L'option '-i' => case-insensitive
+# L'option '-t' => comparaison de la DATE de modification aussi
+
+if [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
+	echo "Usage : $(basename $0) [-i] [-t] [dossier1] [dossier2]"
+	echo "   Compare les 2 dossiers et affiche les différences par rapport"
+	echo "   aux noms et à la taille des fichiers."
+	echo
+	echo "   -i : case insensitive"
+	echo "   -t : tient également compte de la date de modification des fichiers"
+	exit 0
+fi
+
+[ "$1" = "-i" ] && DIFF_OPT="-i" && shift || DIFF_OPT=""
+if [ "$1" = "-t" ]; then
+	DATE="1"
+	FIND_OPT_DATE="\ty%T@"
+	GREP_OPT_DATE="\ty[0-9]*"
+	TEXT_DATE="ou date de modification "
+	shift
+else
+	DATE=""
+	FIND_OPT_DATE=""
+	GREP_OPT_DATE=""
+	TEXT_DATE=""
+fi
+[ "$1" = "-i" ] && DIFF_OPT="-i" && shift
 
 [ -z "$1" ] && read -p "Dossier 1 : " DIR1 || DIR1="$1"
 [ ! -d "$DIR1" ] && echo "'$DIR1' n'est pas un dossier !" && exit 1
@@ -23,35 +52,45 @@ diff2="/tmp/compDossier_diff2"
 [ -z "$(echo "$DIR1"|grep "/$")" ] && DIR1="$DIR1/"
 [ -z "$(echo "$DIR2"|grep "/$")" ] && DIR2="$DIR2/"
 
-#remplacer "/" par "\/" (pour le sed)
-DIR1m=$(echo "$DIR1"|sed "s#/#\\\/#g")
-DIR2m=$(echo "$DIR2"|sed "s#/#\\\/#g")
-
 #lister les 2 dossiers
+#rem : options find : 
+#		%P = nom du fichier
+#		%s = taille du fichier (pour dossier, taille sans contenu : ! différent d'un file system à un autre)
+#		%t = date de modification (! y compris partie décimale) ; %Tc = idem sans partie décimale
+#		%T@ = idem sous le format 'nombre de secondes depuis 1/1/1970' ; ! y compris partie décimale
+#      caractère 'x' afin que l'opération 'sort' ne soit pas influencée par la taille
 echo -en       "\n\033[1;34mPréparation : listage de \"$DIR1\" ...\033[0m"
-find "$DIR1" -printf "%P\t%s\n" | sort >$file1
+find "$DIR1" -printf "%P\tx%s$FIND_OPT_DATE\n" | sort >$file1
 echo -en "\r\033[K\033[1;34mPréparation : listage de \"$DIR2\" ...\033[0m"
-find "$DIR2" -printf "%P\t%s\n" | sort >$file2
+find "$DIR2" -printf "%P\tx%s$FIND_OPT_DATE\n" | sort >$file2
+
+#supprimer la partie décimale des secondes
+if [ -n "$DATE" ]; then
+	sed -i 's/\.[0-9]*$//' $file1
+	sed -i 's/\.[0-9]*$//' $file2
+fi
 
 #supprimer la ligne qui est la taille du dossier DIR1/2
-sed -i '/^\t[0-9]*$/d' $file1
-sed -i '/^\t[0-9]*$/d' $file2
-
+sed -i "/^\tx[0-9]*$GREP_OPT_DATE$/d" $file1
+sed -i "/^\tx[0-9]*$GREP_OPT_DATE$/d" $file2
 
 
 #chercher les différences
-diff $file1 $file2 > $diff1			#contient toutes les différences (les différences de taille en double)
+diff $DIFF_OPT $file1 $file2 > $diff1			#contient toutes les différences (les différences de taille/date en double)
 
-#supprimer la taille des fichiers/dossiers
-sed -i 's/\t[0-9]*$//' $file1
-sed -i 's/\t[0-9]*$//' $file2
-sed -i 's/\t[0-9]*$//' $diff1
+#supprimer la taille/date des fichiers/dossiers
+sed -i "s/\tx[0-9]*$GREP_OPT_DATE$//" $file1
+sed -i "s/\tx[0-9]*$GREP_OPT_DATE$//" $file2
+sed -i "s/\tx[0-9]*$GREP_OPT_DATE$//" $diff1
 
-diff $file1 $file2 > $diff2			#contient uniquement les différences de fichier en plus
+diff $DIFF_OPT $file1 $file2 > $diff2			#contient uniquement les différences de fichiers en plus
 
 #comparer
-echo -e "\r\033[K\033[1;34mCe qui est différent dans les deux dossiers :\033[0m"
-grep '^[<>] ' $diff1  | sed "s/^[<>] //" | sort | uniq -d	#ne garde que les lignes en double
+echo -e "\r\033[K\033[1;34mFichiers différents par leur taille $TEXT_DATE:\033[0m"
+grep '^[<>] ' $diff1  | sed "s/^[<>] //" | sort | uniq -d $DIFF_OPT |	#ne garde que les lignes en double
+while read file ; do							#et n'affiche pas les dossiers
+	[ ! -d "$DIR1$file" -o ! -d "$DIR2$file" ] && echo "$file"
+done
 echo -e "\n\033[1;34mCe que \"$DIR1\" contient en plus :\033[0m"
 grep '^<' $diff2 | cut -d' ' -f1 --complement
 echo -e "\n\033[1;34mCe que \"$DIR2\" contient en plus :\033[0m"
