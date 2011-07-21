@@ -1,0 +1,17 @@
+#!/bin/sh
+#
+# msearch.sh 0.1 Christophe Gallaire
+# http://www.road2mayotte.org/blog/
+# Script to execute mairix searches
+
+mairix=/usr/bin/mairix
+RESULTS_DIR=$HOME/Mail/msearch
+
+### Suppression des anciens résultats
+# rm -f ${mbox}
+### Purge et mise à jour de l’index en mode bavard
+${mairix} -v -p
+### Exécution de la recherche de Mairix
+${mairix} $*
+### Voir les résultats dans un nouveau Mutt
+mutt -f $RESULTS_DIR
