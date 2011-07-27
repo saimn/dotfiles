@@ -17,6 +17,7 @@ xset -b
 # Start awesome
 # awesome
 exec ck-launch-session awesome
+# exec ck-launch-session dbus-launch wmfs
 
 # Terminate ssh-agent
 # eval `ssh-agent -k`
