@@ -1,10 +1,11 @@
 #!/bin/sh
 # -*- coding: UTF8 -*-
 
-PID=`pgrep offlineimap`
+# read the pid of any still-running instance
+read -r pid < <(pgrep offlineimap)
 
-[ -n "$PID" ] && exit 1
+# need be, kill it
+[[ -n "$pid" ]] && kill -9 $pid
 
-offlineimap -o -u Noninteractive.Quiet &>/dev/null
-
-exit 0
+# (re)sync
+offlineimap -o -u Noninteractive.Quiet &>/dev/null &
