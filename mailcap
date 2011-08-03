@@ -33,7 +33,7 @@ video/*;                        vlc %s
 #text/html;                      uzbl-browser %s
 text/html;                      firefox %s
 text/html;                      lynx -dump %s
-text/html;                      iconv -c -f %{charset} -t utf8 | html2rest.py ; copiousoutput
+text/html;                      iconv -c -f %{charset} -t utf8 | ~/bin/html2rst/html2rest.py ; copiousoutput
 #text/html;                      html2text.py %s %{charset}; copiousoutput
 text/plain;                     emacsclient -c %s
 text/plain;                     gvim %s
