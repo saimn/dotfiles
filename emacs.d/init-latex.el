@@ -6,6 +6,7 @@
 
 (defun my-tex-mode-hook ()
   (setq TeX-auto-save t)
+  (setq TeX-save-query nil) ;;autosave before compiling
   (setq TeX-parse-self t)
   (setq TeX-open-quote "«~")
   (setq TeX-close-quote "~»")
