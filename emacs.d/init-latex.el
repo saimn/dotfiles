@@ -1,5 +1,8 @@
+;; AUCTeX and preview-latex
 (load "auctex.el" nil t t)
 (load "preview-latex.el" nil t t)
+;; C-c C-p C-b (M-x preview-buffer) : generate math/graphics previews
+;; C-c C-p C-p (M-x preview-at-point) : refresh the preview.
 
 (defun my-tex-mode-hook ()
   (setq TeX-auto-save t)

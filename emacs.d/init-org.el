@@ -42,15 +42,15 @@
 ;;  '(shell-command "urxvt -title Alpine -e alpine -url 'mailto:%a?Subject=%s'")
 ;; )
 
-(setq org-agenda-files '("~/.org/work.org.gpg"
-                         "~/.org/home.org.gpg"
-                         "~/.org/agenda.org.gpg"
-                         "~/agenda/stef.org"
+(setq org-agenda-files '("~/org/work.org"
+                         "~/org/home.org"
+                         "~/org/agenda.org"
+                         "~/org/stef.org"
                          ))
 
 (setq org-agenda-custom-commands
       '(("c" "Desk Work" todo "TODO"
-         ((org-agenda-files '("~/.org/work.org.gpg"))
+         ((org-agenda-files '("~/org/work.org"))
           (org-agenda-sorting-strategy '(priority-up effort-down)))
          ("~/work.html"))
         ))
@@ -99,10 +99,10 @@
 (defun s/org-index ()
    "Show the main org file."
    (interactive)
-   (find-file (concat org-directory "/home.org.gpg")))
+   (find-file (concat org-directory "/home.org")))
 (defun s/org-work ()
    (interactive)
-   (find-file (concat org-directory "/work.org.gpg")))
+   (find-file (concat org-directory "/work.org")))
 (defun s/org-agenda ()
   "Show the org-mode agenda."
   (interactive)
@@ -143,13 +143,13 @@
 (org-remember-insinuate)
 
 ;; Notes file
-(setq org-default-notes-file (concat org-directory "/notes.org.gpg"))
+(setq org-default-notes-file (concat org-directory "/notes.org"))
 ;; Notes templates
 (setq org-remember-templates
- '(("Note" ?n   "* NOTE %?\n %i\n %a" (concat org-directory "/notes.org.gpg") "Notes")
-   ("Download" ?d "* DL %?\n %i\n %a" (concat org-directory "/notes.org.gpg") "Download")
-   ("Todo" ?t   "* TODO %?\n %i\n %a" (concat org-directory "/notes.org.gpg") "Tasks")
-   ("Idea" ?i "* %^{Title}\n %i\n %a" (concat org-directory "/notes.org.gpg") "Brainstorm")))
+ '(("Note" ?n   "* NOTE %?\n %i\n %a" (concat org-directory "/notes.org") "Notes")
+   ("Download" ?d "* DL %?\n %i\n %a" (concat org-directory "/notes.org") "Download")
+   ("Todo" ?t   "* TODO %?\n %i\n %a" (concat org-directory "/notes.org") "Tasks")
+   ("Idea" ?i "* %^{Title}\n %i\n %a" (concat org-directory "/notes.org") "Brainstorm")))
 
 ;; Org-remember splits windows, force it to a single window
 (add-hook 'remember-mode-hook  'delete-other-windows)
