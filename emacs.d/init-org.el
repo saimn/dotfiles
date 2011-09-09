@@ -25,7 +25,7 @@
 (require 'org-mouse)                 ; Extended mouse functionality
 ;; (load "~/.emacs.d/org/lisp/org-mouse.el")
 
-(setq org-directory "~/.org/")
+(setq org-directory "~/org/")
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
 (add-to-list 'auto-mode-alist '("\\.org.gpg$" . org-mode))
 
