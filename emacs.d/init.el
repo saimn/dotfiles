@@ -294,6 +294,7 @@
 (global-set-key (kbd "C-c k") 'kill-this-buffer)
 (global-set-key (kbd "C-c m") 'magit-status)
 (global-set-key (kbd "C-c n") 'clean-up-buffer-or-region)
+(global-set-key (kbd "C-c q") 'refill-mode)
 (global-set-key (kbd "C-c s") 'sr-speedbar-toggle)
 (global-set-key (kbd "C-c t") 'trim-whitespace)
 (global-set-key (kbd "C-c v") 'refill-mode)
