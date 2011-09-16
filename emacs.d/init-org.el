@@ -17,6 +17,26 @@
 (require 'calfw-org)
 (require 'calfw-ical)
 
+;; Unicode characters
+(setq cfw:fchar-junction ?╋
+      cfw:fchar-vertical-line ?┃
+      cfw:fchar-horizontal-line ?━
+      cfw:fchar-left-junction ?┣
+      cfw:fchar-right-junction ?┫
+      cfw:fchar-top-junction ?┯
+      cfw:fchar-top-left-corner ?┏
+      cfw:fchar-top-right-corner ?┓)
+
+;; Another unicode chars
+;; (setq cfw:fchar-junction ?╬
+;;       cfw:fchar-vertical-line ?║
+;;       cfw:fchar-horizontal-line ?═
+;;       cfw:fchar-left-junction ?╠
+;;       cfw:fchar-right-junction ?╣
+;;       cfw:fchar-top-junction ?╦
+;;       cfw:fchar-top-left-corner ?╔
+;;       cfw:fchar-top-right-corner ?╗)
+
 ;}}}
 
 ;{{{ Org
@@ -29,11 +49,13 @@
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
 (add-to-list 'auto-mode-alist '("\\.org.gpg$" . org-mode))
 
-(setq org-log-done t)
-(setq org-return-follows-link t)
-(setq org-completion-use-ido t)
 (setq org-agenda-skip-scheduled-if-done t)
-(setq org-hide-leading-stars t)
+(setq org-completion-use-ido t)
+(setq org-hide-leading-stars t)               ; leading stars become invisible
+(setq org-log-done t)                         ; add timestamp when done
+(setq org-odd-levels-only t)                  ; skip all the even levels
+(setq org-return-follows-link t)
+(setq org-startup-indented t)                 ; turn on org-indent-mode
 
 (add-hook 'org-agenda-mode-hook '(lambda () (hl-line-mode 1)))
 

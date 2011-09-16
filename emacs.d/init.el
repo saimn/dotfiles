@@ -97,10 +97,8 @@
 ;;      (color-theme-tangotango)
 ;;    (some-term-theme))
 
-;; (require 'zenburn)
-;; (unless (zenburn-format-spec-works-p)
-;;   (zenburn-define-format-spec))
-;; (zenburn)
+;; (require 'color-theme-zenburn)
+;; (color-theme-zenburn)
 
 ;;----------------------------------------------------------------------
 ;; Browser
