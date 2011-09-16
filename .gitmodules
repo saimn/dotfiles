@@ -46,3 +46,6 @@
 [submodule "emacs.d/site-lisp/calfw"]
 	path = emacs.d/site-lisp/calfw
 	url = https://github.com/kiwanami/emacs-calfw.git
+[submodule "emacs.d/site-lisp/markdown-mode"]
+	path = emacs.d/site-lisp/markdown-mode
+	url = git://jblevins.org/git/markdown-mode.git
