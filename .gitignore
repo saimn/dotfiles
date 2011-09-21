@@ -21,6 +21,7 @@ perso/
 vim/.netrwhist
 vim/.VimballRecord
 vim/backup/
+vim/doc/tags
 vim/local.vim
 vimperator/info/
 xmonad/history
