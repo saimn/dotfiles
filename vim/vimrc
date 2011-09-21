@@ -5,6 +5,8 @@
 " General setup
 " -----------------------------------------------------------
 
+call pathogen#infect()
+
 set nocompatible        " Use Vim defaults (much better!)
 set viminfo='20,\"50    " .viminfo: don't store more than 50 lines of registers
 set history=100         " nb of command line history
