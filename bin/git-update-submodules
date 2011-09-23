@@ -1,6 +1,6 @@
 #!/bin/sh
 
-dpath=$HOME/dotfiles
+dpath=$HOME/lib/dotfiles
 
 cd $dpath
 for l in $(git submodule status | cut -d ' ' -f 3)
