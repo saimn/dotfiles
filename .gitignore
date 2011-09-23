@@ -8,7 +8,6 @@
 *~
 \#*\#
 bin/arch/
-config/zathura/bookmarks
 emacs.d/ac-comphist.dat
 emacs.d/.org-id-locations
 emacs.d/auto-save-list/
@@ -27,4 +26,5 @@ vimperator/info/
 xmonad/history
 xmonad/xmonad-x86_64-linux
 xmonad/xmonad.errors
+zathura/bookmarks
 zsh/history
