@@ -7,7 +7,7 @@ LINK_CMD := ln --symbolic --force -T
 CLEAN_CMD := rm -rfv
 BCKUP_CMD := cp -v --recursive
 BCKUP_DIR := dotfiles_backup
-NORMAL_FILES := `ls -I README -I Makefile -I bin -I mozilla -I config`
+NORMAL_FILES := `ls -I README -I Makefile -I bin -I config -I conky -I dzen`
 
 all: backup clean emacs-compile deploy
 
