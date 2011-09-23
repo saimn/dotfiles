@@ -1,5 +1,3 @@
-" filetypes
-
 augroup filetypedetect
    autocmd BufRead,BufNewFile *.txt setfiletype text
    autocmd BufRead,BufNewFile *.tpl setfiletype html
@@ -7,12 +5,10 @@ augroup filetypedetect
    autocmd BufRead,BufNewFile *.mkd setfiletype mkd
    autocmd BufRead,BufNewFile *.wiki setfiletype Wikipedia
    autocmd BufRead,BufNewFile *wikipedia.org* setfiletype Wikipedia
-   autocmd BufRead,BufNewFile *climbr.fr* setfiletype dokuwiki
    autocmd BufRead,BufNewFile *camptocamp.org* setfiletype camptocamp
    autocmd BufNewFile,BufRead vimperator* setfiletype bbcode
    autocmd BufRead,BufNewFile *conky* setfiletype conkyrc
    autocmd BufNewFile,BufRead *.inc setfiletype php
-   autocmd BufNewFile,BufRead *.sys setfiletype php
    autocmd BufNewFile,BufRead *.muttrc setfiletype muttrc
 augroup END
 

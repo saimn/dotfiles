@@ -116,10 +116,10 @@ hi MyTagListFileName guifg=#F92672 guibg=bg gui=bold
 
 " Spelling {{{
 if has("spell")
-    hi SpellBad    guisp=#FF0000 gui=undercurl
-    hi SpellCap    guisp=#7070F0 gui=undercurl
-    hi SpellLocal  guisp=#70F0F0 gui=undercurl
-    hi SpellRare   guisp=#FFFFFF gui=undercurl
+    hi SpellBad    guisp=#FF0000 gui=underline
+    hi SpellCap    guisp=#7070F0 gui=underline
+    hi SpellLocal  guisp=#70F0F0 gui=underline
+    hi SpellRare   guisp=#FFFFFF gui=underline
 endif
 " }}}
 " Visual Mode {{{
@@ -219,6 +219,11 @@ if &t_Co > 255
    hi CursorLine                  ctermbg=234   cterm=none
    hi CursorColumn                ctermbg=234
    hi ColorColumn                 ctermbg=234
-   hi LineNr          ctermfg=250 ctermbg=233
+   hi LineNr          ctermfg=59 ctermbg=234
    hi NonText         ctermfg=240 ctermbg=233
+
+   hi SpellBad    ctermbg=234 ctermfg=161 cterm=underline
+   hi SpellCap    ctermbg=234 ctermfg=166 cterm=underline
+   hi SpellLocal  ctermbg=234 ctermfg=81 cterm=underline
+   hi SpellRare   ctermbg=234 ctermfg=59 cterm=underline
 end " }}}

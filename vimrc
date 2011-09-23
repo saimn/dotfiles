@@ -9,8 +9,6 @@ call pathogen#infect()
 set nocompatible        " Use Vim defaults (much better!)
 set viminfo='20,\"50    " .viminfo: don't store more than 50 lines of registers
 set history=100         " nb of command line history
-set undolevels=150
-set undofile            " save undo info
 
 set noerrorbells        " ne fait pas un bip lors d'une erreur
 set visualbell          " Avertissement par flash
@@ -199,7 +197,7 @@ if has("gui_running")
 "elseif $HOSTNAME == "goudes"
 else
    set t_Co=256
-   colorscheme mustang
+   colorscheme molokai
 "else
    "set t_Co=8
    "set termencoding=utf-8
@@ -267,12 +265,18 @@ nmap <C-Right> :tabnext <CR>
 nmap <C-Left>  :tabprevious <CR>
 
 " -----------------------------------------------------------
-" Sauvegarde
+" backup & undo
 " -----------------------------------------------------------
-
 set backup
 set backupdir=~/.vim/backup/
-set dir=~/.vim/backup   " pour le fichier d'échange
+
+" .swp files
+set dir=~/.vim/backup
+
+" save undo info
+set undolevels=150
+set undofile
+set undodir=~/.vim/backup/undo/
 
 " -----------------------------------------------------------
 " UNIX Specials
@@ -464,15 +468,17 @@ endif
 " Liste des propositions par CTRL-X_CTRL-K
 "set dictionary+=/usr/share/dict/french
 
-map <silent> <S-F10> "<Esc>:silent setlocal spell! spelllang=en<CR>"
-map <silent> <F10> "<Esc>:silent setlocal spell! spelllang=fr<CR>"
-map <silent> <C-F10> "<Esc>:silent setlocal nospell<CR>"
-"if has("spell")
-"    setlocal spell spelllang=
-"    map ,lf :setlocal spell spelllang=fr<cr>
-"    map ,le :setlocal spell spelllang=en<cr>
-"    map ,ln :setlocal spell spelllang=<cr>
-"endif
+"map <silent> <S-F10> "<Esc>:silent setlocal spell! spelllang=en<CR>"
+"map <silent> <F10> "<Esc>:silent setlocal spell! spelllang=fr<CR>"
+"map <silent> <C-F10> "<Esc>:silent setlocal nospell<CR>"
+
+if has("spell")
+    setlocal spell spelllang=
+    map ,s :setlocal spell spelllang=fr,en<cr>
+    map ,sf :setlocal spell spelllang=fr<cr>
+    map ,se :setlocal spell spelllang=en<cr>
+    map ,sn :setlocal spell spelllang=<cr>
+endif
 
 "let loaded_vimspell = 1
 "set spellsuggest=10
@@ -549,7 +555,7 @@ if has("autocmd")
    " shebang automatique lors de l'ouverture nouveau
    " d'un fichier *.py, *.sh (bash), modifier l'entête selon les besoins :
    autocmd BufNewFile *.sh,*.bash 0put =\"#!/bin/bash\<nl># -*- coding: UTF8 -*-\<nl>\<nl>\"|$
-   autocmd BufNewFile *.py 0put=\"#!/usr/bin/env python\"|1put=\"# -*- coding: UTF8 -*-\<nl>\<nl>\"|$
+   autocmd BufNewFile *.py 0put=\"#!/usr/bin/env python2\"|1put=\"# -*- coding: utf-8 -*-\<nl>\<nl>\"|$
 
 
    " 11.2 En fonction du type de fichier
@@ -587,13 +593,13 @@ endif
 
 " F1 through F3 re-wraps paragraphs
 augroup MUTT
-   au BufRead ~/.mutt/temp/mutt* set tw=72 spell spelllang=fr
-   au BufRead ~/.mutt/temp/mutt* nmap  <F1>  gqap
-   au BufRead ~/.mutt/temp/mutt* nmap  <F2>  gqqj
-   au BufRead ~/.mutt/temp/mutt* nmap  <F3>  kgqj
-   au BufRead ~/.mutt/temp/mutt* map!  <F1>  <ESC>gqapi
-   au BufRead ~/.mutt/temp/mutt* map!  <F2>  <ESC>gqqji
-   au BufRead ~/.mutt/temp/mutt* map!  <F3>  <ESC>kgqji
+   au BufRead ~/.mutt/tmp/mutt* set tw=72 spell spelllang=fr,en
+   au BufRead ~/.mutt/tmp/mutt* nmap  <F1>  gqap
+   au BufRead ~/.mutt/tmp/mutt* nmap  <F2>  gqqj
+   au BufRead ~/.mutt/tmp/mutt* nmap  <F3>  kgqj
+   au BufRead ~/.mutt/tmp/mutt* map!  <F1>  <ESC>gqapi
+   au BufRead ~/.mutt/tmp/mutt* map!  <F2>  <ESC>gqqji
+   au BufRead ~/.mutt/tmp/mutt* map!  <F3>  <ESC>kgqji
 augroup END
 
 " -----------------------------------------------------------
@@ -676,6 +682,13 @@ if !exists(":DiffOrig")
   command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
                   \ | wincmd p | diffthis
 endif
+
+" -----------------------------------------------------------
+" Abbrev
+" -----------------------------------------------------------
+iab qd quand
+iab qq quelque
+iab qqs quelques
 
 " -----------------------------------------------------------
 " Include
