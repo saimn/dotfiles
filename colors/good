@@ -1,0 +1,24 @@
+! -*- mode: conf-xdefaults; mode: rainbow -*-
+! --- good --- {{{
+
+*background: #3f3f3f
+*foreground: #dcdccc
+
+*color0: #333333
+*color8: #333333
+*color1: #ffa0a0
+*color9: #ffa0a0
+*color2: #98fb98
+*color10: #9acd32
+*color3: #f0e68c
+*color11: #f0e68c
+*color4: #87ceeb
+*color12: #87ceeb
+*color5: #ffa0a0
+*color13: #ffa0a0
+*color6: #87ceeb
+*color14: #87ceeb
+*color7: #ffffff
+*color15: #ffffff
+
+!}}}
