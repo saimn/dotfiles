@@ -1,5 +1,5 @@
 #!/bin/bash
-# -*- coding: UTF8 -*-
+# -*- coding: utf-8 -*-
 
 #mkdir -p lib/hg
 mkdir -p $HOME/lib/python
@@ -27,6 +27,11 @@ ln -s $HOME/lib/dotfiles/zathura/ $HOME/.config/zathura
 mkdir -p $HOME/lib/dotfiles/vim/backup/undo
 mkdir -p $HOME/lib/dotfiles/emacs.d/backup-files/
 
+rm $HOME/.ipython/ipy_user_conf.py
+rm $HOME/.ipython/virtualenv.py
+ln -s $HOME/lib/dotfiles/ipython/ipy_user_conf.py $HOME/.ipython/
+ln -s $HOME/lib/dotfiles/ipython/virtualenv.py $HOME/.ipython/
+
 #}}}
 
 #{{{ ZSH
@@ -51,6 +56,7 @@ ln -s ~/lib/mail/mutt .mutt
 #{{{ Other repos
 git clone git@github.com:saimn/color-theme-tangotango.git ~/lib/color-theme-tangotango
 git clone git@github.com:saimn/color-theme-wombat.git ~/lib/color-theme-wombat
+hg clone https://bitbucket.org/thayerwilliams/vimbrant ~/lib/vimbrant/
 #}}}
 
 #git clone https://github.com/pypa/pip.git ~/lib/python/pip
