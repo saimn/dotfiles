@@ -17,7 +17,7 @@ set editor="emacsclient -c"
 set defsearch="duck"
 
 " don't show tab line if only one tab
-set showtabline=multitab
+"set showtabline=multitab
 
 set visualbell
 
