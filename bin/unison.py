@@ -12,17 +12,15 @@ http://blog.notmyidea.org/working-directly-on-your-server-how-to-backup-and-sync
 */30 * * * * source /path/to/.ssh/agent; env DISPLAY=:0 python2 /path/to/unison.py [/path/to/unison_cmd]
 """
 
-import warnings
-warnings.filterwarnings("ignore", ".*could not open display.*", Warning)
-
 import os
 import sys
-import pynotify
 from datetime import datetime
+
 
 DEFAULT_LOGFILE = "~/unison-sync.log"
 PROGRAM_NAME = "Unison syncer"
 ICON_PATH = '/usr/share/icons/Faenza/status/48/'
+
 
 def sync(logfile=DEFAULT_LOGFILE, program_name=PROGRAM_NAME, UNISON_CMD='unison'):
     # call unison to make the sync & get the duration of the operation
@@ -37,6 +35,12 @@ def sync(logfile=DEFAULT_LOGFILE, program_name=PROGRAM_NAME, UNISON_CMD='unison'
     log = open(os.path.expanduser(logfile))
     lines = log.readlines()
 
+    try:
+        import pynotify
+    except RuntimeError:
+        # don't display the notification
+        display_message = False
+
     if lines[-1].startswith('Nothing to do'):
         display_message = False
     else:
@@ -50,11 +54,13 @@ def sync(logfile=DEFAULT_LOGFILE, program_name=PROGRAM_NAME, UNISON_CMD='unison'
             error = True
 
     if display_message:
-        pynotify.init( "Some Application or Title" )
+        pynotify.init("Some Application or Title")
         if error:
-            n = pynotify.Notification(program_name, message, ICON_PATH+'dialog-error.png')
+            icon = ICON_PATH+'dialog-error.png'
         else:
-            n = pynotify.Notification(program_name, message, ICON_PATH+'dialog-info.png')
+            icon = ICON_PATH+'dialog-info.png'
+
+        n = pynotify.Notification(program_name, message, icon)
         #n.set_urgency(pynotify.URGENCY_NORMAL)
         #n.set_timeout(pynotify.EXPIRES_NEVER)
         n.show()
