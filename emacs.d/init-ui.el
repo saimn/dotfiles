@@ -1,6 +1,10 @@
 ;; (set-default-font "Inconsolata-10")
 (setq font-use-system-font t)
 
+;; redraw the display before process queued input events
+;; see http://www.masteringemacs.org/articles/2011/10/02/improving-performance-emacs-display-engine/
+(setq redisplay-dont-pause t)
+
 ;; Menubar, toolbar, scrollbar (set in ~/.Xdefaults)
 ;; (menu-bar-mode nil)
 ;; (tool-bar-mode nil)
@@ -12,19 +16,18 @@
 
 ;; visible beep
 (setq visible-bell t)
-(setq cursor-type 'bar)
 
 ;; Use the clipboard, pretty please, so that copy/paste "works"
 (setq x-select-enable-clipboard t)
 
-;; Stop cursor from blinking
-(blink-cursor-mode nil)
+;; cursor
+;; (setq cursor-type 'bar)
+;; (blink-cursor-mode nil)
+(blink-cursor-mode (- (*) (*) (*)))     ; don't blink !
 
-;; Choix de la police de caractères en environnement graphique
+;; x-window specific settings
 ;; (if (eq window-system 'x)
 ;;   (progn
-;;     (bar-cursor-mode 1)
-;;     (blink-cursor-mode 1)
 ;;     (menu-bar-mode 1)
 ;;   )
 ;;   (menu-bar-mode 0)
