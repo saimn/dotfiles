@@ -1,18 +1,20 @@
 // vim:ft=javascript
 
 var Config = {
-  // liste des personnes à cacher
-  authors: ['Freenours', 'Krist@f'],
-  // liste des forums à cacher
+  // Liste des personnes à cacher.
+  // Exemple: ['Freenours', 'Krist@f']
+  authors: [],
+  // Liste des forums à cacher
   forums: ['nnonces', 'Partenaires'],
-  // mettre à true pour cacher par défaut, false pour l'inverse
+  // Mettre à true pour cacher par défaut, false pour l'inverse
   hide: true,
 }
 
+
 /**
- * Filter author's posts
+ * Filtrage des posts d'un ou plusieurs auteurs dans une discussion
  */
-if (/viewtopic/.test(window.location.href)){
+if (Config.authors.length > 0 && /viewtopic/.test(window.location.href)){
   $('<a href="#" name="showhide">Montrer/cacher les posts</a>').appendTo("#brdwelcome");
   $("a[name=showhide]").click(function() {
     $.each(Config.authors, function(index, value) {
@@ -27,13 +29,14 @@ if (/viewtopic/.test(window.location.href)){
 
 
 /**
- * Hide some forums in search pages
+ * Cache les posts d'un ou plusieurs forums dans la liste des messages non lus
+ * et messages récents
  */
-if (/search.php/.test(window.location.href)){
+if (Config.forums.length > 0 && /search.php/.test(window.location.href)){
   $('<a href="#" name="showhide">Montrer/cacher les posts</a>').appendTo("#brdwelcome");
   $("a[name=showhide]").click(function() {
     $.each(Config.forums, function(index, value) {
-      $("#punsearch .inbox td.tc2:contains("+value+")").parentsUntil("#tbody").slideToggle();
+      $("#punsearch .inbox td.tc2:contains("+value+")").parentsUntil("tbody").slideToggle();
     });
   });
 
@@ -41,5 +44,4 @@ if (/search.php/.test(window.location.href)){
     $("a[name=showhide]").click();
   }
 }
-
 
