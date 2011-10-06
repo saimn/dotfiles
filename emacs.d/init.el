@@ -75,7 +75,9 @@
 (setq custom-file (expand-file-name "~/.emacs.d/customize.el"))
 (load custom-file)
 
-;(setq delete-by-moving-to-trash t)
+;; use the Trash for file deletion
+(setq delete-by-moving-to-trash t)
+(setq dired-listing-switches "-aFGhl --group-directories-first")
 
 ;;----------------------------------------------------------------------
 ;; Interface

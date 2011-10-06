@@ -121,10 +121,10 @@
 (defun s/org-index ()
    "Show the main org file."
    (interactive)
-   (find-file (concat org-directory "/home.org")))
-(defun s/org-work ()
-   (interactive)
-   (find-file (concat org-directory "/work.org")))
+   (find-file (concat org-directory "/")))
+;; (defun s/org-work ()
+;;    (interactive)
+;;    (find-file (concat org-directory "/work.org")))
 (defun s/org-agenda ()
   "Show the org-mode agenda."
   (interactive)
