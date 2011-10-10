@@ -76,7 +76,7 @@
 (load custom-file)
 
 ;; use the Trash for file deletion
-(setq delete-by-moving-to-trash t)
+;(setq delete-by-moving-to-trash t)
 (setq dired-listing-switches "-aFGhl --group-directories-first")
 
 ;;----------------------------------------------------------------------
