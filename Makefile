@@ -12,12 +12,12 @@ NORMAL_FILES := `ls -I README -I Makefile -I bin -I config -I conky -I dzen`
 all: backup clean emacs-compile deploy
 
 emacs-compile:
-	emacs --batch --no-site-file --eval '(byte-recompile-directory "emacs.d/" 0 t)'
-	#emacs -Q -L . -batch -f batch-byte-compile `find . -name "*.el"`
-	#emacs -batch -no-site-file -l init.el -f batch-byte-compile `find . -name "*.el"`
+	# emacs -Q --batch --eval '(byte-recompile-directory "emacs.d/site-lisp/" 0 t)'
+	# emacs -Q -L . -batch -f batch-byte-compile `find . -name "*.el"`
+	emacs -Q -batch -f batch-byte-compile `find ~/.emacs.d/site-lisp -name "*.el"`
 
 emacs-refresh:
-	emacs --batch --no-site-file --eval '(byte-recompile-directory "emacs.d/")'
+	emacs --batch --eval '(byte-recompile-directory "emacs.d/")'
 
 emacs-clean:
 	find emacs.d/ -name "*.elc" -delete

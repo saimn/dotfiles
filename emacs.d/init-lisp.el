@@ -12,11 +12,13 @@
   (let ((byte-compile-warnings '(unresolved)))
     (byte-compile-file user-init-file)
     (message "Emacs init file saved and compiled.")))
+
 (defun my-emacs-lisp-mode-hook ()
   ; rajouter ici le code souhaité, par exemple : (turn-on-eldoc-mode)
   (if (string-equal buffer-file-name (expand-file-name user-init-file))
       (progn (add-hook 'after-save-hook 'compile-init-file t t)
              )))
+
 (add-hook 'emacs-lisp-mode-hook 'my-emacs-lisp-mode-hook)
 
 (setq auto-mode-alist

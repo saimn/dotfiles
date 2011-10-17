@@ -18,6 +18,7 @@
  ido-enable-flex-matching t ; enable fuzzy matching
  ido-everywhere t           ; use ido everywhere
  ido-show-dot-for-dired t   ; always show dot for current directory
+ ido-use-virtual-buffers t  ; refer to past buffers as well as existing ones
  ido-ignore-buffers         ; Ignore buffers:
    '("\\` " "^\*Back" "^\*Compile-Log" ".*Completion" "^\*Ido")
  )
