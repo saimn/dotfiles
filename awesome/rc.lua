@@ -215,30 +215,29 @@ mailwidget:buttons(awful.util.table.join(
 -- }}}
 
 -- {{{ Org-mode agenda
--- orgicon = widget({ type = "imagebox" })
--- orgicon.image = image(beautiful.widget_org)
--- -- Initialize widget
--- orgwidget = widget({ type = "textbox" })
--- -- Configure widget
--- local orgdir = home.."/.org"
--- local orgmode = {
---   files = { orgdir.."/agenda.org.gpg", orgdir.."/home.org.gpg",
---             orgdir.."/work.org.gpg" },
---   color = {
---     past   = '<span color="'..beautiful.fg_urgent..'">',
---     today  = '<span color="'..beautiful.fg_normal..'">',
---     soon   = '<span color="'..beautiful.fg_widget..'">',
---     future = '<span color="'..beautiful.fg_netup_widget..'">'
--- }} -- Register widget
--- vicious.register(orgwidget, vicious.widgets.org,
---   orgmode.color.past..'$1</span>-'..orgmode.color.today .. '$2</span>-' ..
---   orgmode.color.soon..'$3</span>-'..orgmode.color.future.. '$4</span>', 601,
---   orgmode.files
--- ) -- Register buttons
--- orgwidget:buttons(awful.util.table.join(
---   awful.button({ }, 1, function () exec("emacsclient --eval '(org-agenda-list)'") end),
---   awful.button({ }, 3, function () exec("emacsclient --eval '(make-remember-frame)'") end)
--- ))
+orgicon = widget({ type = "imagebox" })
+orgicon.image = image(beautiful.widget_org)
+-- Initialize widget
+orgwidget = widget({ type = "textbox" })
+-- Configure widget
+local orgdir = home.."/org"
+local orgmode = {
+  files = { orgdir.."/agenda.org", orgdir.."/home.org", orgdir.."/work.org" },
+  color = {
+    past   = '<span color="'..beautiful.fg_urgent..'">',
+    today  = '<span color="'..beautiful.fg_normal..'">',
+    soon   = '<span color="'..beautiful.fg_widget..'">',
+    future = '<span color="'..beautiful.fg_netup_widget..'">'
+}} -- Register widget
+vicious.register(orgwidget, vicious.widgets.org,
+  orgmode.color.past..'$1</span>-'..orgmode.color.today .. '$2</span>-' ..
+  orgmode.color.soon..'$3</span>-'..orgmode.color.future.. '$4</span>', 601,
+  orgmode.files
+) -- Register buttons
+orgwidget:buttons(awful.util.table.join(
+  awful.button({ }, 1, function () exec("emacsclient --eval '(org-agenda-list)'") end),
+  awful.button({ }, 3, function () exec("emacsclient --eval '(make-remember-frame)'") end)
+))
 -- }}}
 
 -- {{{ MPD
@@ -410,7 +409,7 @@ for s = 1, screen.count() do
         separator, datewidget, dateicon,
         separator, weatherwidget, weathericon,
         separator, volwidget, volbar.widget, volicon,
-        -- separator, orgwidget,  orgicon,
+        separator, orgwidget,  orgicon,
         separator, mailwidget, mailicon,
         separator, upicon, netwidget, dnicon,
         separator, fs.r.widget, fs.h.widget, fs.d.widget, fsicon,
