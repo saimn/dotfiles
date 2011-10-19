@@ -49,3 +49,6 @@
 [submodule "emacs.d/site-lisp/markdown-mode"]
 	path = emacs.d/site-lisp/markdown-mode
 	url = git://jblevins.org/git/markdown-mode.git
+[submodule "emacs.d/site-lisp/nxhtml"]
+	path = emacs.d/site-lisp/nxhtml
+	url = https://github.com/emacsmirror/nxhtml.git

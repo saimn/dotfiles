@@ -46,24 +46,24 @@
 ;; Utiliser PSGML pour les fichiers SGML, HTML, XML
 ;; (autoload 'sgml-mode "psgml" "Major mode to edit SGML files." t)
 ;; (autoload 'xml-mode "psgml" "Major mode to edit XML files." t)
-(autoload 'css-mode "css-mode" "CSS editing mode" t)
 (autoload 'rainbow-mode "rainbow-mode" "Highlight color names in buffer" t)
+(autoload 'css-mode "css-mode" "CSS editing mode" t)
 (autoload 'javascript-mode "javascript-mode.el" nil t)
 (autoload 'php-html-helper-mode "html-helper-mode" "html-helper-mode" t)
 (autoload 'php-mode "php-mode" "PHP editing mode" t)
 ;; (add-auto-mode 'php-mode "\\.php[345]?\\'\\|\\.phtml\\." "\\.(inc|tpl)$" "\\.module$")
 
+(load "~/.emacs.d/site-lisp/nxhtml/autostart.el")
+
 (setq auto-mode-alist
-      (append '(("\\.sgml\\'" . nxml-mode)
-                ("\\.x[ms]l\\'" . nxml-mode)
-                ("\\.[sx]?html?\\'" . html-mode)
-                ("\\.tpl\\'" . html-mode)
+      (append '(("\\.x[ms]l\\'" . nxml-mode)
+                ("\\.[sx]?html?\\'" . nxhtml-mode)
+                ("\\.tpl\\'" . nxhtml-mode)
                 ("\\.php\\'" . php-mode)
                 ("\\.inc\\'" . php-mode)
                 ("\\.sql\\'" . sql-mode)
                 ("\\.css\\'" . css-mode)
-                ("\\.js\\'" . javascript-mode)
-                )
+                ("\\.js\\'" . javascript-mode))
               auto-mode-alist))
 
 (provide 'init-web)
