@@ -57,6 +57,7 @@ ln -s ~/lib/mail/mutt .mutt
 git clone git@github.com:saimn/color-theme-tangotango.git ~/lib/color-theme-tangotango
 git clone git@github.com:saimn/color-theme-wombat.git ~/lib/color-theme-wombat
 hg clone https://bitbucket.org/thayerwilliams/vimbrant ~/lib/vimbrant/
+git clone https://github.com/gfxmonk/supergenpass.git ~/lib/supergenpass/
 #}}}
 
 #git clone https://github.com/pypa/pip.git ~/lib/python/pip

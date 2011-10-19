@@ -330,6 +330,7 @@
 (defun my-mail-mode-hook ()
   (auto-fill-mode 1)
   (setq fill-column 72)
+  (set compose-mail-check-user-agent nil)
   (flyspell-mode)
   ;; (abbrev-mode 1)
   (setq sc-nested-citation-p t)

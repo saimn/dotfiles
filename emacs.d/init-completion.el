@@ -97,7 +97,7 @@
 ;; (require 'autoinsert)
 ;; (auto-insert-mode)                                   ; Adds hook to find-files-hook
 (add-hook 'find-file-hooks 'auto-insert)
-(setq auto-insert-directory "~/dotfiles/templates/") ; *NOTE* Trailing slash important
+(setq auto-insert-directory "~/lib/dotfiles/templates/") ; *NOTE* Trailing slash important
 ;; (setq auto-insert-directory (concat (getenv "HOME") "/.dossier/"))
 (setq auto-insert-query nil)                         ; don't prompt before insertion
 (define-auto-insert "\.py" "module.py")
