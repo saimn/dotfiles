@@ -52,3 +52,4 @@
 [submodule "emacs.d/site-lisp/nxhtml"]
 	path = emacs.d/site-lisp/nxhtml
 	url = https://github.com/emacsmirror/nxhtml.git
+    ignore = dirty

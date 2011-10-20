@@ -66,4 +66,26 @@
                 ("\\.js\\'" . javascript-mode))
               auto-mode-alist))
 
+
+;;------------------------------------------------------------
+;; Commands
+;;------------------------------------------------------------
+(defun tidy-html ()
+  "Tidies the HTML content in the buffer using `tidy'"
+  (interactive)
+  (shell-command-on-region
+   ;; beginning and end of buffer
+   (point-min)
+   (point-max)
+   ;; command and parameters
+   "tidy -i -w 120 -q"
+   ;; output buffer
+   (current-buffer)
+   ;; replace?
+   t
+   ;; name of the error buffer
+   "*Tidy Error Buffer*"
+   ;; show error buffer?
+   t))
+
 (provide 'init-web)
