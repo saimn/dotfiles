@@ -21,6 +21,7 @@ set relativenumber
 set autowrite
 set previewheight=5
 "set paste
+set autochdir           " change current dir
 
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start

@@ -125,6 +125,9 @@ nmap <Leader>s -silent :styletoggle!<CR>:styledisable -name global<CR>
 nmap <Leader>h -silent :styletoggle -name global<CR>
 nmap <Leader>S -silent :loaduserstyles<CR>:styledisable -name global<CR>
 
+map -modes=n,v <C-F6> y:!~/bin/supergenpass<Space>'<S-Insert>'<Return><Esc>2gi<S-Insert><Return>
+map -modes=i <C-F6> <Esc><C-F6>
+
 " }}}
 
 " Firefox options {{{
