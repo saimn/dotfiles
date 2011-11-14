@@ -53,7 +53,7 @@
 (setq org-completion-use-ido t)
 (setq org-hide-leading-stars t)               ; leading stars become invisible
 (setq org-log-done t)                         ; add timestamp when done
-(setq org-odd-levels-only t)                  ; skip all the even levels
+;; (setq org-odd-levels-only t)                  ; skip all the even levels
 (setq org-return-follows-link t)
 (setq org-startup-indented t)                 ; turn on org-indent-mode
 
@@ -64,18 +64,7 @@
 ;;  '(shell-command "urxvt -title Alpine -e alpine -url 'mailto:%a?Subject=%s'")
 ;; )
 
-(setq org-agenda-files '("~/org/work.org"
-                         "~/org/home.org"
-                         "~/org/agenda.org"
-                         "~/org/stef.org"
-                         ))
-
-(setq org-agenda-custom-commands
-      '(("c" "Desk Work" todo "TODO"
-         ((org-agenda-files '("~/org/work.org"))
-          (org-agenda-sorting-strategy '(priority-up effort-down)))
-         ("~/work.html"))
-        ))
+(setq org-agenda-files (file-expand-wildcards "~/org/*.org"))
 
 (setq org-tag-alist '(("computer" . ?c)
                       ("home" . ?h)
@@ -85,31 +74,34 @@
                       ("phone" . ?p)))
 
 (setq org-agenda-custom-commands
-      '(("h" "Agenda and tasks"
+      '(
+        ("a" "Agenda for current week or day and tasks"
          ((agenda)
           (alltodo))
          nil
-         ("~/agenda/agenda.html" "~/agenda/agenda.txt"))))
-
-        ;; Examples :
-        ;; ("X" agenda "" nil ("~/agenda/agenda.html" "~/agenda/agenda.txt"))
-        ;; ("Y" alltodo "" nil ("~/agenda/todo.html" "~/agenda/todo.txt"))
-        ;; ("h" "Agenda and Home-related tasks"
-        ;;  ((agenda "")
-        ;;   (tags-todo "home")
-        ;;   (org-agenda-span month)
-        ;;   ;; (tags "garden")
-        ;;   )
-        ;;  nil
-        ;;  ("~/agenda/home.html"))
-        ;; ("o" "Agenda and Office-related tasks"
-        ;;  ((agenda)
-        ;;   (tags-todo "work")
-        ;;   (tags "office")
-        ;;   (org-agenda-span month)
-        ;;   )
-        ;;  nil
-        ;;  ("~/agenda/work.html" "~/agenda/work.ics"))
+         ("~/org/agenda.html" "~/org/agenda.txt"))
+        ("h" "Agenda and Home-related tasks"
+         ((agenda))
+         ((org-agenda-files '("~/org/home.org"))
+          (org-agenda-compact-blocks t))
+         ("~/org/home.html"))
+        ("o" "Agenda and Office-related tasks"
+         ((agenda))
+         ((org-agenda-files '("~/org/work.org"))
+          ;; (tags-todo "work")
+          ;; (tags "office")
+          )
+         ("~/org/work.html" "~/org/work.ics"))
+        ("W" "Weekly Review"
+         ((agenda "" ((org-agenda-ndays 7))) ; review upcoming deadlines and appointments
+                                             ; type "l" in the agenda to review logged items
+          ;; (stuck "")         ; review stuck projects as designated by org-stuck-projects
+          (todo "PROJECT")   ; review all projects (assuming you use todo keywords to designate projects)
+          (todo "MAYBE")     ; review someday/maybe items
+          (todo "WAITING"))
+         nil
+         ("~/org/review.html")) ; review waiting items
+        ))
 
 ;; (add-hook 'org-finalize-agenda-hook 'org-store-agenda-views)
 
@@ -142,7 +134,6 @@
 ;; the appointment notification facility
 (setq
   appt-message-warning-time 15 ;; warn 15 min in advance
-
   appt-display-mode-line t     ;; show in the modeline
   appt-display-format 'window) ;; use our func
 (appt-activate 1)              ;; active appt (appointment notification)
