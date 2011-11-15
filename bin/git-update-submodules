@@ -5,10 +5,12 @@ dpath=$HOME/lib/dotfiles
 cd $dpath
 for l in $(git submodule status | cut -d ' ' -f 3)
 do
-   echo ":: Updating $l"
-   cd $dpath/$l
-   git checkout master
-   git pull
+    echo "======================"
+    echo ":: Updating $l"
+    echo "======================"
+    cd $dpath/$l
+    git checkout master
+    git pull
 done
 
 cd $dpath
