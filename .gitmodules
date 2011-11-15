@@ -56,3 +56,6 @@
 [submodule "emacs.d/site-lisp/deft"]
 	path = emacs.d/site-lisp/deft
 	url = git://jblevins.org/git/deft.git
+[submodule "emacs.d/site-lisp/color-theme-molokai"]
+	path = emacs.d/site-lisp/color-theme-molokai
+	url = https://github.com/alloy-d/color-theme-molokai.git
