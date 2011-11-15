@@ -9,7 +9,7 @@
 	url = http://github.com/technomancy/magit.git
 [submodule "emacs.d/site-lisp/color-theme-tangotango"]
 	path = emacs.d/site-lisp/color-theme-tangotango
-	url = http://github.com/juba/color-theme-tangotango.git
+	url = git@github.com:saimn/color-theme-tangotango.git
 [submodule "emacs.d/site-lisp/color-theme-wombat"]
 	path = emacs.d/site-lisp/color-theme-wombat
 	url = git@github.com:saimn/color-theme-wombat.git
@@ -58,4 +58,4 @@
 	url = git://jblevins.org/git/deft.git
 [submodule "emacs.d/site-lisp/color-theme-molokai"]
 	path = emacs.d/site-lisp/color-theme-molokai
-	url = https://github.com/alloy-d/color-theme-molokai.git
+	url = git@github.com:saimn/color-theme-molokai.git
