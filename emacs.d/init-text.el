@@ -71,6 +71,12 @@
 ;;------------------------------------------------------------
 ;; Other text modes
 ;;------------------------------------------------------------
+
+(require 'deft)
+(setq deft-extension "txt")
+(setq deft-directory "~/org/notes")
+(setq deft-text-mode 'markdown-mode)
+
 (autoload 'c2c-mode "c2c-mode"
   "Major mode for editing with Camptocamp.org" t)
 
@@ -86,8 +92,7 @@
                 ("\\.markdown\\'" . markdown-mode)
                 ("\\.rst\\'" . rst-mode)
                 ("vimperator" . xbbcode-mode)
-                ("camptocamp" . c2c-mode)
-                )
+                ("camptocamp" . c2c-mode))
               auto-mode-alist))
 
 (provide 'init-text)
