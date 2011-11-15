@@ -89,18 +89,22 @@
 ;; Installer avant color-theme
 (require 'color-theme)
 (color-theme-initialize)
-(require 'color-theme-wombat)
+(require 'color-theme-molokai)
 (require 'color-theme-tangotango)
+(require 'color-theme-wombat)
+(require 'color-theme-zenburn)
 (setq frame-background-mode 'dark)
 
-(color-theme-tangotango)
+;; Selects the appropriate color theme for each frame based on whether
+;; the client is running in console mode or windowed mode.
+(defun my-select-color-theme(frame)
+  (select-frame frame)
+  (if (window-system frame)
+      (color-theme-tangotango)
+    (color-theme-gray1)))
 
-;; (if window-system
-;;      (color-theme-tangotango)
-;;    (some-term-theme))
-
-;; (require 'color-theme-zenburn)
-;; (color-theme-zenburn)
+;; Hook to run after making a new frame
+(add-hook 'after-make-frame-functions 'my-select-color-theme)
 
 ;;----------------------------------------------------------------------
 ;; Browser
