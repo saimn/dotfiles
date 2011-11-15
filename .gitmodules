@@ -53,3 +53,6 @@
 	path = emacs.d/site-lisp/nxhtml
 	url = https://github.com/emacsmirror/nxhtml.git
     ignore = dirty
+[submodule "emacs.d/site-lisp/deft"]
+	path = emacs.d/site-lisp/deft
+	url = git://jblevins.org/git/deft.git
