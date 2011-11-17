@@ -1,3 +1,39 @@
+" {{{ Main options
+
+set textwidth=72
+set spell
+set spelllang=fr,en
+
+"set list
+"set listchars=trail:_,tab:>.
+"set expandtab
+"set comments=s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,fb:- 
+"set noshowmatch
+"set ft=headers
+"syn on
+
+" Autoflow paragraphs you edit as you type, no more gq!
+set fo=aw2t
+
+" }}}
+
+
+" * <F1> to re-format the current paragraph correctly
+" * <F2> to format a line which is too long, and go to the next line
+" * <F3> to merge the previous line with the current one, with a correct
+"        formatting (sometimes useful associated with <F2>)
+" These keys might be used both in command mode and edit mode.
+"
+" <F1> might be smarter to use with the Mail_Del_Empty_Quoted() function
+" defined below
+nmap	<F1>	gqap
+nmap	<F2>	gqqj
+nmap	<F3>	kgqj
+map!	<F1>	<ESC>gqapi
+map!	<F2>	<ESC>gqqji
+map!	<F3>	<ESC>kgqji
+
+
 " Nuke nested levels of quotations
 map ,nq :%g/^>>/d<CR>
 
@@ -40,17 +76,17 @@ vmap ,qp    :s/^/> /<CR>
 
 " Clean the Email Function
 function! CleanEmail()
-" Remove empty quoted lines
+    " Remove empty quoted lines
     normal ,ceql
-" Remove the empty lines after an unquoted On blah stuff
+    " Remove the empty lines after an unquoted On blah stuff
     normal ,db
-" Clear empty lines and turn into space to write in
+    " Clear empty lines and turn into space to write in
     "normal ,cqel
-" Remove blocks of empty lines
+    " Remove blocks of empty lines
     normal ,dl
-" Remove quoted On blah stuff
-"    normal ,cqmh
-" Remove many Re:'s from the Subject line
+    " Remove quoted On blah stuff
+    "    normal ,cqmh
+    " Remove many Re:'s from the Subject line
     "normal ,re
 endfun
 
@@ -76,35 +112,23 @@ function! Fixflowed()
    execute l . " normal " . c . "|"
 endfun
 
-function DelSig()
-    let modified=&modified
-    let lnum = line(".")
-    let cnum = col(".")
-    normal! H
-    let scrtop = line(".")
-    normal! G
-    execute '?-- $?,$d'
-    call cursor( scrtop, 0 )
-    normal! zt
-    call cursor( lnum, cnum )
-    if modified == 0
-        set nomodified
-    endif
-endfun
+"function! DelSig()
+    "let modified=&modified
+    "let lnum = line(".")
+    "let cnum = col(".")
+    "normal! H
+    "let scrtop = line(".")
+    "normal! G
+    "execute '?-- $?,$d'
+    "call cursor( scrtop, 0 )
+    "normal! zt
+    "call cursor( lnum, cnum )
+    "if modified == 0
+        "set nomodified
+    "endif
+"endfun
 
-nnoremap ,ds :silent call DelSig()
-
-set list
-set listchars=trail:_,tab:>.
-set expandtab
-set textwidth=75
-set comments=s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,fb:- 
-set noshowmatch
-set ft=headers
-syn on
-
-" Autoflow paragraphs you edit as you type, no more gq!
-set fo=aw2t
+"nnoremap ,ds :silent call DelSig()
 
 " mangels cool block quoting function
 function! VBlockquote(...) range
@@ -127,6 +151,6 @@ function! VBlockquote(...) range
     normal ''
 endfunction
 
-vmap bq :call VBlockquote("
+vmap bq :call VBlockquote("")
 
-silent call CleanEmail()
+call CleanEmail()

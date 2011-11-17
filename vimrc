@@ -589,21 +589,6 @@ if has("autocmd")
 endif
 
 " -----------------------------------------------------------
-" Some tricks for mutt
-" -----------------------------------------------------------
-
-" F1 through F3 re-wraps paragraphs
-augroup MUTT
-   au BufRead ~/.mutt/tmp/mutt* set tw=72 spell spelllang=fr,en
-   au BufRead ~/.mutt/tmp/mutt* nmap  <F1>  gqap
-   au BufRead ~/.mutt/tmp/mutt* nmap  <F2>  gqqj
-   au BufRead ~/.mutt/tmp/mutt* nmap  <F3>  kgqj
-   au BufRead ~/.mutt/tmp/mutt* map!  <F1>  <ESC>gqapi
-   au BufRead ~/.mutt/tmp/mutt* map!  <F2>  <ESC>gqqji
-   au BufRead ~/.mutt/tmp/mutt* map!  <F3>  <ESC>kgqji
-augroup END
-
-" -----------------------------------------------------------
 " Spécificité pour chaque language
 " -----------------------------------------------------------
 

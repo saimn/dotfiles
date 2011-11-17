@@ -6,10 +6,11 @@ augroup filetypedetect
    autocmd BufRead,BufNewFile *.wiki setfiletype Wikipedia
    autocmd BufRead,BufNewFile *wikipedia.org* setfiletype Wikipedia
    autocmd BufRead,BufNewFile *camptocamp.org* setfiletype camptocamp
-   autocmd BufNewFile,BufRead vimperator* setfiletype bbcode
+   autocmd BufRead,BufNewFile vimperator* setfiletype bbcode
    autocmd BufRead,BufNewFile *conky* setfiletype conkyrc
-   autocmd BufNewFile,BufRead *.inc setfiletype php
-   autocmd BufNewFile,BufRead *.muttrc setfiletype muttrc
+   autocmd BufRead,BufNewFile *.inc setfiletype php
+   autocmd BufRead,BufNewFile *.muttrc setfiletype muttrc
+   autocmd BufRead,BufNewFile ~/.mutt/tmp/mutt* setfiletype mail
 augroup END
 
 "au BufNewFile,BufRead *.rb,*.rbw,*.gem,*.gemspec	set filetype=ruby " Ruby
