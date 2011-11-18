@@ -82,8 +82,16 @@ myawesomemenu = {
    { "edit config", editor_cmd.." "..awful.util.getdir("config").."/rc.lua" }
 }
 
+mysystemmenu = {
+   { "shutdown", awful.util.getdir("config") .. "/scripts/shutdown.sh" },
+   { "reboot", awful.util.getdir("config") .. "/scripts/reboot.sh" },
+   { "suspend", awful.util.getdir("config") .. "/scripts/suspend.sh" },
+   { "hibernate", awful.util.getdir("config") .. "/scripts/hibernate.sh" }
+}
+
 mymainmenu = awful.menu({ items = {
                               { "awesome", myawesomemenu, beautiful.awesome_icon },
+                              { "system", mysystemmenu },
                               { "term", terminal },
                               { "htop", htop_cmd },
                               { "browser", browser },
@@ -658,6 +666,8 @@ awful.rules.rules = {
       callback = awful.titlebar.remove },
     { rule = { class = "URxvt",  instance = "htop" },
       properties = { floating = true }, callback = awful.titlebar.remove },
+    { rule = { class = "URxvt",  instance = "Mutt" },
+      properties = { tag = tags[screen.count()][1] }, },
     -- { rule = { class = "Emacs",    instance = "emacs" },
     --   properties = { tag = tags[screen.count()][2] } },
     { rule = { class = "Emacs",    instance = "_Remember_" },
@@ -744,24 +754,21 @@ end
 -- run_once(home .. "/dotfiles/config/autostart.sh")
 -- gnome-settings-daemon &
 -- nm-applet --sm-disable &
--- /usr/libexec/gnome-settings-daemon &
 -- gnome-volume-control-applet &
 -- gpk-update-icon &
 -- emacs --daemon &
-
--- run_once("thunderbird",nil,nil,1)
 
 if host == "goudes" then
    run_once("/usr/lib/gnome-settings-daemon/gnome-settings-daemon")
    run_once("wicd-client",nil,"/usr/bin/python2 -O /usr/share/wicd/gtk/wicd-client.py")
    run_once("urxvtd", "-q -f -o", "urxvtd -q -f -o")
 elseif host == "fireball" then
+   run_once("/usr/libexec/gnome-settings-daemon")
    run_once("pulseaudio", "--start")
    run_once("urxvt256c-mld", "-q -f -o", "urxvt256c-mld -q -f -o")
 end
 
 run_once("xbindkeys")
 run_once("emacs", "--daemon")
--- run_once("urxvtc")
 
 -- }}}
