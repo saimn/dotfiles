@@ -17,7 +17,7 @@
 ;; HTML
 ;;------------------------------------------------------------
 ;; Utiliser le menu expert
-(setq html-helper-use-expert-menu t)
+;; (setq html-helper-use-expert-menu t)
 
 ;; Indenter automatiquement lorsque l'on appuie sur entrée
 (defun my-html-helper-load-hook ()
@@ -54,13 +54,27 @@
 ;; (add-auto-mode 'php-mode "\\.php[345]?\\'\\|\\.phtml\\." "\\.(inc|tpl)$" "\\.module$")
 
 (load "~/.emacs.d/site-lisp/nxhtml/autostart.el")
+(autoload 'html-mumamo "~/.emacs.d/site-lisp/nxhtml/autostart.el")
+(autoload 'django-html-mumamo "~/.emacs.d/site-lisp/nxhtml/autostart.el")
+(autoload 'smarty-html-mumamo "~/.emacs.d/site-lisp/nxhtml/autostart.el")
+(autoload 'jinja-html-mumamo "jinja.el")
+(require 'mumamo-fun)
+
+(setq
+ nxhtml-global-minor-mode t
+ mumamo-chunk-coloring 'submode-colored
+ ;; mumamo-background-colors nil
+ nxhtml-skip-welcome t
+ indent-region-mode t
+ rng-nxml-auto-validate-flag nil
+ nxml-degraded t)
 
 (setq auto-mode-alist
       (append '(("\\.x[ms]l\\'" . nxml-mode)
-                ("\\.[sx]?html?\\'" . nxhtml-mode)
-                ("\\.tpl\\'" . nxhtml-mode)
-                ("\\.php\\'" . php-mode)
-                ("\\.inc\\'" . php-mode)
+                ("\\.[sx]?html?\\'" . html-mumamo)
+                ("\\.tpl\\'" . smarty-html-mumamo)
+                ("\\.php\\'" . html-mumamo)
+                ("\\.inc\\'" . html-mumamo)
                 ("\\.sql\\'" . sql-mode)
                 ("\\.css\\'" . css-mode)
                 ("\\.js\\'" . javascript-mode))
