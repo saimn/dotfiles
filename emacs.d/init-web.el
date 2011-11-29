@@ -55,10 +55,11 @@
 
 (load "~/.emacs.d/site-lisp/nxhtml/autostart.el")
 (autoload 'html-mumamo "~/.emacs.d/site-lisp/nxhtml/autostart.el")
-(autoload 'django-html-mumamo "~/.emacs.d/site-lisp/nxhtml/autostart.el")
+;; (autoload 'django-html-mumamo "~/.emacs.d/site-lisp/nxhtml/autostart.el")
 (autoload 'smarty-html-mumamo "~/.emacs.d/site-lisp/nxhtml/autostart.el")
-(autoload 'jinja-html-mumamo "jinja.el")
+;; (autoload 'jinja-html-mumamo "jinja.el")
 (require 'mumamo-fun)
+(require 'jinja)
 
 (setq
  nxhtml-global-minor-mode t
@@ -80,6 +81,11 @@
                 ("\\.js\\'" . javascript-mode))
               auto-mode-alist))
 
+
+(require 'zencoding-mode)
+(add-hook 'html-mumamo-mode-hook 'zencoding-mode)
+(define-key html-mumamo-mode-map (kbd "C-j") 'zencoding-expand-line)
+(define-key smarty-mode-map (kbd "C-j") 'zencoding-expand-line)
 
 ;;------------------------------------------------------------
 ;; Commands
