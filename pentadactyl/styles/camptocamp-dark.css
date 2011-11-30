@@ -1,29 +1,29 @@
-/* colors {{{
-   based on Arch Linux Forums Style - original by Hrwa (http://userstyles.org/styles/13263)
+/* based on Arch Linux Forums Style - original by Hrwa
+   (http://userstyles.org/styles/13263)
 
-background: #141414 !important;
+colors {{{
+  background: #141414 !important;
 
-background-color: #242424 !important;
-border-color: #343434 !important;
+  background-color: #242424 !important;
+  border-color: #343434 !important;
 
-background-color: #343434 !important
+  background-color: #343434 !important
 
-border-color: #999999 !important;
-border-color: #0771a6 !important;
+  border-color: #999999 !important;
+  border-color: #0771a6 !important;
 
-h2 { background: #1a1a1a !important;}
+  h2 { background: #1a1a1a !important;}
 
-a {color: #608baa !important;} //color: #709bdd !important;
-strong a {color:#9fbc00 !important;}
-a:hover{color: #aaa !important;}
-header a {color: white !important;}
+  a {color: #608baa !important;} //color: #709bdd !important;
+  strong a {color:#9fbc00 !important;}
+  a:hover{color: #aaa !important;}
+  header a {color: white !important;}
 
-textarea, input, select {
-border: 1px solid #343434 !important;
-color: white !important;
-background: #141414 !important;
-}
-
+  textarea, input, select {
+    border: 1px solid #343434 !important;
+    color: white !important;
+    background: #141414 !important;
+  }
 }}}
 */
 
@@ -114,6 +114,10 @@ legend { color: #aaa !important; }
 option { background-color: #141414 !important; }
 
 .img_box { border: 1px solid #999999 !important; }
+
+.checkbox_list li label { background-color: #343434 !important; color: white !important; }
+.checkbox_list li label:hover { background-color: #608baa !important; }
+.checkbox_list li.checked label { background-color: #9fbc00 !important; }
 
 /* TITLES */
 
@@ -245,25 +249,6 @@ div.current_lang {
 .sbox {
   border-color: #343434 !important;
 }
-
-.sbox select {
-  width: 20px !important;
-  /* border: 0 !important; */
-  /* margin: 0 0 0 8px !important; */
-  /* padding-left: 25px !important; */
-  background-image: url("http://s.camptocamp.org/static/images/modules/modules_mini.png") !important;
-}
-.sbox input {
-  width: 250px !important;
-  padding: 2px !important;
-  background-image: none !important;
-}
-.sbox option {
-  /* margin: 0 0 0 5px !important; */
-  /* padding-left: 25px !important; */
-  width: 235px !important;
-}
-/* input.action_filter { background: transparent !important; } */
 
 a.logged_as { background: transparent !important; padding: 0 !important; }
 .log_elt .action_cancel { background: transparent !important; height: auto !important; }
@@ -443,6 +428,11 @@ ul.docs_changes li.even { background-color: transparent !important; }
 }
 #nav_edit li a.action_comment { font-size: 11px !important; }
 
+/* DIFF */
+
+table.diff, table.diff_metas { background-color: #343434 !important; }
+td.diff-context { background-color: transparent !important; }
+table.diff caption { border-bottom: 0; }
 
 /* TOPO */
 
@@ -496,14 +486,10 @@ table.toc {
   font-family: "Droid Sans", sans-serif !important;
 }
 
-#brdwelcome, div.block, div.blockform, div.block2col, #postreview, div.blocktable, div.inbox, .conl, .conr {
+#brdwelcome, div.block, div.blockform, div.block2col, #postreview, div.blocktable, div.inbox, .conl, .conr, div.linkst, div.linksb, div.postlinkst {
   margin: 0 !important;
   padding: 0 !important;
 }
-
-/*#brdheader .box, #punredirect.pun, .tc2, .tcr, .postleft dd, .postfootleft {
-  display: none !important;
-  }*/
 
 /*.postleft {
   width: 100% !important;
