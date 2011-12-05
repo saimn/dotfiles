@@ -14,18 +14,6 @@ var loaduserstyles = function()
         ],
 
         // [
-        //     "wikipedia:minimal",
-        //     "en.wikipedia.org",
-        //     "wikipedia.css",
-        // ],
-
-        // [
-        //     "wikipedia:minimal",
-        //     "fr.wikipedia.org",
-        //     "wikipedia.css",
-        // ],
-
-        // [
         //     "archlinux-forums:minimal",
         //     "bbs.archlinux.org",
         //     "archlinux.forum.css",
@@ -41,12 +29,6 @@ var loaduserstyles = function()
             "camptocamp:dark",
             "www.camptocamp.org",
             "camptocamp-dark.css",
-        ],
-
-        [
-            "youtube:dark-minimal",
-            "youtube.com",
-            "youtube.css",
         ],
 
     ];
