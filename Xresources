@@ -1,8 +1,8 @@
 ! Cursor theme {{{
 
 ! Xcursor.theme: Vanilla-DMZ
-Xcursor.theme: simpleandsoft
-Xcursor.size:   22
+! Xcursor.theme: simpleandsoft
+! Xcursor.size:   22
 
 !}}}
 
@@ -56,7 +56,7 @@ URxvt*font: xft:Droid Sans Mono:style=Regular:pixelsize=12
 ! URxvt*termName:                 rxvt-unicode
 ! URxvt.iconFile:                 /usr/share/pixmaps/rxvt-unicode.png
 
-urxvt*depth:                    32
+URxvt*depth:                    32
 ! URxvt*inheritPixmap:            true
 ! URxvt*transparent:              true
 ! ! URxvt*tintColor:                #2E3434
@@ -65,7 +65,7 @@ urxvt*depth:                    32
 ! URxvt*fading:                   25
 ! URxvt*fadecolor:                #2E3434
 
-urxvt*internalBorder:           5
+URxvt*internalBorder:           5
 URxvt*saveLines:                32767
 URxvt*scrollBar:                false
 URxvt*scrollBar_right:          false
@@ -73,9 +73,9 @@ URxvt*loginShell:               true
 URxvt*cutchars:                 "()*,<>[]{}|"
 URxvt*secondaryScroll:          true
 
-urxvt*perl-lib:                 /usr/lib/urxvt/perl/
+URxvt*perl-lib:                 /usr/lib/urxvt/perl/
 ! URxvt.perl-ext:                 tabbed
-urxvt*perl-ext-common:          default,matcher,searchable-scrollback
+URxvt*perl-ext-common:          default,matcher,searchable-scrollback
 URxvt*urlLauncher:              /usr/bin/firefox
 ! URxvt.urlLauncher:              x-www-browser
 URxvt*matcher.button:           1
