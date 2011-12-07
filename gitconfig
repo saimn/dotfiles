@@ -3,6 +3,8 @@
 [user]
    name = Simon
    email = contact@saimon.org
+[core]
+   editor = vim +0
 [alias]
    addrm = add -u
    br = branch
