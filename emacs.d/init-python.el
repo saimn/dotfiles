@@ -1,4 +1,4 @@
-;; (require 'python-mode)
+(autoload 'python "python" "Python editing mode." t)
 
 ;; allow inferior Python processes to load modules from the current directory
 (setq python-remove-cwd-from-path 'nil)

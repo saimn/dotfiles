@@ -62,3 +62,6 @@
 [submodule "emacs.d/site-lisp/zencoding"]
 	path = emacs.d/site-lisp/zencoding
 	url = https://github.com/rooney/zencoding.git
+[submodule "emacs.d/site-lisp/python.el"]
+	path = emacs.d/site-lisp/python.el
+	url = https://github.com/fgallina/python.el.git
