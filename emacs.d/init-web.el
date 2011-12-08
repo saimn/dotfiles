@@ -85,7 +85,7 @@
 (require 'zencoding-mode)
 (add-hook 'html-mumamo-mode-hook 'zencoding-mode)
 (define-key html-mumamo-mode-map (kbd "C-j") 'zencoding-expand-line)
-(define-key smarty-mode-map (kbd "C-j") 'zencoding-expand-line)
+(define-key smarty-html-mumamo-mode-map (kbd "C-j") 'zencoding-expand-line)
 
 ;;------------------------------------------------------------
 ;; Commands
