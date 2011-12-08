@@ -233,16 +233,26 @@
   ;;  '(add-to-list 'pymacs-load-path "~/.emacs.d/site-lisp/"))
   (setq pymacs-load-path (list (expand-file-name "~/.emacs.d/site-lisp")))
 
+  ;; setup pymacs
+  (autoload 'pymacs-apply "pymacs")
+  (autoload 'pymacs-call "pymacs")
+  (autoload 'pymacs-eval "pymacs" nil t)
+  (autoload 'pymacs-exec "pymacs" nil t)
+  (autoload 'pymacs-load "pymacs" nil t)
+
   ;; some python tools
-  ;; (pymacs-load "python")
+  (pymacs-load "python")
   ;; python refactoring and support
-  ;;(pymacs-load "ropemacs" "rope-")
+  (pymacs-load "ropemacs" "rope-")
   ;; shortcut function to insert license headers
   (pymacs-load "license")
 
-  ;; rope settings
+  ;; setup ropemacs
   (setq ropemacs-guess-project t
-        ropemacs-enable-autoimport t))
+        ropemacs-enable-autoimport t
+        ropemacs-autoimport-modules '("os" "os.path" "sys")
+        ropemacs-global-prefix "C-c p"
+        ropemacs-enable-shortcuts nil))
 
 ;;----------------------------------------------------------------------
 ;; Viper
