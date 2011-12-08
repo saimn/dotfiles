@@ -1,10 +1,5 @@
 ;; (require 'python-mode)
 
-(setq auto-mode-alist (cons '("\\.pyw?$" . python-mode) auto-mode-alist))
-(setq interpreter-mode-alist (cons '("python" . python-mode)
-                                   interpreter-mode-alist))
-(autoload 'python-mode "python" "Python editing mode." t)
-
 ;; allow inferior Python processes to load modules from the current directory
 (setq python-remove-cwd-from-path 'nil)
 
@@ -16,44 +11,18 @@
 ;; IPython
 ;;----------------------------------------------------------------------
 ;; load ipython.el if ipython is available
-(when (executable-find "ipython")
-  (require 'ipython nil 'noerror))
-(when (featurep 'ipython)
-  (setq python-python-command "ipython") ; -cl for classic prompt
-  (setq python-command python-python-command)
-  ;; (setq ipython-command "ipython")
-  (setq py-python-command-args '( "-colors" "Linux"))
-  (setq ipython-completion-command-string
-        "print(';'.join(__IP.Completer.all_completions('%s')))\n")
-  (autoload 'py-shell "ipython"
-    "Use IPython as the Python interpreter." t))
-
-;;----------------------------------------------------------------------
-;; Fonctions
-;;----------------------------------------------------------------------
-(defun python-reindent-then-newline-and-indent ()
-  "Reindents the current line then creates an indented newline."
-  (interactive "*")
-  (newline)
-  (save-excursion
-    (end-of-line 0)
-    (indent-according-to-mode)
-    (delete-region (point) (progn (skip-chars-backward " \t") (point))))
-  (when (python-previous-line-is-comment)
-      (insert "# "))
-  (indent-according-to-mode))
-
-(defun python-previous-line-is-comment ()
-  "Returns `t' if the previous line is a Python comment."
-  (save-excursion
-    (forward-line -1)
-    (python-line-is-comment)))
-
-(defun python-line-is-comment ()
-  "Returns `t' if the current line is a Python comment."
-  (save-excursion
-    (beginning-of-line)
-    (search-forward "#" (point-at-eol) t)))
+;; (when (executable-find "ipython2")
+;;   (require 'ipython nil 'noerror))
+;; (when (featurep 'ipython)
+;;   (setq python-python-command "ipython2") ; -cl for classic prompt
+;;   (setq python-command python-python-command)
+;;   ;; (setq ipython-command "ipython")
+;;   (setq py-python-command-args '( "-colors" "Linux"))
+;;   (setq ipython-completion-command-string
+;;         "print(';'.join(__IP.Completer.all_completions('%s')))\n")
+;;   (autoload 'py-shell "ipython"
+;;     "Use IPython as the Python interpreter." t)
+;;   )
 
 ;;----------------------------------------------------------------------------
 ;; On-the-fly syntax checking via flymake
@@ -89,6 +58,8 @@
               ;; prevent flymake from running over temporary interpreter buffers
               (unless (eq buffer-file-name nil) (flymake-mode 1))
               ;; flymake shortcuts
+              (local-set-key [f10] 'flymake-goto-prev-error)
+              (local-set-key [f11] 'flymake-goto-next-error)
               (local-set-key (kbd "C-c C-SPC") 'flymake-mode)
               (local-set-key (kbd "M-p") 'flymake-goto-prev-error)
               (local-set-key (kbd "M-n") 'flymake-goto-next-error))))
@@ -110,9 +81,6 @@
             ;; disable highlighting of unknown includes
             ;; (semantic-toggle-decoration-style "semantic-decoration-on-includes" nil)
 
-            ;; (define-key python-mode-map "\C-m"
-            ;;   'python-reindent-then-newline-and-indent)
-
             (add-hook 'local-write-file-hooks 'untabify-buffer)
 
             ;; (add-hook 'local-write-file-hooks
@@ -128,11 +96,12 @@
             (setq mode-name "py")
 
             ;; Keybindings
-            (local-set-key (kbd "M-?") 'rope-code-assist)
-            (local-set-key (kbd "C-M-?") 'rope-lucky-assist)
-            (local-set-key (kbd "C-c g") 'rope-goto-definition)
-            (local-set-key (kbd "C-c d") 'rope-show-doc)
-            (local-set-key (kbd "C-c t") 'rope-show-calltip)))
+            (define-key python-mode-map "\C-ci" 'rope-auto-import)
+            (define-key python-mode-map "\M-?" 'rope-code-assist)
+            (define-key python-mode-map "\C-\M-?" 'rope-lucky-assist)
+            (define-key python-mode-map "\C-cg" 'rope-goto-definition)
+            (define-key python-mode-map "\C-cd" 'rope-show-doc)
+            (define-key python-mode-map "\C-ct" 'rope-show-calltip)))
 
 (provide 'init-python)
 
