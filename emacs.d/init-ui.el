@@ -5,11 +5,6 @@
 ;; see http://www.masteringemacs.org/articles/2011/10/02/improving-performance-emacs-display-engine/
 (setq redisplay-dont-pause t)
 
-;; Menubar, toolbar, scrollbar (set in ~/.Xdefaults)
-;; (menu-bar-mode nil)
-;; (tool-bar-mode nil)
-;; (scroll-bar-mode nil)
-
 ;; Window title
 ;; (setq frame-title-format '(buffer-file-name "Emacs: %b (%f)" "Emacs: %b"))
 (setq frame-title-format '(buffer-file-name "%b [%f]" "%b"))
@@ -39,6 +34,9 @@
 (display-time-mode)                ; display time and load
 ;; (display-time)
 ;; (setq display-time-24hr-format t)
+
+;; 'y' = yes, 'n' = no
+(defalias 'yes-or-no-p 'y-or-n-p)
 
 (defun my-toggle-menu-and-scrollbar ()
   "Toggles both menu-bar-mode and scroll-bar-mode"

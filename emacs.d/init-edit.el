@@ -47,6 +47,9 @@
 ;; ask to add a newline if missing
 ;; (setq require-final-newline 'query)
 
+;; disable vc to speed up saves
+;; (setq vc-handled-backends nil)
+
 ;; delete end-of-line spaces
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 

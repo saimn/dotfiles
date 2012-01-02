@@ -31,29 +31,6 @@
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
 
-;; Traite 'y' ou <CR> comme yes, 'n' comme no.
-(defalias 'yes-or-no-p 'y-or-n-p)
-(define-key query-replace-map [return] 'act)
-(define-key query-replace-map [?\C-m] 'act)
-
-;; Mouse
-(defun up-slightly () (interactive) (scroll-up 5))
-(defun down-slightly () (interactive) (scroll-down 5))
-(defun up-one () (interactive) (scroll-up 1))
-(defun down-one () (interactive) (scroll-down 1))
-(defun up-a-lot () (interactive) (scroll-up))
-(defun down-a-lot () (interactive) (scroll-down))
-(global-set-key [mouse-4] 'down-slightly)
-(global-set-key [mouse-5] 'up-slightly)
-(global-set-key [S-mouse-4] 'down-one)
-(global-set-key [S-mouse-5] 'up-one)
-(global-set-key [C-mouse-4] 'down-a-lot)
-(global-set-key [C-mouse-5] 'up-a-lot)
-;; (setq scroll-step 1)
-
-;; disable vc to speed up saves
-;(setq vc-handled-backends nil)
-
 ;;----------------------------------------------------------------------------
 ;; paths
 ;;----------------------------------------------------------------------------
@@ -170,15 +147,9 @@
                            (mode . latex-mode)
                            (mode . markdown-mode)
                            (mode . rst-mode)))
-               ;; ("gnus" (or
-               ;;          (mode . message-mode)
-               ;;          (mode . bbdb-mode)
-               ;;          (mode . mail-mode)
-               ;;          (mode . gnus-group-mode)
-               ;;          (mode . gnus-summary-mode)
-               ;;          (mode . gnus-article-mode)
-               ;;          (name . "^\\.bbdb$")
-               ;;          (name . "^\\.newsrc-dribble")))
+               ("Mail" (or
+                        (mode . message-mode)
+                        (mode . mail-mode)))
                ))))
 
 (add-hook 'ibuffer-mode-hook
@@ -278,8 +249,8 @@
 (global-set-key "\M-;" 'comment-dwim-line)
 
 (global-set-key (kbd "<C-tab>") 'other-window)
-(global-set-key (kbd "<C-S-tab>") '(lambda () (interactive) (other-window -1)))
-(global-set-key (kbd "<C-S-iso-lefttab>") '(lambda () (interactive) (other-window -1)))
+;; (global-set-key (kbd "<C-S-tab>") '(lambda () (interactive) (other-window -1)))
+;; (global-set-key (kbd "<C-S-iso-lefttab>") '(lambda () (interactive) (other-window -1)))
 
 (global-set-key (kbd "M-r") 'replace-string)
 (global-set-key (kbd "M-g") 'goto-line)
