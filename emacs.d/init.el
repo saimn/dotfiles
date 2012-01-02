@@ -255,17 +255,11 @@
         ropemacs-enable-shortcuts nil))
 
 ;;----------------------------------------------------------------------
-;; Viper
+;; Evil
 ;;----------------------------------------------------------------------
-;; (setq viper-mode t)
-;; (require 'viper)
-
-;; (defadvice viper-maybe-checkout (around viper-svn-checkin-fix activate)
-;;   "Advise viper-maybe-checkout to ignore svn files."
-;;   (let ((file (expand-file-name (buffer-file-name buf))))
-;;     (when (and (featurep 'vc-hooks)
-;;                (not (memq (vc-backend file) '(nil SVN))))
-;;       ad-do-it)))
+(require 'evil)
+(evil-mode 1)
+(setq evil-default-cursor t)
 
 ;;----------------------------------------------------------------------
 ;; Keyboard shortcuts
@@ -277,7 +271,7 @@
 ;; Mouse
 (global-set-key [mouse-3] 'imenu)
 
-(global-set-key (kbd "C-z") 'undo)
+;; (global-set-key (kbd "C-z") 'undo)
 (global-set-key (kbd "C-b") 'ido-switch-buffer)
 (global-set-key (kbd "<C-escape>") 'ibuffer-list-buffers)
 (global-set-key (kbd "C-/") 'comment-dwim-line)

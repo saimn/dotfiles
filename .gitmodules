@@ -65,3 +65,6 @@
 [submodule "emacs.d/site-lisp/python.el"]
 	path = emacs.d/site-lisp/python.el
 	url = https://github.com/fgallina/python.el.git
+[submodule "emacs.d/site-lisp/evil"]
+	path = emacs.d/site-lisp/evil
+	url = git://gitorious.org/evil/evil.git
