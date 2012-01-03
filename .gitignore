@@ -20,7 +20,7 @@ pentadactyl/info/
 perso/
 vim/.netrwhist
 vim/.VimballRecord
-vim/backup/
+vim/tmp/
 vim/local.vim
 vimperator/info/
 xmonad/history
