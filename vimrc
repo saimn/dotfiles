@@ -165,6 +165,9 @@ set statusline+=)
 set statusline+=\ (line\ %l\/%L,\ col\ %03c)
 
 " }}}
+" Abbreviations ----------------------------------------------------------- {{{
+
+" }}}
 " Searching and movement -------------------------------------------------- {{{
 
 " Use sane regexes.
@@ -252,50 +255,6 @@ noremap j gj
 noremap k gk
 
 " }}}
-" }}}
-" Environments (GUI/Console) ---------------------------------------------- {{{
-
-if has('gui_running')
-    if has("win32")
-        set guifont=Courier:h10:cANSI
-    else
-        if $HOSTNAME == "goudes"
-            set guifont=Inconsolata\ 11
-        elseif $HOSTNAME == "fireball"
-            set guifont=Inconsolata\ 10
-        endif
-    endif
-
-    set go-=T   " No toolbar
-    set go-=l   " No scrollbars
-    set go-=L
-    set go-=r
-    set go-=R
-    " set guioptions+=a    " clipboard to autoselect
-    " set guioptions+=c    " Use console dialogs instead of popup
-
-    set mousefocus                " Le focus suit la souris
-    set mousemodel=popup_setpos   " Le bouton droit affiche une popup
-
-    highlight SpellBad term=underline gui=undercurl guisp=Orange
-
-    " Use a line-drawing char for pretty vertical splits.
-    set fillchars+=vert:│
-
-    " Different cursors for different modes.
-    set guicursor=n-c:block-Cursor-blinkon0
-    set guicursor+=v:block-vCursor-blinkon0
-    set guicursor+=i-ci:ver20-iCursor
-else
-    " Console Vim
-    "set term=xterm
-    set t_Co=256
-    colorscheme molokai
-    "set t_Co=8
-    "set termencoding=utf-8
-    "set ttymouse=xterm
-endif
-
 " }}}
 " Folding ----------------------------------------------------------------- {{{
 
@@ -637,6 +596,66 @@ augroup END
 " }}}
 
 " }}}
+" Quick editing ----------------------------------------------------------- {{{
+
+nnoremap <leader>ev <C-w>s<C-w>j<C-w>L:e ~/.vimrc<cr>
+nnoremap <leader>em <C-w>s<C-w>j<C-w>L:e ~/.mutt/muttrc<cr>
+
+" }}}
+" Shell ------------------------------------------------------------------- {{{
+
+function! s:ExecuteInShell(command) " {{{
+    let command = join(map(split(a:command), 'expand(v:val)'))
+    let winnr = bufwinnr('^' . command . '$')
+    silent! execute  winnr < 0 ? 'botright vnew ' . fnameescape(command) : winnr . 'wincmd w'
+    setlocal buftype=nowrite bufhidden=wipe nobuflisted noswapfile nowrap nonumber
+    echo 'Execute ' . command . '...'
+    silent! execute 'silent %!'. command
+    silent! redraw
+    silent! execute 'au BufUnload <buffer> execute bufwinnr(' . bufnr('#') . ') . ''wincmd w'''
+    silent! execute 'nnoremap <silent> <buffer> <LocalLeader>r :call <SID>ExecuteInShell(''' . command . ''')<CR>:AnsiEsc<CR>'
+    silent! execute 'nnoremap <silent> <buffer> q :q<CR>'
+    silent! execute 'AnsiEsc'
+    echo 'Shell command ' . command . ' executed.'
+endfunction " }}}
+command! -complete=shellcmd -nargs=+ Shell call s:ExecuteInShell(<q-args>)
+nnoremap <leader>! :Shell 
+
+" }}}
+" Convenience mappings ---------------------------------------------------- {{{
+
+" Clean whitespace
+map <leader>W  :%s/\s\+$//<cr>:let @/=''<CR>
+
+" Change case
+nnoremap <C-u> gUiw
+inoremap <C-u> <esc>gUiwea
+
+" Substitute
+nnoremap <leader>s :%s//<left>
+
+" Emacs bindings in command line mode
+cnoremap <c-a> <home>
+cnoremap <c-e> <end>
+
+" Easier linewise reselection
+nnoremap <leader>V V`]
+
+" Align text
+nnoremap <leader>Al :left<cr>
+nnoremap <leader>Ac :center<cr>
+nnoremap <leader>Ar :right<cr>
+vnoremap <leader>Al :left<cr>
+vnoremap <leader>Ac :center<cr>
+vnoremap <leader>Ar :right<cr>
+
+" Faster Esc
+inoremap jk <esc>
+
+" Quickreturn
+inoremap <c-cr> <esc>A<cr>
+
+" }}}
 " Plugin settings --------------------------------------------------------- {{{
 
 " Ack {{{
@@ -829,58 +848,48 @@ nnoremap <silent> <F6> :YRShow<cr>
 " }}}
 
 " }}}
-" Shell ------------------------------------------------------------------- {{{
+" Environments (GUI/Console) ---------------------------------------------- {{{
 
-function! s:ExecuteInShell(command) " {{{
-    let command = join(map(split(a:command), 'expand(v:val)'))
-    let winnr = bufwinnr('^' . command . '$')
-    silent! execute  winnr < 0 ? 'botright vnew ' . fnameescape(command) : winnr . 'wincmd w'
-    setlocal buftype=nowrite bufhidden=wipe nobuflisted noswapfile nowrap nonumber
-    echo 'Execute ' . command . '...'
-    silent! execute 'silent %!'. command
-    silent! redraw
-    silent! execute 'au BufUnload <buffer> execute bufwinnr(' . bufnr('#') . ') . ''wincmd w'''
-    silent! execute 'nnoremap <silent> <buffer> <LocalLeader>r :call <SID>ExecuteInShell(''' . command . ''')<CR>:AnsiEsc<CR>'
-    silent! execute 'nnoremap <silent> <buffer> q :q<CR>'
-    silent! execute 'AnsiEsc'
-    echo 'Shell command ' . command . ' executed.'
-endfunction " }}}
-command! -complete=shellcmd -nargs=+ Shell call s:ExecuteInShell(<q-args>)
-nnoremap <leader>! :Shell 
+if has('gui_running')
+    if has("win32")
+        set guifont=Courier:h10:cANSI
+    else
+        if $HOSTNAME == "goudes"
+            set guifont=Inconsolata\ 11
+        elseif $HOSTNAME == "fireball"
+            set guifont=Inconsolata\ 10
+        endif
+    endif
 
-" }}}
-" Convenience mappings ---------------------------------------------------- {{{
+    set go-=T   " No toolbar
+    set go-=l   " No scrollbars
+    set go-=L
+    set go-=r
+    set go-=R
+    " set guioptions+=a    " clipboard to autoselect
+    " set guioptions+=c    " Use console dialogs instead of popup
 
-" Clean whitespace
-map <leader>W  :%s/\s\+$//<cr>:let @/=''<CR>
+    set mousefocus                " Le focus suit la souris
+    set mousemodel=popup_setpos   " Le bouton droit affiche une popup
 
-" Change case
-nnoremap <C-u> gUiw
-inoremap <C-u> <esc>gUiwea
+    highlight SpellBad term=underline gui=undercurl guisp=Orange
 
-" Substitute
-nnoremap <leader>s :%s//<left>
+    " Use a line-drawing char for pretty vertical splits.
+    set fillchars+=vert:│
 
-" Emacs bindings in command line mode
-cnoremap <c-a> <home>
-cnoremap <c-e> <end>
-
-" Easier linewise reselection
-nnoremap <leader>V V`]
-
-" Align text
-nnoremap <leader>Al :left<cr>
-nnoremap <leader>Ac :center<cr>
-nnoremap <leader>Ar :right<cr>
-vnoremap <leader>Al :left<cr>
-vnoremap <leader>Ac :center<cr>
-vnoremap <leader>Ar :right<cr>
-
-" Faster Esc
-inoremap jk <esc>
-
-" Quickreturn
-inoremap <c-cr> <esc>A<cr>
+    " Different cursors for different modes.
+    set guicursor=n-c:block-Cursor-blinkon0
+    set guicursor+=v:block-vCursor-blinkon0
+    set guicursor+=i-ci:ver20-iCursor
+else
+    " Console Vim
+    "set term=xterm
+    set t_Co=256
+    colorscheme molokai
+    "set t_Co=8
+    "set termencoding=utf-8
+    "set ttymouse=xterm
+endif
 
 " }}}
 " Pulse ------------------------------------------------------------------- {{{
