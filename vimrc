@@ -167,6 +167,10 @@ set statusline+=\ (line\ %l\/%L,\ col\ %03c)
 " }}}
 " Abbreviations ----------------------------------------------------------- {{{
 
+iab qd quand
+iab qq quelque
+iab qqs quelques
+
 " }}}
 " Searching and movement -------------------------------------------------- {{{
 
@@ -324,7 +328,7 @@ endif
 
 augroup ft_c
     au!
-    au FileType c setlocal foldmethod=syntax
+    au FileType c,cpp setlocal foldmethod=syntax cindent
 augroup END
 
 " }}}
@@ -364,6 +368,7 @@ augroup ft_css
     au Filetype less,css setlocal foldmarker={,}
     au Filetype less,css setlocal omnifunc=csscomplete#CompleteCSS
     au Filetype less,css setlocal iskeyword+=-
+    au FileType less,css setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
 
     " Use <leader>S to sort properties.  Turns this:
     au BufNewFile,BufRead *.less,*.css nnoremap <buffer> <localleader>S ?{<CR>jV/\v^\s*\}?$<CR>k:sort<CR>:noh<CR>
@@ -403,6 +408,7 @@ augroup ft_html
 
     au BufNewFile,BufRead *.html setlocal filetype=htmldjango
     au FileType html,jinja,htmldjango setlocal foldmethod=manual
+    au FileType html,jinja,htmldjango setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
 
     " Use <localleader>f to fold the current tag.
     au FileType html,jinja,htmldjango nnoremap <buffer> <localleader>f Vatzf
@@ -448,6 +454,7 @@ augroup ft_javascript
     " Treat JSON files like JavaScript
     au BufNewFile,BufRead *.json set ft=javascript
 
+    au FileType javascript setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
     au FileType javascript setlocal foldmethod=marker
     au FileType javascript setlocal foldmarker={,}
 augroup END
@@ -532,9 +539,13 @@ augroup END
 
 augroup ft_python
     au!
+    " add header
+    au BufNewFile *.py 0put=\"#!/usr/bin/env python2\"|1put=\"# -*- coding: utf-8 -*-\<nl>\<nl>\"|$
 
     " make Python follow PEP8 ( http://www.python.org/dev/peps/pep-0008/ )
     au FileType python set softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79
+
+    au FileType python setlocal smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class,with
 
     " au FileType python setlocal omnifunc=pythoncomplete#Complete
     au FileType python setlocal define=^\s*\\(def\\\\|class\\)
@@ -575,6 +586,25 @@ augroup ft_ruby
 augroup END
 
 " }}}
+" Shell {{{
+
+augroup ft_sh
+    au!
+    " header
+    au BufNewFile *.sh,*.bash 0put =\"#!/bin/bash\<nl># -*- coding: UTF8 -*-\<nl>\<nl>\"|$
+augroup END
+
+" }}}
+" Text, tex, ... {{{
+
+augroup ft_txt
+    au!
+    au FileType text setlocal textwidth=78 lbr "fo+=a "spell spelllang=fr
+    au FileType tex setlocal textwidth=78 "spell spelllang=fr
+    au FileType camptocamp setlocal spell spelllang=fr
+augroup END
+
+" }}}
 " Vagrant {{{
 
 augroup ft_vagrant
@@ -590,7 +620,10 @@ augroup ft_vim
 
     au FileType vim setlocal foldmethod=marker
     au FileType help setlocal textwidth=78
-    au BufWinEnter *.txt if &ft == 'help' | wincmd L | endif
+    " au BufWinEnter *.txt if &ft == 'help' | wincmd L | endif
+
+    " Reload vimrc to apply changes
+    autocmd! BufWritePost .vimrc source %
 augroup END
 
 " }}}
@@ -654,6 +687,9 @@ inoremap jk <esc>
 
 " Quickreturn
 inoremap <c-cr> <esc>A<cr>
+
+" Allows writing to files with root priviledges
+cmap w!! %!sudo tee > /dev/null %
 
 " }}}
 " Plugin settings --------------------------------------------------------- {{{
@@ -941,6 +977,34 @@ function! PulseCursorLine()
     windo set cursorline
     execute current_window . 'wincmd w'
 endfunction
+
+" }}}
+" Spelling ---------------------------------------------------------------- {{{
+
+" Dictionnaire français
+" Liste des propositions par CTRL-X_CTRL-K
+"set dictionary+=/usr/share/dict/french
+
+if has("spell")
+    setlocal spell spelllang=
+    map ,s :setlocal spell spelllang=fr,en<cr>
+    map ,sf :setlocal spell spelllang=fr<cr>
+    map ,se :setlocal spell spelllang=en<cr>
+    map ,sn :setlocal spell spelllang=<cr>
+endif
+
+"let loaded_vimspell = 1
+"set spellsuggest=10
+"let spell_executable = "aspell"
+"let spell_auto_type = ''
+"let spell_insert_mode = 0
+
+" }}}
+" Local config ------------------------------------------------------------ {{{
+
+if filereadable(expand("~/.vim/local.vim"))
+    source ~/.vim/local.vim
+endif
 
 " }}}
 
