@@ -10,7 +10,8 @@ set nocompatible                " choose no compatibility with legacy vi
 
 set encoding=utf-8
 set modelines=0                 " disable modelines
-set autoindent
+set autoindent                  " always set autoindenting on
+set smartindent                 " clever autoindenting
 set showcmd                     " display incomplete commands
 set showmode
 set hidden                      " Allow backgrounding buffers without writing them
@@ -21,12 +22,12 @@ set ruler
 set backspace=indent,eol,start  " backspace through everything in insert mode
 set nonumber
 set norelativenumber
-set laststatus=2
+set laststatus=2                " show always statusline of last window
 set history=1000
 set undofile
 set undoreload=10000
 set cpoptions+=J
-set list
+set list                        " show eol, tabs, spaces, ...
 set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮
 set shell=/bin/bash
 set lazyredraw
@@ -43,17 +44,24 @@ set shiftround
 set autoread
 set title
 set dictionary=/usr/share/dict/words
+" set autochdir           " change current dir
 
 " Wildmenu completion {{{
 
 set wildmenu
-set wildmode=list:longest
+" set wildmode=list:longest
+set wildmode=longest:full,full
 
 set wildignore+=.hg,.git,.svn                    " Version control
 set wildignore+=*.aux,*.out,*.toc                " LaTeX intermediate files
 set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg   " binary images
 set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest " compiled object files
 set wildignore+=*.pyc                            " Python byte code
+
+" When doing tab completion, give the following files lower priority. You may
+" wish to set 'wildignore' to completely ignore files, and 'wildmenu' to enable
+" enhanced tab completion. These can be done in the user vimrc file.
+set suffixes+=.info,.aux,.log,.dvi,.bbl,.out,.o,.lo
 
 " }}}
 
@@ -74,6 +82,16 @@ set shiftwidth=4
 set softtabstop=4
 set expandtab               " use spaces, not tabs (optional)
 set wrap
+" set linebreak     " ne casse pas les mots en fin de ligne
+
+" Si activé, un <Tab> au début d'une ligne insère des blancs selon la valeur de
+" 'shiftwidth'. 'tabstop' est utilisé dans les autres endroits. Un <RetArr> en
+" début de ligne supprime un nombre d'espaces équivalant à la valeur de
+" 'shiftwidth'.  Si désactivé, un <Tab> insère toujours des blancs selon la
+" valeur de 'tabstop'. 'shiftwidth' n'est utilisé que lors du décalage de texte
+" à gauche ou à droite.
+set smarttab
+
 set textwidth=80
 set formatoptions=q         " Allow formatting of comments with "gq".
 set formatoptions+=r        " Automatically insert the current comment leader
@@ -86,7 +104,6 @@ set formatoptions+=c        " Auto-wrap comments using textwidth
 set colorcolumn=+1
 
 " }}}
-
 " Backups {{{
 
 set undodir=~/.vim/tmp/undo//     " undo files
@@ -111,6 +128,7 @@ colorscheme molokai
 match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 
 " }}}
+
 " }}}
 " Status line ------------------------------------------------------------- {{{
 
@@ -238,14 +256,26 @@ noremap k gk
 " Environments (GUI/Console) ---------------------------------------------- {{{
 
 if has('gui_running')
-    "set guifont=Inconsolata:h12
-    set guifont=Inconsolata\ 10
+    if has("win32")
+        set guifont=Courier:h10:cANSI
+    else
+        if $HOSTNAME == "goudes"
+            set guifont=Inconsolata\ 11
+        elseif $HOSTNAME == "fireball"
+            set guifont=Inconsolata\ 10
+        endif
+    endif
 
     set go-=T   " No toolbar
     set go-=l   " No scrollbars
     set go-=L
     set go-=r
     set go-=R
+    " set guioptions+=a    " clipboard to autoselect
+    " set guioptions+=c    " Use console dialogs instead of popup
+
+    set mousefocus                " Le focus suit la souris
+    set mousemodel=popup_setpos   " Le bouton droit affiche une popup
 
     highlight SpellBad term=underline gui=undercurl guisp=Orange
 
@@ -259,6 +289,11 @@ if has('gui_running')
 else
     " Console Vim
     "set term=xterm
+    set t_Co=256
+    colorscheme molokai
+    "set t_Co=8
+    "set termencoding=utf-8
+    "set ttymouse=xterm
 endif
 
 " }}}
@@ -294,8 +329,30 @@ function! MyFoldText() " {{{
 endfunction " }}}
 set foldtext=MyFoldText()
 
+" if has("gui_running")
+"    " Ajoute une marge à gauche pour afficher les +/- des replis
+"    set foldcolumn=2
+"    " Le découpage des folders se base sur l'indentation
+"    set foldmethod=marker "indent
+" endif
+
 " }}}
 " Various filetype-specific stuff ----------------------------------------- {{{
+
+augroup filetypedetect
+   autocmd BufRead,BufNewFile *.txt setfiletype text
+   autocmd BufRead,BufNewFile *.tpl setfiletype html
+   autocmd BufRead,BufNewFile *.pro setfiletype idlang
+   autocmd BufRead,BufNewFile *.mkd setfiletype mkd
+   autocmd BufRead,BufNewFile *.wiki setfiletype Wikipedia
+   autocmd BufRead,BufNewFile *wikipedia.org* setfiletype Wikipedia
+   autocmd BufRead,BufNewFile *camptocamp.org* setfiletype camptocamp
+   autocmd BufRead,BufNewFile vimperator* setfiletype bbcode
+   autocmd BufRead,BufNewFile *conky* setfiletype conkyrc
+   autocmd BufRead,BufNewFile *.inc setfiletype php
+   autocmd BufRead,BufNewFile *.muttrc setfiletype muttrc
+   autocmd BufRead,BufNewFile ~/.mutt/tmp/mutt* setfiletype mail
+augroup END
 
 if has("autocmd")
     " Remember last location in file, but not for commit messages.

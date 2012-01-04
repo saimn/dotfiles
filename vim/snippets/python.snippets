@@ -2,6 +2,15 @@ snippet #!
 	#!/usr/bin/env python
 snippet from
 	from ${1:sys} import ${2:*}
+snippet imp
+	import ${1:module}
+# Module Docstring
+snippet docs
+	'''
+	File: ${1:`Filename('$1.py', 'foo.py')`}
+	Author: ${2:`g:snips_author`}
+	Description: ${3}
+	'''
 snippet while
 	while ${1:True}:
 		${2:pass}
@@ -13,9 +22,11 @@ snippet fore
 		${4:pass}
 snippet class
 	class ${1:ClassName}(${2:object}):
-		def __init__(self${3:, args}):
-			${4:super($1, self).__init__()}
-			${5}
+		"""${3:docstring for $1}"""
+		def __init__(self, ${4:arg}):
+			${5:super($1, self).__init__()}
+			self.$4 = $4
+			${6}
 snippet def
 	def ${1:function}(${2}):
 		${3:pass}
@@ -61,6 +72,7 @@ snippet try Try/Except/Else/Finally
 snippet ifmain
 	if __name__ == '__main__':
 		${1:main()}
+# __magic__
 snippet _
 	__${1:init}__${2}
 snippet ***
