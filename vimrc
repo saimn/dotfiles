@@ -12,8 +12,8 @@ set encoding=utf-8
 set modelines=0                 " disable modelines
 set autoindent                  " always set autoindenting on
 set smartindent                 " clever autoindenting
-set showcmd                     " display incomplete commands
 set showmode
+set showcmd                     " display incomplete commands
 set hidden                      " Allow backgrounding buffers without writing them
 set visualbell
 set cursorline
@@ -43,6 +43,7 @@ set autowrite
 set shiftround
 set autoread
 set title
+set linebreak     " ne casse pas les mots en fin de ligne
 set dictionary=/usr/share/dict/words
 " set autochdir           " change current dir
 
@@ -76,13 +77,12 @@ au VimResized * exe "normal! \<c-w>="
 
 " Tabs, spaces, wrapping {{{
 
-" a tab is two spaces (or set this to 4)
+" a tab is 4 spaces
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 set expandtab               " use spaces, not tabs (optional)
 set wrap
-" set linebreak     " ne casse pas les mots en fin de ligne
 
 " Si activé, un <Tab> au début d'une ligne insère des blancs selon la valeur de
 " 'shiftwidth'. 'tabstop' est utilisé dans les autres endroits. Un <RetArr> en
@@ -110,6 +110,7 @@ set undodir=~/.vim/tmp/undo//     " undo files
 set backupdir=~/.vim/tmp/backup// " backups
 set directory=~/.vim/tmp/swap//   " swap files
 set backup                        " enable backups
+set noswapfile                    " It's 2011, Vim.
 
 " }}}
 " Leader {{{
@@ -178,11 +179,11 @@ iab qqs quelques
 nnoremap / /\v
 vnoremap / /\v
 
-set hlsearch                    " highlight matches
-set incsearch                   " incremental searching
 set ignorecase                  " searches are case insensitive...
 set smartcase                   " ... unless they contain at least one capital letter
+set incsearch                   " incremental searching
 set showmatch                   " show matching brackets
+set hlsearch                    " highlight matches
 set gdefault                    " substitute all matches on the line
 
 set scrolloff=3         " min nb of lines to keep above and below the cursor.
@@ -428,6 +429,9 @@ augroup ft_html
     au FileType html,jinja,htmldjango nnoremap <buffer> π :<C-U>YRPaste 'p'<CR>
     au FileType html,jinja,htmldjango nnoremap <buffer> ∏ :<C-U>YRPaste 'P'<CR>
 
+    " Indent tag
+    au FileType html,jinja,htmldjango nnoremap <buffer> <localleader>= Vat=
+
     " Django tags
     au FileType jinja,htmldjango inoremap <buffer> <c-t> {%<space><space>%}<left><left><left>
 
@@ -657,8 +661,8 @@ nnoremap <leader>! :Shell
 " }}}
 " Convenience mappings ---------------------------------------------------- {{{
 
-" Clean whitespace
-map <leader>W  :%s/\s\+$//<cr>:let @/=''<CR>
+" Clean trailing whitespace
+nnoremap <leader>w :%s/\s\+$//<cr>:let @/=''<cr>
 
 " Change case
 nnoremap <C-u> gUiw
@@ -674,6 +678,13 @@ cnoremap <c-e> <end>
 " Easier linewise reselection
 nnoremap <leader>V V`]
 
+" Split line (sister to [J]oin lines)
+" The normal use of S is covered by cc, so don't worry about shadowing it.
+nnoremap S i<cr><esc><right>
+
+" HTML tag closing
+inoremap <C-_> <Space><BS><Esc>:call InsertCloseTag()<cr>a
+
 " Align text
 nnoremap <leader>Al :left<cr>
 nnoremap <leader>Ac :center<cr>
@@ -685,11 +696,33 @@ vnoremap <leader>Ar :right<cr>
 " Faster Esc
 inoremap jk <esc>
 
+" Sudo to write
+cmap w!! w !sudo tee % >/dev/null
+
 " Quickreturn
 inoremap <c-cr> <esc>A<cr>
 
-" Allows writing to files with root priviledges
-cmap w!! %!sudo tee > /dev/null %
+" Indent Guides {{{
+
+let g:indentguides_state = 0
+function! IndentGuides() " {{{
+    if g:indentguides_state
+        let g:indentguides_state = 0
+        2match None
+    else
+        let g:indentguides_state = 1
+        execute '2match IndentGuides /\%(\_^\s*\)\@<=\%(\%'.(0*&sw+1).'v\|\%'.(1*&sw+1).'v\|\%'.(2*&sw+1).'v\|\%'.(3*&sw+1).'v\|\%'.(4*&sw+1).'v\|\%'.(5*&sw+1).'v\|\%'.(6*&sw+1).'v\|\%'.(7*&sw+1).'v\)\s/'
+    endif
+endfunction " }}}
+nnoremap <leader>i :call IndentGuides()<cr>
+
+" }}}
+" Insert Mode Completion {{{
+
+inoremap <c-l> <c-x><c-l>
+inoremap <c-f> <c-x><c-f>
+
+" }}}
 
 " }}}
 " Plugin settings --------------------------------------------------------- {{{
@@ -697,6 +730,11 @@ cmap w!! %!sudo tee > /dev/null %
 " Ack {{{
 
 map <leader>a :Ack! 
+
+" }}}
+" Autoclose {{{
+
+nmap <Leader>x <Plug>ToggleAutoCloseMappings
 
 " }}}
 " Commentary {{{
