@@ -40,14 +40,13 @@
 ;}}}
 
 ;{{{ Org
-;
+
 (require 'org-install)
 (require 'org-mouse)                 ; Extended mouse functionality
-;; (load "~/.emacs.d/org/lisp/org-mouse.el")
 
 (setq org-directory "~/org/")
-(setq org-mobile-directory "~/org/mobile/")
-(setq org-mobile-inbox-for-pull "~/org/flagged.org")
+(setq org-mobile-directory "/scpc:climbr@ssh.cluster003.ovh.net:mobileorg/")
+(setq org-mobile-inbox-for-pull "~/org/mobileorg.org")
 (setq org-archive-location "~/org/archives.org::")
 
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
@@ -142,6 +141,52 @@
 (defalias 'org           's/org-index)
 (defalias 'agenda        's/org-agenda)
 
+;}}}
+
+;{{{ Compile Org
+
+(defvar my/org-lisp-directory "~/.emacs.d/org/lisp"
+  "Directory where your org-mode files live.")
+
+(defvar my/org-compile-sources t
+  "If `nil', never compile org-sources. `my/compile-org' will only create
+the autoloads file `org-install.el' then. If `t', compile the sources, too.")
+
+;; Customize:
+(setq my/org-lisp-directory "~/.emacs.d/site-lisp/org-mode/lisp")
+
+;; Customize:
+(setq  my/org-compile-sources t)
+
+(defun my/compile-org(&optional directory)
+  "Compile all *.el files that come with org-mode."
+  (interactive)
+  (setq directory (concat
+                        (file-truename
+                    (or directory my/org-lisp-directory)) "/"))
+
+  (add-to-list 'load-path directory)
+
+  (let ((list-of-org-files (file-expand-wildcards (concat directory "*.el"))))
+
+    ;; create the org-install file
+    (require 'autoload)
+    (setq esf/org-install-file (concat directory "org-install.el"))
+    (find-file esf/org-install-file)
+    (erase-buffer)
+    (mapc (lambda (x)
+            (generate-file-autoloads x))
+          list-of-org-files)
+    (insert "\n(provide (quote org-install))\n")
+    (save-buffer)
+    (kill-buffer)
+    (byte-compile-file esf/org-install-file t)
+
+    (dolist (f list-of-org-files)
+      (if (file-exists-p (concat f "c")) ; delete compiled files
+          (delete-file (concat f "c")))
+      (if my/org-compile-sources     ; Compile, if `my/org-compile-sources' is t
+          (byte-compile-file f)))))
 ;}}}
 
 ;{{{ Notifications
