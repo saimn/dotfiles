@@ -68,3 +68,6 @@
 [submodule "emacs.d/site-lisp/evil"]
 	path = emacs.d/site-lisp/evil
 	url = git://gitorious.org/evil/evil.git
+[submodule "emacs.d/site-lisp/org-mode"]
+	path = emacs.d/site-lisp/org-mode
+	url = git://orgmode.org/org-mode.git
