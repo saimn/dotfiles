@@ -48,6 +48,8 @@
 (setq org-directory "~/org/")
 (setq org-mobile-directory "~/org/mobile/")
 (setq org-mobile-inbox-for-pull "~/org/flagged.org")
+(setq org-archive-location "~/org/archives.org::")
+
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
 (add-to-list 'auto-mode-alist '("\\.org.gpg$" . org-mode))
 
@@ -55,9 +57,10 @@
 (setq org-completion-use-ido t)
 (setq org-hide-leading-stars t)               ; leading stars become invisible
 (setq org-log-done t)                         ; add timestamp when done
-;; (setq org-odd-levels-only t)                  ; skip all the even levels
+;; (setq org-odd-levels-only t)               ; skip all the even levels
 (setq org-return-follows-link t)
 (setq org-startup-indented t)                 ; turn on org-indent-mode
+;; (setq org-CUA-compatible t)		      ; disable keybindings for Shift+arrow keys
 
 (add-hook 'org-agenda-mode-hook '(lambda () (hl-line-mode 1)))
 
@@ -66,14 +69,22 @@
 ;;  '(shell-command "urxvt -title Alpine -e alpine -url 'mailto:%a?Subject=%s'")
 ;; )
 
-(setq org-agenda-files (file-expand-wildcards "~/org/*.org"))
+;; (setq org-agenda-files (file-expand-wildcards "~/org/*.org"))
+(setq org-agenda-files '("~/org/home.org" "~/org/work.org"))
 
-(setq org-tag-alist '(("computer" . ?c)
-                      ("home" . ?h)
+(setq org-tag-alist '(("home" . ?h)
+                      ("work" . ?w)
                       ("project" . ?p)
                       ("mail" . ?m)
-                      ("web" . ?w)
-                      ("phone" . ?p)))
+                      ("computer" . ?c)
+                      ("web" . ?o)
+                      ("phone" . ?t)))
+
+(setq org-todo-keywords
+      '((sequence "TODO(t)" "|" "DONE(d)")
+        (sequence "PROJECT(p)" "WAITING(w)" "|")
+        (sequence "REPORT(r)" "BUG(b)" "|" "FIXED(f)")
+        (sequence "|" "CANCELED(c)" "DEFERRED(e)")))
 
 (setq org-agenda-custom-commands
       '(
@@ -81,31 +92,33 @@
          ((agenda)
           (alltodo))
          nil
-         ("~/org/agenda.html" "~/org/agenda.txt"))
+         ("~/org/views/agenda.html" "~/org/views/agenda.txt"))
         ("h" "Agenda and Home-related tasks"
          ((agenda))
          ((org-agenda-files '("~/org/home.org"))
           (org-agenda-compact-blocks t))
-         ("~/org/home.html"))
+         ("~/org/views/home.html"))
         ("o" "Agenda and Office-related tasks"
          ((agenda))
          ((org-agenda-files '("~/org/work.org"))
           ;; (tags-todo "work")
           ;; (tags "office")
           )
-         ("~/org/work.html" "~/org/work.ics"))
+         ("~/org/views/work.html" "~/org/views/work.ics"))
         ("W" "Weekly Review"
          ((agenda "" ((org-agenda-ndays 7))) ; review upcoming deadlines and appointments
                                              ; type "l" in the agenda to review logged items
           ;; (stuck "")         ; review stuck projects as designated by org-stuck-projects
           (todo "PROJECT")   ; review all projects (assuming you use todo keywords to designate projects)
           (todo "MAYBE")     ; review someday/maybe items
-          (todo "WAITING"))
+          (todo "WAITING"))  ; review waiting items
          nil
-         ("~/org/review.html")) ; review waiting items
+         ("~/org/views/review.html"))
         ))
 
 ;; (add-hook 'org-finalize-agenda-hook 'org-store-agenda-views)
+(add-hook 'after-init-hook 'org-mobile-pull)
+(add-hook 'kill-emacs-hook 'org-mobile-push)
 
 ;}}}
 
@@ -161,10 +174,13 @@
 (setq org-default-notes-file (concat org-directory "/notes.org"))
 ;; Notes templates
 (setq org-remember-templates
- '(("Note" ?n   "* NOTE %?\n %i\n %a" (concat org-directory "/notes.org") "Notes")
-   ("Download" ?d "* DL %?\n %i\n %a" (concat org-directory "/notes.org") "Download")
-   ("Todo" ?t   "* TODO %?\n %i\n %a" (concat org-directory "/notes.org") "Tasks")
-   ("Idea" ?i "* %^{Title}\n %i\n %a" (concat org-directory "/notes.org") "Brainstorm")))
+      '(("Note" ?n   "* NOTE %?\n %i\n %a" "notes.org" "Notes")
+        ("Download" ?d "* DL %?\n %i\n %a" "notes.org" "Download")
+        ("Todo" ?t   "* TODO %?\n %i\n %a" "home.org" "TASKS")))
+
+;; (setq org-capture-templates
+;;       '(("t" "Todo" entry (file+headline "~/org/home.org" "TASKS") "* TODO %?\n %i\n %a")
+;;         ("n" "Notes" entry (file+datetree "~/org/notes.org") "* %?\nEntered on %U\n %i\n %a")))
 
 ;; Org-remember splits windows, force it to a single window
 (add-hook 'remember-mode-hook  'delete-other-windows)
