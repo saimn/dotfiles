@@ -11,6 +11,7 @@ bin/arch/
 emacs.d/ac-comphist.dat
 emacs.d/.org-id-locations
 emacs.d/auto-save-list/
+emacs.d/abbrev_defs
 emacs.d/anything-*
 emacs.d/customize.el
 emacs.d/init-priv.el
