@@ -1,17 +1,46 @@
 ;{{{ Calendar (M-x calendar)
 ;
-(setq calendar-date-style 'european) ; format jour/mois/an
-(setq calendar-week-start-day 1)     ; week starts on monday
+(setq calendar-date-style 'european ; format jour/mois/an
+      european-calendar-style 't
+      calendar-week-start-day 1     ; week starts on monday
+      calendar-day-name-array     ["Dimanche" "Lundi" "Mardi" "Mercredi" "Jeudi" "Vendredi" "Samedi"]
+      calendar-day-abbrev-array   ["dim" "lun" "mar" "mer" "jeu" "ven" "sam"]
+      calendar-month-name-array   ["Janvier" "Février" "Mars" "Avril" "Mai" "Juin" "Juillet"
+                                   "Août" "Septembre" "Octobre" "Novembre" "Décembre"]
+      calendar-month-abbrev-array ["jan" "fév" "mar" "avr" "mai" "jun" "jul" "aoû" "sep" "oct" "nov" "déc"])
 
-(defvar calendar-day-name-array
-  ["dimanche" "lundi" "mardi" "mercredi" "jeudi" "vendredi" "samedi"])
-(defvar calendar-day-abbrev-array
-  ["dim" "lun" "mar" "mer" "jeu" "ven" "sam"])
-(defvar calendar-month-name-array
-  ["janvier" "février" "mars" "avril" "mai" "juin"
-   "juillet" "août" "septembre" "octobre" "novembre" "décembre"])
-(defvar calendar-month-abbrev-array
-  ["jan" "fév" "mar" "avr" "mai" "jun" "jul" "aoû" "sep" "oct" "nov" "déc"])
+(eval-when-compile
+  (require 'calendar)
+  (require 'holidays))
+
+(defvar holiday-french-holidays nil
+  "French holidays")
+
+(setq calendar-holidays
+      '((holiday-fixed 1 1 "Jour de l'an")
+	(holiday-fixed 1 6 "Épiphanie")
+	(holiday-fixed 2 2 "Chandeleur")
+	(holiday-fixed 2 14 "Saint Valentin")
+	(holiday-fixed 5 1 "Fête du travail")
+	(holiday-fixed 5 8 "Commémoration de la capitulation de l'Allemagne en 1945")
+	(holiday-fixed 6 21 "Fête de la musique")
+	(holiday-fixed 7 14 "Fête nationale - Prise de la Bastille")
+	(holiday-fixed 8 15 "Assomption (Religieux)")
+	(holiday-fixed 11 11 "Armistice de 1918")
+	(holiday-fixed 11 1 "Toussaint")
+	(holiday-fixed 11 2 "Commémoration des fidèles défunts")
+	(holiday-fixed 12 25 "Noël")
+        ;; fetes a date variable
+	(holiday-easter-etc 0 "Pâques")
+        (holiday-easter-etc 1 "Lundi de Pâques")
+        (holiday-easter-etc 39 "Ascension")
+        (holiday-easter-etc 49 "Pentecôte")
+        (holiday-easter-etc -47 "Mardi gras")
+	(holiday-float 5 0 4 "Fête des mères")
+	;; dernier dimanche de mai ou premier dimanche de juin si c'est le
+	;; même jour que la pentecôte TODO
+	(holiday-float 6 0 3 "Fête des pères"))) ;; troisième dimanche de juin
+
 
 ;; calendar
 (require 'calfw-org)
@@ -44,22 +73,24 @@
 (require 'org-install)
 (require 'org-mouse)                 ; Extended mouse functionality
 
-(setq org-directory "~/org/")
-(setq org-mobile-directory "/scpc:climbr@ssh.cluster003.ovh.net:mobileorg/")
-(setq org-mobile-inbox-for-pull "~/org/mobileorg.org")
-(setq org-archive-location "~/org/archives.org::")
+(setq org-directory "~/org/"
+      org-mobile-directory "/scpc:climbr@ssh.cluster003.ovh.net:mobileorg/"
+      org-mobile-inbox-for-pull "~/org/mobileorg.org"
+      org-archive-location "~/org/archives.org::")
 
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
 (add-to-list 'auto-mode-alist '("\\.org.gpg$" . org-mode))
 
-(setq org-agenda-skip-scheduled-if-done t)
-(setq org-completion-use-ido t)
-(setq org-hide-leading-stars t)               ; leading stars become invisible
-(setq org-log-done t)                         ; add timestamp when done
-;; (setq org-odd-levels-only t)               ; skip all the even levels
-(setq org-return-follows-link t)
-(setq org-startup-indented t)                 ; turn on org-indent-mode
-;; (setq org-CUA-compatible t)		      ; disable keybindings for Shift+arrow keys
+(setq org-agenda-skip-scheduled-if-done t
+      org-completion-use-ido t
+      org-hide-leading-stars t               ; leading stars become invisible
+      org-log-done t                         ; add timestamp when done
+      ;; org-odd-levels-only t               ; skip all the even levels
+      org-return-follows-link t
+      org-startup-indented t		     ; turn on org-indent-mode
+      ;; org-CUA-compatible t		      ; disable keybindings for Shift+arrow keys
+      org-agenda-include-diary t             ; include calendar's diary
+      )
 
 (add-hook 'org-agenda-mode-hook '(lambda () (hl-line-mode 1)))
 
@@ -81,7 +112,7 @@
 
 (setq org-todo-keywords
       '((sequence "TODO(t)" "|" "DONE(d)")
-        (sequence "PROJECT(p)" "WAITING(w)" "|")
+        (sequence "PROJECT(p)" "STARTED(s)" "WAITING(w)" "|")
         (sequence "REPORT(r)" "BUG(b)" "|" "FIXED(f)")
         (sequence "|" "CANCELED(c)" "DEFERRED(e)")))
 
