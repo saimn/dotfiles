@@ -17,19 +17,7 @@
   "French holidays")
 
 (setq calendar-holidays
-      '((holiday-fixed 1 1 "Jour de l'an")
-	(holiday-fixed 1 6 "Épiphanie")
-	(holiday-fixed 2 2 "Chandeleur")
-	(holiday-fixed 2 14 "Saint Valentin")
-	(holiday-fixed 5 1 "Fête du travail")
-	(holiday-fixed 5 8 "Commémoration de la capitulation de l'Allemagne en 1945")
-	(holiday-fixed 6 21 "Fête de la musique")
-	(holiday-fixed 7 14 "Fête nationale - Prise de la Bastille")
-	(holiday-fixed 8 15 "Assomption (Religieux)")
-	(holiday-fixed 11 11 "Armistice de 1918")
-	(holiday-fixed 11 1 "Toussaint")
-	(holiday-fixed 11 2 "Commémoration des fidèles défunts")
-	(holiday-fixed 12 25 "Noël")
+      '(
         ;; fetes a date variable
 	(holiday-easter-etc 0 "Pâques")
         (holiday-easter-etc 1 "Lundi de Pâques")
@@ -123,6 +111,10 @@
           (alltodo))
          nil
          ("~/org/views/agenda.html" "~/org/views/agenda.txt"))
+        ("b" "Agenda for current week or day"
+         ((agenda))
+         nil
+         ("~/org/views/agenda.ics"))
         ("h" "Agenda and Home-related tasks"
          ((agenda))
          ((org-agenda-files '("~/org/home.org"))
@@ -134,7 +126,7 @@
           ;; (tags-todo "work")
           ;; (tags "office")
           )
-         ("~/org/views/work.html" "~/org/views/work.ics"))
+         ("~/org/views/work.html"))
         ("W" "Weekly Review"
          ((agenda "" ((org-agenda-ndays 7))) ; review upcoming deadlines and appointments
                                              ; type "l" in the agenda to review logged items
@@ -147,8 +139,8 @@
         ))
 
 ;; (add-hook 'org-finalize-agenda-hook 'org-store-agenda-views)
-(add-hook 'after-init-hook 'org-mobile-pull)
-(add-hook 'kill-emacs-hook 'org-mobile-push)
+;; (add-hook 'after-init-hook 'org-mobile-pull)
+;; (add-hook 'kill-emacs-hook 'org-mobile-push)
 
 ;}}}
 
