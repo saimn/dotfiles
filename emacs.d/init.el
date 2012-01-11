@@ -236,6 +236,10 @@
       evil-move-cursor-back nil  ; don't move backwards when exiting Insert state
       )
 
+(setq evil-leader/leader ","
+      evil-leader/in-all-states t)
+
+(require 'evil-leader)
 (require 'evil)
 (evil-mode 1)
 
@@ -253,6 +257,23 @@
 (define-key evil-insert-state-map "jk" 'evil-normal-state)
 (define-key evil-insert-state-map "\C-e" 'end-of-line)
 (define-key evil-insert-state-map "\C-y" 'yank)
+
+(evil-leader/set-key
+  "b" 'ido-switch-buffer
+  "B" 'ibuffer-list-buffers
+  "w" 'save-buffer
+  "W" 'save-some-buffers
+  "k" 'kill-buffer-and-window
+  "K" 'kill-this-buffer
+  "d" 'dired-jump
+  "m" 'compile
+
+  "n" 'split-window-horizontally
+  "c" 'delete-window
+  "N" 'make-frame-command
+  "C" 'delete-frame
+
+  "g" 'magit-status)
 
 ;;----------------------------------------------------------------------
 ;; Keyboard shortcuts
