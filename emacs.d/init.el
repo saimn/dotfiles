@@ -231,9 +231,28 @@
 ;;----------------------------------------------------------------------
 ;; Evil
 ;;----------------------------------------------------------------------
+(setq evil-default-cursor t
+      evil-find-skip-newlines t  ; f, F, t, T skip over newlines to find a character
+      evil-move-cursor-back nil  ; don't move backwards when exiting Insert state
+      )
+
 (require 'evil)
 (evil-mode 1)
-(setq evil-default-cursor t)
+
+(dolist (mode '(inferior-emacs-lisp-mode
+                pylookup-mode
+                idlwave-shell-mode
+                idlwave-shell-electric-debug-mode))
+  (push mode evil-emacs-state-modes))
+
+(define-key evil-normal-state-map (kbd "C-:") 'eval-expression)
+
+(define-key evil-motion-state-map "\C-e" 'end-of-line)
+(define-key evil-motion-state-map "\C-y" nil)
+
+(define-key evil-insert-state-map "jk" 'evil-normal-state)
+(define-key evil-insert-state-map "\C-e" 'end-of-line)
+(define-key evil-insert-state-map "\C-y" 'yank)
 
 ;;----------------------------------------------------------------------
 ;; Keyboard shortcuts
@@ -298,14 +317,11 @@
 (global-set-key [f11] 'toggle-truncate-lines)
 (global-set-key [f12] 'grep)
 
-;; (global-set-key (kbd "<f8>") 'query-replace)
-;; (global-set-key (kbd "S-<f8>") 'query-replace-regexp)
-
-(global-set-key (kbd "<C-f1>") 'compile)
-(global-set-key (kbd "<C-f3>") 'next-error)
-(global-set-key (kbd "<C-f4>") 'previous-error)
-(global-set-key (kbd "<C-f9>") 'recompile)
-(global-set-key (kbd "<C-f10>") 'kill-compilation)
+(global-set-key [\C-f1] 'compile)
+(global-set-key [\C-f3] 'next-error)
+(global-set-key [\C-f4] 'previous-error)
+(global-set-key [\C-f9] 'recompile)
+(global-set-key [\C-f10] 'kill-compilation)
 
 ;;----------------------------------------------------------------------
 ;; Mail
