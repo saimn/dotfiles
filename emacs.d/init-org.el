@@ -17,17 +17,12 @@
   "French holidays")
 
 (setq calendar-holidays
-      '(
-        ;; fetes a date variable
+      '(;; fetes a date variable
 	(holiday-easter-etc 0 "Pâques")
         (holiday-easter-etc 1 "Lundi de Pâques")
         (holiday-easter-etc 39 "Ascension")
         (holiday-easter-etc 49 "Pentecôte")
-        (holiday-easter-etc -47 "Mardi gras")
-	(holiday-float 5 0 4 "Fête des mères")
-	;; dernier dimanche de mai ou premier dimanche de juin si c'est le
-	;; même jour que la pentecôte TODO
-	(holiday-float 6 0 3 "Fête des pères"))) ;; troisième dimanche de juin
+        (holiday-easter-etc -47 "Mardi gras")))
 
 
 ;; calendar
