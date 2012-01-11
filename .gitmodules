@@ -71,3 +71,6 @@
 [submodule "emacs.d/site-lisp/org-mode"]
 	path = emacs.d/site-lisp/org-mode
 	url = git://orgmode.org/org-mode.git
+[submodule "emacs.d/site-lisp/evil-leader"]
+	path = emacs.d/site-lisp/evil-leader
+	url = https://github.com/cofi/evil-leader.git
