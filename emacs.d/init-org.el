@@ -1,5 +1,5 @@
 ;{{{ Calendar (M-x calendar)
-;
+
 (setq calendar-date-style 'european ; format jour/mois/an
       european-calendar-style 't
       calendar-week-start-day 1     ; week starts on monday
@@ -23,7 +23,6 @@
         (holiday-easter-etc 39 "Ascension")
         (holiday-easter-etc 49 "Pentecôte")
         (holiday-easter-etc -47 "Mardi gras")))
-
 
 ;; calendar
 (require 'calfw-org)
@@ -95,7 +94,7 @@
 
 (setq org-todo-keywords
       '((sequence "TODO(t)" "|" "DONE(d)")
-        (sequence "PROJECT(p)" "STARTED(s)" "WAITING(w)" "|")
+        (sequence "PROJECT(p)" "STARTED(s)" "WAITING(w)" "MAYBE(m)" "|")
         (sequence "REPORT(r)" "BUG(b)" "|" "FIXED(f)")
         (sequence "|" "CANCELED(c)" "DEFERRED(e)")))
 
@@ -107,25 +106,36 @@
          nil
          ("~/org/views/agenda.html" "~/org/views/agenda.txt"))
         ("b" "Agenda for current week or day"
-         ((agenda))
+         ((agenda "" ((org-agenda-ndays 7))))
          nil
          ("~/org/views/agenda.ics"))
+        ("c" "Weekly schedule" agenda ""
+         ((org-agenda-ndays 7)                          ;; agenda will start in week view
+          (org-agenda-start-on-weekday nil)             ;; calendar begins today
+          (org-agenda-repeating-timestamp-show-all t)   ;; ensures that repeating events appear on all relevant dates
+          ;; (org-agenda-skip-function '(org-agenda-skip-entry-if 'deadline 'scheduled)) ;; limits agenda view to timestamped items
+          )
+         )
         ("h" "Agenda and Home-related tasks"
          ((agenda))
          ((org-agenda-files '("~/org/home.org"))
-          (org-agenda-compact-blocks t))
+          (tags-todo "home|mail|computer|web|phone")
+          (tags "home")
+          (alltodo)
+          ;; (org-agenda-compact-blocks t)
+          )
          ("~/org/views/home.html"))
         ("o" "Agenda and Office-related tasks"
          ((agenda))
          ((org-agenda-files '("~/org/work.org"))
-          ;; (tags-todo "work")
-          ;; (tags "office")
+          (tags-todo "work|mail|computer|web|phone")
+          (tags "work")
+          (alltodo)
           )
          ("~/org/views/work.html"))
         ("W" "Weekly Review"
-         ((agenda "" ((org-agenda-ndays 7))) ; review upcoming deadlines and appointments
-                                             ; type "l" in the agenda to review logged items
-          ;; (stuck "")         ; review stuck projects as designated by org-stuck-projects
+         ((agenda "" ((org-agenda-ndays 7)))
+          (stuck "")         ; review stuck projects as designated by org-stuck-projects
           (todo "PROJECT")   ; review all projects (assuming you use todo keywords to designate projects)
           (todo "MAYBE")     ; review someday/maybe items
           (todo "WAITING"))  ; review waiting items
@@ -140,21 +150,19 @@
 ;}}}
 
 ;{{{ Quick access to OrgMode and the OrgMode agenda
-;    - org-mode configuration defined below
-;
+
 (defun s/org-index ()
    "Show the main org file."
    (interactive)
-   (find-file (concat org-directory "/")))
-;; (defun s/org-work ()
-;;    (interactive)
-;;    (find-file (concat org-directory "/work.org")))
+   (find-file (concat org-directory "/home.org")))
+(defun s/org-work ()
+   (interactive)
+   (find-file (concat org-directory "/work.org")))
 (defun s/org-agenda ()
   "Show the org-mode agenda."
   (interactive)
   (call-interactively 'org-agenda-list)
-  (delete-other-windows)
-)
+  (delete-other-windows))
 
 (defalias 'org           's/org-index)
 (defalias 'agenda        's/org-agenda)
@@ -226,10 +234,11 @@ the autoloads file `org-install.el' then. If `t', compile the sources, too.")
            "/usr/share/icons/gnome/32x32/status/appointment-soon.png"
            "/usr/share/sounds/freedesktop/stereo/bell.oga"))
 (setq appt-disp-window-function (function s/appt-display))
+
 ;}}}
 
 ;{{{ Remember
-;
+
 (require 'remember)
 (org-remember-insinuate)
 
@@ -280,6 +289,7 @@ the autoloads file `org-install.el' then. If `t', compile the sources, too.")
   (select-frame-by-name "*Remember*")
   (org-remember)
 )
+
 ;}}}
 
 (provide 'init-org)
