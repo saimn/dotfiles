@@ -77,9 +77,8 @@
 (add-hook 'org-agenda-mode-hook '(lambda () (hl-line-mode 1)))
 
 ;; Pass mailto links to Alpine instead of browse-url
-;; (setq org-link-mailto-program
-;;  '(shell-command "urxvt -title Alpine -e alpine -url 'mailto:%a?Subject=%s'")
-;; )
+(setq org-link-mailto-program
+      '(shell-command "urxvt -title Mutt -e mutt 'mailto:%a?Subject=%s'"))
 
 ;; (setq org-agenda-files (file-expand-wildcards "~/org/*.org"))
 (setq org-agenda-files '("~/org/home.org" "~/org/work.org"))
@@ -99,8 +98,7 @@
         (sequence "|" "CANCELED(c)" "DEFERRED(e)")))
 
 (setq org-agenda-custom-commands
-      '(
-        ("a" "Agenda for current week or day and tasks"
+      '(("a" "Agenda for current week or day and tasks"
          ((agenda)
           (alltodo))
          nil
