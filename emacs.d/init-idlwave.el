@@ -3,9 +3,9 @@
 (setq auto-mode-alist (cons '("\\.pro\\'" . idlwave-mode) auto-mode-alist))
 
 (defun my-idlwave-mode-hook ()
-  (setq idlwave-system-directory "/opt/apps/rsi/idl71/")
-  (setq idlwave-shell-explicit-file-name "/opt/apps/rsi/idl71/bin/idl")
-  (setq idlwave-html-system-help-location "/opt/apps/rsi/idl71/help")
+  (setq idlwave-system-directory "/opt/apps/rsi/idl80/")
+  (setq idlwave-shell-explicit-file-name "/opt/apps/rsi/idl80/bin/idl")
+  (setq idlwave-html-system-help-location "/opt/apps/rsi/idl80/help")
 
   ;; regular expressions matching special library directories for labeling
   ;; in routine-info display
@@ -20,6 +20,8 @@
   (setq idlwave-shell-automatic-start t)      ; Automatically start the shell when needed
   (setq idlwave-show-block t)                 ; point blinks to block beginning for idlwave-show-begin
   (setq idlwave-begin-line-comment "^;[^;]")  ; Leave ";" but not ";;" anchored at start of line
+  (setq comint-input-ring-size 10000)         ; size of history file
+
   ;;(setq idlwave-reserved-word-upcase t)       ; uppercase for keywords
   ;;(setq idlwave-shell-use-dedicated-frame t)  ; shell in a dedicated frame
   ;;(setq idlwave-shell-use-toolbar nil)        ; No toolbar
