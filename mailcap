@@ -26,7 +26,8 @@ application/zip;                file-roller %s
 multipart/x-zip;                file-roller %s
 multipart/x-gzip;               file-roller %s
 
-image/*;                        eog %s
+image/*;                        feh %s
+image/*;                        gthumb %s
 audio/*;                        mplayer %s
 video/*;                        mplayer %s
 
