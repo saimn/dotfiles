@@ -480,10 +480,13 @@ globalkeys = awful.util.table.join(
 
     -- {{{ Prompt menus
     awful.key({ modkey,}, "w", function () mymainmenu:show({keygrabber=true}) end),
+    -- awful.key({ modkey }, "F2", function ()
+    --     awful.prompt.run({ prompt = "Run: " }, promptbox[mouse.screen].widget,
+    --         function (...) promptbox[mouse.screen].text = exec(unpack(arg), false) end,
+    --         awful.completion.shell, awful.util.getdir("cache") .. "/history")
+    -- end),
     awful.key({ modkey }, "F2", function ()
-        awful.prompt.run({ prompt = "Run: " }, promptbox[mouse.screen].widget,
-            function (...) promptbox[mouse.screen].text = exec(unpack(arg), false) end,
-            awful.completion.shell, awful.util.getdir("cache") .. "/history")
+         exec("dmenu_run -fn '-*-terminus-*-r-normal-*-*-160-*-*-*-*-iso8859-*' -nb '#3F3F3F' -nf '#DCDCCC' -sb '#1E2320' -sf '#CC9393'")
     end),
     -- awful.key({ modkey }, "F3", function ()
     --     awful.prompt.run({ prompt = "Dictionary: " }, promptbox[mouse.screen].widget,
@@ -762,13 +765,15 @@ if host == "goudes" then
    run_once("/usr/lib/gnome-settings-daemon/gnome-settings-daemon")
    run_once("wicd-client",nil,"/usr/bin/python2 -O /usr/share/wicd/gtk/wicd-client.py")
    run_once("urxvtd", "-q -f -o", "urxvtd -q -f -o")
+   run_once("gpaste")
 elseif host == "fireball" then
    run_once("/usr/libexec/gnome-settings-daemon")
    run_once("pulseaudio", "--start")
    run_once("urxvt256c-mld", "-q -f -o", "urxvt256c-mld -q -f -o")
+   run_once("gpaste", nil, "/usr/libexec/gpaste/gpasted")
 end
 
-run_once("xbindkeys")
+-- run_once("xbindkeys")
 run_once("emacs", "--daemon")
 
 -- }}}
