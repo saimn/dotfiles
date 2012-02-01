@@ -80,7 +80,7 @@
 (defun my-select-color-theme(frame)
   (select-frame frame)
   (if (window-system frame)
-      (color-theme-tangotango)
+      (color-theme-molokai)
     (color-theme-gray1)))
 
 ;; Hook to run after making a new frame
@@ -255,7 +255,6 @@
 (define-key evil-motion-state-map "\C-e" 'end-of-line)
 (define-key evil-motion-state-map "\C-y" nil)
 
-(define-key evil-insert-state-map "jk" 'evil-normal-state)
 (define-key evil-insert-state-map "\C-e" 'end-of-line)
 (define-key evil-insert-state-map "\C-y" 'yank)
 
