@@ -57,11 +57,13 @@ URxvt*font: xft:Droid Sans Mono:style=Regular:pixelsize=12
 ! URxvt.iconFile:                 /usr/share/pixmaps/rxvt-unicode.png
 
 URxvt*depth:                    32
+
 ! URxvt*inheritPixmap:            true
 ! URxvt*transparent:              true
-! ! URxvt*tintColor:                #2E3434
+! URxvt*tintColor:                #2E3434
 ! URxvt*shading:                  50
-! ! fade text when focus is lost
+
+! fade text when focus is lost
 ! URxvt*fading:                   25
 ! URxvt*fadecolor:                #2E3434
 
@@ -73,7 +75,7 @@ URxvt*loginShell:               true
 URxvt*cutchars:                 "()*,<>[]{}|"
 URxvt*secondaryScroll:          true
 
-URxvt*perl-lib:                 /usr/lib/urxvt/perl/
+! URxvt*perl-lib:                 /usr/lib/urxvt/perl/
 ! URxvt.perl-ext:                 tabbed
 URxvt*perl-ext-common:          default,matcher,searchable-scrollback
 URxvt*urlLauncher:              /usr/bin/firefox
