@@ -324,3 +324,8 @@ xfontsel.pane.fieldBox.MenuButton.internalHeight:1
 xfontsel.pane.fieldBox.MenuButton.internalWidth: 2
 xfontsel.pane.fieldBox.MenuButton.shapeStyle:    rectangle
 !}}}
+
+!{{{ DS9
+ds9*foreground: #000
+ds9*background: #eee
+!}}}

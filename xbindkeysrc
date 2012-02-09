@@ -65,20 +65,20 @@
 # XF86AudioLowerVolume
 # "amixer -q sset Master 2dB-"
 # "pvol.py -c -2"
-"dvol -d 2"
-  m:0x10 + c:122
+# "dvol -d 2"
+#   m:0x10 + c:122
 
 # XF86AudioRaiseVolume
 # "amixer -q sset Master 2dB+"
 # "pvol.py -c +2"
-"dvol -i 2"
-  m:0x10 + c:123
+# "dvol -i 2"
+#   m:0x10 + c:123
 
 # XF86AudioMute
 # "amixer -q sset Master toggle"
 # "pvol.py -m"
-"dvol -t"
-  m:0x10 + c:121
+# "dvol -t"
+#   m:0x10 + c:121
 
 
 ##################################

@@ -67,7 +67,7 @@
 
 ;; Installer avant color-theme
 (require 'color-theme)
-;;(color-theme-initialize)
+(color-theme-initialize)
 (setq color-theme-is-global t)
 (require 'color-theme-molokai)
 (require 'color-theme-tangotango)
@@ -80,7 +80,7 @@
 (defun my-select-color-theme(frame)
   (select-frame frame)
   (if (window-system frame)
-      (color-theme-molokai)
+      (color-theme-tangotango)
     (color-theme-gray1)))
 
 ;; Hook to run after making a new frame
