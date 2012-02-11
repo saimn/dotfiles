@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2
 #
 # Usage:
 #   ./autocompile.py path ext1,ext2,extn cmd

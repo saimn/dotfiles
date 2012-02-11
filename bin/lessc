@@ -1,0 +1,4 @@
+#!/bin/sh
+# -*- coding: UTF8 -*-
+
+exec ~/.npm/less/1.2.1/package/bin/lessc "$@"
