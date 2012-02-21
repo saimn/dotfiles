@@ -308,6 +308,7 @@ augroup filetypedetect
    autocmd BufRead,BufNewFile *.tpl setfiletype html
    autocmd BufRead,BufNewFile *.pro setfiletype idlang
    autocmd BufRead,BufNewFile *.mkd setfiletype mkd
+   autocmd BufRead,BufNewFile *.less setfiletype less
    autocmd BufRead,BufNewFile *.wiki setfiletype Wikipedia
    autocmd BufRead,BufNewFile *wikipedia.org* setfiletype Wikipedia
    autocmd BufRead,BufNewFile *camptocamp.org* setfiletype camptocamp
@@ -461,6 +462,21 @@ augroup ft_javascript
     au FileType javascript setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
     au FileType javascript setlocal foldmethod=marker
     au FileType javascript setlocal foldmarker={,}
+augroup END
+
+" }}}
+" Less {{{
+
+augroup ft_less
+    au!
+    autocmd FileWritePost,BufWritePost *.less :call LessCSSCompress()
+    function! LessCSSCompress()
+        let cwd = expand(':p:h')
+        let name = expand(':t:r')
+        if (executable('lessc'))
+        cal system('lessc '.cwd.'/'.name.'.less > '.cwd.'/'.name.'.css &')
+        endif
+    endfunction
 augroup END
 
 " }}}
