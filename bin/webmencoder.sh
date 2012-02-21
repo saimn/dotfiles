@@ -37,12 +37,12 @@ param() {
 # Fonction permettant de tester la présence des plugins Gstreamer
 check() {
 	# Test plugins gstreamer
-	gst-inspect $VIDEO_ENCODER 2>&1 > /dev/null
+	gst-inspect-0.10 $VIDEO_ENCODER 2>&1 > /dev/null
 	if [ "$?" -ne "0" ]; then 
 		echo "Encodeur $VIDEO_ENCODER introuvable / Installer le plugin gstreamer $VIDEO_ENCODER"; 
 		exit 10
 	fi
-	gst-inspect $AUDIO_ENCODER 2>&1 > /dev/null
+	gst-inspect-0.10 $AUDIO_ENCODER 2>&1 > /dev/null
 	if [ "$?" -ne "0" ]; then 
 		echo "Encodeur $AUDIO_ENCODER introuvable / Installer le plugin gstreamer $AUDIO_ENCODER"; 
 		exit 11
@@ -51,7 +51,7 @@ check() {
 
 encode() {
 	# Pipeline d'encodage
-	PIPELINE="gst-launch -t filesrc location=$SOURCE ! progressreport ! decodebin name=decoder \
+	PIPELINE="gst-launch-0.10 -t filesrc location=$SOURCE ! progressreport ! decodebin name=decoder \
 	 decoder. ! queue ! audioconvert ! $AUDIO_ENCODER $AUDIO_ENCODER_PARAMETERS ! queue ! \
 	 $VIDEOAUDIO_MUXER name=muxer \
 	 decoder. ! queue ! ffmpegcolorspace ! $VIDEO_ENCODER $VIDEO_ENCODER_PARAMETERS ! queue ! \
