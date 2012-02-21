@@ -67,7 +67,7 @@
 
 ;; Installer avant color-theme
 (require 'color-theme)
-(color-theme-initialize)
+;; (color-theme-initialize)
 (setq color-theme-is-global t)
 (require 'color-theme-molokai)
 (require 'color-theme-tangotango)

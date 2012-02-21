@@ -74,3 +74,6 @@
 [submodule "emacs.d/site-lisp/evil-leader"]
 	path = emacs.d/site-lisp/evil-leader
 	url = https://github.com/cofi/evil-leader.git
+[submodule "emacs.d/site-lisp/less-css-mode"]
+	path = emacs.d/site-lisp/less-css-mode
+	url = https://github.com/purcell/less-css-mode.git
