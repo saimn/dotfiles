@@ -251,6 +251,7 @@
 
 (define-key evil-normal-state-map (kbd "C-:") 'eval-expression)
 (define-key evil-normal-state-map (kbd "SPC") 'hs-toggle-hiding)
+(define-key evil-normal-state-map (kbd "C-b") 'ido-switch-buffer)
 
 (define-key evil-motion-state-map "\C-e" 'end-of-line)
 (define-key evil-motion-state-map "\C-y" nil)

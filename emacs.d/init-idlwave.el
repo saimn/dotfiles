@@ -3,14 +3,14 @@
 (setq auto-mode-alist (cons '("\\.pro\\'" . idlwave-mode) auto-mode-alist))
 
 (defun my-idlwave-mode-hook ()
-  (setq idlwave-system-directory "/opt/apps/rsi/idl80/")
-  (setq idlwave-shell-explicit-file-name "/opt/apps/rsi/idl80/bin/idl")
-  (setq idlwave-html-system-help-location "/opt/apps/rsi/idl80/help")
+  (setq idlwave-system-directory "/opt/apps/rsi/idl8/")
+  (setq idlwave-shell-explicit-file-name "/opt/apps/rsi/idl8/bin/idl")
+  (setq idlwave-html-system-help-location "/opt/apps/rsi/idl8/help")
 
   ;; regular expressions matching special library directories for labeling
   ;; in routine-info display
   (setq idlwave-special-lib-alist
-        '(("~/Dev/prior/trunk/EM/IDL/" . "PPrior")))
+        '(("~/Dev/prior/EM/IDL/" . "PPrior")))
 
   ;; (hs-minor-mode)
 
