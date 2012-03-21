@@ -7,7 +7,7 @@ for f in "$@"
 do
    echo ":: optimize $f"
 
-   if test ${f##*.} = 'jpg'
+   if test ${f##*.} = 'jpg' -o ${f##*.} = 'JPG'
    then
       cp "$f" "$f.bak"
       jpegtran -copy none -optimize "$f.bak" > "$f"
