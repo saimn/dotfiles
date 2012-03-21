@@ -48,7 +48,13 @@
 
 ;; backup files
 ;; (setq make-backup-files nil)
-(setq backup-directory-alist '(("." . "~/.emacs.d/backup-files/")))
+;; (setq auto-save-default nil)
+
+(setq
+ backup-by-copying t      ; don't clobber symlinks
+ temporary-file-directory "~/.emacs.d/tmp/"
+ backup-directory-alist '(("." . "~/.emacs.d/tmp/"))
+ )
 
 ;; Customize file
 (setq custom-file (expand-file-name "~/.emacs.d/customize.el"))
@@ -245,6 +251,7 @@
 
 (dolist (mode '(inferior-emacs-lisp-mode
                 pylookup-mode
+                idlwave-mode
                 idlwave-shell-mode
                 idlwave-shell-electric-debug-mode))
   (push mode evil-emacs-state-modes))

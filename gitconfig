@@ -58,16 +58,10 @@
    changed = green
    untracked = cyan
 [merge]
-   tool = meld
+   tool = gvimdiff3
    stat = true
 [rebase]
    stat = true
-[giggle]
-	main-window-view = HistoryView
-	main-window-maximized = false
-	main-window-geometry = 716x436+720+460
-	history-view-vpane-position = 84
-	file-view-vpane-position = 286
 [branch]
    autosetupmerge = true
    autosetuprebase = always
@@ -76,3 +70,7 @@
 [github]
    user = saimn
 
+[mergetool "gvimdiff3"]
+	cmd = gvim -f -d -c \"wincmd J\" \"$MERGED\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"
+[mergetool "vimdiff3"]
+	cmd = vim -f -d -c \"wincmd J\" \"$MERGED\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"

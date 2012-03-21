@@ -18,7 +18,6 @@
 (setq next-line-add-newlines t)   ; C-n add new line
 
 (setq-default indent-tabs-mode nil)  ; Indent with spaces
-(setq c-basic-offset 2)              ; default indent: 2 spaces
 
 ;; enable some functions
 (put 'narrow-to-defun 'disabled nil)
