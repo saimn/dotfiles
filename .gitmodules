@@ -1,42 +1,9 @@
-[submodule "emacs.d/site-lisp/rainbow-mode"]
-	path = emacs.d/site-lisp/rainbow-mode
-	url = git://git.naquadah.org/rainbow.git
-[submodule "emacs.d/site-lisp/auto-complete"]
-	path = emacs.d/site-lisp/auto-complete
-	url = http://github.com/m2ym/auto-complete.git
-[submodule "emacs.d/site-lisp/magit"]
-	path = emacs.d/site-lisp/magit
-	url = http://github.com/technomancy/magit.git
-[submodule "emacs.d/site-lisp/color-theme-tangotango"]
-	path = emacs.d/site-lisp/color-theme-tangotango
-	url = git@github.com:saimn/color-theme-tangotango.git
-[submodule "emacs.d/site-lisp/color-theme-wombat"]
-	path = emacs.d/site-lisp/color-theme-wombat
-	url = git@github.com:saimn/color-theme-wombat.git
-[submodule "emacs.d/site-lisp/color-theme-zenburn"]
-	path = emacs.d/site-lisp/color-theme-zenburn
-	url = http://github.com/bbatsov/zenburn-emacs.git
-[submodule "emacs.d/site-lisp/autopair"]
-	path = emacs.d/site-lisp/autopair
-	url = http://github.com/emacsmirror/autopair.git
-[submodule "emacs.d/site-lisp/anything"]
-	path = emacs.d/site-lisp/anything
-	url = git://repo.or.cz/anything-config.git
 [submodule "emacs.d/site-lisp/idlwave-mode"]
 	path = emacs.d/site-lisp/idlwave-mode
 	url = https://github.com/jdtsmith/idlwave.git
-[submodule "emacs.d/site-lisp/full-ack"]
-	path = emacs.d/site-lisp/full-ack
-	url = https://github.com/nschum/full-ack.git
-[submodule "emacs.d/site-lisp/yasnippet"]
-	path = emacs.d/site-lisp/yasnippet
-	url = https://github.com/emacsmirror/yasnippet.git
 [submodule "emacs.d/site-lisp/ical2org"]
 	path = emacs.d/site-lisp/ical2org
 	url = https://github.com/cofi/ical2org.git
-[submodule "emacs.d/site-lisp/popwin-el"]
-	path = emacs.d/site-lisp/popwin-el
-	url = https://github.com/m2ym/popwin-el.git
 [submodule "bin/html2text"]
 	path = bin/html2text
 	url = https://github.com/aaronsw/html2text.git
@@ -46,34 +13,16 @@
 [submodule "emacs.d/site-lisp/calfw"]
 	path = emacs.d/site-lisp/calfw
 	url = https://github.com/kiwanami/emacs-calfw.git
-[submodule "emacs.d/site-lisp/markdown-mode"]
-	path = emacs.d/site-lisp/markdown-mode
-	url = git://jblevins.org/git/markdown-mode.git
 [submodule "emacs.d/site-lisp/nxhtml"]
 	path = emacs.d/site-lisp/nxhtml
 	url = https://github.com/emacsmirror/nxhtml.git
-    ignore = dirty
-[submodule "emacs.d/site-lisp/deft"]
-	path = emacs.d/site-lisp/deft
-	url = git://jblevins.org/git/deft.git
-[submodule "emacs.d/site-lisp/color-theme-molokai"]
-	path = emacs.d/site-lisp/color-theme-molokai
-	url = git@github.com:saimn/color-theme-molokai.git
-[submodule "emacs.d/site-lisp/zencoding"]
-	path = emacs.d/site-lisp/zencoding
-	url = https://github.com/rooney/zencoding.git
+        ignore = dirty
 [submodule "emacs.d/site-lisp/python.el"]
 	path = emacs.d/site-lisp/python.el
 	url = https://github.com/fgallina/python.el.git
 [submodule "emacs.d/site-lisp/evil"]
 	path = emacs.d/site-lisp/evil
 	url = git://gitorious.org/evil/evil.git
-[submodule "emacs.d/site-lisp/org-mode"]
-	path = emacs.d/site-lisp/org-mode
-	url = git://orgmode.org/org-mode.git
 [submodule "emacs.d/site-lisp/evil-leader"]
 	path = emacs.d/site-lisp/evil-leader
 	url = https://github.com/cofi/evil-leader.git
-[submodule "emacs.d/site-lisp/less-css-mode"]
-	path = emacs.d/site-lisp/less-css-mode
-	url = https://github.com/purcell/less-css-mode.git
