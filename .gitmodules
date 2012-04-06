@@ -1,28 +1,6 @@
-[submodule "emacs.d/site-lisp/idlwave-mode"]
-	path = emacs.d/site-lisp/idlwave-mode
-	url = https://github.com/jdtsmith/idlwave.git
-[submodule "emacs.d/site-lisp/ical2org"]
-	path = emacs.d/site-lisp/ical2org
-	url = https://github.com/cofi/ical2org.git
 [submodule "bin/html2text"]
 	path = bin/html2text
 	url = https://github.com/aaronsw/html2text.git
 [submodule "awesome/vicious"]
 	path = awesome/vicious
 	url = http://git.sysphere.org/vicious
-[submodule "emacs.d/site-lisp/calfw"]
-	path = emacs.d/site-lisp/calfw
-	url = https://github.com/kiwanami/emacs-calfw.git
-[submodule "emacs.d/site-lisp/nxhtml"]
-	path = emacs.d/site-lisp/nxhtml
-	url = https://github.com/emacsmirror/nxhtml.git
-        ignore = dirty
-[submodule "emacs.d/site-lisp/python.el"]
-	path = emacs.d/site-lisp/python.el
-	url = https://github.com/fgallina/python.el.git
-[submodule "emacs.d/site-lisp/evil"]
-	path = emacs.d/site-lisp/evil
-	url = git://gitorious.org/evil/evil.git
-[submodule "emacs.d/site-lisp/evil-leader"]
-	path = emacs.d/site-lisp/evil-leader
-	url = https://github.com/cofi/evil-leader.git
