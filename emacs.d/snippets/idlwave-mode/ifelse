@@ -1,9 +1,0 @@
-# -*- mode: snippet -*-
-# name: ifelse
-# key: ifelse
-# --
-if $1 then begin
-   $2
-endif else begin
-   $0
-endelse

@@ -1,7 +1,0 @@
-# -*- mode: snippet -*-
-# name: procedure
-# key: pro
-# --
-pro $1
-  $0
-end
