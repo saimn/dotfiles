@@ -1,5 +1,5 @@
 #!/bin/sh
-# -*- coding: UTF8 -*-
+# -*- coding: utf-8 -*-
 
 # read the pid of any still-running instance
 read -r pid < <(pgrep offlineimap)

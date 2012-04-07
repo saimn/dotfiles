@@ -611,7 +611,7 @@ augroup END
 augroup ft_sh
     au!
     " header
-    au BufNewFile *.sh,*.bash 0put =\"#!/bin/bash\<nl># -*- coding: UTF8 -*-\<nl>\<nl>\"|$
+    au BufNewFile *.sh,*.bash 0put =\"#!/bin/bash\<nl># -*- coding: utf-8 -*-\<nl>\<nl>\"|$
 augroup END
 
 " }}}

@@ -1,4 +1,4 @@
 #!/bin/sh
-# -*- coding: UTF8 -*-
+# -*- coding: utf-8 -*-
 
 exec ~/node_modules/less/bin/lessc "$@"

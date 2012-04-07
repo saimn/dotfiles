@@ -1,10 +1,10 @@
 #!/bin/sh
-# -*- coding: UTF8 -*-
+# -*- coding: utf-8 -*-
 
 # cleanup
 rm -rf ~/.adobe ~/.macromedia
 
 # Disable pango
-export MOZ_DISABLE_PANGO=1
+# export MOZ_DISABLE_PANGO=1
 # Run firefox
 exec /usr/bin/firefox "$@"

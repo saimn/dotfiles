@@ -1,5 +1,5 @@
 #!/bin/sh
-# -*- coding: UTF8 -*-
+# -*- coding: utf-8 -*-
 
 for i in "$@"
 do
