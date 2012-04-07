@@ -39,34 +39,25 @@ var INFO =
     </item>
 </plugin>;
 
-(function() {
-    const TinyAPI = 'http://tinyurl.com/api-create.php?url=';
+const TinyAPI = 'http://tinyurl.com/api-create.php?url=';
 
-    commands.add(['tinyurl'], 'echo and copy TinyURL',
-        function(args) {
-            tiny.copyToClipboard(tiny.getTiny(args.length==0 ? buffer.URL : args.string), true)
-        }, {argCount:'?'});
+group.commands.add(['tinyurl'], 'echo and copy TinyURL',
+    function(args) {
+        dactyl.clipboardWrite(tiny.getTiny(args.length==0 ? buffer.URL : args.string), true)
+    }, {argCount:'?'});
 
-    commands.add(['expandurl'], 'expand TinyURL',
-        function(args) {
-            tiny.copyToClipboard(tiny.getExpand(args.string), true)
-        }, {argCount:'1'});
+group.commands.add(['expandurl'], 'expand TinyURL',
+    function(args) {
+        dactyl.clipboardWrite(tiny.getExpand(args.string), true)
+    }, {argCount:'1'});
 
-    var tiny = plugins.tinyurl = {
-        copyToClipboard: function (str, verbose) {
-            const clipboardHelper = Cc["@mozilla.org/widget/clipboardhelper;1"].getService(Ci.nsIClipboardHelper);
-            clipboardHelper.copyString(str);
-            if (verbose)
-                dactyl.echo("Yanked " + str, commandline.FORCE_SINGLELINE);
-        },
+var tiny = plugins.tinyurl = {
+    getTiny: function (url) {
+        return util.httpGet(TinyAPI+encodeURIComponent(url)).responseText
+    },
 
-        getTiny: function (url) {
-            return util.httpGet(TinyAPI+encodeURIComponent(url)).responseText
-        },
-
-        getExpand: function (url) {
-            return util.httpGet(url).channel.name
-        }
-    };
-})();
+    getExpand: function (url) {
+        return util.httpGet(url).channel.name
+    }
+};
 // vim: fdm=marker sw=4 ts=4 et:
