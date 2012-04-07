@@ -1,7 +1,6 @@
 #!/bin/bash
 # Backup script with rsync
 
-VERSION="20100330"
 COMMAND=$(basename $0)
 DATE=$(date +%Y%m%d)
 
@@ -83,7 +82,8 @@ function backup_system () {
    pacman -Qqmt > pkglist-local.txt
 
    echo ":: Backup system config files ..."
-   tar -cvpJf $HOME/Documents/perso/backup/system-files-$DATE.tar.xz /etc /boot pkglist-local.txt pkglist-official.txt
+   tar -cvpJf $HOME/Documents/perso/backup/system-files-$DATE.tar.xz \
+       /etc /boot pkglist-local.txt pkglist-official.txt
    rm pkglist-local.txt pkglist-official.txt
 
    #tar --files-from=include.txt --exclude-from=exclude.txt -cvpzf backupname.tar.gz
@@ -108,6 +108,17 @@ function backup_music () {
 # }}}
 
 #----------------------------------------------------------------------------
+# backup nexus {{{
+function backup_nexus () {
+    rsync $OPTS $DRYRUN --prune-empty-dirs \
+        --exclude=.android_secure/ --exclude=.cr3/ --exclude=.fdroid/ --exclude=Android/ \
+        --exclude="LOST.DIR/" --exclude=.sw-vvm/ --exclude=".Trash-1000/" \
+        --exclude=Musique/ --exclude=waze/ --exclude=osmand/ --exclude=osmdroid/ \
+        /media/35EE-1E0E/ ~/Documents/nexus/
+}
+# }}}
+
+#----------------------------------------------------------------------------
 # help {{{
 print_help() {
 cat <<EOF
@@ -115,7 +126,7 @@ NAME
    $COMMAND -- backup script with rsync.
 
 SYNOPSIS
-   $COMMAND [-d] [--music|--mail|--home]
+   $COMMAND [-d] [--music|--mail|--home|--system|--nexus]
 
 DESCRIPTION
    make backup
@@ -126,6 +137,7 @@ OPTIONS
    --mail         : Mail
    --home         : Home
    --system       : System files (from sysbackup.inc.txt)
+   --nexus        : nexus
    -d | --dry-run : Simulation mode
    -b | --backup  : Backup deleted and modified files
 
@@ -149,8 +161,10 @@ while true; do
       --mail)           backup_mail; exit 0 ;;
       --home)           backup_home; exit 0 ;;
       --system)         backup_system; exit 0 ;;
+      --nexus)          backup_nexus; exit 0 ;;
       *)  break ;;
    esac
 done
 
 exit
+
