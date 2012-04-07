@@ -23,7 +23,7 @@ from calendar   import month_name
 # From 2.4 CALENDAR_WEEK_START_MONDAY is ignored and locales are used,
 # which is broken, but if you still want it in your own language call:
 import locale
-locale.setlocale(locale.LC_ALL, "hr_HR.UTF-8")
+locale.setlocale(locale.LC_ALL, "fr_FR.UTF-8")
 
 
 # Pylendar settings
