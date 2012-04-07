@@ -1,10 +1,19 @@
 #!/bin/sh
 # -*- coding: utf-8 -*-
 
-# cleanup
-rm -rf ~/.adobe ~/.macromedia
+if [[ $# -eq 1 && $1 == "--vacuum" ]]; then
+    echo "vacuum !!"
+    pgrep -f -x /usr/bin/firefox -U $(id -u) > /dev/null && echo “Stop Firefox !” && exit 1
+    for i in `find ~/.mozilla -name \*.sqlite`; do
+        echo ":: processing $i ..."
+        sqlite3 $i vacuum
+        sqlite3 $i reindex
+    done
+else
+    # cleanup
+    rm -rf ~/.adobe ~/.macromedia
 
-# Disable pango
-# export MOZ_DISABLE_PANGO=1
-# Run firefox
-exec /usr/bin/firefox "$@"
+    export MOZ_DISABLE_PANGO=1
+    exec /usr/bin/firefox "$@"
+fi
+
