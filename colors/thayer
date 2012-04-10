@@ -1,0 +1,55 @@
+! -*- mode: conf-xdefaults; mode: rainbow -*-
+! ----------------------------------------------------------------------
+! file:     Xdefaults color scheme
+! author:   Thayer Williams - http://cinderwick.ca
+! vim:ft=xdefaults:
+! ----------------------------------------------------------------------
+
+urxvt*cursorColor:      #fd971f
+
+! --- Thayer --- {{{
+
+! Defaults
+*background: #262729
+*foreground: #f8f8f2
+! Black
+*color0: #262729
+*color8: #554444
+! Red
+*color1: #f92671
+*color9: #ff669d
+! Green
+*color2: #a6e22e
+*color10: #beed5f
+! Yellow
+*color3: #fd971f
+*color11: #e6db74
+! Blue
+*color4: #34bdef
+*color12: #66d9ef
+! Magenta
+*color5: #9e6ffe
+*color13: #df92f6
+! Cyan
+*color6: #5e7175
+*color14: #a3babf
+! White
+*color7: #ccccc6
+*color15: #f8f8f2
+! Cursor
+*cursorColor: #b5d2dd
+*cursorBlink: false
+urxvt*cursorColor: #b5d2dd
+
+! alsamixer scheme
+alsamixer*color1:   #ff2759
+alsamixer*color9:   #ff2759
+alsamixer*color2:   #52aebf
+alsamixer*color10:  #52aebf
+alsamixer*color7:   #ffffff
+alsamixer*color15:  #ffffff
+alsamixer*color11:  #777777
+alsamixer*color4:   #1b1d1e
+alsamixer*scrollBar:  false
+
+!}}}

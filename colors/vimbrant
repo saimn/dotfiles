@@ -1,51 +1,50 @@
-! -*- mode: conf-xdefaults; mode: rainbow -*-
 ! ----------------------------------------------------------------------
 ! file:     Xdefaults color scheme
 ! author:   Thayer Williams - http://cinderwick.ca
-! vim:ft=xdefaults:
+! vim:enc=utf-8:nu:ai:si:et:ts=4:sts=4:sw=4:ft=xdefaults:
 ! ----------------------------------------------------------------------
 
 ! Append the following to ~/.Xdefaults to import this color scheme:
-!
+!   
 !       #include "/home/user/.Xdefaults.c.vimbrant"
 !
 
-! urxvt*cursorColor:      #fd971f
+urxvt*cursorColor:      #fd971f
 
-! ! terminal colours
-! *foreground:#a0a0a0
-! *background:#1b1d1e
+! terminal colours
+*foreground:#a0a0a0
+*background:#1b1d1e
 
-! !black
-! *color0:    #1b1d1e
-! *color8:    #505354
-! !red
-! *color1:    #f92672
-! *color9:    #ff5995
-! !green
-! *color2:    #82b414
-! *color10:   #b6e354
-! !yellow
-! *color3:    #fd971f
-! *color11:   #feed6c
-! !blue
-! *color4:    #56c2d6
-! *color12:   #8cedff
-! !magenta
-! *color5:    #8c54fe
-! *color13:   #9e6ffe
-! !cyan
-! *color6:    #465457
-! *color14:   #899ca1
-! *color6:    #56676b
-! *color14:   #899ca1
-! !white
-! *color7:    #ccccc6
-! *color15:   #f8f8f2
-! *color7:    #bfbfba
-! *color15:   #ebebe5
-! *color7:    #aaaaaa
-! *color15:   #ffffff
+!black
+*color0:    #1b1d1e
+*color8:    #505354
+!red
+*color1:    #f92672
+*color9:    #ff5995
+!green
+*color2:    #82b414
+*color10:   #b6e354
+!yellow
+*color3:    #fd971f
+*color11:   #feed6c
+!blue
+*color4:    #56c2d6
+*color12:   #8cedff
+!magenta
+*color5:    #8c54fe
+*color13:   #9e6ffe
+!cyan
+*color6:    #465457
+*color14:   #899ca1
+*color6:    #56676b
+*color14:   #899ca1
+!white
+*color7:    #ccccc6
+*color15:   #f8f8f2
+*color7:    #bfbfba
+*color15:   #ebebe5
+*color7:    #aaaaaa
+*color15:   #ffffff
 
 ! alsamixer scheme
 alsamixer*color1:   #ff2759
@@ -58,38 +57,3 @@ alsamixer*color11:  #777777
 alsamixer*color4:   #1b1d1e
 alsamixer*scrollBar:  false
 
-! --- Thayer --- {{{
-
-! Defaults
-*background: #262729
-*foreground: #f8f8f2
-! Black
-*color0: #262729
-*color8: #554444
-! Red
-*color1: #f92671
-*color9: #ff669d
-! Green
-*color2: #a6e22e
-*color10: #beed5f
-! Yellow
-*color3: #fd971f
-*color11: #e6db74
-! Blue
-*color4: #34bdef
-*color12: #66d9ef
-! Magenta
-*color5: #9e6ffe
-*color13: #df92f6
-! Cyan
-*color6: #5e7175
-*color14: #a3babf
-! White
-*color7: #ccccc6
-*color15: #f8f8f2
-! Cursor
-*cursorColor: #b5d2dd
-*cursorBlink: false
-urxvt*cursorColor: #b5d2dd
-
-!}}}
