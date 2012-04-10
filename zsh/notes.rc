@@ -1,0 +1,147 @@
+# -*- shell-script -*-x
+# vim: set syntax=zsh:
+
+# {{{ Startup
+uname -sr
+uptime
+# }}}
+
+# {{{ History
+setopt extended_history      # add a timestamp and the duration of each command
+setopt share_history         # _all_ zsh sessions share the same history files
+setopt hist_ignore_all_dups  # ignores duplications
+setopt histverify            # Verify history expansion
+
+HISTFILE=~/.zsh/history
+HISTSIZE=1000000  # nombre de lignes à conserver dans l'historique
+SAVEHIST=1000000  # nombre de lignes enregistrées après que vous quittez le shell
+export HISTFILE HISTSIZE SAVEHIST
+# }}}
+
+# {{{ Per host config
+local os host
+
+# per host resource file
+host=${$(hostname)//.*/}
+[ -f "$HOME/.zsh/${host}.zsh" ] && source "$HOME/.zsh/${host}.zsh"
+
+# per OS resource file
+os=$(uname)
+[ -f "$HOME/.zsh/rc.os/${os}.zsh" ] && source "$HOME/.zsh/rc.os/${os}.zsh"
+
+# Global resource files
+for file in $HOME/.zsh/rc/*.rc; do
+  source $file
+done
+
+# Distrib specific
+[ -r /etc/debian_version ] && source $HOME/.zsh/debian.zsh
+
+# Local file
+[[ -f ~/.zsh/zshrc.local ]] && source ~/.zsh/zshrc.local
+
+# }}}
+
+# {{{ Prompt
+# Default prompt is: <date> (user~host) path
+
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' enable git hg svn
+# zstyle ':vcs_info:*' formats ' (%s)-[%b|%i]'
+
+function precmd
+{
+  if [[ -O "$PWD" ]]; then
+    local path_color="${fg_bold[blue]}"
+  else
+    local path_color="${fg_bold[red]}"
+  fi
+
+  local deco="%{${fg_no_bold[white]}%}"
+  local date="%{${deco}%}%T"
+  local user="%{${fg_bold[red]}%}%n"
+  local host="%{${fg_bold[green]}%}%m"
+  local cwd="%{${path_color}%}%48<...<%~"
+  local sign="%(!.%{${fg_bold[red]}%}.${deco})%#"
+  local return_code="%(?..${deco}!%{${fg_bold[red]}%}%?${deco}! )"
+
+  psvar=()
+  vcs_info
+  [[ -n $vcs_info_msg_0_ ]] && psvar[1]="$vcs_info_msg_0_"
+  local vcs="${fg_bold[yellow]}%(1v.%F{yellow}%1v%f.)"
+
+  PS1="${user}${deco}@${host}${deco} [${cwd}${deco}]${vcs} ${return_code}
+${sign}%{${reset_color}%} "
+  RPS1="${date}${deco}"
+
+  # load=(${$(< /proc/loadavg)})
+  # LOADAVG="$load[1] $load[2]"
+  # buffer=(${$(free)})
+  # MEM="$((100 * $buffer[16] / $buffer[8]))%%"
+
+  # if [[ $buffer[19] != 0 ]]; then
+  #   MEM="$MEM $((100 * $buffer[20] / $buffer[19]))%%"
+  # fi
+
+  # if [ -d $PWD/.svn ] ; then
+  #   PATHINFO="(svn):%~"
+  # else
+  #   PATHINFO="%~"
+  # fi
+
+  # stats="%{${deco}%}[\$LOADAVG - \$MEM]"
+  # RPS1="$stats"
+}
+
+# function use to toggle RPS1 (which is very ugly for copy/paste)
+function rmrps1 () {
+    unset RPS1
+}
+
+function rps1 () {
+    RPS1="$stats%{$reset_color%}"
+}
+# }}}
+
+# {{{ SSH
+ssh_key_manage() {
+    if [[ -x `which keychain` ]] && [ -r ~/.ssh/id_?sa ] ; then
+	# run keychain
+	keychain --nogui ~/.ssh/id_?sa
+	[[ -r ~/.ssh-agent-`hostname` ]] && . ~/.ssh-agent-`hostname`
+	[[ -r ~/.keychain/`hostname`-sh ]] &&  source ~/.keychain/`hostname`-sh
+	[[ -r ~/.gpg-agent-info ]] &&  source ~/.gpg-agent-info
+        # if [ -f "${HOME}/.gpg-agent-info" ]; then
+        #     . "${HOME}/.gpg-agent-info"
+        #     export GPG_AGENT_INFO
+        #     export SSH_AUTH_SOCK
+        #     export SSH_AGENT_PID
+        # fi
+    else
+	if [ -x $(which ssh-agent) -a -f $HOME/.ssh/id_?sa ]; then
+	    if [[ -r $HOME/.ssh/agent-pid ]] ; then
+		ps -p $(< $HOME/.ssh/agent-pid) 1>/dev/null
+		if [[ $? == 0 || -d /proc/$(< $HOME/.ssh/agent-pid) ]]; then
+		    source $HOME/.ssh/agent
+		else
+		    ssh-agent -s > $HOME/.ssh/agent
+		    source $HOME/.ssh/agent
+		    echo $SSH_AGENT_PID > $HOME/.ssh/agent-pid
+		    ssh-add $HOME/.ssh/id_?sa
+		fi
+	    else
+		ssh-agent -s > $HOME/.ssh/agent
+		source $HOME/.ssh/agent
+		echo $SSH_AGENT_PID > $HOME/.ssh/agent-pid
+		ssh-add $HOME/.ssh/id_?sa
+	    fi
+	fi
+    fi
+}
+
+# ssh key management
+if [[ "$USER" != "root" ]]; then
+    ssh_key_manage
+fi
+return 0
+# }}}
