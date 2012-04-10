@@ -112,8 +112,9 @@ source /usr/bin/virtualenvwrapper.sh
 # }}}
 
 source ~/lib/dotfiles/zsh/aliases.zsh
-#source ~/lib/dotfiles/zsh/completion.zsh
+# source ~/lib/dotfiles/zsh/completion.zsh
 source ~/lib/dotfiles/zsh/functions.zsh
 source ~/lib/dotfiles/zsh/keys.zsh
+# source ~/lib/dotfiles/zsh/opts.zsh
 
 source ~/lib/dotfiles/zsh/locals.zsh

@@ -34,7 +34,7 @@ alias psg="ps auxw | grep -i "
 
 # per extentions
 alias -s pdf="zathura"
-alias -s ps="evince"
+alias -s ps="zathura"
 alias -s png="gthumb"
 alias -s jpg="gthumb"
 alias -s log="less"
