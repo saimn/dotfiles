@@ -10,8 +10,8 @@ application/vnd.ms-powerpoint;            libreoffice %s
 application/vnd.oasis.opendocument.text;  libreoffice %s
 
 application/pdf;                zathura %s
-application/pdf;                apvlv %s
 application/pdf;                evince %s
+application/ps;                 zathura %s
 application/ps;                 evince %s
 
 application/x-bz;               file-roller %s
@@ -26,7 +26,8 @@ application/zip;                file-roller %s
 multipart/x-zip;                file-roller %s
 multipart/x-gzip;               file-roller %s
 
-image/*;                        feh %s
+image/*;                        sxiv %s
+image/*;                        mirage %s
 image/*;                        gthumb %s
 audio/*;                        mplayer %s
 video/*;                        mplayer %s
