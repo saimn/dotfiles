@@ -230,7 +230,7 @@ orgwidget = widget({ type = "textbox" })
 -- Configure widget
 local orgdir = home.."/org"
 local orgmode = {
-  files = { orgdir.."/agenda.org", orgdir.."/home.org", orgdir.."/work.org" },
+  files = { orgdir.."/home.org", orgdir.."/work.org" },
   color = {
     past   = '<span color="'..beautiful.fg_urgent..'">',
     today  = '<span color="'..beautiful.fg_normal..'">',
@@ -249,19 +249,19 @@ orgwidget:buttons(awful.util.table.join(
 -- }}}
 
 -- {{{ MPD
-mpdicon = widget({ type = "imagebox" })
-mpdicon.image = image(beautiful.widget_music)
--- Initialize widget
-mpdwidget = widget({ type = "textbox" })
--- Register widget
-vicious.register(mpdwidget, vicious.widgets.mpd,
-    function (widget, args)
-        if args["{state}"] == "Stop" then
-            return " - "
-        else
-            return ' '..args["{Artist}"]..' - '.. args["{Title}"]..' '
-        end
-    end, 10)
+-- mpdicon = widget({ type = "imagebox" })
+-- mpdicon.image = image(beautiful.widget_music)
+-- -- Initialize widget
+-- mpdwidget = widget({ type = "textbox" })
+-- -- Register widget
+-- vicious.register(mpdwidget, vicious.widgets.mpd,
+--     function (widget, args)
+--         if args["{state}"] == "Stop" then
+--             return " - "
+--         else
+--             return ' '..args["{Artist}"]..' - '.. args["{Title}"]..' '
+--         end
+--     end, 10)
 -- }}}
 
 -- {{{ Volume level
