@@ -42,7 +42,7 @@ local filemgr    = "pcmanfm"
 local htop_cmd   = terminal.." -name htop -geometry 80x7 -e htop"
 
 -- Beautiful theme
-beautiful.init(home .. "/.config/awesome/themes/zenburn/theme.lua")
+beautiful.init(home .. "/.config/awesome/themes/vimbrant/theme.lua")
 
 -- Window management layouts
 layouts = {
@@ -125,7 +125,7 @@ cpugraph   = awful.widget.graph()
 tzswidget  = widget({ type = "textbox" })
 loadwidget = widget({ type = "textbox" })
 -- Graph properties
-cpugraph:set_width(40):set_height(14)
+cpugraph:set_width(40):set_height(16)
 cpugraph:set_background_color(beautiful.fg_off_widget)
 cpugraph:set_gradient_angle(0):set_gradient_colors({
    beautiful.fg_end_widget, beautiful.fg_center_widget, beautiful.fg_widget
@@ -398,7 +398,7 @@ for s = 1, screen.count() do
 
     -- Create the wibox
     wibox[s] = awful.wibox({      screen = s,
-        fg = beautiful.fg_normal, height = 18,
+        fg = beautiful.fg_normal, height = 20,
         bg = beautiful.bg_normal, position = "top",
         border_color = beautiful.border_focus,
         border_width = beautiful.border_width
