@@ -27,8 +27,8 @@ set history=1000
 set undofile
 set undoreload=10000
 set cpoptions+=J
-set list                        " show eol, tabs, spaces, ...
-set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮
+set list                        " show eol, tabs, spaces, trailing and non-breaking spaces
+set listchars=tab:▸\ ,extends:❯,precedes:❮,trail:-,nbsp:_ " ,eol:¬
 set shell=/bin/bash
 set lazyredraw
 set matchtime=3
@@ -246,6 +246,10 @@ noremap <leader>v <C-w>v
 " Heresy
 inoremap <c-a> <esc>I
 inoremap <c-e> <esc>A
+
+" map CTRL+k S N (non-breaking space) to CTRL+space
+imap <Nul> <C-k>NS
+imap <C-Space> <C-k>NS
 
 " disable cursor keys in normal mode
 " map <Left> :echo "no!"<cr>
