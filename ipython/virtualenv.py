@@ -10,7 +10,7 @@ if 'VIRTUAL_ENV' in environ:
                        'python%d.%d' % version_info[:2],
                        'site-packages')
     site.addsitedir(virtual_env)
-    print 'Using Virtualenv =>', virtual_env
+    print 'Using Virtualenv => ' + virtual_env
     del virtual_env
 del site, environ, join, version_info
 
