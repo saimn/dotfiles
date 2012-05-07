@@ -3,7 +3,7 @@
 qma g http://github.com
 " C2C
 qma c http://www.camptocamp.org/outings
-qma C http://www.camptocamp.org/forums/search.php?action=show_new
+qma C http://www.camptocamp.org/forums/search.php?action=show_new&lang=fr&all
 " Localhost
 qma l http://localhost/
 
