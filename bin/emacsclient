@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# Open Emacs with menu guaranteed to open
+#GDK_NATIVE_WINDOWS=1 /usr/bin/emacsclient $*
+exec /usr/bin/emacsclient --alternate-editor="" -c "$@"
