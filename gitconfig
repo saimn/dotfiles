@@ -5,8 +5,8 @@
    email = contact@saimon.org
 [core]
    editor = vim +0
-   autocrlf = input
-   safecrlf = true
+   # autocrlf = input
+   # safecrlf = true
 [alias]
    addrm = add -u
    br = branch
