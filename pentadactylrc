@@ -76,9 +76,9 @@ command! -nargs=1 wpe   tabopen http://en.wikipedia.org/wiki/<args>
 command! -nargs=* wpes  tabopen http://en.wikipedia.org/wiki/Special:Search?search=<args>&go=Go&fulltext=search
 command! -nargs=* dict  tabopen http://fr.wiktionary.org/wiki/<args>
 
-command! -description 'emacs wiki'      -nargs=* emacs tabopen http://www.google.com/cse?cx=004774160799092323420%3A6-ff2s0o6yi&q=<args>&sa=Search
-command! -description 'translate en2fr' -nargs=* wr2fr tabopen http://www.wordreference.com/enfr/<args>
-command! -description 'translate fr2en' -nargs=* wr2en tabopen http://www.wordreference.com/fren/<args>
+command! -description 'emacs wiki'  -nargs=* emacs tabopen http://www.google.com/cse?cx=004774160799092323420:6-ff2s0o6yi&q=<args>&sa=Search&nojs=1
+command! -description 'trans en2fr' -nargs=* wr2fr tabopen http://www.wordreference.com/enfr/<args>
+command! -description 'trans fr2en' -nargs=* wr2en tabopen http://www.wordreference.com/fren/<args>
 
 ":autocmd LocationChange mail\.google\.com js modes.passAllKeys = true
 ":autocmd LocationChange google(\.(com|fr)\/(reader|calendar)) js modes.passAllKeys = true
