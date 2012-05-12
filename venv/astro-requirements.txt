@@ -1,0 +1,13 @@
+APLpy
+ATpy
+asciitable
+numpy
+#pIDLy
+#pyIDL
+pyfits
+#python-montage
+pywcs
+pywcsgrid2
+scikits-image
+scipy
+#yt
