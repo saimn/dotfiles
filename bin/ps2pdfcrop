@@ -3,7 +3,8 @@
 for f in "$@"
 do
    ps2pdf "$f" tmp.pdf
-   pdfcrop --margins 10 tmp.pdf "${f/.ps/.pdf}"
+   pdfcrop --margins 10 tmp.pdf tmp_crop.pdf
+   mv tmp_crop.pdf "${f/.ps/.pdf}"
    rm tmp.pdf
 done
 
