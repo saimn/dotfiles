@@ -28,7 +28,7 @@ function backup_mail () {
 function backup_home () {
    SRC=$HOME
    [ "$HOSTNAME" = "fireball" ] && DST="/data/backup"
-   [ "$HOSTNAME" = "goudes" ] && DST="/media/857344cd-6fa4-428c-a68b-08b211b2cedd"
+   [ "$HOSTNAME" = "goudes" ] && DST="/run/media/simon/857344cd-6fa4-428c-a68b-08b211b2cedd"
 
    # check if disk is present
    [ ! -e "$DST" ] && echo "Error: backup disk missing ($DST)" && exit
@@ -95,7 +95,7 @@ function backup_music () {
    [ "$HOSTNAME" != "goudes" ] && echo "Error: unknown host" && exit 1
 
    SRC="/data/Musique"
-   DST="/media/857344cd-6fa4-428c-a68b-08b211b2cedd"
+   DST="/run/media/simon/857344cd-6fa4-428c-a68b-08b211b2cedd"
 
    # check if disk is present
    [ ! -e "$DST" ] && echo "Error: backup disk missing ($DST)" && exit

@@ -766,7 +766,7 @@ if host == "goudes" then
    run_once("nm-applet --sm-disable", "", "nm-applet")
    -- run_once("wicd-client","-t","/usr/bin/python2 -O /usr/share/wicd/gtk/wicd-client.py")
    run_once("urxvtd", "-q -f -o", "urxvtd -q -f -o")
-   run_once("gpaste")
+   -- run_once("gpaste")
 elseif host == "fireball" then
    run_once("/usr/libexec/gnome-settings-daemon")
    run_once("pulseaudio", "--start")
