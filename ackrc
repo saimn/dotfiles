@@ -1,4 +1,9 @@
-# define idl type
---type-set=idl=.pro
-
 --smart-case
+
+# idl files
+--type-set
+idl=.pro
+
+# rst files
+--type-set
+rst=.rst
