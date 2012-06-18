@@ -26,7 +26,6 @@ set laststatus=2                " show always statusline of last window
 set history=1000
 set undofile
 set undoreload=10000
-set cpoptions+=J
 set list                        " show eol, tabs, spaces, trailing and non-breaking spaces
 set listchars=tab:▸\ ,extends:❯,precedes:❮,trail:-,nbsp:_ " ,eol:¬
 set shell=/bin/bash
@@ -35,17 +34,33 @@ set matchtime=3
 set showbreak=↪
 set splitbelow
 set splitright
-set fillchars=diff:⣿
-set ttimeout
-set notimeout
-set nottimeout
+set fillchars=diff:⣿,vert:│
 set autowrite
-set shiftround
 set autoread
+set shiftround
 set title
 set linebreak     " ne casse pas les mots en fin de ligne
 set dictionary=/usr/share/dict/words
+set spellfile=~/.vim/custom-dictionary.utf-8.add
 " set autochdir           " change current dir
+
+" Time out on key codes but not mappings.
+" Basically this makes terminal Vim work sanely.
+set notimeout
+set ttimeout
+set ttimeoutlen=10
+
+" Make Vim able to edit crontab files again.
+set backupskip=/tmp/*,/private/tmp/*" 
+
+" Better Completion
+set completeopt=longest,menuone,preview
+
+" Save when losing focus
+au FocusLost * :silent! wall
+
+" Resize splits when the window is resized
+au VimResized * :wincmd =
 
 " Wildmenu completion {{{
 
@@ -59,25 +74,29 @@ set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg   " binary images
 set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest " compiled object files
 set wildignore+=*.pyc                            " Python byte code
 
+set wildignore+=*.orig                           " Merge resolution files
+
 " When doing tab completion, give the following files lower priority. You may
 " wish to set 'wildignore' to completely ignore files, and 'wildmenu' to enable
 " enhanced tab completion. These can be done in the user vimrc file.
 set suffixes+=.info,.aux,.log,.dvi,.bbl,.out,.o,.lo
 
 " }}}
+" Line Return {{{
 
-" Make Vim able to edit crontab files again.
-set backupskip=/tmp/*,/private/tmp/*" 
+" Make sure Vim returns to the same line when you reopen a file.
+" Thanks, Amit
+augroup line_return
+    au!
+    au BufReadPost *
+        \ if line("'\"") > 0 && line("'\"") <= line("$") |
+        \     execute 'normal! g`"zvzz' |
+        \ endif
+augroup END
 
-" Save when losing focus
-"au FocusLost * :wa
-
-" Resize splits when the window is resized
-au VimResized * exe "normal! \<c-w>="
-
+" }}}
 " Tabs, spaces, wrapping {{{
 
-" a tab is 4 spaces
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
@@ -97,7 +116,7 @@ set formatoptions=q         " Allow formatting of comments with "gq".
 set formatoptions+=r        " Automatically insert the current comment leader
 set formatoptions+=n        " recognize numbered lists
 set formatoptions+=1        " Don't break a line after a one-letter word
-"set formatoptions+=a        " Automatic formatting of paragraphs
+"set formatoptions+=a       " Automatic formatting of paragraphs
 set formatoptions+=t        " Auto-wrap text using textwidth
 set formatoptions+=c        " Auto-wrap comments using textwidth
 
@@ -110,7 +129,7 @@ set undodir=~/.vim/tmp/undo//     " undo files
 set backupdir=~/.vim/tmp/backup// " backups
 set directory=~/.vim/tmp/swap//   " swap files
 set backup                        " enable backups
-set noswapfile                    " It's 2011, Vim.
+set noswapfile                    " It's 2012, Vim.
 
 " }}}
 " Leader {{{
@@ -124,6 +143,15 @@ let maplocalleader = "\\"
 syntax on
 set background=dark
 colorscheme molokai
+
+"let g:badwolf_html_link_underline = 0
+"colorscheme badwolf
+
+" Reload the colorscheme whenever we write the file.
+"augroup color_badwolf_dev
+"    au!
+"    au BufWritePost badwolf.vim color badwolf
+"augroup END
 
 " Highlight VCS conflict markers
 match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
@@ -173,6 +201,120 @@ iab qq quelque
 iab qqs quelques
 
 " }}}
+" Convenience mappings ---------------------------------------------------- {{{
+
+" Toggle line numbers
+nnoremap <leader>n :setlocal number!<cr>
+
+" Unfuck my screen
+nnoremap <leader>u :syntax sync fromstart<cr>:redraw!<cr>
+
+" System clipboard interaction.  Mostly from:
+" https://github.com/henrik/dotfiles/blob/master/vim/config/mappings.vim
+noremap <leader>y "*y
+noremap <leader>p :set paste<CR>"*p<CR>:set nopaste<CR>
+noremap <leader>P :set paste<CR>"*P<CR>:set nopaste<CR>
+vnoremap <leader>y "*ygv
+
+" Clean trailing whitespace
+nnoremap <leader>w mz:%s/\s\+$//<cr>:let @/=''<cr>`z
+
+" Change case
+inoremap <C-u> <esc>mzgUiw`za
+
+" Panic Button
+nnoremap <f9> mzggg?G`z
+
+" Substitute
+nnoremap <leader>s :%s//<left>
+
+" Emacs bindings in command line mode
+cnoremap <c-a> <home>
+cnoremap <c-e> <end>
+
+" Diffoff
+nnoremap <leader>D :diffoff!<cr>
+
+" Formatting, TextMate-style
+nnoremap Q gqip
+vnoremap Q gq
+
+" Easier linewise reselection
+nnoremap <leader>V V`]
+
+" Keep the cursor in place while joining limes
+nnoremap J mzJ`z
+
+" Split line (sister to [J]oin lines)
+" The normal use of S is covered by cc, so don't worry about shadowing it.
+nnoremap S i<cr><esc>^mwgk:silent! s/\v +$//<cr>:noh<cr>`w
+
+" HTML tag closing
+inoremap <C-_> <Space><BS><Esc>:call InsertCloseTag()<cr>a
+
+" Align text
+nnoremap <leader>Al :left<cr>
+nnoremap <leader>Ac :center<cr>
+nnoremap <leader>Ar :right<cr>
+vnoremap <leader>Al :left<cr>
+vnoremap <leader>Ac :center<cr>
+vnoremap <leader>Ar :right<cr>
+
+" Faster Esc
+inoremap jk <esc>
+
+" Sudo to write
+cnoremap w!! w !sudo tee % >/dev/null
+
+" Quickreturn
+inoremap <c-cr> <esc>A<cr>
+
+" Toggle paste
+set pastetoggle=<F6>
+
+" Toggle [i]nvisible characters
+nnoremap <leader>i :set list!<cr>
+
+" switch between the currently open buffer and the previous one
+nnoremap <c-Tab> <c-^>
+
+" make ; do the same thing as :
+nnoremap ; :
+
+" map CTRL+k S N (non-breaking space) to CTRL+space
+imap <Nul> <C-k>NS
+imap <C-Space> <C-k>NS
+
+" disable cursor keys in normal mode
+" map <Left> :echo "no!"<cr>
+" map <Right> :echo "no!"<cr>
+" map <Up> :echo "no!"<cr>
+" map <Down> :echo "no!"<cr>
+
+" Easy filetype switching {{{
+
+nnoremap _md :set ft=markdown<CR>
+nnoremap _hd :set ft=htmldjango<CR>
+nnoremap _jt :set ft=htmljinja<CR>
+nnoremap _js :set ft=javascript<CR>
+nnoremap _cw :set ft=confluencewiki<CR>
+nnoremap _pd :set ft=python.django<CR>
+nnoremap _d  :set ft=diff<CR>
+
+" }}}
+" Insert Mode Completion {{{
+
+inoremap <c-f> <c-x><c-f>
+inoremap <c-]> <c-x><c-]>
+
+" }}}
+" Quick editing {{{
+
+nnoremap <leader>ev :vsplit ~/.vimrc<cr>
+
+" }}}
+
+" }}}
 " Searching and movement -------------------------------------------------- {{{
 
 " Use sane regexes.
@@ -192,11 +334,42 @@ set sidescrolloff=10
 
 set virtualedit+=block  " allow cursor where there is no actual character.
 
-noremap <leader><space> :noh<cr>:call clearmatches()<cr>
+noremap <silent> <leader><space> :noh<cr>:call clearmatches()<cr>
+
+" Keep search matches in the middle of the window.
+nnoremap n nzzzv:call PulseCursorLine()<cr>
+nnoremap N Nzzzv:call PulseCursorLine()<cr>
+
+" Heresy
+inoremap <c-a> <esc>I
+inoremap <c-e> <esc>A
+
+" gi already moves to "last place you exited insert mode", so we'll map gI to
+" something similar: move to last change
+nnoremap gI `.
+
+" Open a Quickfix window for the last search.
+nnoremap <silent> <leader>? :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
 
 " Ack for the last search.
-nnoremap <silent> <leader>? :execute "Ack! '" . substitute(substitute(substitute(@/, "\\\\<", "\\\\b", ""), "\\\\>", "\\\\b", ""), "\\\\v", "", "") . "'"<CR>
+nnoremap <silent> <leader>/ :execute "Ack! '" . substitute(substitute(substitute(@/, "\\\\<", "\\\\b", ""), "\\\\>", "\\\\b", ""), "\\\\v", "", "") . "'"<CR>
 
+" Directional Keys {{{
+
+" It's 2012.
+noremap j gj
+noremap k gk
+noremap gj j
+noremap gk k
+
+" easier navigation
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+nnoremap <c-h> <c-w>h
+nnoremap <c-l> <c-w>l
+noremap <leader>v <C-w>v
+
+" }}}
 " Error navigation {{{
 "
 "             Location List     QuickFix Window
@@ -215,56 +388,6 @@ nnoremap <m-Up> :cprevious<cr>zvzz
 " }}}
 
 " }}}
-" Mapping ----------------------------------------------------------------- {{{
-
-" Toggle paste
-set pastetoggle=<F8>
-
-" Keep search matches in the middle of the window and pulse the line when moving
-" to them.
-nnoremap n nzzzv:call PulseCursorLine()<cr>
-nnoremap N Nzzzv:call PulseCursorLine()<cr>
-
-" switch between the currently open buffer and the previous one
-nnoremap <c-Tab> <c-^>
-
-" don't use Ex mode, use Q for formatting
-"map Q gq
-" Formatting, TextMate-style
-nnoremap Q gqip
-
-" make ; do the same thing as :
-nnoremap ; :
-
-" easier navigation between split windows
-nnoremap <c-j> <c-w>j
-nnoremap <c-k> <c-w>k
-nnoremap <c-h> <c-w>h
-nnoremap <c-l> <c-w>l
-noremap <leader>v <C-w>v
-
-" Heresy
-inoremap <c-a> <esc>I
-inoremap <c-e> <esc>A
-
-" map CTRL+k S N (non-breaking space) to CTRL+space
-imap <Nul> <C-k>NS
-imap <C-Space> <C-k>NS
-
-" disable cursor keys in normal mode
-" map <Left> :echo "no!"<cr>
-" map <Right> :echo "no!"<cr>
-" map <Up> :echo "no!"<cr>
-" map <Down> :echo "no!"<cr>
-
-" Directional Keys {{{
-
-" move by screen line
-noremap j gj
-noremap k gk
-
-" }}}
-" }}}
 " Folding ----------------------------------------------------------------- {{{
 
 set foldlevelstart=0
@@ -273,12 +396,12 @@ set foldlevelstart=0
 nnoremap <Space> za
 vnoremap <Space> za
 
+" "Refocus" folds
+nnoremap ,z zMzvzz
+
 " Make zO recursively open whatever top level fold we're in, no matter where the
 " cursor happens to be.
 nnoremap zO zCzO
-
-" Use ,z to "focus" the current fold.
-nnoremap <leader>z zMzvzz
 
 function! MyFoldText() " {{{
     let line = getline(v:foldstart)
@@ -305,7 +428,7 @@ set foldtext=MyFoldText()
 " endif
 
 " }}}
-" Various filetype-specific stuff ----------------------------------------- {{{
+" Filetype-specific ------------------------------------------------------- {{{
 
 augroup filetypedetect
    autocmd BufRead,BufNewFile *.txt setfiletype text
@@ -361,7 +484,6 @@ augroup ft_cram
     au Syntax cram setlocal foldlevel=1
 augroup END
 
-
 " }}}
 " CSS and LessCSS {{{
 
@@ -377,6 +499,24 @@ augroup ft_css
     au FileType less,css setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
 
     " Use <leader>S to sort properties.  Turns this:
+    "
+    "     p {
+    "         width: 200px;
+    "         height: 100px;
+    "         background: red;
+    "
+    "         ...
+    "     }
+    "
+    " into this:
+
+    "     p {
+    "         background: red;
+    "         height: 100px;
+    "         width: 200px;
+    "
+    "         ...
+    "     }
     au BufNewFile,BufRead *.less,*.css nnoremap <buffer> <localleader>S ?{<CR>jV/\v^\s*\}?$<CR>k:sort<CR>:noh<CR>
 
     " Make {<cr> insert a pair of brackets in such a way that the cursor is correctly
@@ -409,6 +549,8 @@ augroup END
 " }}}
 " HTML and HTMLDjango {{{
 
+let g:html_indent_tags = ['p', 'li']
+
 augroup ft_html
     au!
 
@@ -418,6 +560,9 @@ augroup ft_html
 
     " Use <localleader>f to fold the current tag.
     au FileType html,jinja,htmldjango nnoremap <buffer> <localleader>f Vatzf
+
+    " Use <localleader>t to fold the current templatetag.
+    au FileType html,jinja,htmldjango nmap <buffer> <localleader>t viikojozf
 
     " Use Shift-Return to turn this:
     "     <tag>|</tag>
@@ -466,6 +611,10 @@ augroup ft_javascript
     au FileType javascript setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
     au FileType javascript setlocal foldmethod=marker
     au FileType javascript setlocal foldmarker={,}
+
+    " Make {<cr> insert a pair of brackets in such a way that the cursor is correctly
+    " positioned inside of them AND the following code doesn't get unfolded.
+    au Filetype javascript inoremap <buffer> {<cr> {}<left><cr><space><space><space><space>.<cr><esc>kA<bs>
 augroup END
 
 " }}}
@@ -492,6 +641,15 @@ augroup ft_lisp
 augroup END
 
 " }}}
+" Mail {{{
+
+augroup ft_mail
+    au!
+
+    au Filetype mail setlocal spell
+augroup END
+
+" }}}
 " Makefile {{{
 
 augroup ft_make
@@ -507,13 +665,21 @@ augroup END
 augroup ft_markdown
     au!
 
-    au BufRead,BufNewFile *.{md,markdown,mdown,mkd,mkdn,txt} setlocal filetype=markdown
-    "au BufRead,BufNewFile *.{md,markdown,mdown,mkd,mkdn,txt} setf markdown | call s:setupWrapping()
+    au BufNewFile,BufRead *.m*down setlocal filetype=markdown
 
     " Use <localleader>1/2/3 to add headings.
     au Filetype markdown nnoremap <buffer> <localleader>1 yypVr=
     au Filetype markdown nnoremap <buffer> <localleader>2 yypVr-
     au Filetype markdown nnoremap <buffer> <localleader>3 I### <ESC>
+augroup END
+
+" }}}
+" Mercurial {{{
+
+augroup ft_mercurial
+    au!
+
+    au BufNewFile,BufRead *hg-editor-*.txt setlocal filetype=hgcommit
 augroup END
 
 " }}}
@@ -537,6 +703,7 @@ augroup ft_org
     au!
 
     au Filetype org nmap <buffer> Q vahjgq
+    au Filetype org setlocal nolist
 augroup END
 
 " }}}
@@ -573,12 +740,17 @@ augroup ft_python
 
     " au FileType python setlocal omnifunc=pythoncomplete#Complete
     au FileType python setlocal define=^\s*\\(def\\\\|class\\)
-    " au FileType python compiler nose
+    au FileType python compiler nose
     au FileType man nnoremap <buffer> <cr> :q<cr>
     
     " Jesus tapdancing Christ, built-in Python syntax, you couldn't let me
     " override this in a normal way, could you?
     au FileType python if exists("python_space_error_highlight") | unlet python_space_error_highlight | endif
+
+    " Jesus, Python.  Five characters of punctuation for a damn string?
+    au FileType python inoremap <buffer> <c-g> _(u'')<left><left>
+
+    au FileType python inoremap <buffer> <c-b> """"""<left><left><left>
 augroup END
 
 " }}}
@@ -586,7 +758,7 @@ augroup END
 
 augroup ft_quickfix
     au!
-    au Filetype qf setlocal colorcolumn=0 nolist nocursorline nowrap
+    au Filetype qf setlocal colorcolumn=0 nolist nocursorline nowrap tw=0
 augroup END
 
 " }}}
@@ -644,19 +816,13 @@ augroup ft_vim
 
     au FileType vim setlocal foldmethod=marker
     au FileType help setlocal textwidth=78
-    " au BufWinEnter *.txt if &ft == 'help' | wincmd L | endif
+    au BufWinEnter *.txt if &ft == 'help' | wincmd L | endif
 
     " Reload vimrc to apply changes
     autocmd! BufWritePost .vimrc source %
 augroup END
 
 " }}}
-
-" }}}
-" Quick editing ----------------------------------------------------------- {{{
-
-nnoremap <leader>ev <C-w>s<C-w>j<C-w>L:e ~/.vimrc<cr>
-nnoremap <leader>em <C-w>s<C-w>j<C-w>L:e ~/.mutt/muttrc<cr>
 
 " }}}
 " Shell ------------------------------------------------------------------- {{{
@@ -679,77 +845,11 @@ command! -complete=shellcmd -nargs=+ Shell call s:ExecuteInShell(<q-args>)
 nnoremap <leader>! :Shell 
 
 " }}}
-" Convenience mappings ---------------------------------------------------- {{{
-
-" Clean trailing whitespace
-nnoremap <leader>w :%s/\s\+$//<cr>:let @/=''<cr>
-
-" Change case
-nnoremap <C-u> gUiw
-inoremap <C-u> <esc>gUiwea
-
-" Substitute
-nnoremap <leader>s :%s//<left>
-
-" Emacs bindings in command line mode
-cnoremap <c-a> <home>
-cnoremap <c-e> <end>
-
-" Easier linewise reselection
-nnoremap <leader>V V`]
-
-" Split line (sister to [J]oin lines)
-" The normal use of S is covered by cc, so don't worry about shadowing it.
-nnoremap S i<cr><esc><right>
-
-" HTML tag closing
-inoremap <C-_> <Space><BS><Esc>:call InsertCloseTag()<cr>a
-
-" Align text
-nnoremap <leader>Al :left<cr>
-nnoremap <leader>Ac :center<cr>
-nnoremap <leader>Ar :right<cr>
-vnoremap <leader>Al :left<cr>
-vnoremap <leader>Ac :center<cr>
-vnoremap <leader>Ar :right<cr>
-
-" Faster Esc
-inoremap jk <esc>
-
-" Sudo to write
-cmap w!! w !sudo tee % >/dev/null
-
-" Quickreturn
-inoremap <c-cr> <esc>A<cr>
-
-" Indent Guides {{{
-
-let g:indentguides_state = 0
-function! IndentGuides() " {{{
-    if g:indentguides_state
-        let g:indentguides_state = 0
-        2match None
-    else
-        let g:indentguides_state = 1
-        execute '2match IndentGuides /\%(\_^\s*\)\@<=\%(\%'.(0*&sw+1).'v\|\%'.(1*&sw+1).'v\|\%'.(2*&sw+1).'v\|\%'.(3*&sw+1).'v\|\%'.(4*&sw+1).'v\|\%'.(5*&sw+1).'v\|\%'.(6*&sw+1).'v\|\%'.(7*&sw+1).'v\)\s/'
-    endif
-endfunction " }}}
-nnoremap <leader>i :call IndentGuides()<cr>
-
-" }}}
-" Insert Mode Completion {{{
-
-inoremap <c-l> <c-x><c-l>
-inoremap <c-f> <c-x><c-f>
-
-" }}}
-
-" }}}
 " Plugin settings --------------------------------------------------------- {{{
 
 " Ack {{{
 
-map <leader>a :Ack! 
+nnoremap <leader>a :Ack!<space>
 
 " }}}
 " Autoclose {{{
@@ -761,15 +861,27 @@ nmap <Leader>x <Plug>ToggleAutoCloseMappings
 
 nmap <leader>c <Plug>CommentaryLine
 xmap <leader>c <Plug>Commentary
+
+augroup plugin_commentary
+    au!
 au FileType htmldjango setlocal commentstring={#\ %s\ #}
+    au FileType clojurescript setlocal commentstring=;\ %s
+    au FileType puppet setlocal commentstring=#\ %s
+    au FileType fish setlocal commentstring=#\ %s
+augroup END
 
 " }}}
 " Ctrl-P {{{
 
-let g:ctrlp_map = '<leader>,'           " mapping to invoke CtrlP
-let g:ctrlp_working_path_mode = 1       " working directory
+let g:ctrlp_dont_split = 'NERD_tree_2'
+let g:ctrlp_jump_to_buffer = 0
+let g:ctrlp_map = '<leader>,'
+let g:ctrlp_working_path_mode = 0
 let g:ctrlp_match_window_reversed = 1
 let g:ctrlp_split_window = 0
+let g:ctrlp_max_height = 20
+let g:ctrlp_extensions = ['tag']
+
 let g:ctrlp_prompt_mappings = {
 \ 'PrtSelectMove("j")':   ['<c-j>', '<down>', '<s-tab>'],
 \ 'PrtSelectMove("k")':   ['<c-k>', '<up>', '<tab>'],
@@ -778,21 +890,41 @@ let g:ctrlp_prompt_mappings = {
 \ 'ToggleFocus()':        ['<c-tab>'],
 \ }
 
+let ctrlp_filter_greps = "".
+    \ "egrep -iv '\\.(" .
+    \ "jar|class|swp|swo|log|so|o|pyc|jpe?g|png|gif|mo|po" .
+    \ ")$' | " .
+    \ "egrep -v '^(\\./)?(" .
+    \ "deploy/|lib/|classes/|libs/|deploy/vendor/|.git/|.hg/|.svn/|.*migrations/" .
+    \ ")'"
+
+let my_ctrlp_user_command = "" .
+    \ "find %s '(' -type f -or -type l ')' -maxdepth 15 -not -path '*/\\.*/*' | " .
+    \ ctrlp_filter_greps
+
+let my_ctrlp_git_command = "" .
+    \ "cd %s && git ls-files | " .
+    \ ctrlp_filter_greps
+
+let g:ctrlp_user_command = ['.git/', my_ctrlp_git_command, my_ctrlp_user_command]
+
+nnoremap <leader>. :CtrlPTag<cr>
+
 " }}}
 " Easymotion {{{
 
 let g:EasyMotion_do_mapping = 0
 
-nnoremap <silent> <Leader>f      :call EasyMotionF(0, 0)<CR>
-onoremap <silent> <Leader>f      :call EasyMotionF(0, 0)<CR>
-vnoremap <silent> <Leader>f :<C-U>call EasyMotionF(1, 0)<CR>
+nnoremap <silent> <Leader>f      :call EasyMotion#F(0, 0)<CR>
+onoremap <silent> <Leader>f      :call EasyMotion#F(0, 0)<CR>
+vnoremap <silent> <Leader>f :<C-U>call EasyMotion#F(1, 0)<CR>
 
-nnoremap <silent> <Leader>F      :call EasyMotionF(0, 1)<CR>
-onoremap <silent> <Leader>F      :call EasyMotionF(0, 1)<CR>
-vnoremap <silent> <Leader>F :<C-U>call EasyMotionF(1, 1)<CR>
+nnoremap <silent> <Leader>F      :call EasyMotion#F(0, 1)<CR>
+onoremap <silent> <Leader>F      :call EasyMotion#F(0, 1)<CR>
+vnoremap <silent> <Leader>F :<C-U>call EasyMotion#F(1, 1)<CR>
 
-onoremap <silent> <Leader>t      :call EasyMotionT(0, 0)<CR>
-onoremap <silent> <Leader>T      :call EasyMotionT(0, 1)<CR>
+onoremap <silent> <Leader>t      :call EasyMotion#T(0, 0)<CR>
+onoremap <silent> <Leader>T      :call EasyMotion#T(0, 1)<CR>
 
 " }}}
 " Fugitive {{{
@@ -814,12 +946,19 @@ augroup ft_fugitive
     au BufNewFile,BufRead .git/index setlocal nolist
 augroup END
 
+" "Hub"
+nnoremap <leader>H :Gbrowse<cr>
+vnoremap <leader>H :Gbrowse<cr>
+
 " }}}
 " Gundo {{{
 
 nnoremap <F5> :GundoToggle<CR>
+
 let g:gundo_debug = 1
 let g:gundo_preview_bottom = 1
+let g:gundo_tree_statusline = "Gundo"
+let g:gundo_preview_statusline = "Gundo Preview"
 
 " }}}
 " HTML5 {{{
@@ -828,6 +967,17 @@ let g:event_handler_attributes_complete = 0
 let g:rdfa_attributes_complete = 0
 let g:microdata_attributes_complete = 0
 let g:atia_attributes_complete = 0
+
+" }}}
+" Linediff {{{
+
+vnoremap <leader>l :Linediff<cr>
+nnoremap <leader>L :LinediffReset<cr>
+
+" }}}
+" Lisp (built-in) {{{
+
+let g:lisp_rainbow = 1
 
 " }}}
 " Makegreen {{{
@@ -840,10 +990,17 @@ nnoremap \| :call MakeGreen('')<cr>
 noremap  <F2> :NERDTreeToggle<cr>
 inoremap <F2> <esc>:NERDTreeToggle<cr>
 
+augroup ps_nerdtree
+    au!
+
 au Filetype nerdtree setlocal nolist
+    au Filetype nerdtree nnoremap <buffer> K :q<cr>
+augroup END
 
 let NERDTreeHighlightCursorline=1
-let NERDTreeIgnore=['.vim$', '\~$', '.*\.pyc$', 'pip-log\.txt$', 'whoosh_index', 'xapian_index', '.*.pid', 'monitor.py', '.*-fixtures-.*.json', '.*\.o$', 'db.db']
+let NERDTreeIgnore = ['.vim$', '\~$', '.*\.pyc$', 'pip-log\.txt$', 'whoosh_index',
+                    \ 'xapian_index', '.*.pid', 'monitor.py', '.*-fixtures-.*.json',
+                    \ '.*\.o$', 'db.db', 'tags.bak']
 
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
@@ -858,17 +1015,29 @@ let g:org_todo_keywords = ['TODO', '|', 'DONE']
 let g:org_debug = 1
 
 " }}}
+" Powerline {{{
+
+let g:Powerline_symbols = 'fancy'
+let g:Powerline_cache_enabled = 1
+" let g:Powerline_colorscheme = 'badwolf'
+
+" }}}
 " Python-Mode {{{
 
 let g:pymode_doc = 1
 let g:pymode_doc_key = '<localleader>ds'
 let g:pydoc = 'pydoc'
-let g:pymode_syntax = 0
+let g:pymode_syntax = 1
+let g:pymode_syntax_all = 0
+let g:pymode_syntax_builtin_objs = 1
+let g:pymode_syntax_print_as_function = 0
+let g:pymode_syntax_space_errors = 0
 let g:pymode_run = 0
 let g:pymode_lint = 0
 let g:pymode_breakpoint = 0
 let g:pymode_utils_whitespaces = 0
-let g:pymode_virtualenv = 1
+let g:pymode_virtualenv = 0
+let g:pymode_folding = 0
 
 let g:pymode_options_indent = 0
 let g:pymode_options_fold = 0
@@ -896,7 +1065,7 @@ let g:pymode_rope_always_show_complete_menu = 0
 
 command! ScratchToggle call ScratchToggle()
 
-function! ScratchToggle() " {{{
+function! ScratchToggle()
   if exists("w:is_scratch_window")
     unlet w:is_scratch_window
     exec "q"
@@ -904,7 +1073,7 @@ function! ScratchToggle() " {{{
     exec "normal! :Sscratch\<cr>\<C-W>J:resize 13\<cr>"
     let w:is_scratch_window = 1
   endif
-endfunction " }}}
+endfunction
 
 nnoremap <silent> <leader><tab> :ScratchToggle<cr>
 
@@ -923,8 +1092,9 @@ let g:SuperTabLongestHighlight = 1
 " Syntastic {{{
 
 let g:syntastic_enable_signs = 1
-let g:syntastic_disabled_filetypes = ['html']
-let g:syntastic_stl_format = '[%E{Error 1/%e: line %fe}%B{, }%W{Warning 1/%w: line %fw}]'
+let g:syntastic_check_on_open = 1
+let g:syntastic_disabled_filetypes = ['html', 'rst']
+let g:syntastic_stl_format = '[%E{%e Errors}%B{, }%W{%w Warnings}]'
 let g:syntastic_jsl_conf = '$HOME/.vim/jsl.conf'
 
 " }}}
@@ -936,57 +1106,26 @@ function! YRRunAfterMaps()
     omap <expr> H YRMapsExpression("", "^")
 endfunction
 
-" Yankring
-nnoremap <silent> <F6> :YRShow<cr>
+" }}}
+
+" }}}
+" Text objects ------------------------------------------------------------ {{{
+
+" Shortcut for [] {{{
+
+onoremap ir i[
+onoremap ar a[
+vnoremap ir i[
+vnoremap ar a[
 
 " }}}
 
 " }}}
-" Environments (GUI/Console) ---------------------------------------------- {{{
+" Mini-plugins ------------------------------------------------------------ {{{
+" Stuff that should probably be broken out into plugins, but hasn't proved to be
+" worth the time to do so just yet.
 
-if has('gui_running')
-    if has("win32")
-        set guifont=Courier:h10:cANSI
-    else
-        if $HOSTNAME == "goudes"
-            set guifont=Inconsolata\ 11
-        elseif $HOSTNAME == "fireball"
-            set guifont=Inconsolata\ 10
-        endif
-    endif
-
-    set go-=T   " No toolbar
-    set go-=l   " No scrollbars
-    set go-=L
-    set go-=r
-    set go-=R
-    " set guioptions+=a    " clipboard to autoselect
-    " set guioptions+=c    " Use console dialogs instead of popup
-
-    set mousefocus                " Le focus suit la souris
-    set mousemodel=popup_setpos   " Le bouton droit affiche une popup
-
-    highlight SpellBad term=underline gui=undercurl guisp=Orange
-
-    " Use a line-drawing char for pretty vertical splits.
-    set fillchars+=vert:│
-
-    " Different cursors for different modes.
-    set guicursor=n-c:block-Cursor-blinkon0
-    set guicursor+=v:block-vCursor-blinkon0
-    set guicursor+=i-ci:ver20-iCursor
-else
-    " Console Vim
-    "set term=xterm
-    set t_Co=256
-    colorscheme molokai
-    "set t_Co=8
-    "set termencoding=utf-8
-    "set ttymouse=xterm
-endif
-
-" }}}
-" Pulse ------------------------------------------------------------------- {{{
+" Pulse {{{
 
 function! PulseCursorLine()
     let current_window = winnr()
@@ -1037,7 +1176,7 @@ function! PulseCursorLine()
 endfunction
 
 " }}}
-" Spelling ---------------------------------------------------------------- {{{
+" Spelling {{{
 
 " Dictionnaire français
 " Liste des propositions par CTRL-X_CTRL-K
@@ -1056,6 +1195,96 @@ endif
 "let spell_executable = "aspell"
 "let spell_auto_type = ''
 "let spell_insert_mode = 0
+
+" }}}
+" Indent Guides {{{
+
+let g:indentguides_state = 0
+function! IndentGuides() " {{{
+    if g:indentguides_state
+        let g:indentguides_state = 0
+        2match None
+    else
+        let g:indentguides_state = 1
+        execute '2match IndentGuides /\%(\_^\s*\)\@<=\%(\%'.(0*&sw+1).'v\|\%'.(1*&sw+1).'v\|\%'.(2*&sw+1).'v\|\%'.(3*&sw+1).'v\|\%'.(4*&sw+1).'v\|\%'.(5*&sw+1).'v\|\%'.(6*&sw+1).'v\|\%'.(7*&sw+1).'v\)\s/'
+    endif
+endfunction " }}}
+hi def IndentGuides guibg=#303030
+nnoremap <leader>I :call IndentGuides()<cr>
+
+" }}}
+" Block Colors {{{
+
+let g:blockcolor_state = 0
+function! BlockColor() " {{{
+    if g:blockcolor_state
+        let g:blockcolor_state = 0
+        call matchdelete(77881)
+        call matchdelete(77882)
+        call matchdelete(77883)
+        call matchdelete(77884)
+        call matchdelete(77885)
+    else
+        let g:blockcolor_state = 1
+        call matchadd("BlockColor1", '^ \{4}.*', 1, 77881)
+        call matchadd("BlockColor2", '^ \{8}.*', 2, 77882)
+        call matchadd("BlockColor3", '^ \{12}.*', 3, 77883)
+        call matchadd("BlockColor4", '^ \{16}.*', 4, 77884)
+        call matchadd("BlockColor5", '^ \{20}.*', 5, 77885)
+    endif
+endfunction " }}}
+" Default highlights {{{
+hi def BlockColor1 guibg=#222222
+hi def BlockColor2 guibg=#2a2a2a
+hi def BlockColor3 guibg=#353535
+hi def BlockColor4 guibg=#3d3d3d
+hi def BlockColor5 guibg=#444444
+" }}}
+nnoremap <leader>B :call BlockColor()<cr>
+
+" }}}
+
+" }}}
+" Environments (GUI/Console) ---------------------------------------------- {{{
+
+if has('gui_running')
+    if has("win32")
+        set guifont=Courier:h10:cANSI
+    else
+        if $HOSTNAME == "goudes"
+            set guifont=Inconsolata\ 11
+        elseif $HOSTNAME == "fireball"
+            set guifont=Inconsolata\ 10
+        endif
+    endif
+
+	" Remove all the UI cruft
+    set go-=T   " No toolbar
+    set go-=l   " No scrollbars
+    set go-=L
+    set go-=r
+    set go-=R
+    " set guioptions+=a    " clipboard to autoselect
+    " set guioptions+=c    " Use console dialogs instead of popup
+
+    set mousefocus                " Le focus suit la souris
+    set mousemodel=popup_setpos   " Le bouton droit affiche une popup
+
+    highlight SpellBad term=underline gui=undercurl guisp=Orange
+
+    " Different cursors for different modes.
+    set guicursor=n-c:block-Cursor-blinkon0
+    set guicursor+=v:block-vCursor-blinkon0
+    set guicursor+=i-ci:ver20-iCursor
+else
+    " Console Vim
+    "set term=xterm
+    set t_Co=256
+    colorscheme molokai
+    "set t_Co=8
+    "set termencoding=utf-8
+    "set ttymouse=xterm
+endif
 
 " }}}
 " Local config ------------------------------------------------------------ {{{
