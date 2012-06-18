@@ -30,10 +30,23 @@ zstyle ':omz:module:terminal' auto-title 'yes'
 # zstyle ':omz:load' zfunction 'zargs' 'zmv'
 
 # Set the Oh My Zsh modules to load (browse modules).
-zstyle ':omz:load' omodule 'environment' 'terminal' 'editor' 'completion' \
-  'history' 'directory' 'spectrum' 'alias' 'utility' 'prompt' 'python' \
-  'archive' 'git' 'ssh-agent' 'yum' 'history-substring-search' \
-  'syntax-highlighting'
+zstyle ':omz:load' omodule \
+    'environment' \
+    'terminal' \
+    'editor' \
+    'history' \
+    'directory' \
+    'spectrum' \
+    'utility' \
+    'completion' \
+    'python' \
+    'archive' \
+    'git' \
+    'ssh-agent' \
+    'yum' \
+    'syntax-highlighting' \
+    'history-substring-search' \
+    'prompt'
 
 # Set the prompt theme to load.
 # Setting it to 'random' loads a random theme.
@@ -110,8 +123,8 @@ export PYTHONSTARTUP="$HOME/.pythonrc"
 export WORKON_HOME=$HOME/lib/virtualenvs
 export PROJECT_HOME=$HOME/Dev
 
-# sourced by omz
-# source /usr/bin/virtualenvwrapper.sh
+# sourced by omz but does not work as done before the setting of WORKON_HOME
+source /usr/bin/virtualenvwrapper.sh
 # }}}
 
 source ~/lib/dotfiles/zsh/aliases.zsh
