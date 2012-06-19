@@ -76,12 +76,11 @@ alias ping="ping -c 3"
 #[[ -x `which mutt` ]] && alias mutt="mutt -y"
 
 # git
-alias gst='git status'
+alias gst='git status -sb'
 alias gc='git commit -v'
 alias gca='git commit -v -a'
 alias gcm='git checkout master'
 alias gba='git branch -a'
-alias gcount='git shortlog -sn'
 alias glg='git log --stat --max-count=5'
 alias glgg='git log --graph --max-count=5'
 alias gpull='git pull'
