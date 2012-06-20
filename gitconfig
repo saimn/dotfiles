@@ -10,35 +10,39 @@
 [alias]
    addrm = add -u
    br = branch
-   ci = commit
+   ci = commit -v
    co = checkout
-   # cp = cherry-pick
-   # fp = format-patch
-   st = status
+   tags = tag -l
+   st = status -sb
    unstage = reset HEAD --
    ignored = ls-files --others
+
    # log
+   authorcount = shortlog -sn
+   authors = "!git log --format='%aN <%aE>' | sort -u"
    logv = log -p
-   last = log --oneline -1 HEAD
    oneline = log --oneline --decorate --graph --all
-   hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+   hist = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)[%an]%Creset' --abbrev-commit
+
+
    # summary of what you're going to pull/push
    incoming = "git fetch && git log ..origin/master"
    outgoing = log --oneline origin/master..HEAD
+
    # changes since we last did a push
    wo = whatchanged -p origin/master..HEAD
+
    # diff
    di = diff
    dic = diff --cached
    staged = diff --cached
    unstaged = diff
    wdiff = diff --color-words
-   w  = whatchanged -p
+   w = whatchanged -p
    changes = diff --name-status -r
-   #both = diff HEAD
+
    # info
    info = remote -v
-   authors = "!git log --format='%aN <%aE>' | sort -u"
 [diff]
    renames = true
 [color]
