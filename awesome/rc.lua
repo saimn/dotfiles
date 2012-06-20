@@ -461,7 +461,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Shift" }, "s", function () scratch.drop(terminal, "center", "center", 0.6, 0.6) end),
     awful.key({ modkey, "Shift" }, "Return", function () exec(terminal) end),
     -- awful.key({ modkey }, "g", function () sexec("GTK2_RC_FILES=~/.gtkrc-gajim gajim") end),
-    awful.key({ modkey }, "Print", function () exec("scrot -e 'mv $f ~/Images/screenshots/ 2>/dev/null'") end),
+    awful.key({ modkey }, "Print", function () exec("scrot -e 'mv $f ~/Images/ 2>/dev/null'") end),
     -- }}}
 
     -- {{{ Multimedia keys
