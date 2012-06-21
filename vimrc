@@ -9,7 +9,7 @@ set nocompatible                " choose no compatibility with legacy vi
 " Basic options ----------------------------------------------------------- {{{
 
 set encoding=utf-8
-set modelines=0                 " disable modelines
+set modelines=1                 " enable modelines
 set autoindent                  " always set autoindenting on
 set smartindent                 " clever autoindenting
 set showmode
