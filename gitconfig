@@ -24,25 +24,31 @@
    oneline = log --oneline --decorate --graph --all
    hist = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)[%an]%Creset' --abbrev-commit
 
-
    # summary of what you're going to pull/push
-   incoming = "git fetch && git log ..origin/master"
+   incoming = "!git fetch && git log ..origin/master --stat"
    outgoing = log --oneline origin/master..HEAD
+
+   # see what new commits have been created by the last command (typically after a "git pull")
+   new = !sh -c 'git log $1@{1}..$1@{0} "$@"'
 
    # changes since we last did a push
    wo = whatchanged -p origin/master..HEAD
 
    # diff
    di = diff
-   dic = diff --cached
    staged = diff --cached
-   unstaged = diff
+   diffstat = diff --stat -r
    wdiff = diff --color-words
    w = whatchanged -p
-   changes = diff --name-status -r
 
    # info
    info = remote -v
+
+   # fires up a git daemon for the repo you are currently in
+   serve = !git daemon --reuseaddr --verbose  --base-path=. --export-all ./.git
+
+   # Prune all your stale remote branches
+   prune-all = !git remote | xargs -n 1 git remote prune
 [diff]
    renames = true
 [color]
