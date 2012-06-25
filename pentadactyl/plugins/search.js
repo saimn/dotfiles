@@ -28,13 +28,13 @@
  * @version 0.2
  */
 
-commands.add(["search"],
+group.commands.add(["search"],
   "Search the current site using your default search engine.",
   function(args) {
     search.search(args.string);
   }
 );
-mappings.add([modes.NORMAL], ["<c-a-s>"],
+group.mappings.add([modes.NORMAL], ["<c-a-s>"],
   "Cycle through frames",
   function () {
     search.bootstrap();

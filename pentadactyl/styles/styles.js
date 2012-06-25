@@ -39,10 +39,10 @@ var loaduserstyles = function()
     for ([i, [name, filter, file]] in Iterator(userstyles))
     {
       // Remove all sheets with this filter
-      styles.removeSheet(false, name)
+      styles.user.remove(name)
 
       // Add the sheet
-      styles.addSheet(false, name, filter,
+      styles.user.add(name, filter,
         File(styledir+"/"+file).read())
     }
 }
@@ -51,7 +51,7 @@ var loaduserstyles = function()
 loaduserstyles()
 
 // Add it as a command
-commands.add(
+group.commands.add(
     ["loaduserstyles"],
     "Load all user styles",
     loaduserstyles

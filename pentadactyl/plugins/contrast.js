@@ -136,7 +136,7 @@ function Contrast() {
 
 var contrast = Contrast();
 
-commands.add(["contrast"],
+group.commands.add(["contrast"],
   "Adjust the contrast of the current page.",
   function(args) {
     body = window.content.document.body;
