@@ -12,7 +12,7 @@ Xft.dpi:        96
 Xft.antialias:  true
 Xft.rgba:       rgb
 Xft.hinting:    true
-Xft.hintstyle:  hintslight
+Xft.hintstyle:  hintsmedium
 
 ! hintstyle: medium means that (for Postscript fonts) we
 ! position the stems for maximum constrast and consistency
@@ -23,7 +23,7 @@ Xft.hintstyle:  hintslight
 
 ! emacs settings {{{
 
-Emacs*.font:                    Inconsolata-10
+! Emacs*.font:                    Inconsolata-10
 ! Emacs*.font:                    DejaVu Sans Mono-12
 Emacs*.fontBackend:             xft
 ! Emacs*.menuBar:                 off

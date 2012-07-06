@@ -23,8 +23,8 @@ function stopcomp () {
 
 function startcomp () {
   stopcomp
-# Example settings only. Replace with your own.
-  xcompmgr -CcfF -I-.015 -O-.03 -D6 -t-1 -l-3 -r4.2 -o.5 &
+  # Example settings only. Replace with your own.
+  xcompmgr -CcfF -I-.01 -O-.01 -D2 -t-10 -l-10 -r8.2 -o.5 &
   exit
 }
 
