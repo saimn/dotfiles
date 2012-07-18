@@ -82,7 +82,7 @@ c.TerminalIPythonApp.exec_lines = [
 # configuration (through profiles), history storage, etc. The default is usually
 # $HOME/.ipython. This options can also be specified through the environment
 # variable IPYTHON_DIR.
-# c.TerminalIPythonApp.ipython_dir = u'/home/sconseil/.config/ipython'
+# c.TerminalIPythonApp.ipython_dir = u'/home/simon/.config/ipython'
 
 # Whether to display a banner upon starting IPython.
 # c.TerminalIPythonApp.display_banner = True
