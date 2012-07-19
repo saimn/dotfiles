@@ -97,7 +97,7 @@ set previouspattern=\bprev|previous|Previous|précédent|Précédent\b,^<$,^(<<|
 
 " Keys {{{
 
-set mapleader=","
+map , <Leader>
 
 map <leader>n -silent :bnext<CR>
 map <leader>p -silent :bprev<CR>
