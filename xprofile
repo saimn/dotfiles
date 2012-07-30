@@ -15,12 +15,12 @@ xset -b
 #autocutsel -selection CLIPBOARD -fork &
 #autocutsel -selection PRIMARY -fork &
 
-#xset +fp /usr/share/fonts/local
-#xset +fp /usr/share/fonts/TTF
-#xset fp rehash
+xset +fp /usr/share/fonts/local
+xset +fp /usr/share/fonts/TTF
+xset fp rehash
 
 # set the cursor
-xsetroot -cursor_name left_ptr
+# xsetroot -cursor_name left_ptr
 
 # background
 # xsetroot -solid "#303030"
@@ -41,8 +41,8 @@ xsetroot -cursor_name left_ptr
 test -r $HOME/.Xmodmap && xmodmap $HOME/.Xmodmap
 
 # Load .Xdefaults
-test -r $HOME/.Xresources && xrdb -load $HOME/.Xresources
-test -r $HOME/.Xdefaults && xrdb -load $HOME/.Xdefaults
+test -r $HOME/.Xresources && xrdb -merge $HOME/.Xresources
+test -r $HOME/.Xdefaults && xrdb -merge $HOME/.Xdefaults
 
 #[[ $(hostname) == "goudes" ]] &&
 # source $HOME/dotfiles/config/autostart.sh

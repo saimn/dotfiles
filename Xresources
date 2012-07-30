@@ -1,13 +1,14 @@
 ! Cursor theme {{{
 
-! Xcursor.theme: Vanilla-DMZ
-! Xcursor.theme: simpleandsoft
+Xcursor.theme: Vanilla-DMZ-AA
 ! Xcursor.size:   22
 
 !}}}
 
 ! Xft settings {{{
 
+Xft.autohint:   0
+Xft.lcdfilter:  lcddefault
 Xft.dpi:        96
 Xft.antialias:  true
 Xft.rgba:       rgb

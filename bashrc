@@ -77,7 +77,7 @@ shopt -s autocd
 EDITOR=vim
 VISUAL="gvim -f"
 #ALTERNATE_EDITOR=emacs
-PAGER=most
+PAGER=less
 PATH=$PATH:$HOME/bin
 BROWSER='firefox -new-tab'
 
