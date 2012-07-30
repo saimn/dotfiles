@@ -44,6 +44,7 @@ alias -s html="firefox -new-tab"
 
 # misc commands
 alias dif='colordiff -u'
+alias chromium='chromium --disk-cache-dir=/tmp/chromium-cache'
 alias ff='firefox -new-tab'
 alias firedef='firefox -no-remote -P default'
 alias firedev='firefox -no-remote -P Webdev'
