@@ -7,7 +7,7 @@ git clone git@github.com:saimn/dotfiles.git ~/lib/dotfiles
 for i in "ackrc" "bashrc" "cliverc" "ctags" "dzen" "gitconfig" \
     "gmrunrc" "hgrc" "lessfilter" "mailcap" "pentadactyl" "pentadactylrc" \
     "pythonrc" "screenrc" "tmux.conf" "vim" "vimrc" "xbindkeysrc" \
-    "Xdefaults" "Xmodmap" "xprofile" "xsession"
+    "Xresources" "Xmodmap" "xprofile"
 do
     rm $HOME/.$i
     ln -s $HOME/lib/dotfiles/$i $HOME/.$i
@@ -23,14 +23,15 @@ mkdir -p $HOME/lib/dotfiles/vim/tmp/{backup,swap,undo}
 #}}}
 
 #{{{ ZSH
-git clone git@github.com:saimn/oh-my-zsh.git ~/lib/oh-my-zsh
-rm ~/.zshenv ~/.zshrc
-ln -s ~/lib/oh-my-zsh/zshrc ~/.zshrc
-ln -s ~/lib/oh-my-zsh/zshenv ~/.zshenv
+#git clone git@github.com:saimn/oh-my-zsh.git ~/lib/oh-my-zsh
+#rm ~/.zshenv ~/.zshrc
+#ln -s ~/lib/oh-my-zsh/zshrc ~/.zshrc
+#ln -s ~/lib/oh-my-zsh/zshenv ~/.zshenv
 #}}}
 
 # {{{ Emacs
 git clone git@github.com:saimn/dotemacs.git ~/lib/dotemacs/
+rm ~/.emacs.d
 ln -s ~/lib/dotemacs ~/.emacs.d
 mkdir -p $HOME/lib/dotfiles/emacs.d/backup-files/
 # }}}
