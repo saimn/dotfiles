@@ -18,10 +18,7 @@
 - node_modules/
 - lib/virtualenvs/
 
-+ .claws-mail/
 + .config/
-+ .emacs.d/
-+ .filezilla/
 + .fonts/
 + .gajim/
 + .gconf/
@@ -34,26 +31,14 @@
 + .mozilla*/
 + .ssh/
 + .subversion/
-+ .texmf/
 + .themes/
 + .thunderbird/
-+ .vim/
-+ .vimperator/
-+ .xmonad/
-+ .zsh*/
 
 + .bash*
 + .conkyrc
-+ .emacs
-+ .hgrc
-+ .hgignore
 + .hidden
 + .profile
-+ .vimrc
-+ .vimperatorrc
 + .xawtv
-+ .Xdefaults
-+ .zshrc
 
 - /simon/.*
 - /sconseil/.*
