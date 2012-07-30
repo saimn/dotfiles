@@ -29,7 +29,7 @@ colors {{{
 
 html, body, #holder, .pun {
   min-width: 800px !important;
-  font: 13px/1.5 "Droid Sans", sans-serif !important;
+  font: 14px/1.5 "Droid Sans", sans-serif !important;
   background-color: #141414 !important;
   color: #aaa !important;
 }
@@ -329,7 +329,7 @@ div#quick_switch {
 .home_title_text a, .home_title_right a { border-bottom: 0 !important; }
 
 .home_link_list { display: inline !important; margin: 0 !important; }
-.home_link_list a { font-size: 11px; padding: 2px 3px !important; }
+.home_link_list a { font-size: 12px; padding: 2px 3px !important; }
 
 .home_title_left {
   margin: 8px 8px 0 5px !important;
