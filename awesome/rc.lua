@@ -493,8 +493,13 @@ globalkeys = awful.util.table.join(
     --         awful.completion.shell, awful.util.getdir("cache") .. "/history")
     -- end),
     awful.key({ modkey }, "F2", function ()
-         exec("dmenu_run -fn '-*-terminus-*-r-normal-*-*-160-*-*-*-*-iso8859-*' -nb '#3F3F3F' -nf '#DCDCCC' -sb '#1E2320' -sf '#CC9393'")
-    end),
+                 awful.util.spawn("dmenu_run -i -p 'Run command:'" ..
+                                  " -nb '" .. beautiful.bg_normal ..
+                                  "' -nf '" .. beautiful.fg_normal ..
+                                  "' -sb '" .. beautiful.bg_focus ..
+                                  "' -sf '" .. beautiful.fg_focus .. "'")
+                               end),
+
     -- awful.key({ modkey }, "F3", function ()
     --     awful.prompt.run({ prompt = "Dictionary: " }, promptbox[mouse.screen].widget,
     --         function (words)
