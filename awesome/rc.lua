@@ -191,7 +191,7 @@ vicious.cache(vicious.widgets.fs)
 -- Register widgets
 vicious.register(fs.r, vicious.widgets.fs, "${/ used_p}",     599)
 vicious.register(fs.h, vicious.widgets.fs, "${/home used_p}", 599)
-vicious.register(fs.d, vicious.widgets.fs, "${/data used_p}", 599)
+-- vicious.register(fs.d, vicious.widgets.fs, "${/data used_p}", 599)
 -- }}}
 
 -- {{{ Network usage
@@ -281,26 +281,26 @@ volbar:set_gradient_colors({ beautiful.fg_widget,
 -- vicious.cache(vicious.widgets.volume)
 
 -- -- Register widgets
--- if host == "fireball" then volchan = "Master -c 0" else volchan = "Master" end
--- vicious.register(volbar,    vicious.widgets.volume,  "$1",  2, volchan)
--- vicious.register(volwidget, vicious.widgets.volume, " $1%", 2, volchan)
--- -- Register buttons
--- volbar.widget:buttons(awful.util.table.join(
---    awful.button({ }, 1, function () exec(terminal.." -e alsamixer") end),
---    awful.button({ }, 4, function () exec("amixer -q set "..volchan.." 2dB+", false) end),
---    awful.button({ }, 5, function () exec("amixer -q set "..volchan.." 2dB-", false) end)
--- ))
-
--- Register widgets
-volchan = "alsa_output.pci-0000_00_1b.0.analog-stereo"
-vicious.register(volbar,    vicious.contrib.pulse, " $1",  2, volchan)
--- vicious.register(volwidget, vicious.contrib.pulse, " $1%", 2, volchan)
+if host == "fireball" then volchan = "Master -c 0" else volchan = "Master" end
+vicious.register(volbar,    vicious.widgets.volume,  "$1",  2, volchan)
+vicious.register(volwidget, vicious.widgets.volume, " $1%", 2, volchan)
 -- Register buttons
 volbar.widget:buttons(awful.util.table.join(
-   awful.button({ }, 1, function () awful.util.spawn("pavucontrol") end),
-   awful.button({ }, 4, function () vicious.contrib.pulse.add(5, volchan) end),
-   awful.button({ }, 5, function () vicious.contrib.pulse.add(-5, volchan) end)
-  ))
+   awful.button({ }, 1, function () exec(terminal.." -e alsamixer") end),
+   awful.button({ }, 4, function () exec("amixer -q set "..volchan.." 2dB+", false) end),
+   awful.button({ }, 5, function () exec("amixer -q set "..volchan.." 2dB-", false) end)
+))
+
+-- Register widgets
+-- volchan = "alsa_output.pci-0000_00_1b.0.analog-stereo"
+-- vicious.register(volbar,    vicious.contrib.pulse, " $1",  2, volchan)
+-- -- vicious.register(volwidget, vicious.contrib.pulse, " $1%", 2, volchan)
+-- -- Register buttons
+-- volbar.widget:buttons(awful.util.table.join(
+--    awful.button({ }, 1, function () awful.util.spawn("pavucontrol") end),
+--    awful.button({ }, 4, function () vicious.contrib.pulse.add(5, volchan) end),
+--    awful.button({ }, 5, function () vicious.contrib.pulse.add(-5, volchan) end)
+--   ))
 
 -- Register assigned buttons
 volwidget:buttons(volbar.widget:buttons())
@@ -420,7 +420,7 @@ for s = 1, screen.count() do
         separator, orgwidget,  orgicon,
         separator, mailwidget, mailicon,
         separator, upicon, netwidget, dnicon,
-        separator, fs.r.widget, fs.h.widget, fs.d.widget, fsicon,
+        separator, fs.r.widget, fs.h.widget, fsicon, -- , fs.d.widget
         separator, membar.widget, memicon,
         separator, batwidget, baticon,
         separator, loadwidget, tzswidget, cpugraph.widget, cpuicon,
@@ -465,6 +465,12 @@ globalkeys = awful.util.table.join(
     -- }}}
 
     -- {{{ Multimedia keys
+    awful.key({}, "XF86AudioLowerVolume", function ()
+                 exec("amixer -q set "..volchan.." 2dB-") end),
+    awful.key({}, "XF86AudioRaiseVolume", function ()
+                 exec("amixer -q set "..volchan.." 2dB+") end),
+    awful.key({}, "XF86AudioMute", function ()
+                 exec("amixer -q set "..volchan.." toggle") end),
     -- awful.key({}, "#121", function () exec("pvol.py -m") end),
     -- awful.key({}, "#122", function () exec("pvol.py -p -c -2") end),
     -- awful.key({}, "#123", function () exec("pvol.py -p -c 2")  end),
@@ -761,10 +767,10 @@ end
 -- gpk-update-icon &
 -- emacs --daemon &
 
-if host == "goudes" then
+if host == "thunderball" then
    -- run_once("/usr/lib/gnome-settings-daemon/gnome-settings-daemon")
-   run_once("nm-applet --sm-disable", "", "nm-applet")
-   -- run_once("wicd-client","-t","/usr/bin/python2 -O /usr/share/wicd/gtk/wicd-client.py")
+   -- run_once("nm-applet --sm-disable", "", "nm-applet")
+   -- run_once("wicd-client","-t","/usr/bin/python2 -O /usr/share/wicd/gtk/wicd-client.py -t")
    run_once("urxvtd", "-q -f -o", "urxvtd -q -f -o")
    -- run_once("gpaste")
 elseif host == "fireball" then
