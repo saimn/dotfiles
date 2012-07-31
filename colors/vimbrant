@@ -1,19 +1,20 @@
+! -*- mode: conf-xdefaults; mode: rainbow -*-
 ! ----------------------------------------------------------------------
 ! file:     Xdefaults color scheme
 ! author:   Thayer Williams - http://cinderwick.ca
-! vim:enc=utf-8:nu:ai:si:et:ts=4:sts=4:sw=4:ft=xdefaults:
+! vim:ft=xdefaults:
 ! ----------------------------------------------------------------------
 
 ! Append the following to ~/.Xdefaults to import this color scheme:
-!   
+!
 !       #include "/home/user/.Xdefaults.c.vimbrant"
 !
 
 urxvt*cursorColor:      #fd971f
 
 ! terminal colours
-*foreground:#a0a0a0
-*background:#1b1d1e
+*foreground: #a0a0a0
+*background: #1b1d1e
 
 !black
 *color0:    #1b1d1e
@@ -34,15 +35,16 @@ urxvt*cursorColor:      #fd971f
 *color5:    #8c54fe
 *color13:   #9e6ffe
 !cyan
-*color6:    #465457
-*color14:   #899ca1
+! *color6:    #465457
 *color6:    #56676b
 *color14:   #899ca1
 !white
 *color7:    #ccccc6
 *color15:   #f8f8f2
+
 *color7:    #bfbfba
 *color15:   #ebebe5
+
 *color7:    #aaaaaa
 *color15:   #ffffff
 
@@ -56,4 +58,3 @@ alsamixer*color15:  #ffffff
 alsamixer*color11:  #777777
 alsamixer*color4:   #1b1d1e
 alsamixer*scrollBar:  false
-

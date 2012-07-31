@@ -12,6 +12,7 @@ urxvt*cursorColor:      #fd971f
 ! Defaults
 *background: #262729
 *foreground: #f8f8f2
+
 ! Black
 *color0: #262729
 *color8: #554444
