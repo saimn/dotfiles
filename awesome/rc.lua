@@ -19,9 +19,9 @@ require("beautiful")
 require("naughty")
 -- User libraries
 require("functions")
+require("revelation")
 require("vicious")
 require("vicious.contrib")
-require("revelation")
 local scratch = require("scratch")
 -- }}}
 
@@ -51,10 +51,10 @@ layouts = {
    awful.layout.suit.tile,
    awful.layout.suit.tile.bottom,
    awful.layout.suit.fair,
-   awful.layout.suit.spiral,
    awful.layout.suit.max,
-   awful.layout.suit.max.fullscreen,
    awful.layout.suit.magnifier
+   -- awful.layout.suit.max.fullscreen,
+   -- awful.layout.suit.spiral,
 }
 -- }}}
 
@@ -62,7 +62,7 @@ layouts = {
 -- {{{ Tags
 tags = {
   names  = { " mail ", " web ", " term ", " code ", " misc ", 6, 7, 8, " media " },
-  layout = { layouts[1], layouts[1], layouts[1], layouts[1], layouts[1],
+  layout = { layouts[1], layouts[5], layouts[4], layouts[2], layouts[1],
              layouts[1], layouts[1], layouts[1], layouts[1]
 }}
 
@@ -202,10 +202,12 @@ dnicon.image = image(beautiful.widget_net)
 upicon.image = image(beautiful.widget_netup)
 -- Initialize widget
 netwidget = widget({ type = "textbox" })
-if host == "goudes" then netv = "wlan0" else netv = "eth0" end
+interface = oscapture("netcfg current")
+if interface == "ethernet" then netv = "eth0" else netv = "wlan0" end
 -- Register widget
 vicious.register(netwidget, vicious.widgets.net, '<span color="'
-  .. beautiful.fg_netdn_widget ..'">${'.. netv ..' down_kb}</span> <span color="'
+  .. beautiful.fg_netdn_widget ..'">${'.. netv ..' down_kb}</span> <span>'
+  .. interface .. '</span> <span color="'
   .. beautiful.fg_netup_widget ..'">${'.. netv ..' up_kb}</span>', 3)
 -- }}}
 
@@ -277,11 +279,9 @@ volbar:set_height(16):set_width(8):set_ticks_size(2)
 volbar:set_background_color(beautiful.fg_off_widget)
 volbar:set_gradient_colors({ beautiful.fg_widget,
    beautiful.fg_center_widget, beautiful.fg_end_widget
-})
--- Enable caching
--- vicious.cache(vicious.widgets.volume)
-
--- -- Register widgets
+}) -- Enable caching
+vicious.cache(vicious.widgets.volume)
+-- Register widgets
 if host == "fireball" then volchan = "Master -c 0" else volchan = "Master" end
 vicious.register(volbar,    vicious.widgets.volume,  "$1",  2, volchan)
 vicious.register(volwidget, vicious.widgets.volume, " $1%", 2, volchan)
@@ -349,8 +349,9 @@ taglist.buttons = awful.util.table.join(
     awful.button({ },        3, awful.tag.viewtoggle),
     awful.button({ modkey }, 3, awful.client.toggletag),
     awful.button({ },        4, awful.tag.viewnext),
-    awful.button({ },        5, awful.tag.viewprev)
-)
+    awful.button({ },        5, awful.tag.viewprev
+))
+
 tasklist = {}
 tasklist.buttons = awful.util.table.join(
    awful.button({ }, 1, function (c)
@@ -406,15 +407,11 @@ for s = 1, scount do
     })
     -- Add widgets to the wibox
     wibox[s].widgets = {
-        {
-           mylauncher,
-           taglist[s],
-           layoutbox[s],
-           separator,
-           promptbox[s],
+        {  mylauncher,
+           taglist[s], layoutbox[s], separator, promptbox[s],
            ["layout"] = awful.widget.layout.horizontal.leftright
         },
-        s == screen.count() and systray or nil,
+        s == scount and systray or nil,
         separator, datewidget, dateicon,
         separator, weatherwidget, weathericon,
         separator, volwidget, volbar.widget, volicon,
@@ -487,7 +484,6 @@ globalkeys = awful.util.table.join(
     -- }}}
 
     -- {{{ Prompt menus
-    awful.key({ modkey,}, "w", function () mymainmenu:show({keygrabber=true}) end),
     -- awful.key({ modkey }, "F2", function ()
     --     awful.prompt.run({ prompt = "Run: " }, promptbox[mouse.screen].widget,
     --         function (...) promptbox[mouse.screen].text = exec(unpack(arg), false) end,
@@ -511,7 +507,7 @@ globalkeys = awful.util.table.join(
         awful.prompt.run({ prompt = "Web: " }, promptbox[mouse.screen].widget,
             function (command)
                 sexec(browser.." 'http://duckduckgo.com/?q="..command.."'")
-                awful.tag.viewonly(tags[screen.count()][2])
+                awful.tag.viewonly(tags[scount][2])
             end)
     end),
     awful.key({ modkey }, "F5", function ()
@@ -521,11 +517,11 @@ globalkeys = awful.util.table.join(
     -- }}}
 
     -- {{{ Awesome controls
+    awful.key({ modkey }, "b", function ()
+		wibox[mouse.screen].visible = not wibox[mouse.screen].visible
+	end),
     awful.key({ modkey, "Control" }, "r", awesome.restart),
     awful.key({ modkey, "Control" }, "q", awesome.quit),
-    -- awful.key({ modkey, "Shift" }, "r", function ()
-    --     promptbox[mouse.screen].text = awful.util.escape(awful.util.restart())
-    -- end),
     -- }}}
 
     -- {{{ Tag browsing
@@ -535,19 +531,22 @@ globalkeys = awful.util.table.join(
     -- }}}
 
     -- {{{ Layout manipulation
-    awful.key({ modkey,           }, "l",     function () awful.tag.incmwfact( 0.02)    end),
-    awful.key({ modkey,           }, "h",     function () awful.tag.incmwfact(-0.02)    end),
+    awful.key({ modkey            }, "l",     function () awful.tag.incmwfact( 0.05)    end),
+    awful.key({ modkey            }, "h",     function () awful.tag.incmwfact(-0.05)    end),
     awful.key({ modkey, "Shift"   }, "h",     function () awful.tag.incnmaster( 1)      end),
     awful.key({ modkey, "Shift"   }, "l",     function () awful.tag.incnmaster(-1)      end),
     -- awful.key({ modkey, "Control" }, "h",     function () awful.tag.incncol( 1)         end),
     -- awful.key({ modkey, "Control" }, "l",     function () awful.tag.incncol(-1)         end),
-    awful.key({ modkey,           }, "space", function () awful.layout.inc(layouts,  1) end),
     awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(layouts, -1) end),
+    awful.key({ modkey            }, "space", function () awful.layout.inc(layouts,  1) end),
     awful.key({ modkey, "Control" }, "space", function () awful.layout.set(layouts[1]) end),
     -- }}}
 
     -- {{{ Focus controls
-    awful.key({ modkey }, "e",  revelation.revelation),
+    awful.key({ modkey }, "e", revelation.revelation),
+    awful.key({ modkey }, "p", function () awful.screen.focus_relative(1)  end),
+    awful.key({ modkey }, "s", function () scratch.pad.toggle() end),
+    awful.key({ modkey }, "u", awful.client.urgent.jumpto),
     awful.key({ modkey }, "j", function ()
         awful.client.focus.byidx(1)
         if client.focus then client.focus:raise() end
@@ -556,16 +555,7 @@ globalkeys = awful.util.table.join(
         awful.client.focus.byidx(-1)
         if client.focus then client.focus:raise() end
     end),
-    awful.key({ modkey, "Shift"   }, "j",     function () awful.client.swap.byidx(  1)    end),
-    awful.key({ modkey, "Shift"   }, "k",     function () awful.client.swap.byidx( -1)    end),
-    awful.key({ modkey, "Control" }, "j",     function () awful.screen.focus_relative( 1) end),
-    awful.key({ modkey, "Control" }, "k",     function () awful.screen.focus_relative(-1) end),
-
-    awful.key({ modkey            }, "p",     function () awful.screen.focus_relative(1)  end),
-    awful.key({ modkey            }, "s",     function () scratch.pad.toggle()            end),
-    awful.key({ modkey            }, "u",     awful.client.urgent.jumpto),
-
-    awful.key({ modkey,           }, "Tab", function ()
+    awful.key({ modkey }, "Tab", function ()
         -- awful.client.focus.history.previous()
         awful.client.cycle(true)
         awful.client.focus.byidx(-1)
@@ -579,28 +569,31 @@ globalkeys = awful.util.table.join(
     awful.key({ altkey }, "Escape", function ()
         awful.menu.menu_keys.down = { "Down", "Alt_L" }
         local cmenu = awful.menu.clients({width=230}, { keygrabber=true, coords={x=525, y=330} })
-    end)
+    end),
+    awful.key({ modkey, "Shift"   }, "j", function () awful.client.swap.byidx(  1) end),
+    awful.key({ modkey, "Shift"   }, "k", function () awful.client.swap.byidx( -1) end),
+    awful.key({ modkey, "Control" }, "j", function () awful.screen.focus_relative( 1) end),
+    awful.key({ modkey, "Control" }, "k", function () awful.screen.focus_relative(-1) end)
     -- }}}
 )
 -- }}}
 
 -- {{{ Client manipulation
 clientkeys = awful.util.table.join(
-    awful.key({ modkey }, "b", function () wibox[mouse.screen].visible = not wibox[mouse.screen].visible end),
     awful.key({ modkey }, "c", function (c) c:kill() end),
-    awful.key({ modkey }, "d", function (c) scratch.pad.set(c, 0.60, 0.60, true) end),
     awful.key({ modkey }, "f", function (c) c.fullscreen = not c.fullscreen end),
     awful.key({ modkey }, "m", function (c)
         c.maximized_horizontal = not c.maximized_horizontal
         c.maximized_vertical   = not c.maximized_vertical
-        -- if   c.titlebar then awful.titlebar.remove(c)
-        -- else awful.titlebar.add(c, { modkey = modkey }) end
     end),
     awful.key({ modkey }, "n", function (c) c.minimized = not c.minimized end),
     awful.key({ modkey }, "o", awful.client.movetoscreen),
     awful.key({ modkey }, "r", function (c) c:redraw() end),
     awful.key({ modkey }, "t", function (c) c.ontop = not c.ontop end),
     awful.key({ modkey }, "Return",  function (c) c:swap(awful.client.getmaster()) end),
+
+    awful.key({ modkey, "Control" }, "s", function (c) scratch.pad.set(c, 0.60, 0.60, true) end),
+
     -- move and resize floaters with the keyboard
     awful.key({ modkey, "Control" }, "Next",  function () awful.client.moveresize( 20,  20, -40, -40) end),
     awful.key({ modkey, "Control" }, "Prior", function () awful.client.moveresize(-20, -20,  40,  40) end),
@@ -670,18 +663,17 @@ awful.rules.rules = {
       border_color = beautiful.border_normal }
     },
     { rule = { class = "Firefox",  instance = "Navigator" },
-      properties = { tag = tags[screen.count()][2], floating = true },
-      callback = awful.titlebar.remove },
+      properties = { tag = tags[scount][2] } },
     { rule = { class = "URxvt",  instance = "htop" },
       properties = { floating = true }, callback = awful.titlebar.remove },
     { rule = { class = "URxvt",  instance = "Mutt" },
-      properties = { tag = tags[screen.count()][1] }, },
+      properties = { tag = tags[scount][1] }, },
     -- { rule = { class = "Emacs",    instance = "emacs" },
-    --   properties = { tag = tags[screen.count()][2] } },
+    --   properties = { tag = tags[scount][2] } },
     { rule = { class = "Emacs",    instance = "_Remember_" },
       properties = { floating = true }, callback = awful.titlebar.remove },
     { rule = { class = "Xmessage", instance = "xmessage" },
-      properties = { floating = true }, callback = awful.titlebar.remove },
+      properties = { floating = true }, callback = awful.titlebar.add },
     { rule = { class = "Thunderbird" }, properties = { tag = tags[1][1]} },
     { rule = { class = "Gajim.py" },    properties = { tag = tags[1][1]} },
     { rule = { class = "gimp" },        properties = { floating = true } },
