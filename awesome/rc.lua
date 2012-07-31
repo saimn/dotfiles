@@ -21,8 +21,8 @@ require("naughty")
 require("functions")
 require("vicious")
 require("vicious.contrib")
-require("scratch")
 require("revelation")
+local scratch = require("scratch")
 -- }}}
 
 -- {{{ Variable definitions
@@ -33,6 +33,7 @@ local home   = os.getenv("HOME")
 local host   = oscapture("hostname")
 local exec   = awful.util.spawn
 local sexec  = awful.util.spawn_with_shell
+local scount = screen.count()
 local terminal   = "urxvtc"
 local browser    = os.getenv("BROWSER") or "firefox"
 local mail_cmd   = terminal.." -T Mutt -name Mutt -e mutt"
@@ -42,7 +43,7 @@ local filemgr    = "pcmanfm"
 local htop_cmd   = terminal.." -name htop -geometry 80x7 -e htop"
 
 -- Beautiful theme
-beautiful.init(home .. "/.config/awesome/themes/vimbrant/theme.lua")
+beautiful.init(home .. "/.config/awesome/themes/zenburn/theme.lua")
 
 -- Window management layouts
 layouts = {
@@ -65,7 +66,7 @@ tags = {
              layouts[1], layouts[1], layouts[1], layouts[1]
 }}
 
-for s = 1, screen.count() do
+for s = 1, scount do
     tags[s] = awful.tag(tags.names, s, tags.layout)
     -- awful.tag.setproperty(tags[s][5], "mwfact", 0.13)
     -- awful.tag.setproperty(tags[s][6], "hide",   true)
@@ -376,7 +377,7 @@ tasklist.buttons = awful.util.table.join(
                            if client.focus then client.focus:raise() end
                         end))
 
-for s = 1, screen.count() do
+for s = 1, scount do
     -- Create a promptbox
     promptbox[s] = awful.widget.prompt({ layout = awful.widget.layout.horizontal.leftright })
     -- Create a layoutbox
@@ -388,7 +389,7 @@ for s = 1, screen.count() do
         awful.button({ }, 5, function () awful.layout.inc(layouts, -1) end)
     ))
 
-    -- Create a taglist widget
+    -- Create the taglist
     taglist[s] = awful.widget.taglist(s, awful.widget.taglist.label.all, taglist.buttons)
 
     -- Create a tasklist widget
@@ -625,14 +626,12 @@ clientkeys = awful.util.table.join(
 
 -- {{{ Keyboard digits
 local keynumber = 0
-for s = 1, screen.count() do
+for s = 1, scount do
    keynumber = math.min(9, math.max(#tags[s], keynumber));
 end
 -- }}}
 
 -- {{{ Tag controls
--- Be careful: we use keycodes to make it works on any keyboard layout.
--- This should map on the top row of your keyboard, usually 1 to 9.
 for i = 1, keynumber do
     globalkeys = awful.util.table.join( globalkeys,
         awful.key({ modkey }, "#" .. i + 9, function ()
@@ -664,17 +663,11 @@ root.keys(globalkeys)
 -- {{{ Rules
 awful.rules.rules = {
     -- All clients will match this rule.
-    { rule = { },
-      properties = {
-         focus = true,
-         size_hints_honor = false,
-         keys = clientkeys,
-         buttons = clientbuttons,
-         maximized_vertical   = false,
-         maximized_horizontal = false,
-         border_width = beautiful.border_width,
-         border_color = beautiful.border_normal },
-      callback = awful.titlebar.add
+    { rule = { }, properties = {
+      focus = true,      size_hints_honor = false,
+      keys = clientkeys, buttons = clientbuttons,
+      border_width = beautiful.border_width,
+      border_color = beautiful.border_normal }
     },
     { rule = { class = "Firefox",  instance = "Navigator" },
       properties = { tag = tags[screen.count()][2], floating = true },
@@ -712,13 +705,11 @@ client.add_signal("manage", function (c, startup)
     -- Add a titlebar
     -- awful.titlebar.add(c, { modkey = modkey })
     -- Add titlebar to floaters, but remove those from rule callback
-    -- if awful.client.floating.get(c)
-    -- or awful.layout.get(c.screen) == awful.layout.suit.floating then
-    --     if   c.titlebar then awful.titlebar.remove(c)
-    --     else awful.titlebar.add(c, {modkey = modkey}) end
-    -- else
-    --     awful.titlebar.add(c, { modkey = modkey })
-    -- end
+    if awful.client.floating.get(c)
+    or awful.layout.get(c.screen) == awful.layout.suit.floating then
+        if   c.titlebar then awful.titlebar.remove(c)
+        else awful.titlebar.add(c, {modkey = modkey}) end
+    end
 
     -- Enable sloppy focus
     c:add_signal("mouse::enter", function (c)
@@ -750,7 +741,7 @@ client.add_signal("unfocus", function (c) c.border_color = beautiful.border_norm
 -- }}}
 
 -- {{{ Arrange signal handler
-for s = 1, screen.count() do screen[s]:add_signal("arrange", function ()
+for s = 1, scount do screen[s]:add_signal("arrange", function ()
     local clients = awful.client.visible(s)
     local layout = awful.layout.getname(awful.layout.get(s))
 
