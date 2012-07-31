@@ -1,9 +1,10 @@
 use_xft yes
 xftfont 123:size=8
 xftalpha 0.1
+update_interval 1
 total_run_times 0
-own_window yes
-own_window_type normal
+own_window no
+own_window_type override
 own_window_transparent yes
 own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
 double_buffer yes
@@ -16,24 +17,28 @@ draw_graph_borders no
 default_color white
 default_shade_color red
 default_outline_color green
+alignment top_left
+gap_x 60
+gap_y 300
 no_buffers yes
-uppercase yes
+uppercase no
 cpu_avg_samples 2
 net_avg_samples 1
 override_utf8_locale yes
-use_spacer left 
+use_spacer yes
 
-# Frequence de mise a jour (secondes)
-update_interval 1
-
-# Position en bas a droite
-alignment bottom_right
-
-# Decalage par rapport aux bordures
-gap_x 30
-gap_y 20
 
 TEXT
-${color EAEAEA}${font GE Inspira:pixelsize=55}${alignr}${time %H:%M}${font GE Inspira:pixelsize=18}
-${voffset 10}${alignr}${color EAEAEA}${time %A} ${color D12122}${time %d} ${color EAEAEA}${time %B}
-${font Ubuntu:pixelsize=10}${alignr}${color D12122}HD  $color${fs_used /} / ${fs_size /}    ${color D12122}RAM  $color$mem / $memmax     ${color D12122}CPU  $color${cpu cpu0}% 
+${voffset 10}${color EAEAEA}${font Ubuntu:pixelsize=120}${time %H:%M}${font}${voffset -84}${offset 10}${color FFA300}${font Ubuntu:pixelsize=42}${time %d} ${voffset -15}${color EAEAEA}${font Ubuntu:pixelsize=22}${time  %B} ${time %Y}${font}${voffset 24}${font Ubuntu:pixelsize=58}${offset -148}${time %A}${font}
+${voffset 1}${offset 12}${font Ubuntu:pixelsize=12}${color FFA300}HD ${offset 9}$color${fs_free /} / ${fs_size /}${offset 30}${color FFA300}RAM ${offset 9}$color$mem / $memmax${offset 30}${color FFA300}CPU ${offset 9}$color${cpu cpu0}%
+
+
+
+
+
+
+
+
+
+
+
