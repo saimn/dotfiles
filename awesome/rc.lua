@@ -665,8 +665,7 @@ awful.rules.rules = {
       callback = awful.titlebar.add
     },
     { rule = { class = "Firefox",  instance = "Navigator" },
-      properties = { tag = tags[screen.count()][2], floating = true },
-      callback = awful.titlebar.remove },
+      properties = { tag = tags[screen.count()][2], floating = true }, },
     { rule = { class = "URxvt",  instance = "htop" },
       properties = { floating = true }, callback = awful.titlebar.remove },
     { rule = { class = "URxvt",  instance = "Mutt" },
