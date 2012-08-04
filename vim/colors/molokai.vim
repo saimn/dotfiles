@@ -4,7 +4,7 @@
 " Modified by: Steve Losh <steve@stevelosh.com>
 "
 " Note: Based on the monokai theme for textmate
-" by Wimer Hazenberg and its darker variant 
+" by Wimer Hazenberg and its darker variant
 " by Hamish Stuart Macpherson
 "
 
@@ -169,7 +169,7 @@ if &t_Co > 255
    hi EasyMotionTarget ctermfg=11
    hi EasyMotionShade  ctermfg=8
 
-   hi DiffAdd                     ctermbg=24
+   hi DiffAdd         ctermfg=181 ctermbg=24
    hi DiffChange      ctermfg=181 ctermbg=239
    hi DiffDelete      ctermfg=162 ctermbg=53
    hi DiffText                    ctermbg=102 cterm=bold
