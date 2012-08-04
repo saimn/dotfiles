@@ -84,11 +84,13 @@ myawesomemenu = {
    { "edit config", editor_cmd.." "..awful.util.getdir("config").."/rc.lua" }
 }
 
+local consolkit = [[dbus-send --print-reply --system --dest="org.freedesktop.ConsoleKit" \
+/org/freedesktop/ConsoleKit/Manager org.freedesktop.ConsoleKit.Manager.]]
+
 mysystemmenu = {
-   { "shutdown", awful.util.getdir("config") .. "/scripts/shutdown.sh" },
-   { "reboot", awful.util.getdir("config") .. "/scripts/reboot.sh" },
-   { "suspend", awful.util.getdir("config") .. "/scripts/suspend.sh" },
-   { "hibernate", awful.util.getdir("config") .. "/scripts/hibernate.sh" }
+   { "Suspend", "sudo /usr/sbin/pm-suspend" },
+   { "Restart", consolkit.."Restart" },
+   { "Shutdown", consolkit.."Stop" }
 }
 
 mymainmenu = awful.menu({ items = {
