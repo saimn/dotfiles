@@ -22,6 +22,7 @@ require("functions")
 require("revelation")
 require("vicious")
 require("vicious.contrib")
+
 local scratch = require("scratch")
 -- }}}
 
@@ -464,12 +465,15 @@ globalkeys = awful.util.table.join(
     -- }}}
 
     -- {{{ Multimedia keys
-    awful.key({}, "XF86AudioLowerVolume", function ()
-                 exec("amixer -q set "..volchan.." 2dB-") end),
-    awful.key({}, "XF86AudioRaiseVolume", function ()
-                 exec("amixer -q set "..volchan.." 2dB+") end),
-    awful.key({}, "XF86AudioMute", function ()
-                 exec("amixer -q set "..volchan.." toggle") end),
+    awful.key({}, "XF86AudioLowerVolume", function () exec("amixer -q set "..volchan.." 2dB-") end),
+    awful.key({}, "XF86AudioRaiseVolume", function () exec("amixer -q set "..volchan.." 2dB+") end),
+    awful.key({}, "XF86AudioMute",        function () exec("amixer -q set "..volchan.." toggle") end),
+    awful.key({}, "XF86AudioNext",        function() sexec("cmus-remote --next") end ),
+    awful.key({}, "XF86AudioPrev",        function() sexec("cmus-remote --prev") end ),
+    awful.key({}, "XF86AudioPlay",        function() sexec("cmus-remote --pause") end ),
+    awful.key({}, "XF86ScreenSaver",      function() sexec("xlock -mode blank") end ), --fn - f2
+    awful.key({}, "XF86Sleep",            function() sexec("sudo pm-suspend") end ), --fn - f4
+
     -- awful.key({}, "#121", function () exec("pvol.py -m") end),
     -- awful.key({}, "#122", function () exec("pvol.py -p -c -2") end),
     -- awful.key({}, "#123", function () exec("pvol.py -p -c 2")  end),
@@ -749,18 +753,15 @@ end
 
 -- {{{ Autostart apps
 
--- run_once(home .. "/dotfiles/config/autostart.sh")
--- gnome-settings-daemon &
--- nm-applet --sm-disable &
--- gnome-volume-control-applet &
--- gpk-update-icon &
--- emacs --daemon &
-
 if host == "thunderball" then
    -- run_once("/usr/lib/gnome-settings-daemon/gnome-settings-daemon")
    -- run_once("nm-applet --sm-disable", "", "nm-applet")
    -- run_once("wicd-client","-t","/usr/bin/python2 -O /usr/share/wicd/gtk/wicd-client.py -t")
    run_once("urxvtd", "-q -f -o", "urxvtd -q -f -o")
+   run_once("volumeicon")
+   run_once("xcompmgr")
+   run_once("conky -c ~/.conky/conkyrc_seamod")
+   run_once("syndaemon -t -k -i 2 -d")
    -- run_once("gpaste")
 elseif host == "fireball" then
    -- run_once("/usr/libexec/gnome-settings-daemon")
