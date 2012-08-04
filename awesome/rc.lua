@@ -32,6 +32,7 @@ local modkey = "Mod4"
 
 local home   = os.getenv("HOME")
 local host   = oscapture("hostname")
+local config = awful.util.getdir("config")
 local exec   = awful.util.spawn
 local sexec  = awful.util.spawn_with_shell
 local scount = screen.count()
@@ -42,6 +43,9 @@ local editor     = os.getenv("EDITOR") or "vim"
 local editor_cmd = terminal .. " -e " .. editor
 local filemgr    = "pcmanfm"
 local htop_cmd   = terminal.." -name htop -geometry 80x7 -e htop"
+
+-- Note to include a separate config file:
+-- dofile(config .. "/keybindings.lua")
 
 -- Beautiful theme
 beautiful.init(home .. "/.config/awesome/themes/zenburn/theme.lua")
@@ -81,7 +85,7 @@ end
 -- Create a laucher widget and a main menu
 myawesomemenu = {
    { "manual", terminal .. " -e man awesome" },
-   { "edit config", editor_cmd.." "..awful.util.getdir("config").."/rc.lua" }
+   { "edit config", editor_cmd .. " " .. config .. "/rc.lua" }
 }
 
 local consolkit = [[dbus-send --print-reply --system --dest="org.freedesktop.ConsoleKit" \
