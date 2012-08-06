@@ -24,7 +24,8 @@ function stopcomp () {
 function startcomp () {
   stopcomp
   # Example settings only. Replace with your own.
-  xcompmgr -CcfF -I-.01 -O-.01 -D2 -t-10 -l-10 -r8.2 -o.5 &
+  # xcompmgr -CcfF -I-.01 -O-.01 -D2 -t-10 -l-10 -r8.2 -o.5 &
+  xcompmgr -cF -r10 &
   exit
 }
 

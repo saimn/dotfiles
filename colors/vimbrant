@@ -5,16 +5,15 @@
 ! vim:ft=xdefaults:
 ! ----------------------------------------------------------------------
 
-! Append the following to ~/.Xdefaults to import this color scheme:
-!
-!       #include "/home/user/.Xdefaults.c.vimbrant"
-!
-
 urxvt*cursorColor:      #fd971f
 
 ! terminal colours
-*foreground: #a0a0a0
-*background: #1b1d1e
+!*foreground:#a0a0a0
+!*background:#1b1d1e
+
+! from thayer
+*background: #262729
+*foreground: #f8f8f2
 
 !black
 *color0:    #1b1d1e

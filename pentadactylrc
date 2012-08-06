@@ -31,6 +31,8 @@ set wildmode=list:longest,list:full
 " Unfocus textfields
 set strictfocus
 
+set hlfind
+
 " Vim editing in textareas
 "set noinsertmode
 
