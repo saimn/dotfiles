@@ -36,7 +36,7 @@ theme.border_marked = theme.fg_urgent
 -- }}}
 
 -- {{{ Titlebars
-theme.titlebar_bg_focus  = theme.bg_normal
+theme.titlebar_bg_focus  = theme.bg_focus
 theme.titlebar_bg_normal = theme.bg_normal
 -- theme.titlebar_[normal|focus]
 -- }}}

@@ -420,15 +420,15 @@ for s = 1, scount do
         },
         s == scount and systray or nil,
         separator, datewidget, dateicon,
-        separator, weatherwidget, weathericon,
+        -- separator, weatherwidget, weathericon,
         separator, volwidget, volbar.widget, volicon,
         separator, orgwidget,  orgicon,
         separator, mailwidget, mailicon,
         separator, upicon, netwidget, dnicon,
-        separator, fs.r.widget, fs.h.widget, fsicon, -- , fs.d.widget
+        -- separator, fs.r.widget, fs.h.widget, fsicon, -- , fs.d.widget
         separator, membar.widget, memicon,
         separator, batwidget, baticon,
-        separator, loadwidget, tzswidget, cpugraph.widget, cpuicon,
+        separator, loadwidget, tzswidget, cpugraph.widget,
         -- separator, mpdwidget, mpdicon,
         separator, tasklist[s],
         ["layout"] = awful.widget.layout.horizontal.rightleft
