@@ -206,7 +206,7 @@ dnicon.image = image(beautiful.widget_net)
 upicon.image = image(beautiful.widget_netup)
 -- Initialize widget
 netwidget = widget({ type = "textbox" })
-interface = oscapture("netcfg current")
+interface = oscapture("command -v netcfg && netcfg current")
 if interface == "ethernet" then netv = "eth0" else netv = "wlan0" end
 -- Register widget
 vicious.register(netwidget, vicious.widgets.net, '<span color="'
