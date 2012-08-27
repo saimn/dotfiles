@@ -4,6 +4,8 @@ application/x-msexcel;                    libreoffice %s
 application/vnd.ms-excel;                 libreoffice %s
 application/ms-word;                      antiword %s;          copiousoutput
 application/ms-word;                      libreoffice %s
+application/msword;                       antiword %s;          copiousoutput
+application/msword;                       libreoffice %s
 application/powerpoint;                   libreoffice %s
 application/mspowerpoint;                 libreoffice %s
 application/vnd.ms-powerpoint;            libreoffice %s
