@@ -23,10 +23,12 @@ mkdir -p $HOME/lib/dotfiles/vim/tmp/{backup,swap,undo}
 #}}}
 
 #{{{ ZSH
-#git clone git@github.com:saimn/oh-my-zsh.git ~/lib/oh-my-zsh
-#rm ~/.zshenv ~/.zshrc
-#ln -s ~/lib/oh-my-zsh/zshrc ~/.zshrc
-#ln -s ~/lib/oh-my-zsh/zshenv ~/.zshenv
+git clone https://github.com/sorin-ionescu/prezto.git ~/lib/prezto
+rm ~/{.zprezto,.zpreztorc,.zshenv,.zshrc}
+ln -s ~/lib/dotfiles/zshrc ~/.zshrc
+ln -s ~/lib/dotfiles/zshenv ~/.zshenv
+ln -s ~/lib/dotfiles/zpreztorc ~/.zpreztorc
+ln -s ~/lib/prezto ~/.zprezto
 #}}}
 
 # {{{ Emacs
@@ -57,6 +59,7 @@ ln -s ~/lib/mail/mutt .mutt
 
 mkdir -p $HOME/lib/python
 mkdir -p $HOME/lib/virtualenvs
+ln -s ~/lib/virtualenvs/  ~/.virtualenvs
 
 rm $HOME/.config/ipython/profile_default/ipython_config.py
 ln -s $HOME/lib/dotfiles/ipython/ipython_config.py \
