@@ -88,13 +88,10 @@ myawesomemenu = {
    { "edit config", editor_cmd .. " " .. config .. "/rc.lua" }
 }
 
-local consolkit = [[dbus-send --print-reply --system --dest="org.freedesktop.ConsoleKit" \
-/org/freedesktop/ConsoleKit/Manager org.freedesktop.ConsoleKit.Manager.]]
-
 mysystemmenu = {
-   { "Suspend", "sudo /usr/sbin/pm-suspend" },
-   { "Restart", consolkit.."Restart" },
-   { "Shutdown", consolkit.."Stop" }
+   { "Suspend", "sudo pm-suspend" },
+   { "Restart", "systemctl reboot" },
+   { "Shutdown", "systemctl poweroff" }
 }
 
 mymainmenu = awful.menu({ items = {

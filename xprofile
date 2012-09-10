@@ -44,6 +44,9 @@ test -r $HOME/.Xmodmap && xmodmap $HOME/.Xmodmap
 test -r $HOME/.Xresources && xrdb -merge $HOME/.Xresources
 test -r $HOME/.Xdefaults && xrdb -merge $HOME/.Xdefaults
 
+# see https://bbs.archlinux.org/viewtopic.php?id=99175
+export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
+
 #[[ $(hostname) == "goudes" ]] &&
 # source $HOME/dotfiles/config/autostart.sh
 
