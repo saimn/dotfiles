@@ -86,5 +86,6 @@ alias glg='git log --stat --max-count=5'
 alias glgg='git log --graph --max-count=5'
 alias gpull='git pull'
 alias gpush='git push'
+alias ggrep='git grep --color -n -P'
 
 # }}}
