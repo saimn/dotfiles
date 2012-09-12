@@ -37,10 +37,10 @@ zstyle ':prezto:load' pmodule \
     'spectrum' \
     'utility' \
     'completion' \
-    'python' \
     'archive' \
     'git' \
     'ssh-agent' \
+    'tmux' \
     'yum' \
     'syntax-highlighting' \
     'history-substring-search' \

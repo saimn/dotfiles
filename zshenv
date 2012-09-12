@@ -3,9 +3,6 @@
 #
 
 # {{{ Environment vars
-PATH="$HOME/bin:$HOME/lib/bin:/usr/local/bin:${PATH}"
-PATH="$HOME/bin/html2rst:$HOME/bin/html2text:${PATH}"
-export PATH
 
 #export LC_ALL="en_US.UTF-8"
 #export LANG="en_US.UTF-8"
@@ -36,8 +33,6 @@ export BROWSER="firefox"
 # {{{ Python
 export PYTHONPATH="$HOME/lib/python:$PYTHONPATH"
 export PYTHONSTARTUP="$HOME/.pythonrc"
-export WORKON_HOME=$HOME/lib/virtualenvs
-export PROJECT_HOME=$HOME/Dev
 # }}}
 
 #

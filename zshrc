@@ -1,9 +1,10 @@
 #
 # Executes commands at the start of an interactive session.
 #
-# Authors:
-#   Sorin Ionescu <sorin.ionescu@gmail.com>
-#
+
+PATH="$HOME/bin:$HOME/lib/bin:/usr/local/bin:${PATH}"
+PATH="$HOME/bin/html2rst:$HOME/bin/html2text:${PATH}"
+export PATH
 
 # Source Prezto.
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
@@ -12,8 +13,9 @@ fi
 
 # Customize to your needs...
 
-# sourced by omz but does not work as done before the setting of WORKON_HOME
-# source /usr/bin/virtualenvwrapper.sh
+export WORKON_HOME=$HOME/lib/virtualenvs
+export PROJECT_HOME=$HOME/Dev
+source /usr/bin/virtualenvwrapper.sh
 
 source ~/lib/dotfiles/zsh/aliases.zsh
 # source ~/lib/dotfiles/zsh/completion.zsh
