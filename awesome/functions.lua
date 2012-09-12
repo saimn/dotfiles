@@ -10,6 +10,11 @@ function oscapture(cmd, raw)
   return s
 end
 
+function maximize(c)
+   c.maximized_horizontal = true
+   c.maximized_vertical   = true
+end
+
 function run_once(prg, arg_string, pname, screen)
     if not prg then
         do return nil end

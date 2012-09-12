@@ -43,6 +43,7 @@ local editor     = os.getenv("EDITOR") or "vim"
 local editor_cmd = terminal .. " -e " .. editor
 local filemgr    = "pcmanfm"
 local htop_cmd   = terminal.." -name htop -geometry 80x7 -e htop"
+local lock_cmd   = "xscreensaver-command -lock"
 
 -- Note to include a separate config file:
 -- dofile(config .. "/keybindings.lua")
@@ -67,7 +68,7 @@ layouts = {
 -- {{{ Tags
 tags = {
   names  = { " mail ", " web ", " term ", " code ", " misc ", 6, 7, 8, " media " },
-  layout = { layouts[1], layouts[5], layouts[4], layouts[2], layouts[1],
+  layout = { layouts[1], layouts[1], layouts[1], layouts[1], layouts[1],
              layouts[1], layouts[1], layouts[1], layouts[1]
 }}
 
@@ -85,25 +86,21 @@ end
 -- Create a laucher widget and a main menu
 myawesomemenu = {
    { "manual", terminal .. " -e man awesome" },
-   { "edit config", editor_cmd .. " " .. config .. "/rc.lua" }
-}
-
-mysystemmenu = {
-   { "Suspend", "sudo pm-suspend" },
-   { "Restart", "systemctl reboot" },
-   { "Shutdown", "systemctl poweroff" }
+   { "edit config", editor_cmd .. " " .. config .. "/rc.lua" },
+   { "restart", awesome.restart }
 }
 
 mymainmenu = awful.menu({ items = {
                               { "awesome", myawesomemenu, beautiful.awesome_icon },
-                              { "system", mysystemmenu },
+                              { "Suspend", "sudo pm-suspend" },
+                              { "Restart", "systemctl reboot" },
+                              { "Shutdown", "systemctl poweroff" },
                               { "term", terminal },
                               { "htop", htop_cmd },
                               { "browser", browser },
                               { "mail", mail_cmd },
                               { "files", filemgr },
-                              { "lock", "lock" },
-                              { "restart", awesome.restart },
+                              { "lock", lock_cmd },
                               { "quit", awesome.quit }
                            }
                         })
@@ -206,7 +203,7 @@ dnicon.image = image(beautiful.widget_net)
 upicon.image = image(beautiful.widget_netup)
 -- Initialize widget
 netwidget = widget({ type = "textbox" })
-interface = oscapture("command -v netcfg && netcfg current")
+interface = oscapture("command -v netcfg > /dev/null && netcfg current")
 if interface == "ethernet" then netv = "eth0" else netv = "wlan0" end
 -- Register widget
 vicious.register(netwidget, vicious.widgets.net, '<span color="'
@@ -462,7 +459,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Shift" }, "r", function () exec("emacsclient --eval '(make-remember-frame)'") end),
     awful.key({ modkey, "Shift" }, "s", function () scratch.drop(terminal, "center", "center", 0.6, 0.6) end),
     awful.key({ modkey, "Shift" }, "Return", function () exec(terminal) end),
-    awful.key({ modkey, "Control" }, "l", function () exec("xscreensaver-command -lock") end),
+    awful.key({ modkey, "Control" }, "l", function () exec(lock_cmd) end),
     -- awful.key({ modkey }, "g", function () sexec("GTK2_RC_FILES=~/.gtkrc-gajim gajim") end),
     awful.key({ modkey }, "Print", function () exec("scrot -e 'mv $f ~/Images/ 2>/dev/null'") end),
     -- }}}
@@ -474,7 +471,7 @@ globalkeys = awful.util.table.join(
     awful.key({}, "XF86AudioNext",        function() sexec("cmus-remote --next") end ),
     awful.key({}, "XF86AudioPrev",        function() sexec("cmus-remote --prev") end ),
     awful.key({}, "XF86AudioPlay",        function() sexec("cmus-remote --pause") end ),
-    awful.key({}, "XF86ScreenSaver",      function() sexec("xlock -mode blank") end ), --fn - f2
+    awful.key({}, "XF86ScreenSaver",      function() exec(lock_cmd) end ), --fn - f2
     awful.key({}, "XF86Sleep",            function() sexec("sudo pm-suspend") end ), --fn - f4
 
     -- awful.key({}, "#121", function () exec("pvol.py -m") end),
@@ -618,8 +615,8 @@ clientkeys = awful.util.table.join(
     -- floating windows
     awful.key({ modkey, "Control" }, "f", awful.client.floating.toggle),
     awful.key({ modkey, "Shift"   }, "f", function (c) if awful.client.floating.get(c)
-        then awful.client.floating.delete(c);    awful.titlebar.remove(c)
-        else awful.client.floating.set(c, true); awful.titlebar.add(c) end
+        then awful.client.floating.delete(c)
+        else awful.client.floating.set(c, true) end
     end)
 )
 -- }}}
@@ -661,26 +658,33 @@ root.keys(globalkeys)
 
 
 -- {{{ Rules
+-- class: second value of the WM_CLASS property
+-- instance: first value of the WM_CLASS property
 awful.rules.rules = {
     -- All clients will match this rule.
-    { rule = { }, properties = {
-      focus = true,      size_hints_honor = false,
-      keys = clientkeys, buttons = clientbuttons,
-      border_width = beautiful.border_width,
-      border_color = beautiful.border_normal }
+    { rule = { },
+      properties = { focus = true,
+                     size_hints_honor = false,
+                     keys = clientkeys,
+                     buttons = clientbuttons,
+                     border_width = beautiful.border_width,
+                     border_color = beautiful.border_normal },
+      callback = awful.titlebar.add
     },
-    { rule = { class = "Firefox",  instance = "Navigator" },
-      properties = { tag = tags[scount][2] } },
-    { rule = { class = "URxvt",  instance = "htop" },
+    { rule = { class = "Firefox", instance = "Navigator" },
+      properties = { tag = tags[scount][2] }, callback = maximize },
+    { rule = { class = "Firefox" }, except = { instance = "Navigator" },
+      properties = {floating = true}, callback = awful.placement.centered },
+    { rule = { class = "URxvt", instance = "htop" },
       properties = { floating = true }, callback = awful.titlebar.remove },
-    { rule = { class = "URxvt",  instance = "Mutt" },
+    { rule = { class = "URxvt", instance = "Mutt" },
       properties = { tag = tags[scount][1] }, },
     -- { rule = { class = "Emacs",    instance = "emacs" },
     --   properties = { tag = tags[scount][2] } },
     { rule = { class = "Emacs",    instance = "_Remember_" },
       properties = { floating = true }, callback = awful.titlebar.remove },
     { rule = { class = "Xmessage", instance = "xmessage" },
-      properties = { floating = true }, callback = awful.titlebar.add },
+      properties = { floating = true } },
     { rule = { class = "Thunderbird" }, properties = { tag = tags[1][1]} },
     { rule = { class = "Gajim.py" },    properties = { tag = tags[1][1]} },
     { rule = { class = "gimp" },        properties = { floating = true } },
@@ -704,11 +708,11 @@ client.add_signal("manage", function (c, startup)
     -- Add a titlebar
     -- awful.titlebar.add(c, { modkey = modkey })
     -- Add titlebar to floaters, but remove those from rule callback
-    if awful.client.floating.get(c)
-    or awful.layout.get(c.screen) == awful.layout.suit.floating then
-        if   c.titlebar then awful.titlebar.remove(c)
-        else awful.titlebar.add(c, {modkey = modkey}) end
-    end
+    -- if awful.client.floating.get(c)
+    -- or awful.layout.get(c.screen) == awful.layout.suit.floating then
+    --     if   c.titlebar then awful.titlebar.remove(c)
+    --     else awful.titlebar.add(c, {modkey = modkey}) end
+    -- end
 
     -- Enable sloppy focus
     c:add_signal("mouse::enter", function (c)
@@ -763,7 +767,7 @@ if host == "thunderball" then
    run_once("urxvtd", "-q -f -o", "urxvtd -q -f -o")
    run_once("volumeicon")
    run_once("xcompmgr")
-   run_once("conky -c ~/.conky/conkyrc_seamod")
+   run_once("conky -c /home/simon/.conky/conkyrc_seamod")
    run_once("syndaemon -t -k -i 2 -d")
    -- run_once("gpaste")
 elseif host == "fireball" then
