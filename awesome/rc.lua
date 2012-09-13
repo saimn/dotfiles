@@ -20,8 +20,9 @@ require("naughty")
 -- User libraries
 require("functions")
 require("revelation")
-require("vicious")
-require("vicious.contrib")
+
+vicious = require("vicious")
+-- require("vicious.contrib")
 
 local scratch = require("scratch")
 -- }}}
