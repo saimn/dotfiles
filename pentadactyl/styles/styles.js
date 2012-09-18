@@ -36,13 +36,17 @@ var loaduserstyles = function()
     // Get style directory
     var styledir = io.getRuntimeDirectories("styles")[0].path;
 
-    for ([i, [name, filter, file]] in Iterator(userstyles))
+    for(var i = 0; i < userstyles.length; ++i)
     {
       // Remove all sheets with this filter
-      styles.user.remove(name)
+      var name = userstyles[i][0];
+      var filter = userstyles[i][1];
+      var file = userstyles[i][2];
+
+      styles.removeSheet(false, name)
 
       // Add the sheet
-      styles.user.add(name, filter,
+      styles.addSheet(false, name, filter,
         File(styledir+"/"+file).read())
     }
 }

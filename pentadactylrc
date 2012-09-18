@@ -121,12 +121,46 @@ map <A-a> :dialog addbookmark<CR>
 map <A-b> :dialog bookmarks<CR>
 
 " Toggle userstyles/userscripts
-nmap <Leader>s -silent :styletoggle!<CR>:styledisable -name global<CR>
-nmap <Leader>h -silent :styletoggle -name global<CR>
-nmap <Leader>S -silent :loaduserstyles<CR>:styledisable -name global<CR>
+nmap <silent> ,s :styletoggle!<CR>:styledisable -name global<CR>
+nmap <silent> ,h :styletoggle -name global<CR>
+nmap <silent> ,S :loaduserstyles<CR>:styledisable -name global<CR>
+nmap <silent> ,g :gmset!<CR>
 
 map -modes=n,v <C-F6> y:!~/bin/supergenpass<Space>'<S-Insert>'<Return><Esc>2gi<S-Insert><Return>
 map -modes=i <C-F6> <Esc><C-F6>
+
+" Faster scrolling
+"map -builtin <C-e> 3<C-e>
+"map -builtin <C-y> 3<C-y>
+"nmap <BS> <Space>
+"nmap <S-BS> <S-Space>
+
+map -builtin h 5h
+map -builtin j 5j
+map -builtin k 5k
+map -builtin l 5l
+
+map -builtin J 2j
+map -builtin K 2k
+
+"map -builtin s f
+"map -builtin S F
+"map -builtin e d
+"map -builtin ;s g;b
+"map -builtin ;t ;y
+"map -builtin ;n ;i
+"map -builtin ;N ;I
+
+"nmap <Down> r
+"nmap <Left> v
+"nmap <Right> w
+"nmap <Up> d
+
+" Video control keys
+nmap <silent> <leader>p :stplay<CR>
+nmap <silent> <leader>P :stpause<CR>
+nmap <silent> <leader>l :stlarge<CR>
+nmap <silent> <leader>m :stmute<CR>
 
 " }}}
 
