@@ -1,13 +1,13 @@
 #!/bin/sh
 # git equivalent of svnversion
 
-git_version=`git describe --always 2>/dev/null`
-git_svnversion=`git svn find-rev $git_version 2>/dev/null`
 # git_svnversion=`git svn info | grep "Last Changed Rev:" | cut -d " " -f4 2>/dev/null`
 LANG=C svn_version=`/usr/bin/svnversion "$@"`
 if [ "X$svn_version" == "Xexported" -o "X$svn_version" == "X" -o "X$svn_version" == "XUnversioned directory" ]; then
+    [[ $# -eq 1 ]] && cd $1
+    git_version=`git describe --always 2>/dev/null`
+    git_svnversion=`git svn find-rev $git_version 2>/dev/null`
     echo $git_svnversion
 else
     echo $svn_version
 fi
-
