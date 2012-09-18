@@ -56,6 +56,9 @@ set backupskip=/tmp/*,/private/tmp/*"
 " Better Completion
 set completeopt=longest,menuone,preview
 
+" omnicompletion: CTRL-X CTRL-O
+" set omnifunc=syntaxcomplete#Complete
+
 " Save when losing focus
 au FocusLost * :silent! wall
 
@@ -102,6 +105,9 @@ set shiftwidth=4
 set softtabstop=4
 set expandtab               " use spaces, not tabs (optional)
 set wrap
+
+" Autorise le passage d'une ligne à l'autre avec les flèches gauche et droite
+set whichwrap=<,>,[,]
 
 " Si activé, un <Tab> au début d'une ligne insère des blancs selon la valeur de
 " 'shiftwidth'. 'tabstop' est utilisé dans les autres endroits. Un <RetArr> en
@@ -218,6 +224,9 @@ vnoremap <leader>y "*ygv
 
 " Clean trailing whitespace
 nnoremap <leader>w mz:%s/\s\+$//<cr>:let @/=''<cr>`z
+" map <F6> :%s/\s\+$//<CR>
+" Clean leading spaces
+" nmap _S :%s/^\s\+//<CR>
 
 " Change case
 inoremap <C-u> <esc>mzgUiw`za
@@ -234,6 +243,12 @@ cnoremap <c-e> <end>
 
 " Diffoff
 nnoremap <leader>D :diffoff!<cr>
+
+" Wrappe à 72 caractères avec la touche '#'
+nnoremap <leader># gwap
+
+" Wrappe et justifie à 72 caractères avec la touche '@'
+nnoremap <leader>@ {v}! par 72j
 
 " Formatting, TextMate-style
 nnoremap Q gqip
@@ -253,12 +268,12 @@ nnoremap S i<cr><esc>^mwgk:silent! s/\v +$//<cr>:noh<cr>`w
 inoremap <C-_> <Space><BS><Esc>:call InsertCloseTag()<cr>a
 
 " Align text
-nnoremap <leader>Al :left<cr>
-nnoremap <leader>Ac :center<cr>
-nnoremap <leader>Ar :right<cr>
-vnoremap <leader>Al :left<cr>
-vnoremap <leader>Ac :center<cr>
-vnoremap <leader>Ar :right<cr>
+" nnoremap <leader>Al :left<cr>
+" nnoremap <leader>Ac :center<cr>
+" nnoremap <leader>Ar :right<cr>
+" vnoremap <leader>Al :left<cr>
+" vnoremap <leader>Ac :center<cr>
+" vnoremap <leader>Ar :right<cr>
 
 " Faster Esc
 inoremap jk <esc>
@@ -277,6 +292,10 @@ nnoremap <leader>i :set list!<cr>
 
 " switch between the currently open buffer and the previous one
 nnoremap <c-Tab> <c-^>
+
+" On fait tourner les tampons ...
+" nnoremap <C-N> :bn!<CR>
+" nnoremap <C-P> :bp!<CR>
 
 " make ; do the same thing as :
 nnoremap ; :
@@ -451,6 +470,13 @@ if has("autocmd")
     " see :help last-position-jump
     au BufReadPost * if &filetype !~ '^git\c' && line("'\"") > 0 && line("'\"") <= line("$")
                 \| exe "normal! g`\"" | endif
+
+   " Templates
+   " au BufNewFile *.xsl 0r~/.vim/templates/xsl.xsl
+   " au BufNewFile *.xml 0r~/.vim/templates/xml.xml
+   " au BufNewFile *.html 0r~/.vim/templates/html.html
+   " au BufNewFile *.c 0r~/.vim/templates/c.c
+   " au BufNewFile *.php 0r~/.vim/templates/php.php
 endif
 
 " C {{{
@@ -1125,6 +1151,17 @@ vnoremap ar a[
 " Stuff that should probably be broken out into plugins, but hasn't proved to be
 " worth the time to do so just yet.
 
+" DiffOrig {{{
+
+" Convenient command to see the difference between the current buffer and the
+" file it was loaded from, thus the changes you made.
+" Only define it when not defined already.
+if !exists(":DiffOrig")
+  command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
+                  \ | wincmd p | diffthis
+endif
+
+" }}}
 " Pulse {{{
 
 function! PulseCursorLine()
@@ -1285,6 +1322,12 @@ else
     "set termencoding=utf-8
     "set ttymouse=xterm
 endif
+
+" UNIX Specials
+" if has("unix")
+"    " path: répertoires utilisés lors d'une recherche et autres commandes
+"    set path=.,/usr/include,usr/local/include
+" endif
 
 " }}}
 " Local config ------------------------------------------------------------ {{{
