@@ -2,7 +2,7 @@
 # Executes commands at the start of an interactive session.
 #
 
-PATH="$HOME/bin:$HOME/lib/bin:/usr/local/bin:${PATH}"
+PATH="$HOME/bin:${PATH}"
 PATH="$HOME/bin/html2rst:$HOME/bin/html2text:${PATH}"
 export PATH
 
