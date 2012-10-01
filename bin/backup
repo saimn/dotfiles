@@ -10,6 +10,13 @@ OPTS="-avh --delete --force --stats --progress --delete-excluded"
 BACKUP_OPTS="--backup --suffix=.$DATE --backup-dir=backup/"
 
 #----------------------------------------------------------------------------
+# check if disk is present
+function check_backup () {
+   [ "$HOSTNAME" != "thunderball" ] && echo "Error: unknown host" && exit 1
+   [ ! -e "$DST" ] && echo "Error: backup disk missing ($DST)" && exit 2
+}
+
+#----------------------------------------------------------------------------
 # Mail backup with offlineIMAP {{{
 function backup_mail () {
    read -p "Backup mail with OfflineIMAP ? y/[n]" answer
@@ -22,16 +29,11 @@ function backup_mail () {
 }
 # }}}
 
-
 #----------------------------------------------------------------------------
 # backup home {{{
 function backup_home () {
    SRC=$HOME
-   [ "$HOSTNAME" = "fireball" ] && DST="/data/backup"
-   [ "$HOSTNAME" = "goudes" ] && DST="/run/media/simon/857344cd-6fa4-428c-a68b-08b211b2cedd"
-
-   # check if disk is present
-   [ ! -e "$DST" ] && echo "Error: backup disk missing ($DST)" && exit
+   check_backup
 
    # excludes file (contains a wildcard pattern per line of files to exclude)
    FILTER=$HOME/bin/rsync_filter
@@ -92,13 +94,9 @@ function backup_system () {
 #----------------------------------------------------------------------------
 # backup musique {{{
 function backup_music () {
-   [ "$HOSTNAME" != "goudes" ] && echo "Error: unknown host" && exit 1
 
    SRC="/data/Musique"
-   DST="/run/media/simon/857344cd-6fa4-428c-a68b-08b211b2cedd"
-
-   # check if disk is present
-   [ ! -e "$DST" ] && echo "Error: backup disk missing ($DST)" && exit
+   check_backup
 
    read -p "Backup $SRC to $DST ? y/[n]" answer
    [ $answer != "y" ] && echo "Cancel backup" && exit
@@ -138,6 +136,7 @@ OPTIONS
    --home         : Home
    --system       : System files (from sysbackup.inc.txt)
    --nexus        : nexus
+   --wd | --sg    : select disk to use
    -d | --dry-run : Simulation mode
    -b | --backup  : Backup deleted and modified files
 
@@ -157,6 +156,8 @@ while true; do
       -h | --help)      print_help; exit 0;;
       -d | --dry-run)   DRYRUN="--dry-run"; shift ;;
       -b | --backup)    RSYNC_BACKUP=1; shift ;;
+      --wd)             DST="/run/media/simon/857344cd-6fa4-428c-a68b-08b211b2cedd"; shift ;;
+      --sg)             DST="/run/media/simon/d3946868-9424-459b-8288-e572975c62e4"; shift ;;
       --music)          backup_music; exit 0 ;;
       --mail)           backup_mail; exit 0 ;;
       --home)           backup_home; exit 0 ;;

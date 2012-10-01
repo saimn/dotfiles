@@ -15,8 +15,13 @@
 - Trash/
 - .adobe/
 - .macromedia/
+
+- data/
+- emphot/
 - node_modules/
 - lib/virtualenvs/
+- Mail/
+- Musique/
 
 + .config/
 + .fonts/
@@ -27,18 +32,15 @@
 + .hg/
 + .icons/
 + .idl*/
-+ .local/
-+ .mozilla*/
++ .mozilla/
 + .ssh/
 + .subversion/
 + .themes/
 + .thunderbird/
 
 + .bash*
-+ .conkyrc
-+ .hidden
 + .profile
 + .xawtv
++ *.local
 
 - /simon/.*
-- /sconseil/.*
