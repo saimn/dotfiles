@@ -770,6 +770,7 @@ if host == "thunderball" then
    run_once("xcompmgr")
    run_once("conky -c /home/simon/.conky/conkyrc_seamod")
    run_once("syndaemon -t -k -i 2 -d")
+   run_once("synapse", "-s", "synapse -s")
    -- run_once("gpaste")
 elseif host == "fireball" then
    -- run_once("/usr/libexec/gnome-settings-daemon")

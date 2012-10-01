@@ -32,10 +32,9 @@ bindkey "\e[7~" beginning-of-line
 bindkey '\eOc' forward-word
 bindkey '\eOd' backward-word
 
-#zle -N insert-root-prefix
-autoload -U insert-root-prefix
-zle -N insert-root-prefix
-bindkey "^[f" insert-root-prefix
+# zle -N zsh/zle/insert-root-prefix
+# autoload -U zsh/zle/insert-root-prefix
+# bindkey "^[v" zsh/zle/insert-root-prefix
 
 # Use control-<left|right> arrows to move through words
 bindkey '^[[1;5D' vi-backward-word
