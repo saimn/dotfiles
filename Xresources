@@ -55,7 +55,7 @@ URxvt*font: xft:Droid Sans Mono for Powerline:style=Regular:pixelsize=13
 
 ! URxvt*termName:                 rxvt-256color
 ! URxvt*termName:                 rxvt-unicode
-! URxvt.iconFile:                 /usr/share/pixmaps/rxvt-unicode.png
+URxvt.iconFile:                 /usr/share/icons/Faenza/apps/scalable/terminal.svg
 
 URxvt*depth:                    32
 
@@ -70,22 +70,43 @@ URxvt*depth:                    32
 
 URxvt*internalBorder:           5
 URxvt*saveLines:                32767
-URxvt*scrollBar:                false
-URxvt*scrollBar_right:          false
 URxvt*loginShell:               true
 URxvt*cutchars:                 "()*,<>[]{}|"
+URxvt*visualBell:               true
+URxvt.urgentOnBell:             true
+
+! scrollbar style - rxvt (default), plain (most compact), next, or xterm
+URxvt*scrollBar:                false
+URxvt*scrollBar_right:          true
+URxvt.scrollstyle:              plain
 URxvt*secondaryScroll:          true
 
 ! URxvt*perl-lib:                 /usr/lib/urxvt/perl/
 ! URxvt.perl-ext:                 tabbed
-URxvt*perl-ext-common:          default,matcher,searchable-scrollback
+URxvt*perl-ext-common:          default,matcher,searchable-scrollback,clipboard,url-select,keyboard-select
+
 URxvt*urlLauncher:              /usr/bin/firefox
 ! URxvt.urlLauncher:              x-www-browser
 URxvt*matcher.button:           1
 URxvt*matcher.pattern.1:        \\bwww\\.[\\w-]+\\.[\\w./?&@#-]*[\\w/-]
-URxvt*visualBell:               true
-URxvt.urgentOnBell:             true
 URxvt*keysym.C-u:               perl:matcher
+! open and list recent (currently limited to 10) URLs via keyboard:
+URxvt.keysym.C-Delete:          perl:matcher:last
+URxvt.keysym.M-Delete:          perl:matcher:list
+
+! url-select 
+! Alt+U  Enter selection mode. The last URL on your screen will be
+!        selected. You can repeat Alt+U to select the next upward URL.
+! J/K    Select next upward URL
+! Return Open selected URL in browser and quit selection mode
+! O      Open selected URL in browser without quitting selection mode
+! Y      Copy (yank) selected URL and quit selection mode
+! Esc    Cancel URL selection mode
+URxvt.url-select.launcher:      /usr/bin/firefox -new-tab
+URxvt.url-select.underline:     true
+URxvt.keysym.M-u:               perl:url-select:select_next
+URxvt.keysym.M-Escape:          perl:keyboard-select:activate
+URxvt.keysym.M-s:               perl:keyboard-select:search
 
 URxvt*colorUL:                  #c5f779
 URxvt*underlineColor:           #c5f779

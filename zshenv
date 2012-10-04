@@ -28,6 +28,9 @@ export BROWSER="firefox"
 # run multiple Firefox
 #export MOZ_NO_REMOTE=1
 
+# for pcmanfm's list of apps
+export XDG_MENU_PREFIX=lxde-
+
 # }}}
 
 # {{{ Python

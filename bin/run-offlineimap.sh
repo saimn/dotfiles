@@ -8,4 +8,4 @@ read -r pid < <(pgrep offlineimap)
 [[ -n "$pid" ]] && kill -9 $pid
 
 # (re)sync
-offlineimap -o -u Noninteractive.Quiet &>/dev/null &
+offlineimap -o -u quiet $* &>/dev/null &

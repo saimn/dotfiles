@@ -23,6 +23,8 @@ vim/.netrwhist
 vim/.VimballRecord
 vim/tmp/
 vim/local.vim
+vim/plugin/notmuch.vim
+vim/syntax/notmuch-*.vim
 vimperator/info/
 xmonad/history
 xmonad/xmonad-x86_64-linux
