@@ -1,15 +1,20 @@
 numpy
 scipy
-#pywcs==1.10-4.7
-#pyfits==3.0.1
-astropy
-pywcsgrid2==0.1b2
-pyregion==1.0.1
-#asciitable==0.8.0
-ATpy==0.9.6
-APLpy==0.9.8
 scikits-image==0.5
-#pIDLy
-#pyIDL
-#python-montage
-#yt==2.3
+# astropy
+# pIDLy
+# pyIDL
+# python-montage
+# yt==2.3
+
+APLpy==0.9.8
+ATpy==0.9.6
+Fabric==1.4.3
+argh==0.15.1
+asciitable==0.8.0
+-e git+https://github.com/anthonyjsmith/pIDLy.git@402df6618d0a4a2481b1c17c48110e5b25610676#egg=pIDLy-dev
+pyfits==3.1
+pynbody==0.16alpha
+pyregion==1.0.1
+pywcs==1.11-4.8.2
+pywcsgrid2==0.1b2

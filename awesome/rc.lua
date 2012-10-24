@@ -776,6 +776,7 @@ elseif host == "fireball" then
    -- run_once("/usr/libexec/gnome-settings-daemon")
    run_once("pulseaudio", "--start")
    run_once("numlockx on")
+   run_once("synergys")
    run_once("urxvt256c-mld", "-q -f -o", "urxvt256c-mld -q -f -o")
    run_once("gpaste", nil, "/usr/libexec/gpaste/gpasted")
 end

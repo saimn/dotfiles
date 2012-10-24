@@ -1126,6 +1126,8 @@ let g:syntastic_jsl_conf = '$HOME/.vim/jsl.conf'
 " }}}
 " YankRing {{{
 
+let g:yankring_history_dir = '~/.cache'
+
 function! YRRunAfterMaps()
     nnoremap Y :<C-U>YRYankCount 'y$'<CR>
     omap <expr> L YRMapsExpression("", "$")
