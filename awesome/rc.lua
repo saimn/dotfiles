@@ -782,7 +782,7 @@ elseif host == "fireball" then
 end
 
 -- run_once("xbindkeys")
-run_once("xscreensaver -nosplash", nil, "xscreensaver -nosplash")
-run_once("emacs", "--daemon")
+-- run_once("xscreensaver -nosplash", nil, "xscreensaver -nosplash")
+-- run_once("emacs", "--daemon")
 
 -- }}}
