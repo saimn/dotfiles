@@ -1,0 +1,5 @@
+coverage
+fabric
+nose
+nose-progressive
+sphinx
