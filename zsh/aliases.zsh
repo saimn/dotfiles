@@ -53,7 +53,6 @@ alias ht='urxvt -name htop -title htop +sb -geometry 80x6 -e htop &'
 alias ipyqt='ipython2 qtconsole --pylab'
 alias wo='workon'
 alias xp='xprop | grep "WM_WINDOW_ROLE\|WM_CLASS" && echo "WM_CLASS(STRING) = \"NAME\", \"CLASS\""'
-alias screenFetch="~/lib/screenFetch/screenfetch-dev"
 
 alias e="emacsclient"
 alias ec="emacsclient -n -c"
