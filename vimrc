@@ -42,6 +42,7 @@ set title
 set linebreak     " ne casse pas les mots en fin de ligne
 set dictionary=/usr/share/dict/words
 set spellfile=~/.vim/custom-dictionary.utf-8.add
+set colorcolumn=+1
 " set autochdir           " change current dir
 
 " Time out on key codes but not mappings.
@@ -131,11 +132,23 @@ set colorcolumn=+1
 " }}}
 " Backups {{{
 
+set backup                        " enable backups
+set noswapfile                    " It's 2012, Vim.
+
 set undodir=~/.vim/tmp/undo//     " undo files
 set backupdir=~/.vim/tmp/backup// " backups
 set directory=~/.vim/tmp/swap//   " swap files
-set backup                        " enable backups
-set noswapfile                    " It's 2012, Vim.
+
+" Make those folders automatically if they don't already exist.
+if !isdirectory(expand(&undodir))
+    call mkdir(expand(&undodir), "p")
+endif
+if !isdirectory(expand(&backupdir))
+    call mkdir(expand(&backupdir), "p")
+endif
+if !isdirectory(expand(&directory))
+    call mkdir(expand(&directory), "p")
+endif
 
 " }}}
 " Leader {{{
@@ -150,6 +163,7 @@ syntax on
 set background=dark
 colorscheme molokai
 
+"let g:badwolf_tabline = 2
 "let g:badwolf_html_link_underline = 0
 "colorscheme badwolf
 
@@ -254,10 +268,14 @@ nnoremap <leader>@ {v}! par 72j
 nnoremap Q gqip
 vnoremap Q gq
 
+" Reformat line.
+" I never use l as a macro register anyway.
+nnoremap ql ^vg_gq
+
 " Easier linewise reselection
 nnoremap <leader>V V`]
 
-" Keep the cursor in place while joining limes
+" Keep the cursor in place while joining lines
 nnoremap J mzJ`z
 
 " Split line (sister to [J]oin lines)
@@ -285,7 +303,10 @@ cnoremap w!! w !sudo tee % >/dev/null
 inoremap <c-cr> <esc>A<cr>
 
 " Toggle paste
-set pastetoggle=<F6>
+" For some reason pastetoggle doesn't redraw the screen (thus the status bar
+" doesn't change) while :set paste! does, so I use that instead.
+" set pastetoggle=<F6>
+nnoremap <F6> :set paste!<cr>
 
 " Toggle [i]nvisible characters
 nnoremap <leader>i :set list!<cr>
@@ -381,11 +402,12 @@ noremap k gk
 noremap gj j
 noremap gk k
 
-" easier navigation
-nnoremap <c-j> <c-w>j
-nnoremap <c-k> <c-w>k
-nnoremap <c-h> <c-w>h
-nnoremap <c-l> <c-w>l
+" Easy buffer navigation
+noremap <C-h> <C-w>h
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
+
 noremap <leader>v <C-w>v
 
 " }}}
@@ -421,6 +443,18 @@ nnoremap ,z zMzvzz
 " Make zO recursively open whatever top level fold we're in, no matter where the
 " cursor happens to be.
 nnoremap zO zCzO
+
+" "Focus" the current line.  Basically:
+"
+" 1. Close all folds.
+" 2. Open just the folds containing the current line.
+" 3. Move the line to a little bit (15 lines) above the center of the screen.
+" 4. Pulse the cursor line.  My eyes are bad.
+"
+" This mapping wipes out the z mark, which I never use.
+"
+" I use :sus for the rare times I want to actually background Vim.
+nnoremap <c-z> mzzMzvzz15<c-e>`z:Pulse<cr>
 
 function! MyFoldText() " {{{
     let line = getline(v:foldstart)
@@ -461,8 +495,6 @@ augroup filetypedetect
    autocmd BufRead,BufNewFile vimperator* setfiletype bbcode
    autocmd BufRead,BufNewFile *conky* setfiletype conkyrc
    autocmd BufRead,BufNewFile *.inc setfiletype php
-   autocmd BufRead,BufNewFile *.muttrc setfiletype muttrc
-   autocmd BufRead,BufNewFile ~/.mutt/tmp/mutt* setfiletype mail
 augroup END
 
 if has("autocmd")
@@ -496,18 +528,6 @@ augroup ft_c
 
     " Wiki pages should be soft-wrapped.
     au FileType confluencewiki setlocal wrap linebreak nolist
-augroup END
-
-" }}}
-" Cram {{{
-
-let cram_fold=1
-
-augroup ft_cram
-    au!
-
-    au BufNewFile,BufRead *.t set filetype=cram
-    au Syntax cram setlocal foldlevel=1
 augroup END
 
 " }}}
@@ -691,12 +711,12 @@ augroup END
 augroup ft_markdown
     au!
 
-    au BufNewFile,BufRead *.m*down setlocal filetype=markdown
+    au BufNewFile,BufRead *.m*down setlocal filetype=markdown foldlevel=1
 
     " Use <localleader>1/2/3 to add headings.
-    au Filetype markdown nnoremap <buffer> <localleader>1 yypVr=
-    au Filetype markdown nnoremap <buffer> <localleader>2 yypVr-
-    au Filetype markdown nnoremap <buffer> <localleader>3 I### <ESC>
+    au Filetype markdown nnoremap <buffer> <localleader>1 yypVr=:redraw<cr>
+    au Filetype markdown nnoremap <buffer> <localleader>2 yypVr-:redraw<cr>
+    au Filetype markdown nnoremap <buffer> <localleader>3 mzI###<space>`zllll <ESC>
 augroup END
 
 " }}}
@@ -706,6 +726,18 @@ augroup ft_mercurial
     au!
 
     au BufNewFile,BufRead *hg-editor-*.txt setlocal filetype=hgcommit
+augroup END
+
+" }}}
+" Mutt {{{
+
+augroup ft_muttrc
+    au!
+
+    au BufRead,BufNewFile *.muttrc set ft=muttrc
+    autocmd BufRead,BufNewFile ~/.mutt/tmp/mutt* setfiletype mail
+
+    au FileType muttrc setlocal foldmethod=marker foldmarker={{{,}}}
 augroup END
 
 " }}}
@@ -777,6 +809,8 @@ augroup ft_python
     au FileType python inoremap <buffer> <c-g> _(u'')<left><left>
 
     au FileType python inoremap <buffer> <c-b> """"""<left><left><left>
+
+    au FileType python iabbrev <buffer> afo assert False, "Okay"
 augroup END
 
 " }}}
@@ -793,10 +827,10 @@ augroup END
 augroup ft_rest
     au!
 
-    au Filetype rst nnoremap <buffer> <localleader>1 yypVr=
-    au Filetype rst nnoremap <buffer> <localleader>2 yypVr-
-    au Filetype rst nnoremap <buffer> <localleader>3 yypVr~
-    au Filetype rst nnoremap <buffer> <localleader>4 yypVr`
+    au Filetype rst nnoremap <buffer> <localleader>1 yypVr=:redraw<cr>
+    au Filetype rst nnoremap <buffer> <localleader>2 yypVr-:redraw<cr>
+    au Filetype rst nnoremap <buffer> <localleader>3 yypVr~:redraw<cr>
+    au Filetype rst nnoremap <buffer> <localleader>4 yypVr`:redraw<cr>
 augroup END
 
 " }}}
@@ -876,6 +910,7 @@ nnoremap <leader>! :Shell
 " Ack {{{
 
 nnoremap <leader>a :Ack!<space>
+"let g:ackprg = 'ag --nogroup --nocolor --column'
 
 " }}}
 " Autoclose {{{
@@ -892,6 +927,7 @@ augroup plugin_commentary
     au!
 au FileType htmldjango setlocal commentstring={#\ %s\ #}
     au FileType clojurescript setlocal commentstring=;\ %s
+    au FileType lisp setlocal commentstring=;\ %s
     au FileType puppet setlocal commentstring=#\ %s
     au FileType fish setlocal commentstring=#\ %s
 augroup END
@@ -921,7 +957,7 @@ let ctrlp_filter_greps = "".
     \ "jar|class|swp|swo|log|so|o|pyc|jpe?g|png|gif|mo|po" .
     \ ")$' | " .
     \ "egrep -v '^(\\./)?(" .
-    \ "deploy/|lib/|classes/|libs/|deploy/vendor/|.git/|.hg/|.svn/|.*migrations/" .
+    \ "deploy/|lib/|classes/|libs/|deploy/vendor/|.git/|.hg/|.svn/|.*migrations/|docs/build/" .
     \ ")'"
 
 let my_ctrlp_user_command = "" .
@@ -929,28 +965,12 @@ let my_ctrlp_user_command = "" .
     \ ctrlp_filter_greps
 
 let my_ctrlp_git_command = "" .
-    \ "cd %s && git ls-files | " .
+    \ "cd %s && git ls-files --exclude-standard -co | " .
     \ ctrlp_filter_greps
 
 let g:ctrlp_user_command = ['.git/', my_ctrlp_git_command, my_ctrlp_user_command]
 
 nnoremap <leader>. :CtrlPTag<cr>
-
-" }}}
-" Easymotion {{{
-
-let g:EasyMotion_do_mapping = 0
-
-nnoremap <silent> <Leader>f      :call EasyMotion#F(0, 0)<CR>
-onoremap <silent> <Leader>f      :call EasyMotion#F(0, 0)<CR>
-vnoremap <silent> <Leader>f :<C-U>call EasyMotion#F(1, 0)<CR>
-
-nnoremap <silent> <Leader>F      :call EasyMotion#F(0, 1)<CR>
-onoremap <silent> <Leader>F      :call EasyMotion#F(0, 1)<CR>
-vnoremap <silent> <Leader>F :<C-U>call EasyMotion#F(1, 1)<CR>
-
-onoremap <silent> <Leader>t      :call EasyMotion#T(0, 0)<CR>
-onoremap <silent> <Leader>T      :call EasyMotion#T(0, 1)<CR>
 
 " }}}
 " Fugitive {{{
@@ -1030,6 +1050,9 @@ let NERDTreeIgnore = ['.vim$', '\~$', '.*\.pyc$', 'pip-log\.txt$', 'whoosh_index
 
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
+let NERDChristmasTree = 1
+let NERDTreeChDirMode = 2
+let NERDTreeMapJumpFirstChild = 'gK'
 
 " }}}
 " OrgMode {{{
@@ -1068,6 +1091,7 @@ let g:pymode_folding = 0
 let g:pymode_options_indent = 0
 let g:pymode_options_fold = 0
 let g:pymode_options_other = 0
+let g:pymode_options = 0
 
 let g:pymode_rope = 1
 let g:pymode_rope_global_prefix = "<localleader>R"
@@ -1096,7 +1120,7 @@ function! ScratchToggle()
     unlet w:is_scratch_window
     exec "q"
   else
-    exec "normal! :Sscratch\<cr>\<C-W>J:resize 13\<cr>"
+        exec "normal! :Sscratch\<cr>\<C-W>L"
     let w:is_scratch_window = 1
   endif
 endfunction
@@ -1113,6 +1137,7 @@ let g:sparkupNextMapping = '<c-s>'
 
 let g:SuperTabDefaultCompletionType = "<c-n>"
 let g:SuperTabLongestHighlight = 1
+let g:SuperTabCrMapping = 1
 
 "}}}
 " Syntastic {{{
@@ -1129,9 +1154,15 @@ let g:syntastic_jsl_conf = '$HOME/.vim/jsl.conf'
 let g:yankring_history_dir = '~/.cache'
 
 function! YRRunAfterMaps()
+    " Make Y yank to end of line.
     nnoremap Y :<C-U>YRYankCount 'y$'<CR>
+
+    " Fix L and H in operator-pending mode, so yH and such works.
     omap <expr> L YRMapsExpression("", "$")
     omap <expr> H YRMapsExpression("", "^")
+
+    " Don't clobber the yank register when pasting over text in visual mode.
+    vnoremap p :<c-u>YRPaste 'p', 'v'<cr>gv:YRYankRange 'v'<cr>
 endfunction
 
 " }}}
@@ -1263,6 +1294,7 @@ function! BlockColor() " {{{
         call matchdelete(77883)
         call matchdelete(77884)
         call matchdelete(77885)
+        call matchdelete(77886)
     else
         let g:blockcolor_state = 1
         call matchadd("BlockColor1", '^ \{4}.*', 1, 77881)
@@ -1270,14 +1302,16 @@ function! BlockColor() " {{{
         call matchadd("BlockColor3", '^ \{12}.*', 3, 77883)
         call matchadd("BlockColor4", '^ \{16}.*', 4, 77884)
         call matchadd("BlockColor5", '^ \{20}.*', 5, 77885)
+        call matchadd("BlockColor6", '^ \{24}.*', 6, 77886)
     endif
 endfunction " }}}
 " Default highlights {{{
-hi def BlockColor1 guibg=#222222
-hi def BlockColor2 guibg=#2a2a2a
-hi def BlockColor3 guibg=#353535
-hi def BlockColor4 guibg=#3d3d3d
-hi def BlockColor5 guibg=#444444
+hi def BlockColor1 guibg=#222222 ctermbg=234
+hi def BlockColor2 guibg=#2a2a2a ctermbg=235
+hi def BlockColor3 guibg=#353535 ctermbg=236
+hi def BlockColor4 guibg=#3d3d3d ctermbg=237
+hi def BlockColor5 guibg=#444444 ctermbg=238
+hi def BlockColor6 guibg=#4a4a4a ctermbg=239
 " }}}
 nnoremap <leader>B :call BlockColor()<cr>
 
