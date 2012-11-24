@@ -49,6 +49,9 @@
 
    # Prune all your stale remote branches
    prune-all = !git remote | xargs -n 1 git remote prune
+
+   # Show git branches sorted by latest commit
+   latest = for-each-ref --sort=-committerdate --format='%(committerdate:relative) %(refname:short)'
 [diff]
    renames = true
 [color]
