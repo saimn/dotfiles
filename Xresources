@@ -94,7 +94,7 @@ URxvt*keysym.C-u:               perl:matcher
 URxvt.keysym.C-Delete:          perl:matcher:last
 URxvt.keysym.M-Delete:          perl:matcher:list
 
-! url-select 
+! url-select
 ! Alt+U  Enter selection mode. The last URL on your screen will be
 !        selected. You can repeat Alt+U to select the next upward URL.
 ! J/K    Select next upward URL
@@ -170,8 +170,8 @@ XLock.mode:          blank
 !XLock.icongeometry: 256x256
 XLock.username:      Username:
 XLock.password:      Password:
-XLock.foreground:    White
-XLock.background:    Gray20
+XLock.foreground:    #CCCCCC
+XLock.background:    #242424
 XLock.description:   false
 XLock.echokeys:      true
 XLock.echokey:       *
@@ -179,7 +179,7 @@ XLock.info:
 !XLock.info:         Enter password to unlock \nSelect icon to lock
 XLock.validate:      Validating login...
 XLock.invalid:       Login failed
-XLock*font:          -xos4-terminus-medium-*-*-*-12-*-*-*-*-*-iso8859-2
+XLock*font:          -*-terminus-medium-r-*-*-14-*-*-*-*-*-*-*
 !XLock.ncolors:      200
 !XLock.dpmsstandby:  600
 !XLock.dpmssuspend:  1200
@@ -188,9 +188,9 @@ XLock*font:          -xos4-terminus-medium-*-*-*-12-*-*-*-*-*-iso8859-2
 
 
 !{{{ XMESSAGE
-Xmessage*font:                  -xos4-terminus-medium-*-*-*-12-*-*-*-*-*-iso8859-2
-Xmessage*background:            #3F3F3F
-Xmessage*foreground:            #F0DFAF
+Xmessage*font:                  -*-terminus-medium-r-*-*-14-*-*-*-*-*-*-*
+Xmessage*background:            #242424
+Xmessage*foreground:            #CCCCCC
 Xmessage*form.*.shapeStyle:     rectangle
 Xmessage*Scrollbar.width:       1
 Xmessage*Scrollbar.borderWidth: 0
@@ -200,57 +200,37 @@ Xmessage*defaultButton:         Quit
 !Xmessage*geometry:             +20+20
 !}}}
 
-!{{{ XFONTSEL
-XFontSel*menu*showUnselectable:       false
-XFontSel*sampleText.background:      TEXTBG
-XFontSel*MenuButton.shadowWidth:          0
-XFontsel*Toggle*ToggleStyle:          check
-XFontsel*MenuButton*Justify:           left
-XFontsel*MenuButton*MenuButtonStyle: select
-xfontsel*Font: -xos4-terminus-medium-*-*-*-12-*-*-*-*-*-iso8859-2
-xfontsel.pane.commandBox.quitButton.background:           #777777
-xfontsel.pane.commandBox.quitButton.foreground:           snow
-xfontsel.pane.commandBox.ownButton.background:            orange3
-xfontsel.pane.commandBox.ownButton.foreground:            snow
-xfontsel.pane.commandBox.countLabel.background:           snow
-xfontsel.pane.viewPort.sampleText.background:             #777777
-xfontsel.pane.viewPort.sampleText.foreground:             snow
-xfontsel.pane.fieldBox.field0.background:  #777777
-xfontsel.pane.fieldBox.field0.foreground:  snow
-xfontsel.pane.fieldBox.field1.background:  #777777
-xfontsel.pane.fieldBox.field1.foreground:  snow
-xfontsel.pane.fieldBox.field2.background:  #777777
-xfontsel.pane.fieldBox.field2.foreground:  snow
-xfontsel.pane.fieldBox.field3.background:  #777777
-xfontsel.pane.fieldBox.field3.foreground:  snow
-xfontsel.pane.fieldBox.field4.background:  #777777
-xfontsel.pane.fieldBox.field4.foreground:  snow
-xfontsel.pane.fieldBox.field5.background:  #777777
-xfontsel.pane.fieldBox.field5.foreground:  snow
-xfontsel.pane.fieldBox.field6.background:  #777777
-xfontsel.pane.fieldBox.field6.foreground:  snow
-xfontsel.pane.fieldBox.field7.background:  #777777
-xfontsel.pane.fieldBox.field7.foreground:  snow
-xfontsel.pane.fieldBox.field8.background:  #777777
-xfontsel.pane.fieldBox.field8.foreground:  snow
-xfontsel.pane.fieldBox.field9.background:  #777777
-xfontsel.pane.fieldBox.field9.foreground:  snow
-xfontsel.pane.fieldBox.field10.background: #777777
-xfontsel.pane.fieldBox.field10.foreground: snow
-xfontsel.pane.fieldBox.field11.background: #777777
-xfontsel.pane.fieldBox.field11.foreground: snow
-xfontsel.pane.fieldBox.field12.background: #777777
-xfontsel.pane.fieldBox.field12.foreground: snow
-xfontsel.pane.fieldBox.field13.background: #777777
-xfontsel.pane.fieldBox.field13.foreground: snow
-xfontsel.pane.fieldBox*foreground:         #000000
-xfontsel.pane.fieldBox.MenuButton.borderWidth:   1
-xfontsel.pane.fieldBox.MenuButton.internalHeight:1
-xfontsel.pane.fieldBox.MenuButton.internalWidth: 2
-xfontsel.pane.fieldBox.MenuButton.shapeStyle:    rectangle
-!}}}
-
 !{{{ DS9
 ds9*foreground: #000
 ds9*background: #eee
+!}}}
+
+!{{{ xscreensaver
+!font settings
+xscreensaver.Dialog.headingFont:        -*-terminus-bold-r-*-*-16-*-*-*-*-*-*-*
+xscreensaver.Dialog.bodyFont:           -*-terminus-medium-r-*-*-14-*-*-*-*-*-*-*
+xscreensaver.Dialog.labelFont:          -*-terminus-medium-r-*-*-14-*-*-*-*-*-*-*
+xscreensaver.Dialog.unameFont:          -*-terminus-medium-r-*-*-14-*-*-*-*-*-*-*
+xscreensaver.Dialog.buttonFont:         -*-terminus-bold-r-*-*-14-*-*-*-*-*-*-*
+xscreensaver.Dialog.dateFont:           -*-terminus-medium-r-*-*-14-*-*-*-*-*-*-*
+xscreensaver.passwd.passwdFont:         -*-terminus-bold-r-*-*-14-*-*-*-*-*-*-*
+!general dialog box (affects main hostname, username, password text)
+xscreensaver.Dialog.foreground:         #CCCCCC
+xscreensaver.Dialog.background:         #242424
+xscreensaver.Dialog.topShadowColor:     #434343
+xscreensaver.Dialog.bottomShadowColor:  #424242
+xscreensaver.Dialog.Button.foreground:  #CCCCCC
+xscreensaver.Dialog.Button.background:  #343434
+!username/password input box and date text colour
+xscreensaver.Dialog.text.foreground:    #CCCCCC
+xscreensaver.Dialog.text.background:    #343434
+xscreensaver.Dialog.internalBorderWidth:24
+xscreensaver.Dialog.borderWidth:        0
+xscreensaver.Dialog.shadowThickness:    2
+!timeout bar (background is actually determined by Dialog.text.background)
+xscreensaver.passwd.thermometer.foreground:  #CCCCCC
+xscreensaver.passwd.thermometer.background:  #999999
+xscreensaver.passwd.thermometer.width:       8
+!datestamp format--see the strftime(3) manual page for details
+xscreensaver.dateFormat:    %I:%M%P %a %b %d, %Y
 !}}}
