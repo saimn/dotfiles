@@ -1,12 +1,6 @@
-#shell /bin/zsh
-# legère modif du fichier config de bennyben par kamagatos www.kamagatos.blogspot.com
-# raccourcis avec Ctrl-x puis une touche
-# ou alors Ctrl-meta-une touche, voir Shirt-Ctrl-Meta
-
 # ------------------------------------------------------------------------------
 # SCREEN SETTINGS
 # ------------------------------------------------------------------------------
-
 
 startup_message off                # don't display the copyright page
 #nethack on
@@ -27,7 +21,7 @@ deflogin on                        # log new screen windows in utmp
 # emulate .logout message
 pow_detach_msg "Screen session of $LOGNAME $:cr:$:nl:ended."
 
-term xterm-256color              # Enable 256 colors
+term xterm-256color                # Enable 256 colors
 #termcapinfo rxvt* ti@:te@:XT      # improve mouse scrolling,
 
 #
@@ -75,7 +69,7 @@ bind f eval "hardstatus alwayslastline"
 # bind _ resize max
 
 # escape ""
-#escape "^xx"
+escape "^Bb"
 #bindkey \033^b break
 
 # An example of a "screen scraper" which will launch urlview on the current
@@ -147,7 +141,7 @@ termcapinfo xterm*|linux*|rxvt*|Eterm* OP
 # Change the xterm initialization string from is2=\E[!p\E[?3;4l\E[4l\E>
 # (This fixes the "Aborted because of window size change" konsole symptoms found
 #  in bug #134198)
-termcapinfo xterm 'is=\E[r\E[m\E[2J\E[H\E[?7h\E[?1;4;6l'
+# termcapinfo xterm 'is=\E[r\E[m\E[2J\E[H\E[?7h\E[?1;4;6l'
 
 # Do not use xterms alternate window buffer (won't add lines to scrollback bfr)
 #termcapinfo xterm|xterms|xs ti=\E7\E[?47l
