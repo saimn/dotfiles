@@ -65,16 +65,16 @@ fi
 # Set the default Less options.
 # Mouse-wheel scrolling has been disabled by -X (disable screen clearing).
 # Remove -X and -F (exit if the content fits on one screen) to enable it.
-export LESS='-g -i -M -R -w -z-4'
+export LESS='-F -g -i -M -R -S -w -X -z-4'
 
-export LESS_TERMCAP_mb=$'\E[01;31m'    # begin blink !
-export LESS_TERMCAP_md=$'\E[01;31m'    # begin bold
-export LESS_TERMCAP_me=$'\E[0m'        # end
-export LESS_TERMCAP_so=$'\E[01;44;33m' # début statusbar
-export LESS_TERMCAP_se=$'\E[0m'        # end
-export LESS_TERMCAP_us=$'\E[01;32m'    # begin underline
-export LESS_TERMCAP_ue=$'\E[0m'        # end
-export LESSHISTFILE="-"                # turn off .lesshst file
+# export LESS_TERMCAP_mb=$'\E[01;31m'    # begin blink !
+# export LESS_TERMCAP_md=$'\E[01;31m'    # begin bold
+# export LESS_TERMCAP_me=$'\E[0m'        # end
+# export LESS_TERMCAP_so=$'\E[01;44;33m' # début statusbar
+# export LESS_TERMCAP_se=$'\E[0m'        # end
+# export LESS_TERMCAP_us=$'\E[01;32m'    # begin underline
+# export LESS_TERMCAP_ue=$'\E[0m'        # end
+# export LESSHISTFILE="-"                # turn off .lesshst file
 
 # Set the Less input preprocessor.
 if (( $+commands[lesspipe.sh] )); then

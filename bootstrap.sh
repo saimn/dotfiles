@@ -78,6 +78,4 @@ git clone https://github.com/jsmits/github-cli.git              ~/lib/github-cli
 git clone https://github.com/apenwarr/sshuttle.git              ~/lib/sshuttle
 git clone https://github.com/gfxmonk/supergenpass.git           ~/lib/supergenpass
 hg  clone https://bitbucket.org/thayerwilliams/vimbrant         ~/lib/vimbrant
-git clone https://github.com/KittyKatt/screenFetch.git          ~/lib/screenFetch
 # }}}
-
