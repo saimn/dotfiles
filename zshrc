@@ -3,7 +3,9 @@
 #
 
 PATH="$HOME/bin:${PATH}"
-PATH="$HOME/bin/html2rst:$HOME/bin/html2text:${PATH}"
+PATH="$HOME/bin/html2rst:${PATH}"
+PATH="$HOME/bin/html2text:${PATH}"
+PATH="$HOME/bin/git:${PATH}"
 export PATH
 
 # Source Prezto.
