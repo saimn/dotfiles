@@ -10,20 +10,18 @@
 
 
 -- {{{ Libraries
-require("awful")
-require("awful.rules")
-require("awful.autofocus")
+local awful = require("awful")
+local awful_rules = require("awful.rules")
+local awful_autofocus = require("awful.autofocus")
 -- Theme handling library
-require("beautiful")
+local beautiful = require("beautiful")
 -- Notification library
-require("naughty")
+local naughty = require("naughty")
 -- User libraries
-require("functions")
-require("revelation")
-
-vicious = require("vicious")
+local functions = require("functions")
+-- local revelation = require("revelation")
+local vicious = require("vicious")
 -- require("vicious.contrib")
-
 local scratch = require("scratch")
 -- }}}
 
@@ -548,7 +546,7 @@ globalkeys = awful.util.table.join(
     -- }}}
 
     -- {{{ Focus controls
-    awful.key({ modkey }, "e", revelation.revelation),
+    -- awful.key({ modkey }, "e", revelation.revelation),
     awful.key({ modkey }, "p", function () awful.screen.focus_relative(1)  end),
     awful.key({ modkey }, "s", function () scratch.pad.toggle() end),
     awful.key({ modkey }, "u", awful.client.urgent.jumpto),
@@ -661,7 +659,7 @@ root.keys(globalkeys)
 -- {{{ Rules
 -- class: second value of the WM_CLASS property
 -- instance: first value of the WM_CLASS property
-awful.rules.rules = {
+awful_rules.rules = {
     -- All clients will match this rule.
     { rule = { },
       properties = { focus = true,
