@@ -37,6 +37,9 @@ case $1 in
     awesome)
 	exec awesome
 	;;
+    enlightenment)
+	exec enlightenment_start
+	;;
     # kde)
     #     exec startkde
     #     ;;
