@@ -82,13 +82,20 @@ URxvt.scrollstyle:              plain
 URxvt*secondaryScroll:          true
 
 ! URxvt*perl-lib:                 /usr/lib/urxvt/perl/
-! URxvt.perl-ext:                 tabbed
-URxvt*perl-ext-common:          default,matcher,searchable-scrollback,clipboard,url-select,keyboard-select
 
-URxvt*urlLauncher:              /usr/bin/firefox
+! perl-ext-common remplacé par perl-ext depuis v9.16 :
+URxvt.perl-ext:                 default,matcher,searchable-scrollback,clipboard,url-select,keyboard-select
+
+! urlLauncher remplacé par url-launcher depuis v9.16 :
+URxvt.url-launcher:             firefox
+URxvt*urlLauncher:              firefox
 ! URxvt.urlLauncher:              x-www-browser
+
 URxvt*matcher.button:           1
-URxvt*matcher.pattern.1:        \\bwww\\.[\\w-]+\\.[\\w./?&@#-]*[\\w/-]
+/* URxvt*matcher.pattern.1:        \\bwww\\.[\\w-]+\\.[\\w./?&@#-]*[\\w/-] */
+Rxvt*matcher.pattern.1:         \\b(gopher|mailto|http|https|ftp|file):[/]*[\\w-]\\.[\\w./?&@#-]*[\\w/-]
+Rxvt*matcher.pattern.2:         \\bwww\\.[\\w-]\\.[\\w./?&@#-]*[\\w/-]
+
 URxvt*keysym.C-u:               perl:matcher
 ! open and list recent (currently limited to 10) URLs via keyboard:
 URxvt.keysym.C-Delete:          perl:matcher:last
