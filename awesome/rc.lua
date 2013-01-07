@@ -10,13 +10,18 @@
 
 
 -- {{{ Libraries
+-- Standard awesome library
+local gears = require("gears")
 local awful = require("awful")
-local awful_rules = require("awful.rules")
-local awful_autofocus = require("awful.autofocus")
+awful.rules = require("awful.rules")
+require("awful.autofocus")
+-- Widget and layout library
+local wibox = require("wibox")
 -- Theme handling library
 local beautiful = require("beautiful")
 -- Notification library
 local naughty = require("naughty")
+local menubar = require("menubar")
 -- User libraries
 local functions = require("functions")
 -- local revelation = require("revelation")
@@ -25,7 +30,33 @@ local vicious = require("vicious")
 local scratch = require("scratch")
 -- }}}
 
+-- {{{ Error handling
+-- Check if awesome encountered an error during startup and fell back to
+-- another config (This code will only ever execute for the fallback config)
+if awesome.startup_errors then
+    naughty.notify({ preset = naughty.config.presets.critical,
+                     title = "Oops, there were errors during startup!",
+                     text = awesome.startup_errors })
+end
+
+-- Handle runtime errors after startup
+do
+    local in_error = false
+    awesome.connect_signal("debug::error", function (err)
+        -- Make sure we don't go into an endless error loop
+        if in_error then return end
+        in_error = true
+
+        naughty.notify({ preset = naughty.config.presets.critical,
+                         title = "Oops, an error happened!",
+                         text = err })
+        in_error = false
+    end)
+end
+-- }}}
+
 -- {{{ Variable definitions
+
 local altkey = "Mod1"
 local modkey = "Mod4"
 
@@ -44,14 +75,15 @@ local filemgr    = "pcmanfm"
 local htop_cmd   = terminal.." -name htop -geometry 80x7 -e htop"
 local lock_cmd   = "xscreensaver-command -lock"
 
+-- Themes define colours, icons, and wallpapers
+-- beautiful.init("@AWESOME_THEMES_PATH@/default/theme.lua")
+beautiful.init(home .. "/.config/awesome/themes/zenburn/theme.lua")
+
 -- Note to include a separate config file:
 -- dofile(config .. "/keybindings.lua")
 
--- Beautiful theme
-beautiful.init(home .. "/.config/awesome/themes/zenburn/theme.lua")
-
 -- Window management layouts
-layouts = {
+local layouts = {
    awful.layout.suit.floating,
    awful.layout.suit.tile,
    awful.layout.suit.tile.bottom,
@@ -61,6 +93,15 @@ layouts = {
    -- awful.layout.suit.max.fullscreen,
    -- awful.layout.suit.spiral,
 }
+-- }}}
+
+
+-- {{{ Wallpaper
+if beautiful.wallpaper then
+    for s = 1, screen.count() do
+        gears.wallpaper.maximized(beautiful.wallpaper, s, true)
+    end
+end
 -- }}}
 
 
@@ -85,8 +126,9 @@ end
 -- Create a laucher widget and a main menu
 myawesomemenu = {
    { "manual", terminal .. " -e man awesome" },
-   { "edit config", editor_cmd .. " " .. config .. "/rc.lua" },
-   { "restart", awesome.restart }
+   { "edit config", editor_cmd .. " " .. awesome.conffile },
+   { "restart", awesome.restart },
+   { "quit", awesome.quit }
 }
 
 mymainmenu = awful.menu({ items = {
@@ -104,8 +146,11 @@ mymainmenu = awful.menu({ items = {
                            }
                         })
 
-mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon),
+mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
                                      menu = mymainmenu })
+
+-- Menubar configuration
+menubar.utils.terminal = terminal -- Set the terminal for applications that require it
 -- }}}
 
 
@@ -659,7 +704,7 @@ root.keys(globalkeys)
 -- {{{ Rules
 -- class: second value of the WM_CLASS property
 -- instance: first value of the WM_CLASS property
-awful_rules.rules = {
+awful.rules.rules = {
     -- All clients will match this rule.
     { rule = { },
       properties = { focus = true,
@@ -714,9 +759,9 @@ client.connect_signal("manage", function (c, startup)
     -- end
 
     -- Enable sloppy focus
-    c:connect_signal("mouse::enter", function (c)
-        if  awful.layout.get(c.screen) ~= awful.layout.suit.magnifier
-        and awful.client.focus.filter(c) then
+    c:connect_signal("mouse::enter", function(c)
+        if awful.layout.get(c.screen) ~= awful.layout.suit.magnifier
+            and awful.client.focus.filter(c) then
             client.focus = c
         end
     end)
@@ -728,8 +773,7 @@ client.connect_signal("manage", function (c, startup)
         awful.client.setslave(c)
 
         -- Put windows in a smart way, only if they does not set an initial position.
-        if  not c.size_hints.program_position
-        and not c.size_hints.user_position then
+        if not c.size_hints.user_position and not c.size_hints.program_position then
             awful.placement.no_overlap(c)
             awful.placement.no_offscreen(c)
         end
