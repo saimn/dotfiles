@@ -10,8 +10,10 @@ function mdv() { mplayer -dvd-device $1 dvd://$2 }
 function rmdv() { for i in `seq 1 1 30` ; mplayer -dvd-device $1 dvd://$i }
 function vplay() { quvi $1 -f best --exec "mplayer %u" }
 
-function v() { urxvtc -e "bash" -c "exec vim $@" >> /dev/null & }
-function sv() { urxvtc -e "bash" -c "exec sudo vim $@" >> /dev/null & }
+# function v() { urxvtc -e "bash" -c "exec vim $@" >> /dev/null & }
+# function sv() { urxvtc -e "bash" -c "exec sudo vim $@" >> /dev/null & }
+
+function sssh (){ ssh -t "$1" 'tmux attach || tmux new || screen -DR'; }
 
 autoload -U zcalc
 function calc(){ awk "BEGIN{ print $* }" ;}
@@ -67,4 +69,3 @@ strip-pdf-metadata() {
        sed -e 's/\(InfoValue:\)\s.*/\1\ /g' | \
        pdftk $1 update_info - output clean-$1
 }
-

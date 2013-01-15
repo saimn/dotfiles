@@ -59,6 +59,7 @@ alias ec="emacsclient -n -c"
 alias et="emacsclient -t"
 alias v="vim"
 alias vi="vim"
+alias sv="sudo vim"
 
 alias less="/usr/share/vim/vim73/macros/less.sh"
 
