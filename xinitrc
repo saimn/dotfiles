@@ -47,6 +47,9 @@ test -r $HOME/.Xdefaults && xrdb -merge $HOME/.Xdefaults
 # see https://bbs.archlinux.org/viewtopic.php?id=99175
 export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
 
+# KDE and Qt programs look
+export QT_PLUGIN_PATH=$HOME/.kde4/lib/kde4/plugins/:/usr/lib/kde4/plugins/
+
 # Autostart {{{
 
 xscreensaver -nosplash &
