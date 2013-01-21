@@ -10,6 +10,8 @@ local beautiful = require("beautiful")
 -- Notification library
 local naughty = require("naughty")
 local menubar = require("menubar")
+-- User libraries
+local functions = require("functions")
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -41,31 +43,43 @@ end
 beautiful.init("/usr/share/awesome/themes/default/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "xterm"
-editor = os.getenv("EDITOR") or "nano"
-editor_cmd = terminal .. " -e " .. editor
+local altkey = "Mod1"
+local modkey = "Mod4"
 
--- Default modkey.
--- Usually, Mod4 is the key with a logo between Control and Alt.
--- If you do not like this or do not have such a key,
--- I suggest you to remap Mod4 to another key using xmodmap or other tools.
--- However, you can use another modifier like Mod1, but it may interact with others.
-modkey = "Mod4"
+local home       = os.getenv("HOME")
+local host       = oscapture("hostname")
+local config     = awful.util.getdir("config")
+local exec       = awful.util.spawn
+local sexec      = awful.util.spawn_with_shell
+local terminal   = "urxvtc"
+local browser    = os.getenv("BROWSER") or "firefox"
+local mail_cmd   = terminal.." -T Mutt -name Mutt -e mutt"
+local editor     = os.getenv("EDITOR") or "vim"
+local editor_cmd = terminal .. " -e " .. editor
+local filemgr    = "pcmanfm"
+local htop_cmd   = terminal.." -name htop -geometry 80x7 -e htop"
+local lock_cmd   = "xscreensaver-command -lock"
+
+if host == "fireball" then
+   volchan = "Master -c 0"
+else
+   volchan = "Master"
+end
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 local layouts =
 {
     awful.layout.suit.floating,
     awful.layout.suit.tile,
-    awful.layout.suit.tile.left,
+    -- awful.layout.suit.tile.left,
     awful.layout.suit.tile.bottom,
-    awful.layout.suit.tile.top,
+    -- awful.layout.suit.tile.top,
     awful.layout.suit.fair,
-    awful.layout.suit.fair.horizontal,
-    awful.layout.suit.spiral,
-    awful.layout.suit.spiral.dwindle,
+    -- awful.layout.suit.fair.horizontal,
+    -- awful.layout.suit.spiral,
+    -- awful.layout.suit.spiral.dwindle,
     awful.layout.suit.max,
-    awful.layout.suit.max.fullscreen,
+    -- awful.layout.suit.max.fullscreen,
     awful.layout.suit.magnifier
 }
 -- }}}
@@ -79,11 +93,18 @@ end
 -- }}}
 
 -- {{{ Tags
--- Define a tag table which hold all screen tags.
-tags = {}
+tags = {
+  names  = { " mail ", " web ", " term ", " code ", " misc ", 6, 7, 8, " media " },
+  layout = { layouts[1], layouts[1], layouts[1], layouts[1], layouts[1],
+             layouts[1], layouts[1], layouts[1], layouts[1]
+}}
+
 for s = 1, screen.count() do
-    -- Each screen has its own tag table.
-    tags[s] = awful.tag({ 1, 2, 3, 4, 5, 6, 7, 8, 9 }, s, layouts[1])
+    tags[s] = awful.tag(tags.names, s, tags.layout)
+    -- awful.tag.setproperty(tags[s][5], "mwfact", 0.13)
+    -- awful.tag.setproperty(tags[s][6], "hide",   true)
+    -- awful.tag.setproperty(tags[s][7], "hide",   true)
+    -- awful.tag.setproperty(tags[s][8], "hide",   true)
 end
 -- }}}
 
@@ -97,7 +118,16 @@ myawesomemenu = {
 }
 
 mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
-                                    { "open terminal", terminal }
+                                    { "Suspend", "sudo pm-suspend" },
+                                    { "Reboot", "systemctl reboot" },
+                                    { "Shutdown", "systemctl poweroff" },
+                                    { "terminal", terminal },
+                                    { "htop", htop_cmd },
+                                    { "browser", browser },
+                                    { "mail", mail_cmd },
+                                    { "files", filemgr },
+                                    { "lock", lock_cmd },
+                                    { "quit", awesome.quit }
                                   }
                         })
 
@@ -178,7 +208,9 @@ for s = 1, screen.count() do
     mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons)
 
     -- Create the wibox
-    mywibox[s] = awful.wibox({ position = "top", screen = s })
+    mywibox[s] = awful.wibox({ position = "top",
+                               height = 20,
+                               screen = s })
 
     -- Widgets that are aligned to the left
     local left_layout = wibox.layout.fixed.horizontal()
@@ -212,10 +244,59 @@ root.buttons(awful.util.table.join(
 
 -- {{{ Key bindings
 globalkeys = awful.util.table.join(
+    -- {{{ Applications
+    awful.key({ modkey, "Shift" }, "e", function () exec("emacsclient -n -c") end),
+    awful.key({ modkey, "Shift" }, "f", function () exec(browser) end),
+    awful.key({ modkey, "Shift" }, "m", function () exec(mail_cmd) end),
+    awful.key({ modkey, "Shift" }, "r", function () exec("emacsclient --eval '(make-remember-frame)'") end),
+    awful.key({ modkey, "Shift" }, "s", function () scratch.drop(terminal, "center", "center", 0.6, 0.6) end),
+    awful.key({ modkey, "Control" }, "l", function () exec(lock_cmd) end),
+    -- awful.key({ modkey }, "g", function () sexec("GTK2_RC_FILES=~/.gtkrc-gajim gajim") end),
+    awful.key({ modkey }, "Print", function () exec("scrot -e 'mv $f ~/Images/ 2>/dev/null'") end),
+    -- }}}
+
+    -- {{{ Multimedia keys
+    awful.key({}, "XF86AudioLowerVolume", function () exec("amixer -q set "..volchan.." 2dB-") end),
+    awful.key({}, "XF86AudioRaiseVolume", function () exec("amixer -q set "..volchan.." 2dB+") end),
+    awful.key({}, "XF86AudioMute",        function () exec("amixer -q set "..volchan.." toggle") end),
+    awful.key({}, "XF86AudioNext",        function() sexec("cmus-remote --next") end ),
+    awful.key({}, "XF86AudioPrev",        function() sexec("cmus-remote --prev") end ),
+    awful.key({}, "XF86AudioPlay",        function() sexec("cmus-remote --pause") end ),
+    awful.key({}, "XF86ScreenSaver",      function() exec(lock_cmd) end ), --fn - f2
+    awful.key({}, "XF86Sleep",            function() sexec("sudo pm-suspend") end ), --fn - f4
+    -- }}}
+
+    -- {{{ Prompt menus
+    -- awful.key({ modkey }, "F2", function ()
+    --     awful.prompt.run({ prompt = "Run: " }, mypromptbox[mouse.screen].widget,
+    --         function (...) mypromptbox[mouse.screen].text = exec(unpack(arg), false) end,
+    --         awful.completion.shell, awful.util.getdir("cache") .. "/history")
+    -- end),
+    awful.key({ modkey }, "F2",
+              function ()
+                 awful.util.spawn("dmenu_run -i -p 'Run command:'" ..
+                                  " -nb '" .. beautiful.bg_normal ..
+                                  "' -nf '" .. beautiful.fg_normal ..
+                                  "' -sb '" .. beautiful.bg_focus ..
+                                  "' -sf '" .. beautiful.fg_focus .. "'")
+              end),
+    awful.key({ modkey }, "F4",
+              function ()
+                 awful.prompt.run({ prompt = "Web: " }, mypromptbox[mouse.screen].widget,
+                                  function (command)
+                                     sexec(browser.." 'http://duckduckgo.com/?q="..command.."'")
+                                     awful.tag.viewonly(tags[screen.count()][2])
+                                  end)
+              end),
+    -- }}}
+
+    -- {{{ Tag browsing
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
     awful.key({ modkey,           }, "Right",  awful.tag.viewnext       ),
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
+    -- }}}
 
+    -- {{{ Focus controls
     awful.key({ modkey,           }, "j",
         function ()
             awful.client.focus.byidx( 1)
@@ -227,6 +308,7 @@ globalkeys = awful.util.table.join(
             if client.focus then client.focus:raise() end
         end),
     awful.key({ modkey,           }, "w", function () mymainmenu:show() end),
+    -- }}}
 
     -- Layout manipulation
     awful.key({ modkey, "Shift"   }, "j", function () awful.client.swap.byidx(  1)    end),
@@ -236,14 +318,16 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "u", awful.client.urgent.jumpto),
     awful.key({ modkey,           }, "Tab",
         function ()
-            awful.client.focus.history.previous()
+            -- awful.client.focus.history.previous()
+            awful.client.cycle(true)
+            awful.client.focus.byidx(-1)
             if client.focus then
                 client.focus:raise()
             end
         end),
 
     -- Standard program
-    awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end),
+    awful.key({ modkey, "Shift"   }, "Return", function () exec(terminal) end),
     awful.key({ modkey, "Control" }, "r", awesome.restart),
     awful.key({ modkey, "Shift"   }, "q", awesome.quit),
 
@@ -255,19 +339,20 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "l",     function () awful.tag.incncol(-1)         end),
     awful.key({ modkey,           }, "space", function () awful.layout.inc(layouts,  1) end),
     awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(layouts, -1) end),
+    awful.key({ modkey, "Control" }, "space", function () awful.layout.set(layouts[1])  end),
 
     awful.key({ modkey, "Control" }, "n", awful.client.restore),
 
     -- Prompt
     awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen]:run() end),
 
-    awful.key({ modkey }, "x",
-              function ()
-                  awful.prompt.run({ prompt = "Run Lua code: " },
-                  mypromptbox[mouse.screen].widget,
-                  awful.util.eval, nil,
-                  awful.util.getdir("cache") .. "/history_eval")
-              end),
+    -- awful.key({ modkey }, "x",
+    --           function ()
+    --               awful.prompt.run({ prompt = "Run Lua code: " },
+    --               mypromptbox[mouse.screen].widget,
+    --               awful.util.eval, nil,
+    --               awful.util.getdir("cache") .. "/history_eval")
+    --           end),
     -- Menubar
     awful.key({ modkey }, "p", function() menubar.show() end)
 )
@@ -275,8 +360,8 @@ globalkeys = awful.util.table.join(
 clientkeys = awful.util.table.join(
     awful.key({ modkey,           }, "f",      function (c) c.fullscreen = not c.fullscreen  end),
     awful.key({ modkey, "Shift"   }, "c",      function (c) c:kill()                         end),
-    awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ),
-    awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end),
+    awful.key({ modkey, "Control" }, "f",      awful.client.floating.toggle                     ),
+    awful.key({ modkey,           }, "Return", function (c) c:swap(awful.client.getmaster()) end),
     awful.key({ modkey,           }, "o",      awful.client.movetoscreen                        ),
     awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end),
     awful.key({ modkey,           }, "n",
@@ -348,18 +433,38 @@ awful.rules.rules = {
                      border_color = beautiful.border_normal,
                      focus = awful.client.focus.filter,
                      keys = clientkeys,
-                     buttons = clientbuttons } },
-    { rule = { class = "MPlayer" },
+                     buttons = clientbuttons },
+      callback = awful.titlebar.add
+    },
+    { rule = { class = "Firefox", instance = "Navigator" },
+      properties = { tag = tags[screen.count()][2] }, callback = maximize },
+    { rule = { class = "Firefox" }, except = { instance = "Navigator" },
+      properties = {floating = true}, callback = awful.placement.centered },
+    { rule = { class = "URxvt", instance = "htop" },
+      properties = { floating = true }, callback = awful.titlebar.remove },
+    { rule = { class = "URxvt", instance = "Mutt" },
+      properties = { tag = tags[screen.count()][1] }, },
+    -- { rule = { class = "Emacs",    instance = "emacs" },
+    --   properties = { tag = tags[screen.count()][2] } },
+    { rule = { class = "Emacs",    instance = "_Remember_" },
+      properties = { floating = true }, callback = awful.titlebar.remove },
+    { rule = { class = "Xmessage", instance = "xmessage" },
       properties = { floating = true } },
-    { rule = { class = "pinentry" },
-      properties = { floating = true } },
-    { rule = { class = "gimp" },
-      properties = { floating = true } },
-    -- Set Firefox to always map on tags number 2 of screen 1.
-    -- { rule = { class = "Firefox" },
-    --   properties = { tag = tags[1][2] } },
+    { rule = { class = "Thunderbird" }, properties = { tag = tags[1][1]} },
+    { rule = { class = "Gajim.py" },    properties = { tag = tags[1][1]} },
+    { rule = { class = "gimp" },        properties = { floating = true } },
+    -- float & centered
+    { rule_any = { class = { "Mirage", "feh", "Pinentry.*" } },
+      properties = { floating = true }, callback = awful.placement.centered },
+    -- float, centered & no titlebar
+    { rule_any = { class = { "MPlayer", "Vlc" } },
+      properties = { floating = true }, callback = function(c)
+                                                      awful.titlebar.remove(c)
+                                                      awful.placement.centered(c)
+                                                   end },
 }
 -- }}}
+
 
 -- {{{ Signals
 -- Signal function to execute when a new client appears.
@@ -375,7 +480,7 @@ client.connect_signal("manage", function (c, startup)
     if not startup then
         -- Set the windows at the slave,
         -- i.e. put it at the end of others instead of setting it master.
-        -- awful.client.setslave(c)
+        awful.client.setslave(c)
 
         -- Put windows in a smart way, only if they does not set an initial position.
         if not c.size_hints.user_position and not c.size_hints.program_position then
@@ -384,7 +489,7 @@ client.connect_signal("manage", function (c, startup)
         end
     end
 
-    local titlebars_enabled = false
+    local titlebars_enabled = true
     if titlebars_enabled and (c.type == "normal" or c.type == "dialog") then
         -- Widgets that are aligned to the left
         local left_layout = wibox.layout.fixed.horizontal()
@@ -425,4 +530,32 @@ end)
 
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+-- }}}
+
+-- {{{ Autostart apps
+
+if host == "thunderball" then
+   -- run_once("/usr/lib/gnome-settings-daemon/gnome-settings-daemon")
+   -- run_once("nm-applet --sm-disable", "", "nm-applet")
+   -- run_once("wicd-client","-t","/usr/bin/python2 -O /usr/share/wicd/gtk/wicd-client.py -t")
+   run_once("urxvtd", "-q -f -o", "urxvtd -q -f -o")
+   run_once("volumeicon")
+   run_once("xcompmgr")
+   run_once("conky -c /home/simon/.conky/conkyrc_seamod")
+   run_once("syndaemon -t -k -i 2 -d")
+   run_once("synapse", "-s", "synapse -s")
+   -- run_once("gpaste")
+elseif host == "fireball" then
+   -- run_once("/usr/libexec/gnome-settings-daemon")
+   run_once("pulseaudio", "--start")
+   run_once("numlockx on")
+   run_once("synergys")
+   run_once("urxvt256c-mld", "-q -f -o", "urxvt256c-mld -q -f -o")
+   run_once("gpaste", nil, "/usr/libexec/gpaste/gpasted")
+end
+
+-- run_once("xbindkeys")
+-- run_once("xscreensaver -nosplash", nil, "xscreensaver -nosplash")
+-- run_once("emacs", "--daemon")
+
 -- }}}
