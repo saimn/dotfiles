@@ -52,7 +52,6 @@ export QT_PLUGIN_PATH=$HOME/.kde4/lib/kde4/plugins/:/usr/lib/kde4/plugins/
 
 # Autostart {{{
 
-xscreensaver -nosplash &
 emacs --daemon &
 
 # Start agents
@@ -66,13 +65,14 @@ DEFAULT_SESSION=awesome
 
 case $1 in
     xfce4)
-	exec startxfce4
+        exec startxfce4
 	;;
     awesome)
-	exec awesome
+        xscreensaver -nosplash &
+        exec awesome
 	;;
     enlightenment)
-	exec enlightenment_start
+        exec enlightenment_start
 	;;
     kde)
         exec startkde
