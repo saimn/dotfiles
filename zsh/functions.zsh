@@ -13,7 +13,7 @@ function vplay() { quvi $1 -f best --exec "mplayer %u" }
 # function v() { urxvtc -e "bash" -c "exec vim $@" >> /dev/null & }
 # function sv() { urxvtc -e "bash" -c "exec sudo vim $@" >> /dev/null & }
 
-function sssh (){ ssh -t "$1" 'tmux attach || tmux new || screen -DR'; }
+function sssh (){ TERM=xterm-256color ssh -t "$1" 'tmux attach || tmux new || screen -DR'; }
 
 autoload -U zcalc
 function calc(){ awk "BEGIN{ print $* }" ;}

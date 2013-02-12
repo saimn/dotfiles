@@ -18,7 +18,7 @@ fi
 # Python
 export WORKON_HOME=$HOME/lib/virtualenvs
 export PROJECT_HOME=$HOME/Dev
-source /usr/bin/virtualenvwrapper_lazy.sh
+source /usr/bin/virtualenvwrapper.sh
 
 export PIP_DOWNLOAD_CACHE=$HOME/.cache/pip
 export PIP_USE_MIRRORS=true
