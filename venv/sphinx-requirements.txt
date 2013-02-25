@@ -1,4 +1,3 @@
 docutils
 fabric
 sphinx
-watchdog

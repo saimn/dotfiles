@@ -61,7 +61,7 @@ eval $(gpg-agent --daemon)
 
 # }}}
 
-DEFAULT_SESSION=awesome
+DEFAULT_SESSION=startkde
 
 case $1 in
     xfce4)

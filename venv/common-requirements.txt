@@ -1,5 +1,8 @@
 coverage
 fabric
+gorun
+memory_profiler
 nose
 nose-progressive
+pytest
 sphinx
