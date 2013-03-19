@@ -24,7 +24,7 @@ function backup_mail () {
    then
       offlineimap
       reset
-      tar czvf $HOME/Documents/perso/backup/mail-$DATE.tar.gz $HOME/Mail/
+      tar czvf $HOME/Private/backup/mail-$DATE.tar.gz $HOME/Mail/
    fi
 }
 # }}}
@@ -84,7 +84,7 @@ function backup_system () {
    pacman -Qqmt > pkglist-local.txt
 
    echo ":: Backup system config files ..."
-   tar -cvpJf $HOME/Documents/perso/backup/system-files-$DATE.tar.xz \
+   tar -cvpJf $HOME/Private/backup/system-files-$DATE.tar.xz \
        /etc /boot pkglist-local.txt pkglist-official.txt
    rm pkglist-local.txt pkglist-official.txt
 
@@ -112,7 +112,7 @@ function backup_nexus () {
         --exclude=.android_secure/ --exclude=.cr3/ --exclude=.fdroid/ --exclude=Android/ \
         --exclude="LOST.DIR/" --exclude=.sw-vvm/ --exclude=".Trash-1000/" \
         --exclude=Musique/ --exclude=waze/ --exclude=osmand/ --exclude=osmdroid/ \
-        /media/35EE-1E0E/ ~/Documents/nexus/
+        /run/media/simon/35EE-1E0E/ ~/Documents/nexus/
 }
 # }}}
 

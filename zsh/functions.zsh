@@ -26,6 +26,12 @@ function calc(){ awk "BEGIN{ print $* }" ;}
     #command ssh $*
 #}
 
+# rename with the creation date
+function date_rename()
+{
+    exiftool "-FileName<CreateDate" -d "%Y-%m-%d_%H-%M-%S.%%e" $*
+}
+
 # Convert * to mp3 files
 function 2mp3()
 {

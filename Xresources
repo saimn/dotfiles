@@ -82,6 +82,7 @@ URxvt.scrollstyle:              plain
 URxvt*secondaryScroll:          true
 
 ! URxvt*perl-lib:                 /usr/lib/urxvt/perl/
+URxvt.perl-lib:                 .urxvt/
 
 ! perl-ext-common remplacé par perl-ext depuis v9.16 :
 URxvt.perl-ext:                 default,matcher,searchable-scrollback,clipboard,url-select,keyboard-select
