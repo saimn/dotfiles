@@ -7,10 +7,10 @@ c = get_config()
 #------------------------------------------------------------------------------
 
 # A Mixin for applications that start InteractiveShell instances.
-# 
+#
 # Provides configurables for loading extensions and executing files as part of
 # configuring a Shell environment.
-# 
+#
 # Provides init_extensions() and init_code() methods, to be called after
 # init_shell(), which must be implemented by subclasses.
 
@@ -26,7 +26,10 @@ c.InteractiveShellApp.exec_lines = [
 # c.InteractiveShellApp.pylab_import_all = True
 
 # A list of dotted module names of IPython extensions to load.
-# c.InteractiveShellApp.extensions = []
+c.InteractiveShellApp.extensions = [
+    'line_profiler_ext',
+    'memory_profiler_ext',
+    ]
 
 # dotted module name of an IPython extension to load.
 # c.InteractiveShellApp.extra_extension = ''
@@ -91,7 +94,10 @@ c.TerminalIPythonApp.exec_lines = [
 # c.TerminalIPythonApp.quick = False
 
 # A list of dotted module names of IPython extensions to load.
-# c.TerminalIPythonApp.extensions = []
+c.TerminalIPythonApp.extensions = [
+    'line_profiler_ext',
+    'memory_profiler_ext',
+    ]
 
 # Whether to install the default config files into the profile dir. If a new
 # profile is being created, and IPython contains config files for that profile,
@@ -125,7 +131,7 @@ c.TerminalIPythonApp.exec_lines = [
 # color codes, this capability can be turned off.
 # c.TerminalInteractiveShell.color_info = True
 
-# 
+#
 # c.TerminalInteractiveShell.history_length = 10000
 
 # Don't call post-execute functions that have failed in the past.
@@ -140,13 +146,13 @@ c.TerminalIPythonApp.exec_lines = [
 # Autoindent IPython code entered interactively.
 # c.TerminalInteractiveShell.autoindent = True
 
-# 
+#
 # c.TerminalInteractiveShell.separate_in = '\n'
 
 # Deprecated, use PromptManager.in2_template
 # c.TerminalInteractiveShell.prompt_in2 = '   .\\D.: '
 
-# 
+#
 # c.TerminalInteractiveShell.separate_out = ''
 
 # Deprecated, use PromptManager.in_template
@@ -187,19 +193,19 @@ c.TerminalInteractiveShell.editor = 'vim'
 # The part of the banner to be printed before the profile
 # c.TerminalInteractiveShell.banner1 = 'Python 2.7.3 (default, Apr 13 2012, 20:16:59) \nType "copyright", "credits" or "license" for more information.\n\nIPython 0.12 -- An enhanced Interactive Python.\n?         -> Introduction and overview of IPython\'s features.\n%quickref -> Quick reference.\nhelp      -> Python\'s own help system.\nobject?   -> Details about \'object\', use \'object??\' for extra details.\n'
 
-# 
+#
 # c.TerminalInteractiveShell.readline_parse_and_bind = ['tab: complete', '"\\C-l": clear-screen', 'set show-all-if-ambiguous on', '"\\C-o": tab-insert', '"\\C-r": reverse-search-history', '"\\C-s": forward-search-history', '"\\C-p": history-search-backward', '"\\C-n": history-search-forward', '"\\e[A": history-search-backward', '"\\e[B": history-search-forward', '"\\C-k": kill-line', '"\\C-u": unix-line-discard']
 
 # The part of the banner to be printed after the profile
 # c.TerminalInteractiveShell.banner2 = ''
 
-# 
+#
 # c.TerminalInteractiveShell.separate_out2 = ''
 
-# 
+#
 # c.TerminalInteractiveShell.wildcards_case_sensitive = True
 
-# 
+#
 # c.TerminalInteractiveShell.debug = False
 
 # Set to confirm when you try to exit IPython with an EOF (Control-D in Unix,
@@ -207,10 +213,10 @@ c.TerminalInteractiveShell.editor = 'vim'
 # direct exit without any confirmation.
 c.TerminalInteractiveShell.confirm_exit = False
 
-# 
+#
 # c.TerminalInteractiveShell.ipython_dir = ''
 
-# 
+#
 # c.TerminalInteractiveShell.readline_remove_delims = '-/~'
 
 # Start logging to the default log file.
@@ -228,22 +234,22 @@ c.TerminalInteractiveShell.confirm_exit = False
 # Save multi-line entries as one entry in readline history
 # c.TerminalInteractiveShell.multiline_history = True
 
-# 
+#
 # c.TerminalInteractiveShell.readline_use = True
 
 # Start logging to the given file in append mode.
 # c.TerminalInteractiveShell.logappend = ''
 
-# 
+#
 # c.TerminalInteractiveShell.xmode = 'Context'
 
-# 
+#
 # c.TerminalInteractiveShell.quiet = False
 
 # Enable auto setting the terminal title.
 c.TerminalInteractiveShell.term_title = True
 
-# 
+#
 # c.TerminalInteractiveShell.object_info_string_level = 0
 
 # Deprecated, use PromptManager.out_template
@@ -278,7 +284,7 @@ c.TerminalInteractiveShell.term_title = True
 # Input prompt.  '\#' will be transformed to the prompt number
 # c.PromptManager.in_template = 'In [\\#]: '
 
-# 
+#
 # c.PromptManager.color_scheme = 'Linux'
 
 #------------------------------------------------------------------------------
@@ -286,10 +292,10 @@ c.TerminalInteractiveShell.term_title = True
 #------------------------------------------------------------------------------
 
 # An object to manage the profile directory and its resources.
-# 
+#
 # The profile directory is used by all IPython applications, to manage
 # configuration, logging and security.
-# 
+#
 # This object knows how to find, create and manage these directories. This
 # should be used by any code that wants to handle profiles.
 
@@ -302,12 +308,12 @@ c.TerminalInteractiveShell.term_title = True
 #------------------------------------------------------------------------------
 
 # The default pretty-printer.
-# 
+#
 # This uses :mod:`IPython.external.pretty` to compute the format data of the
 # object. If the object cannot be pretty printed, :func:`repr` is used. See the
 # documentation of :mod:`IPython.external.pretty` for details on how to write
 # pretty printers.  Here is a simple example::
-# 
+#
 #     def dtype_pprinter(obj, p, cycle):
 #         if cycle:
 #             return p.text('dtype(...)')
@@ -325,28 +331,28 @@ c.TerminalInteractiveShell.term_title = True
 
 # PlainTextFormatter will inherit config from: BaseFormatter
 
-# 
+#
 # c.PlainTextFormatter.type_printers = {}
 
-# 
+#
 # c.PlainTextFormatter.newline = '\n'
 
-# 
+#
 # c.PlainTextFormatter.float_precision = ''
 
-# 
+#
 # c.PlainTextFormatter.verbose = False
 
-# 
+#
 # c.PlainTextFormatter.deferred_printers = {}
 
-# 
+#
 # c.PlainTextFormatter.pprint = True
 
-# 
+#
 # c.PlainTextFormatter.max_width = 79
 
-# 
+#
 # c.PlainTextFormatter.singleton_printers = {}
 
 #------------------------------------------------------------------------------
@@ -358,24 +364,24 @@ c.TerminalInteractiveShell.term_title = True
 # IPCompleter will inherit config from: Completer
 
 # Instruct the completer to omit private method names
-# 
+#
 # Specifically, when completing on ``object.<tab>``.
-# 
+#
 # When 2 [default]: all names that start with '_' will be excluded.
-# 
+#
 # When 1: all 'magic' names (``__foo__``) will be excluded.
-# 
+#
 # When 0: nothing will be excluded.
 # c.IPCompleter.omit__names = 2
 
 # Whether to merge completion results into a single list
-# 
+#
 # If False, only the completion results from the first non-empty completer will
 # be returned.
 # c.IPCompleter.merge_completions = True
 
 # Activate greedy completion
-# 
+#
 # This will enable completion on elements of lists, results of function calls,
 # etc., but can be unsafe because the code is actually evaluated on TAB.
 # c.IPCompleter.greedy = False

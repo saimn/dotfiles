@@ -1,8 +1,11 @@
 coverage
 fabric
 gorun
+line-profiler
 memory_profiler
 nose
 nose-progressive
+psutil
 pytest
+pytest-cov
 sphinx
