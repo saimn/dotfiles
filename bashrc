@@ -83,10 +83,6 @@ BROWSER='firefox -new-tab'
 
 export EDITOR VISUAL PAGER PATH ALTERNATE_EDITOR BROWSER
 
-# repertoire texlive local
-[ "$HOSTNAME" = "goudes" ] && MYTEXMF="miktex-texmf" || MYTEXMF=".texmf"
-export TEXMFHOME=$HOME/$MYTEXMF
-
 # turn off .lesshst file
 export LESSHISTFILE="-"
 
@@ -118,9 +114,9 @@ fi
 # -G: cacher les noms de groupe
 
 # Obtenir un listage de répertoire détaillé
-alias l='ls -l --group-directories-first'
+alias l='ls -Glh --group-directories-first'
 # idem avec tailles human
-alias ll='l -Gh'
+alias ll='ls -lh --group-directories-first'
 # tri par date de modif
 alias lt='ll -tr'
 # Lister avec les fichiers cachés
@@ -141,25 +137,18 @@ alias du='du -h --max-depth=1'
 alias dusort='du -x --block-size=1048576 | sort -nr'
 alias df='df -h'
 
-alias ht='gnome-terminal -e htop -t htop --geometry=80x6 &'
-alias uht='urxvt -name htop -title htop +sb -geometry 80x6 -e htop &'
+alias ht='urxvtc -name htop -title htop +sb -geometry 80x6 -e htop &'
 
+alias g=git
 alias v="vim"
 alias sv="sudo vim"
-#alias sync="~/.dropbox-dist/dropboxd &"
 
 #-------------------------------------
 # Useful commands
 #-------------------------------------
 
-alias svnd='svn diff --diff-cmd "~/bin/svnvimdiff"'
-
 # simple webserver on port 8000
 alias webshare='python -m SimpleHTTPServer'
-
-# open & close dropbox coffre
-alias coffre-open='encfs $HOME/Dropbox/coffre $HOME/Documents/coffre-dropbox'
-alias coffre-close='fusermount -u $HOME/Documents/coffre-dropbox'
 
 # run multiple Firefox
 #export MOZ_NO_REMOTE=1
@@ -167,16 +156,5 @@ alias coffre-close='fusermount -u $HOME/Documents/coffre-dropbox'
 # calc
 calc(){ awk "BEGIN{ print $* }" ;}
 
-
-
 # Set host-specific config
 [[ -f ~/.bashrc.$HOSTNAME ]] && . ~/.bashrc.$HOSTNAME
-
-# Display stuff after login
-# date
-# have pom && pom
-# echo
-# have fortune && fortune -c
-# echo
-
-# vim: fdm=marker ts=4 sw=4 et:
