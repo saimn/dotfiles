@@ -1,7 +1,7 @@
 # -*- mode: Conf; -*-
 
 [user]
-   name = Simon
+   name = Simon Conseil
    email = contact@saimon.org
 [core]
    editor = vim +0
@@ -74,7 +74,7 @@
    changed = green
    untracked = cyan
 [merge]
-   tool = gvimdiff3
+   tool = meld
    stat = true
 [rebase]
    stat = true
@@ -82,7 +82,7 @@
    autosetupmerge = true
    autosetuprebase = always
 [push]
-   default = current
+   default = upstream
 [github]
    user = saimn
 
