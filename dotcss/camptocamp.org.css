@@ -28,7 +28,7 @@ colors {{{
 */
 
 html, body, #holder, .pun {
-  min-width: 800px !important;
+  min-width: 0 !important;
   font: 14px/1.5 "Droid Sans", sans-serif !important;
   background-color: #141414 !important;
   color: #aaa !important;

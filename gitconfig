@@ -1,7 +1,7 @@
 # -*- mode: Conf; -*-
 
 [user]
-   name = Simon
+   name = Simon Conseil
    email = contact@saimon.org
 [core]
    editor = vim +0

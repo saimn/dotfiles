@@ -3,26 +3,29 @@
 - *.log
 - *.swp
 - *~
-- .mozilla/**/Cache
-- cache*/
-- Cache*/
-- .cache*/
-- .ccache/
+
 - .Cache*/
-- .thumbnails/
-- .gvfs/
-- trash/
-- Trash/
 - .Trash-1000/
 - .adobe/
+- .cache*/
+- .ccache/
+- .gvfs/
+- .local/share/akonadi/
 - .macromedia/
+- .mozilla/**/Cache
+- .thumbnails/
+- Cache*/
+- Trash/
+- cache*/
+- trash/
 
-- data/
-- emphot/
-- node_modules/
-- lib/virtualenvs/
 - Mail/
 - Musique/
+- VirtualMachines/
+- data/
+- lib/virtualenvs/
+- node_modules/
+- tmp/
 
 + .config/
 + .fonts/
@@ -33,13 +36,19 @@
 + .hg/
 + .icons/
 + .idl*/
++ .kde*/
 + .mozilla/
 + .ssh/
 + .subversion/
 + .themes/
 + .thunderbird/
++ .unison/
++ .urxvt/
++ .wicd/
 
 + .bash*
++ .kderc
++ .netrc
 + .profile
 + .xawtv
 + *.local
