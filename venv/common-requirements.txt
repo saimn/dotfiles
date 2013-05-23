@@ -3,8 +3,8 @@ fabric
 gorun
 line-profiler
 memory_profiler
-nose
-nose-progressive
+#nose
+#nose-progressive
 psutil
 pytest
 pytest-cov
