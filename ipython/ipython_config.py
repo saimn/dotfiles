@@ -19,8 +19,8 @@ c = get_config()
 
 # lines of code to run at IPython startup.
 c.InteractiveShellApp.exec_lines = [
-        'import os,sys',
-        ]
+    'import os,sys',
+]
 
 # If true, an 'import *' is done from numpy and pylab, when using pylab
 # c.InteractiveShellApp.pylab_import_all = True
@@ -28,8 +28,8 @@ c.InteractiveShellApp.exec_lines = [
 # A list of dotted module names of IPython extensions to load.
 c.InteractiveShellApp.extensions = [
     'line_profiler_ext',
-    'memory_profiler_ext',
-    ]
+    # 'memory_profiler_ext',
+]
 
 # dotted module name of an IPython extension to load.
 # c.InteractiveShellApp.extra_extension = ''
@@ -96,7 +96,7 @@ c.TerminalIPythonApp.exec_lines = [
 # A list of dotted module names of IPython extensions to load.
 c.TerminalIPythonApp.extensions = [
     'line_profiler_ext',
-    'memory_profiler_ext',
+    # 'memory_profiler_ext',
     ]
 
 # Whether to install the default config files into the profile dir. If a new
