@@ -5,6 +5,7 @@
    email = contact@saimon.org
 [core]
    editor = vim +0
+   # excludesfile = ~/.gitignore
    # autocrlf = input
    # safecrlf = true
 [alias]
@@ -12,21 +13,29 @@
    br = branch
    ci = commit -v
    co = checkout
-   tags = tag -l
+   cp = cherry-pick
+   ls = ls-files
    st = status -sb
+   tags = tag -l
+
+   unci = reset HEAD^
+   uncommit = reset HEAD^
    unstage = reset HEAD --
    ignored = ls-files --others
 
    # log
    authorcount = shortlog -sn
    authors = "!git log --format='%aN <%aE>' | sort -u"
+   logs = log --stat
    logv = log -p
    oneline = log --graph --all --abbrev-commit --decorate --pretty=oneline
-   hist = log --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)[%an]%Creset'
+   hist = log --graph --all --pretty=format:'%C(auto)%h%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)[%an]%Creset'
+   gflog = log -p --cc --graph --decorate
 
    # summary of what you're going to pull/push
    incoming = "!git fetch && git log ..origin/master --stat"
    outgoing = log --oneline origin/master..HEAD
+   sync = !git pull && git push
 
    # see what new commits have been created by the last command (typically after a "git pull")
    new = !sh -c 'git log $1@{1}..$1@{0} "$@"'
@@ -38,20 +47,26 @@
    di = diff
    staged = diff --cached
    diffstat = diff --stat -r
-   wdiff = diff --color-words
+   wdiff = diff --word-diff=color
+   wshow = show --word-diff=color
    w = whatchanged -p
 
    # info
    info = remote -v
 
    # fires up a git daemon for the repo you are currently in
-   serve = !git daemon --reuseaddr --verbose  --base-path=. --export-all ./.git
+   serve = daemon --verbose --export-all --base-path=.git --reuseaddr --strict-paths .git/
+   serveall = daemon --verbose --export-all --base-path=. --reuseaddr .
 
    # Prune all your stale remote branches
    prune-all = !git remote | xargs -n 1 git remote prune
 
    # Show git branches sorted by latest commit
    latest = for-each-ref --sort=-committerdate --format='%(committerdate:relative) %(refname:short)'
+
+   ours = "!f() { git checkout --ours -- $@ && git add -- $@; }; f"
+   theirs = "!f() { git checkout --theirs -- $@ && git add -- $@; }; f"
+
 [diff]
    renames = true
 [color]
@@ -61,7 +76,7 @@
    interactive = auto
    ui = auto
 [color "branch"]
-   current = yellow reverse
+   current = red bold
    local = yellow
    remote = green
 [color "diff"]
