@@ -1,3 +1,5 @@
+local awful = require("awful")
+
 -- Capture the result of a shell command
 function oscapture(cmd, raw)
   local f = assert(io.popen(cmd, 'r'))

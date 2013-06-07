@@ -56,8 +56,8 @@ function pad.set(c, width, height, sticky, screen)
     screen = screen or capi.mouse.screen
 
     -- Determine signal usage in this version of awesome
-    local attach_signal = capi.client.add_signal    or capi.client.connect_signal
-    local detach_signal = capi.client.remove_signal or capi.client.disconnect_signal
+    local attach_signal = capi.client.connect_signal    or capi.client.add_signal
+    local detach_signal = capi.client.disconnect_signal or capi.client.remove_signal
 
     local function setscratch(c)
         -- Scratchpad is floating and has no titlebar

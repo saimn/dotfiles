@@ -4,7 +4,7 @@
 Xephyr -ac -br -noreset -screen 800x600 :1 &
 sleep 1
 
-default_config="~/.config/awesome/rc.lua"
+default_config="$HOME/.config/awesome/rc.lua"
 
 [[ "$#" -eq "1" ]] && default_config=$1
 
