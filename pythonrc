@@ -1,5 +1,10 @@
 # ~/.pythonrc
 
+import datetime
+import os
+import pprint
+import sys
+
 # enable syntax completion
 try:
    import readline
