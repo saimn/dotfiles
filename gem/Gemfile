@@ -1,0 +1,5 @@
+source :rubygems
+gem 'compass'
+gem 'foreman'
+gem 'sass'
+
