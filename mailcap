@@ -12,21 +12,21 @@ application/vnd.ms-powerpoint;            libreoffice %s
 application/vnd.oasis.opendocument.text;  libreoffice %s
 
 application/pdf;                zathura %s
-application/pdf;                evince %s
+application/pdf;                okular %s
 application/ps;                 zathura %s
-application/ps;                 evince %s
+application/ps;                 okular %s
 
-application/x-bz;               file-roller %s
-application/x-bzip2;            file-roller %s
-application/x-compress;         file-roller %s
-application/x-compressed;       file-roller %s
-application/x-gtar;             file-roller %s
-application/x-gzip;             file-roller %s
-application/x-zip-compressed;   file-roller %s
-application/x-tar;              file-roller %s
-application/zip;                file-roller %s
-multipart/x-zip;                file-roller %s
-multipart/x-gzip;               file-roller %s
+application/x-bz;               lesspipe.sh %s ; copiousoutput 
+application/x-bzip2;            lesspipe.sh %s ; copiousoutput
+application/x-compress;         lesspipe.sh %s ; copiousoutput
+application/x-compressed;       lesspipe.sh %s ; copiousoutput
+application/x-gtar;             lesspipe.sh %s ; copiousoutput
+application/x-gzip;             lesspipe.sh %s ; copiousoutput
+application/x-zip-compressed;   lesspipe.sh %s ; copiousoutput
+application/x-tar;              lesspipe.sh %s ; copiousoutput
+application/zip;                lesspipe.sh %s ; copiousoutput
+multipart/x-zip;                lesspipe.sh %s ; copiousoutput
+multipart/x-gzip;               lesspipe.sh %s ; copiousoutput
 
 image/*;                        sxiv %s
 image/*;                        mirage %s
@@ -34,7 +34,6 @@ image/*;                        gthumb %s
 audio/*;                        mplayer %s
 video/*;                        mplayer %s
 
-#text/html;                      uzbl-browser %s
 text/html;                      firefox %s
 text/html;                      lynx -dump %s
 text/html;                      iconv -c -f %{charset} -t utf8 | python2 ~/bin/html2text/html2text.py -b 0 ; copiousoutput
