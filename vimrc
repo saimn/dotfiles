@@ -45,6 +45,9 @@ set spellfile=~/.vim/custom-dictionary.utf-8.add
 set colorcolumn=+1
 " set autochdir           " change current dir
 
+" Don't try to highlight lines longer than 800 characters.
+set synmaxcol=800
+
 " Time out on key codes but not mappings.
 " Basically this makes terminal Vim work sanely.
 set notimeout
@@ -66,6 +69,11 @@ au FocusLost * :silent! wall
 " Resize splits when the window is resized
 au VimResized * :wincmd =
 
+" Leader
+
+let mapleader = ","
+let maplocalleader = "\\"
+
 " Wildmenu completion {{{
 
 set wildmenu
@@ -76,6 +84,13 @@ set wildignore+=.hg,.git,.svn                    " Version control
 set wildignore+=*.aux,*.out,*.toc                " LaTeX intermediate files
 set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg   " binary images
 set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest " compiled object files
+set wildignore+=*.spl                            " compiled spelling word lists
+set wildignore+=*.sw?                            " Vim swap files
+set wildignore+=*.DS_Store                       " OSX bullshit
+
+set wildignore+=*.luac                           " Lua byte code
+
+set wildignore+=migrations                       " Django migrations
 set wildignore+=*.pyc                            " Python byte code
 
 set wildignore+=*.orig                           " Merge resolution files
@@ -133,7 +148,7 @@ set colorcolumn=+1
 " Backups {{{
 
 set backup                        " enable backups
-set noswapfile                    " It's 2012, Vim.
+set noswapfile                    " it's 2013, Vim.
 
 set undodir=~/.vim/tmp/undo//     " undo files
 set backupdir=~/.vim/tmp/backup// " backups
@@ -149,12 +164,6 @@ endif
 if !isdirectory(expand(&directory))
     call mkdir(expand(&directory), "p")
 endif
-
-" }}}
-" Leader {{{
-
-let mapleader = ","
-let maplocalleader = "\\"
 
 " }}}
 " Color scheme {{{
@@ -270,7 +279,7 @@ vnoremap Q gq
 
 " Reformat line.
 " I never use l as a macro register anyway.
-nnoremap ql ^vg_gq
+nnoremap ql gqq
 
 " Easier linewise reselection
 nnoremap <leader>V V`]
@@ -283,7 +292,7 @@ nnoremap J mzJ`z
 nnoremap S i<cr><esc>^mwgk:silent! s/\v +$//<cr>:noh<cr>`w
 
 " HTML tag closing
-inoremap <C-_> <Space><BS><Esc>:call InsertCloseTag()<cr>a
+inoremap <C-_> <space><bs><esc>:call InsertCloseTag()<cr>a
 
 " Align text
 " nnoremap <leader>Al :left<cr>
@@ -348,11 +357,10 @@ inoremap <c-f> <c-x><c-f>
 inoremap <c-]> <c-x><c-]>
 
 " }}}
-" Quick editing {{{
+" }}}
+" Quick editing ----------------------------------------------------------- {{{
 
 nnoremap <leader>ev :vsplit ~/.vimrc<cr>
-
-" }}}
 
 " }}}
 " Searching and movement -------------------------------------------------- {{{
@@ -396,7 +404,7 @@ nnoremap <silent> <leader>/ :execute "Ack! '" . substitute(substitute(substitute
 
 " Directional Keys {{{
 
-" It's 2012.
+" It's 2013.
 noremap j gj
 noremap k gk
 noremap gj j
@@ -632,7 +640,7 @@ augroup ft_html
     au FileType jinja,htmldjango inoremap <buffer> <c-t> {%<space><space>%}<left><left><left>
 
     " Django variables
-    au FileType jinja,htmldjango inoremap <buffer> <c-f> {{<space><space>}}<left><left><left>
+    au FileType jinja,htmldjango inoremap <buffer> <c-b> {{<space><space>}}<left><left><left>
 augroup END
 
 " }}}
@@ -657,6 +665,7 @@ augroup ft_javascript
     au FileType javascript setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
     au FileType javascript setlocal foldmethod=marker
     au FileType javascript setlocal foldmarker={,}
+    au FileType javascript call MakeSpacelessBufferIabbrev('clog', 'console.log();<left><left>')
 
     " Make {<cr> insert a pair of brackets in such a way that the cursor is correctly
     " positioned inside of them AND the following code doesn't get unfolded.
@@ -937,12 +946,14 @@ augroup END
 
 let g:ctrlp_dont_split = 'NERD_tree_2'
 let g:ctrlp_jump_to_buffer = 0
-let g:ctrlp_map = '<leader>,'
 let g:ctrlp_working_path_mode = 0
 let g:ctrlp_match_window_reversed = 1
 let g:ctrlp_split_window = 0
 let g:ctrlp_max_height = 20
 let g:ctrlp_extensions = ['tag']
+
+let g:ctrlp_map = '<leader>,'
+nnoremap <leader>. :CtrlPTag<cr>
 
 let g:ctrlp_prompt_mappings = {
 \ 'PrtSelectMove("j")':   ['<c-j>', '<down>', '<s-tab>'],
@@ -1046,7 +1057,8 @@ augroup END
 let NERDTreeHighlightCursorline=1
 let NERDTreeIgnore = ['.vim$', '\~$', '.*\.pyc$', 'pip-log\.txt$', 'whoosh_index',
                     \ 'xapian_index', '.*.pid', 'monitor.py', '.*-fixtures-.*.json',
-                    \ '.*\.o$', 'db.db', 'tags.bak']
+                    \ '.*\.o$', 'db.db', 'tags.bak', '.*\.pdf$', '.*\.mid$',
+                    \ '.*\.midi$']
 
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
@@ -1195,57 +1207,6 @@ if !exists(":DiffOrig")
 endif
 
 " }}}
-" Pulse {{{
-
-function! PulseCursorLine()
-    let current_window = winnr()
-
-    windo set nocursorline
-    execute current_window . 'wincmd w'
-
-    setlocal cursorline
-
-    redir => old_hi
-        silent execute 'hi CursorLine'
-    redir END
-    let old_hi = split(old_hi, '\n')[0]
-    let old_hi = substitute(old_hi, 'xxx', '', '')
-
-    hi CursorLine guibg=#2a2a2a ctermbg=233
-    redraw
-    sleep 20m
-
-    hi CursorLine guibg=#333333 ctermbg=235
-    redraw
-    sleep 20m
-
-    hi CursorLine guibg=#3a3a3a ctermbg=237
-    redraw
-    sleep 20m
-
-    hi CursorLine guibg=#444444 ctermbg=239
-    redraw
-    sleep 20m
-
-    hi CursorLine guibg=#3a3a3a ctermbg=237
-    redraw
-    sleep 20m
-
-    hi CursorLine guibg=#333333 ctermbg=235
-    redraw
-    sleep 20m
-
-    hi CursorLine guibg=#2a2a2a ctermbg=233
-    redraw
-    sleep 20m
-
-    execute 'hi ' . old_hi
-
-    windo set cursorline
-    execute current_window . 'wincmd w'
-endfunction
-
-" }}}
 " Spelling {{{
 
 " Dictionnaire français
@@ -1314,6 +1275,57 @@ hi def BlockColor5 guibg=#444444 ctermbg=238
 hi def BlockColor6 guibg=#4a4a4a ctermbg=239
 " }}}
 nnoremap <leader>B :call BlockColor()<cr>
+
+" }}}
+" Pulse {{{
+
+function! PulseCursorLine()
+    let current_window = winnr()
+
+    windo set nocursorline
+    execute current_window . 'wincmd w'
+
+    setlocal cursorline
+
+    redir => old_hi
+        silent execute 'hi CursorLine'
+    redir END
+    let old_hi = split(old_hi, '\n')[0]
+    let old_hi = substitute(old_hi, 'xxx', '', '')
+
+    hi CursorLine guibg=#2a2a2a ctermbg=233
+    redraw
+    sleep 20m
+
+    hi CursorLine guibg=#333333 ctermbg=235
+    redraw
+    sleep 20m
+
+    hi CursorLine guibg=#3a3a3a ctermbg=237
+    redraw
+    sleep 20m
+
+    hi CursorLine guibg=#444444 ctermbg=239
+    redraw
+    sleep 20m
+
+    hi CursorLine guibg=#3a3a3a ctermbg=237
+    redraw
+    sleep 20m
+
+    hi CursorLine guibg=#333333 ctermbg=235
+    redraw
+    sleep 20m
+
+    hi CursorLine guibg=#2a2a2a ctermbg=233
+    redraw
+    sleep 20m
+
+    execute 'hi ' . old_hi
+
+    windo set cursorline
+    execute current_window . 'wincmd w'
+endfunction
 
 " }}}
 
