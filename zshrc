@@ -29,6 +29,7 @@ source ~/lib/dotfiles/zsh/aliases.zsh
 # source ~/lib/dotfiles/zsh/completion.zsh
 source ~/lib/dotfiles/zsh/functions.zsh
 source ~/lib/dotfiles/zsh/keys.zsh
+source ~/lib/dotfiles/zsh/ssh.zsh
 
 # Watch new users
 watch=(all)
