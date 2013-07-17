@@ -6,6 +6,7 @@ PATH="$HOME/bin:${PATH}"
 PATH="$HOME/bin/html2rst:${PATH}"
 PATH="$HOME/bin/html2text:${PATH}"
 PATH="$HOME/bin/git:${PATH}"
+PATH="$HOME/.local/bin:${PATH}"
 export PATH
 
 # Source Prezto.
@@ -18,7 +19,8 @@ fi
 # Python
 export WORKON_HOME=$HOME/lib/virtualenvs
 export PROJECT_HOME=$HOME/Dev
-source /usr/bin/virtualenvwrapper.sh
+
+[[ -f /usr/bin/virtualenvwrapper.sh ]] && source /usr/bin/virtualenvwrapper.sh
 
 export PIP_DOWNLOAD_CACHE=$HOME/.cache/pip
 export PIP_USE_MIRRORS=true

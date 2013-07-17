@@ -69,7 +69,7 @@ bind f eval "hardstatus alwayslastline"
 # bind _ resize max
 
 # escape ""
-escape "^Bb"
+escape "^Aa"
 #bindkey \033^b break
 
 # An example of a "screen scraper" which will launch urlview on the current
@@ -125,9 +125,10 @@ termcapinfo xterm*|rxvt*|kterm*|Eterm* hs:ts=\E]0;:fs=\007:ds=\E]0;\007
 #  et fond bleu
 #hardstatus alwayslastline "%{= BY}%-Lw%{= YB}%50>%n%f* %t%{= BY}%+Lw%<"
 # nouvelle version :
-# heure (avec secondes), nom de la machine en rouge, load de la machine
+# heure (avec secondes): %{b kB}%{b kG}%c:%s%{b kB}
+# nom de la machine en rouge, load de la machine
 # puis fenetres avec celle courante en jaune, le tout en fond bleu
-hardstatus alwayslastline "%{b kB}%{b kG}%c:%s%{b kB} %{b kB}%H %{b kB}%{b kR}%l%{b kB} %{b kB}%{rs Y}%-Lw%{b kB}%50>%n%{b kB}%f%{b kB} %t%{b kB}%+Lw%<"
+hardstatus alwayslastline "%{b kB}%H %{b kB}%{b kR}%l%{b kB} %{b kB}%{rs Y}%-Lw%{b kB}%50>%n%{b kB}%f%{b kB} %t%{b kB}%+Lw%<"
 #hardstatus alwayslastline "%{+b}%c%{kg}%="
 #hardstatus alwayslastline "  %{= kK}%-w%{+b W}%n %t%{-}%+w%=%{+b W}%h  %{= dd}"
 
