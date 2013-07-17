@@ -1,19 +1,76 @@
 [ui]
 username = Simon <contact at saimon.org>
+editor = vim
+#commitsubrepos = False
+#ignore = ~/.hgignore
+
+[alias]
+st = status -SC
+di = diff -U 100
+
+addremove = --similarity 100
+blame = annotate --user --number
+revertall = revert --all --no-backup
+grep = ! $HG locate -0 '$2' $3 $4 $5 $6 $7 $8 $9 | xargs -0 fgrep -H '$1'
+query = ! echo "current branch: `$HG branch`" ; echo "`$HG paths`" ; echo "---------- incoming ----------" ; $HG --quiet incoming --template '{author|person}: {desc|firstline| strip}\n'; echo "---------- outgoing ----------" ; $HG --quiet outgoing --template  '{author| person}: {desc|firstline|strip}\n'; echo "----------- status -----------" ; $HG --quiet status
+show = log --patch --verbose --rev
+
+slog = log --style=$HOME/lib/mercurial-cli-templates/map-cmdline.slog
+nlog = log --style=$HOME/lib/mercurial-cli-templates/map-cmdline.nlog
+sglog = glog --style=$HOME/lib/mercurial-cli-templates/map-cmdline.sglog
+
+[bookmarks]
+track.current = True
+
+[color]
+diff.diffline = bold
+diff.extended = bold
+diff.file_a = bold
+diff.file_b = bold
+diff.hunk = cyan
+diff.deleted = red
+diff.inserted = green
+diff.changed = white
+diff.trailingwhitespace = bold red_background
 
 [diff]
 git = True
 
-#[alias]
-#addremove = --similarity 100
-
 [extensions]
-hgext.mq=!
-hgext.hbisect=!
-hgext.hgk=
-hgext.patchbomb=!
-hgext.convert=
-hgext.color =
-hgext.graphlog =
-hgext.fetch=
+# ! to explicitly disable an extension
+
+# Show change statistics
+churn =
+color =
+# converts repositories from other SCMs (or even Mercurial itself)
+convert =!
+fetch =
+graphlog =
+hgk =
+histedit =
+mq =
+pager =
+patchbomb =
 progress =
+purge =
+rebase =
+record =
+transplant =
+
+prompt = ~/lib/hg-prompt/prompt.py
+
+[pager]
+pager = LESS=FRSXQ less
+quiet = True
+attend = diff,status,log,qdiff,blame,annotate,pdiff,glog,show,di,slog,nlog,sglog
+
+[ui]
+# traditional merge with conflict markers
+# merge = internal:merge
+
+[web]
+contact = Simon
+allowgz = true
+allowbz2 = true
+allowzip = true
+style = gitweb
