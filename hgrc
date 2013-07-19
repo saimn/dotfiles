@@ -2,11 +2,11 @@
 username = Simon <contact at saimon.org>
 editor = vim
 #commitsubrepos = False
-#ignore = ~/.hgignore
+ignore = ~/.hgignore
 
 [alias]
 st = status -SC
-di = diff -U 100
+di = diff
 
 addremove = --similarity 100
 blame = annotate --user --number
@@ -18,9 +18,6 @@ show = log --patch --verbose --rev
 slog = log --style=$HOME/lib/mercurial-cli-templates/map-cmdline.slog
 nlog = log --style=$HOME/lib/mercurial-cli-templates/map-cmdline.nlog
 sglog = glog --style=$HOME/lib/mercurial-cli-templates/map-cmdline.sglog
-
-[bookmarks]
-track.current = True
 
 [color]
 diff.diffline = bold
