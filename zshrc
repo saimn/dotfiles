@@ -23,7 +23,6 @@ export PROJECT_HOME=$HOME/Dev
 [[ -f /usr/bin/virtualenvwrapper.sh ]] && source /usr/bin/virtualenvwrapper.sh
 
 export PIP_DOWNLOAD_CACHE=$HOME/.cache/pip
-export PIP_USE_MIRRORS=true
 
 source ~/lib/dotfiles/zsh/aliases.zsh
 # source ~/lib/dotfiles/zsh/completion.zsh
