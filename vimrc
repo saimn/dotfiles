@@ -1,7 +1,7 @@
 " Preamble ---------------------------------------------------------------- {{{
 
 filetype off
-call pathogen#infect()
+execute pathogen#infect()
 filetype plugin indent on       " load file type plugins + indentation
 set nocompatible                " choose no compatibility with legacy vi
 
