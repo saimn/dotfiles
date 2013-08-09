@@ -1055,7 +1055,7 @@ au Filetype nerdtree setlocal nolist
 augroup END
 
 let NERDTreeHighlightCursorline=1
-let NERDTreeIgnore = ['.vim$', '\~$', '.*\.pyc$', 'pip-log\.txt$', 'whoosh_index',
+let NERDTreeIgnore = ['.vim$', '\~$', '.*\.pyo$', '.*\.pyc$', 'pip-log\.txt$',
                     \ 'xapian_index', '.*.pid', 'monitor.py', '.*-fixtures-.*.json',
                     \ '.*\.o$', 'db.db', 'tags.bak', '.*\.pdf$', '.*\.mid$',
                     \ '.*\.midi$']
