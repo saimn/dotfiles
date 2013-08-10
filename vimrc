@@ -260,10 +260,6 @@ nnoremap <f9> mzggg?G`z
 " Substitute
 nnoremap <leader>s :%s//<left>
 
-" Emacs bindings in command line mode
-cnoremap <c-a> <home>
-cnoremap <c-e> <end>
-
 " Diffoff
 nnoremap <leader>D :diffoff!<cr>
 
@@ -391,6 +387,10 @@ nnoremap N Nzzzv:call PulseCursorLine()<cr>
 " Heresy
 inoremap <c-a> <esc>I
 inoremap <c-e> <esc>A
+
+" Emacs bindings in command line mode
+cnoremap <c-a> <home>
+cnoremap <c-e> <end>
 
 " gi already moves to "last place you exited insert mode", so we'll map gI to
 " something similar: move to last change

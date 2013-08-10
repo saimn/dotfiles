@@ -4,7 +4,7 @@
 if [[ $# -eq 1 && $1 == "--vacuum" ]]; then
     echo "vacuum !!"
     pgrep -f -x /usr/bin/firefox -U $(id -u) > /dev/null && echo “Stop Firefox !” && exit 1
-    for i in `find ~/.mozilla/firefox -name \*.sqlite`; do
+    for i in `find -L ~/.mozilla/firefox -name \*.sqlite`; do
         echo ":: processing $i ..."
         sqlite3 $i vacuum
         sqlite3 $i reindex
