@@ -12,7 +12,7 @@ set encoding=utf-8
 set modelines=1                 " enable modelines
 set autoindent                  " always set autoindenting on
 set smartindent                 " clever autoindenting
-set showmode
+set showmode                    " print current mode on the last line
 set showcmd                     " display incomplete commands
 set hidden                      " Allow backgrounding buffers without writing them
 set visualbell
@@ -1337,9 +1337,9 @@ if has('gui_running')
         set guifont=Courier:h10:cANSI
     else
         if $HOSTNAME == "goudes"
-            set guifont=Inconsolata\ 11
-        elseif $HOSTNAME == "fireball"
-            set guifont=Inconsolata\ 10
+            set guifont=Inconsolata\ for\ Powerline\ 11
+        else
+            set guifont=Inconsolata\ for\ Powerline\ 12
         endif
     endif
 

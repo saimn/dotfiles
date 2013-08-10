@@ -47,8 +47,9 @@ Emacs*shadowThickness:          1
 ! URxvt*italicFont: xft:DejaVu Sans Mono:style=Oblique:pixelsize=12
 ! URxvt*boldItalicFont: xft:DejaVu Sans Mono:style=BoldOblique:pixelsize=12
 
-URxvt*font: xft:Droid Sans Mono for Powerline:style=Regular:pixelsize=13
-!URxvt*font: xft:Inconsolata for Powerline:style=Medium:pixelsize=12
+!URxvt*font: xft:Droid Sans Mono for Powerline:style=Regular:pixelsize=12
+URxvt*font: xft:Inconsolata for Powerline:style=Medium:pixelsize=16
+!URxvt*font: xft:Source Code Pro for Powerline:style=Medium,Regular:pixelsize=12
 
 ! URxvt*geometry: 80x27
 ! URxvt*chdir: /home/simon
