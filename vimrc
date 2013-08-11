@@ -1,4 +1,12 @@
+" .vimrc
+" Based on Steve Losh's vimrc :
+" http://bitbucket.org/sjl/dotfiles/src/tip/vim/
+
 " Preamble ---------------------------------------------------------------- {{{
+
+" Dear /bin/bash: fuck you and your bullshit, arcane command-line behaviour.
+let $BASH_ENV = "~/.bash_profile"
+set shell=/bin/bash
 
 filetype off
 execute pathogen#infect()
@@ -16,7 +24,6 @@ set showmode                    " print current mode on the last line
 set showcmd                     " display incomplete commands
 set hidden                      " Allow backgrounding buffers without writing them
 set visualbell
-set cursorline
 set ttyfast
 set ruler
 set backspace=indent,eol,start  " backspace through everything in insert mode
@@ -28,13 +35,11 @@ set undofile
 set undoreload=10000
 set list                        " show eol, tabs, spaces, trailing and non-breaking spaces
 set listchars=tab:▸\ ,extends:❯,precedes:❮,trail:-,nbsp:_ " ,eol:¬
-set shell=/bin/bash
 set lazyredraw
 set matchtime=3
 set showbreak=↪
 set splitbelow
 set splitright
-set fillchars=diff:⣿,vert:│
 set autowrite
 set autoread
 set shiftround
@@ -44,6 +49,12 @@ set dictionary=/usr/share/dict/words
 set spellfile=~/.vim/custom-dictionary.utf-8.add
 set colorcolumn=+1
 " set autochdir           " change current dir
+
+" iTerm2 is currently slow as ball at rendering the nice unicode lines, so for
+" now I'll just use ascii pipes.  They're ugly but at least I won't want to kill
+" myself when trying to move around a file.
+set fillchars=diff:⣿,vert:│
+set fillchars=diff:⣿,vert:\|
 
 " Don't try to highlight lines longer than 800 characters.
 set synmaxcol=800
@@ -58,10 +69,8 @@ set ttimeoutlen=10
 set backupskip=/tmp/*,/private/tmp/*" 
 
 " Better Completion
+set complete=.,w,b,u,t
 set completeopt=longest,menuone,preview
-
-" omnicompletion: CTRL-X CTRL-O
-" set omnifunc=syntaxcomplete#Complete
 
 " Save when losing focus
 au FocusLost * :silent! wall
@@ -70,10 +79,28 @@ au FocusLost * :silent! wall
 au VimResized * :wincmd =
 
 " Leader
-
 let mapleader = ","
 let maplocalleader = "\\"
 
+" Cursorline {{{
+" Only show cursorline in the current window and in normal mode.
+
+augroup cline
+    au!
+    au WinLeave,InsertEnter * set nocursorline
+    au WinEnter,InsertLeave * set cursorline
+augroup END
+
+" }}}
+" Trailing whitespace {{{
+" Only shown when not in insert mode so I don't go insane.
+
+augroup trailing
+    au!
+    au InsertEnter * :set listchars-=trail:⌴
+augroup END
+
+" }}}
 " Wildmenu completion {{{
 
 set wildmenu
@@ -170,17 +197,23 @@ endif
 
 syntax on
 set background=dark
-colorscheme molokai
+" colorscheme molokai
 
-"let g:badwolf_tabline = 2
-"let g:badwolf_html_link_underline = 0
-"colorscheme badwolf
+" Make the gutters darker than the background.
+let g:badwolf_darkgutter = 1
+" Make the tab line lighter than the background.
+let g:badwolf_tabline = 2
+" Turn off HTML link underlining
+" let g:badwolf_html_link_underline = 0
+" Turn on CSS properties highlighting
+let g:badwolf_css_props_highlight = 1
+colorscheme badwolf
 
 " Reload the colorscheme whenever we write the file.
-"augroup color_badwolf_dev
-"    au!
-"    au BufWritePost badwolf.vim color badwolf
-"augroup END
+augroup color_badwolf_dev
+    au!
+    au BufWritePost badwolf.vim color badwolf
+augroup END
 
 " Highlight VCS conflict markers
 match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
@@ -188,46 +221,11 @@ match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 " }}}
 
 " }}}
-" Status line ------------------------------------------------------------- {{{
-
-augroup ft_statuslinecolor
-    au!
-
-    au InsertEnter * hi StatusLine ctermfg=196 guifg=#FF3145
-    au InsertLeave * hi StatusLine ctermfg=130 guifg=#CD5907
-augroup END
-
-set statusline=%f    " Path.
-set statusline+=%m   " Modified flag.
-set statusline+=%r   " Readonly flag.
-set statusline+=%w   " Preview window flag.
-
-set statusline+=\    " Space.
-
-set statusline+=%#redbar#                " Highlight the following as a warning.
-set statusline+=%{SyntasticStatuslineFlag()} " Syntastic errors.
-set statusline+=%*                           " Reset highlighting.
-
-set statusline+=%=   " Right align.
-
-" File format, encoding and type.  Ex: "(unix/utf-8/python)"
-set statusline+=(
-set statusline+=%{&ff}                        " Format (unix/DOS).
-set statusline+=/
-set statusline+=%{strlen(&fenc)?&fenc:&enc}   " Encoding (utf-8).
-set statusline+=/
-set statusline+=%{&ft}                        " Type (python).
-set statusline+=)
-
-" Line and column position and counts.
-set statusline+=\ (line\ %l\/%L,\ col\ %03c)
-
-" }}}
 " Abbreviations ----------------------------------------------------------- {{{
 
-iab qd quand
-iab qq quelque
-iab qqs quelques
+iabbrev qd quand
+iabbrev qq quelque
+iabbrev qqs quelques
 
 " }}}
 " Convenience mappings ---------------------------------------------------- {{{
@@ -235,15 +233,23 @@ iab qqs quelques
 " Toggle line numbers
 nnoremap <leader>n :setlocal number!<cr>
 
-" Unfuck my screen
-nnoremap <leader>u :syntax sync fromstart<cr>:redraw!<cr>
+" Sort lines
+nnoremap <leader>s vip:!sort<cr>
+vnoremap <leader>s :!sort<cr>
+
+" Tabs
+nnoremap <leader>( :tabprev<cr>
+nnoremap <leader>) :tabnext<cr>
 
 " System clipboard interaction.  Mostly from:
 " https://github.com/henrik/dotfiles/blob/master/vim/config/mappings.vim
 noremap <leader>y "*y
-noremap <leader>p :set paste<CR>"*p<CR>:set nopaste<CR>
+noremap <leader>p :silent! set paste<CR>"*p<CR>:set nopaste<CR>
 noremap <leader>P :set paste<CR>"*P<CR>:set nopaste<CR>
 vnoremap <leader>y "*ygv
+
+" Rebuild Ctags (mnemonic RC -> CR -> <cr>)
+nnoremap <leader><cr> :silent !myctags<cr>:redraw!<cr>
 
 " Clean trailing whitespace
 nnoremap <leader>w mz:%s/\s\+$//<cr>:let @/=''<cr>`z
@@ -251,7 +257,30 @@ nnoremap <leader>w mz:%s/\s\+$//<cr>:let @/=''<cr>`z
 " Clean leading spaces
 " nmap _S :%s/^\s\+//<CR>
 
-" Change case
+" "Uppercase word" mapping.
+"
+" This mapping allows you to press <c-u> in insert mode to convert the current
+" word to uppercase.  It's handy when you're writing names of constants and
+" don't want to use Capslock.
+"
+" To use it you type the name of the constant in lowercase.  While your
+" cursor is at the end of the word, press <c-u> to uppercase it, and then
+" continue happily on your way:
+"
+"                            cursor
+"                            v
+"     max_connections_allowed|
+"     <c-u>
+"     MAX_CONNECTIONS_ALLOWED|
+"                            ^
+"                            cursor
+"
+" It works by exiting out of insert mode, recording the current cursor location
+" in the z mark, using gUiw to uppercase inside the current word, moving back to
+" the z mark, and entering insert mode again.
+"
+" Note that this will overwrite the contents of the z mark.  I never use it, but
+" if you do you'll probably want to use another mark.
 inoremap <C-u> <esc>mzgUiw`za
 
 " Panic Button
@@ -277,8 +306,13 @@ vnoremap Q gq
 " I never use l as a macro register anyway.
 nnoremap ql gqq
 
-" Easier linewise reselection
+" Easier linewise reselection of what you just pasted.
 nnoremap <leader>V V`]
+
+" Indent/dedent/autoindent what you just pasted.
+nnoremap <lt>> V`]<
+nnoremap ><lt> V`]>
+nnoremap =- V`]=
 
 " Keep the cursor in place while joining lines
 nnoremap J mzJ`z
@@ -290,13 +324,18 @@ nnoremap S i<cr><esc>^mwgk:silent! s/\v +$//<cr>:noh<cr>`w
 " HTML tag closing
 inoremap <C-_> <space><bs><esc>:call InsertCloseTag()<cr>a
 
-" Align text
-" nnoremap <leader>Al :left<cr>
-" nnoremap <leader>Ac :center<cr>
-" nnoremap <leader>Ar :right<cr>
-" vnoremap <leader>Al :left<cr>
-" vnoremap <leader>Ac :center<cr>
-" vnoremap <leader>Ar :right<cr>
+" Source
+vnoremap <leader>S y:execute @@<cr>:echo 'Sourced selection.'<cr>
+nnoremap <leader>S ^vg_y:execute @@<cr>:echo 'Sourced line.'<cr>
+
+" Marks and Quotes
+noremap ' `
+noremap æ '
+noremap ` <C-^>
+
+" Select (charwise) the contents of the current line, excluding indentation.
+" Great for pasting Python lines into REPLs.
+nnoremap vv ^vg_
 
 " Faster Esc
 inoremap jk <esc>
@@ -316,12 +355,15 @@ nnoremap <F6> :set paste!<cr>
 " Toggle [i]nvisible characters
 nnoremap <leader>i :set list!<cr>
 
+" Unfuck my screen
+nnoremap <leader>u :syntax sync fromstart<cr>:redraw!<cr>
+
 " switch between the currently open buffer and the previous one
 nnoremap <c-Tab> <c-^>
 
 " On fait tourner les tampons ...
-" nnoremap <C-N> :bn!<CR>
-" nnoremap <C-P> :bp!<CR>
+nnoremap <c-n> :bnext!<CR>
+nnoremap <c-p> :bprev!<CR>
 
 " make ; do the same thing as :
 nnoremap ; :
@@ -353,10 +395,18 @@ inoremap <c-f> <c-x><c-f>
 inoremap <c-]> <c-x><c-]>
 
 " }}}
+
 " }}}
 " Quick editing ----------------------------------------------------------- {{{
 
 nnoremap <leader>ev :vsplit ~/.vimrc<cr>
+nnoremap <leader>ed :vsplit ~/.vim/custom-dictionary.utf-8.add<cr>
+nnoremap <leader>eo :vsplit ~/org<cr>4j
+nnoremap <leader>eh :vsplit ~/.hgrc<cr>
+nnoremap <leader>ep :vsplit ~/.pentadactylrc<cr>
+nnoremap <leader>em :vsplit ~/.mutt/muttrc<cr>
+nnoremap <leader>ez :vsplit ~/lib/dotfiles/zsh<cr>4j
+nnoremap <leader>et :vsplit ~/.tmux.conf<cr>
 
 " }}}
 " Searching and movement -------------------------------------------------- {{{
@@ -380,21 +430,59 @@ set virtualedit+=block  " allow cursor where there is no actual character.
 
 noremap <silent> <leader><space> :noh<cr>:call clearmatches()<cr>
 
+runtime macros/matchit.vim
+map <tab> %
+silent! unmap [%
+silent! unmap ]%
+
+" Made D behave
+nnoremap D d$
+
+" Don't move on *
+nnoremap * *<c-o>
+
+" Jumping to tags.
+"
+" Basically, <c-]> jumps to tags (like normal) and <c-\> opens the tag in a new
+" split instead.
+"
+" Both of them will align the destination line to the upper middle part of the
+" screen.  Both will pulse the cursor line so you can see where the hell you
+" are.  <c-\> will also fold everything in the buffer and then unfold just
+" enough for you to see the destination line.
+nnoremap <c-]> <c-]>mzzvzz15<c-e>`z:Pulse<cr>
+nnoremap <c-\> <c-w>v<c-]>mzzMzvzz15<c-e>`z:Pulse<cr>
+
 " Keep search matches in the middle of the window.
-nnoremap n nzzzv:call PulseCursorLine()<cr>
-nnoremap N Nzzzv:call PulseCursorLine()<cr>
+nnoremap n nzzzv
+nnoremap N Nzzzv
+
+" Same when jumping around
+nnoremap g; g;zz
+nnoremap g, g,zz
+nnoremap <c-o> <c-o>zz
+
+" Easier to type, and I never use the default behavior.
+noremap H ^
+noremap L $
+vnoremap L g_
 
 " Heresy
 inoremap <c-a> <esc>I
 inoremap <c-e> <esc>A
-
-" Emacs bindings in command line mode
 cnoremap <c-a> <home>
 cnoremap <c-e> <end>
 
 " gi already moves to "last place you exited insert mode", so we'll map gI to
 " something similar: move to last change
 nnoremap gI `.
+
+" Fix linewise visual selection of various text objects
+nnoremap VV V
+nnoremap Vit vitVkoj
+nnoremap Vat vatV
+nnoremap Vab vabV
+nnoremap VaB vaBV
 
 " Open a Quickfix window for the last search.
 nnoremap <silent> <leader>? :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
@@ -419,8 +507,20 @@ noremap <C-l> <C-w>l
 noremap <leader>v <C-w>v
 
 " }}}
-" Error navigation {{{
-"
+" Visual Mode */# from Scrooloose {{{
+
+function! s:VSetSearch()
+  let temp = @@
+  norm! gvy
+  let @/ = '\V' . substitute(escape(@@, '\'), '\n', '\\n', 'g')
+  let @@ = temp
+endfunction
+
+vnoremap * :<C-u>call <SID>VSetSearch()<CR>//<CR><c-o>
+vnoremap # :<C-u>call <SID>VSetSearch()<CR>??<CR><c-o>
+
+" }}}
+" List navigation {{{
 "             Location List     QuickFix Window
 "            (e.g. Syntastic)     (e.g. Ack)
 "            ----------------------------------
@@ -428,12 +528,18 @@ noremap <leader>v <C-w>v
 " Previous  |     M-k                M-Up      |
 "            ----------------------------------
 "
-nnoremap ∆ :lnext<cr>zvzz
-nnoremap ˚ :lprevious<cr>zvzz
-inoremap ∆ <esc>:lnext<cr>zvzz
-inoremap ˚ <esc>:lprevious<cr>zvzz
+" nnoremap ∆ :lnext<cr>zvzz
+" nnoremap ˚ :lprevious<cr>zvzz
+" inoremap ∆ <esc>:lnext<cr>zvzz
+" inoremap ˚ <esc>:lprevious<cr>zvzz
 nnoremap <m-Down> :cnext<cr>zvzz
 nnoremap <m-Up> :cprevious<cr>zvzz
+
+" nnoremap <left>  :cprev<cr>zvzz
+" nnoremap <right> :cnext<cr>zvzz
+" nnoremap <up>    :lprev<cr>zvzz
+" nnoremap <down>  :lnext<cr>zvzz
+
 " }}}
 
 " }}}
@@ -527,6 +633,20 @@ augroup ft_c
 augroup END
 
 " }}}
+" Common Lisp {{{
+
+augroup ft_commonlisp
+    au!
+
+    au FileType lisp RainbowParenthesesActivate
+    au syntax lisp RainbowParenthesesLoadRound
+    au syntax lisp RainbowParenthesesLoadSquare
+    au syntax lisp RainbowParenthesesLoadBraces
+
+    au FileType lisp call TurnOnLispFolding()
+augroup END
+
+" }}}
 " Confluence {{{
 
 augroup ft_c
@@ -578,6 +698,18 @@ augroup ft_css
     au BufNewFile,BufRead *.less,*.css inoremap <buffer> {<cr> {}<left><cr><space><space><space><space>.<cr><esc>kA<bs>
 augroup END
 
+augroup ft_less
+    au!
+    autocmd FileWritePost,BufWritePost *.less :call LessCSSCompress()
+    function! LessCSSCompress()
+        let cwd = expand(':p:h')
+        let name = expand(':t:r')
+        if (executable('lessc'))
+        cal system('lessc '.cwd.'/'.name.'.less > '.cwd.'/'.name.'.css &')
+        endif
+    endfunction
+augroup END
+
 " }}}
 " Django {{{
 
@@ -601,7 +733,7 @@ augroup ft_django
 augroup END
 
 " }}}
-" HTML and HTMLDjango {{{
+" HTML, Django, Jinja, Dram {{{
 
 let g:html_indent_tags = ['p', 'li']
 
@@ -673,29 +805,6 @@ augroup ft_javascript
 augroup END
 
 " }}}
-" Less {{{
-
-augroup ft_less
-    au!
-    autocmd FileWritePost,BufWritePost *.less :call LessCSSCompress()
-    function! LessCSSCompress()
-        let cwd = expand(':p:h')
-        let name = expand(':t:r')
-        if (executable('lessc'))
-        cal system('lessc '.cwd.'/'.name.'.less > '.cwd.'/'.name.'.css &')
-        endif
-    endfunction
-augroup END
-
-" }}}
-" Lisp {{{
-
-augroup ft_lisp
-    au!
-    au FileType lisp call TurnOnLispFolding()
-augroup END
-
-" }}}
 " Mail {{{
 
 augroup ft_mail
@@ -726,6 +835,9 @@ augroup ft_markdown
     au Filetype markdown nnoremap <buffer> <localleader>1 yypVr=:redraw<cr>
     au Filetype markdown nnoremap <buffer> <localleader>2 yypVr-:redraw<cr>
     au Filetype markdown nnoremap <buffer> <localleader>3 mzI###<space>`zllll <ESC>
+
+    au Filetype markdown nnoremap <buffer> <localleader>p VV:'<,'>!python -m json.tool<cr>
+    au Filetype markdown vnoremap <buffer> <localleader>p :!python -m json.tool<cr>
 augroup END
 
 " }}}
@@ -783,6 +895,17 @@ augroup ft_pentadactyl
 augroup END
 
 " }}}
+" Postgresql {{{
+
+augroup ft_postgres
+    au!
+
+    au BufNewFile,BufRead *.sql set filetype=pgsql
+    au FileType pgsql set foldmethod=indent
+    au FileType pgsql set softtabstop=2 shiftwidth=2
+augroup END
+
+" }}}
 " Puppet {{{
 
 augroup ft_puppet
@@ -802,14 +925,13 @@ augroup ft_python
 
     " make Python follow PEP8 ( http://www.python.org/dev/peps/pep-0008/ )
     au FileType python set softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79
-
     au FileType python setlocal smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class,with
 
     " au FileType python setlocal omnifunc=pythoncomplete#Complete
     au FileType python setlocal define=^\s*\\(def\\\\|class\\)
     au FileType python compiler nose
     au FileType man nnoremap <buffer> <cr> :q<cr>
-    
+
     " Jesus tapdancing Christ, built-in Python syntax, you couldn't let me
     " override this in a normal way, could you?
     au FileType python if exists("python_space_error_highlight") | unlet python_space_error_highlight | endif
@@ -848,6 +970,7 @@ augroup END
 augroup ft_ruby
     au!
     au Filetype ruby setlocal foldmethod=syntax
+    au BufRead,BufNewFile Capfile setlocal filetype=ruby
 augroup END
 
 " }}}
@@ -892,7 +1015,30 @@ augroup ft_vim
 augroup END
 
 " }}}
+" YAML {{{
 
+augroup ft_yaml
+    au!
+
+    au FileType yaml set shiftwidth=2
+augroup END
+
+" }}}
+" XML {{{
+
+augroup ft_xml
+    au!
+
+    au FileType xml setlocal foldmethod=manual
+
+    " Use <localleader>f to fold the current tag.
+    au FileType xml nnoremap <buffer> <localleader>f Vatzf
+
+    " Indent tag
+    au FileType xml nnoremap <buffer> <localleader>= Vat=
+augroup END
+
+" }}}
 " }}}
 " Shell ------------------------------------------------------------------- {{{
 
@@ -919,7 +1065,7 @@ nnoremap <leader>! :Shell
 " Ack {{{
 
 nnoremap <leader>a :Ack!<space>
-"let g:ackprg = 'ag --nogroup --nocolor --column'
+let g:ackprg = 'ack --smart-case --nogroup --nocolor --column'
 
 " }}}
 " Autoclose {{{
@@ -934,7 +1080,7 @@ xmap <leader>c <Plug>Commentary
 
 augroup plugin_commentary
     au!
-au FileType htmldjango setlocal commentstring={#\ %s\ #}
+    au FileType htmldjango setlocal commentstring={#\ %s\ #}
     au FileType clojurescript setlocal commentstring=;\ %s
     au FileType lisp setlocal commentstring=;\ %s
     au FileType puppet setlocal commentstring=#\ %s
@@ -944,16 +1090,14 @@ augroup END
 " }}}
 " Ctrl-P {{{
 
-let g:ctrlp_dont_split = 'NERD_tree_2'
-let g:ctrlp_jump_to_buffer = 0
-let g:ctrlp_working_path_mode = 0
-let g:ctrlp_match_window_reversed = 1
-let g:ctrlp_split_window = 0
+let g:ctrlp_reuse_window = 'NERD_tree_2'
+let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_max_height = 20
 let g:ctrlp_extensions = ['tag']
 
 let g:ctrlp_map = '<leader>,'
 nnoremap <leader>. :CtrlPTag<cr>
+nnoremap <leader>b :CtrlPBuffer<cr>
 
 let g:ctrlp_prompt_mappings = {
 \ 'PrtSelectMove("j")':   ['<c-j>', '<down>', '<s-tab>'],
@@ -979,12 +1123,20 @@ let my_ctrlp_git_command = "" .
     \ "cd %s && git ls-files --exclude-standard -co | " .
     \ ctrlp_filter_greps
 
-let g:ctrlp_user_command = ['.git/', my_ctrlp_git_command, my_ctrlp_user_command]
+let my_ctrlp_ffind_command = "ffind --semi-restricted --dir %s --type e -B -f"
 
-nnoremap <leader>. :CtrlPTag<cr>
+let g:ctrlp_user_command = ['.git/', my_ctrlp_ffind_command, my_ctrlp_ffind_command]
+
+" }}}
+" Dispatch {{{
+
+nnoremap <leader>d :Dispatch<cr>
+nnoremap <leader>m :Dispatch<cr>
 
 " }}}
 " Fugitive {{{
+
+let g:fugitive_github_domains = ['github.banksimple.com']
 
 nnoremap <leader>gd :Gdiff<cr>
 nnoremap <leader>gs :Gstatus<cr>
@@ -1050,11 +1202,13 @@ inoremap <F2> <esc>:NERDTreeToggle<cr>
 augroup ps_nerdtree
     au!
 
-au Filetype nerdtree setlocal nolist
-    au Filetype nerdtree nnoremap <buffer> K :q<cr>
+    au Filetype nerdtree setlocal nolist
+    au Filetype nerdtree nnoremap <buffer> H :vertical resize -10<cr>
+    au Filetype nerdtree nnoremap <buffer> L :vertical resize +10<cr>
+    " au Filetype nerdtree nnoremap <buffer> K :q<cr>
 augroup END
 
-let NERDTreeHighlightCursorline=1
+let NERDTreeHighlightCursorline = 1
 let NERDTreeIgnore = ['.vim$', '\~$', '.*\.pyo$', '.*\.pyc$', 'pip-log\.txt$',
                     \ 'xapian_index', '.*.pid', 'monitor.py', '.*-fixtures-.*.json',
                     \ '.*\.o$', 'db.db', 'tags.bak', '.*\.pdf$', '.*\.mid$',
@@ -1069,24 +1223,25 @@ let NERDTreeMapJumpFirstChild = 'gK'
 " }}}
 " OrgMode {{{
 
-let g:org_plugins = ['ShowHide', '|', 'Navigator', 'EditStructure', '|', 'Todo', 'Date', 'Misc']
+let g:org_heading_shade_leading_stars = 0
+" let g:org_plugins = ['ShowHide', '|', 'Navigator', 'EditStructure', '|', 'Todo', 'Date', 'Misc']
 
 let g:org_todo_keywords = ['TODO', '|', 'DONE']
 
-let g:org_debug = 1
+" let g:org_debug = 1
 
 " }}}
 " Powerline {{{
 
 let g:Powerline_symbols = 'fancy'
 let g:Powerline_cache_enabled = 1
-" let g:Powerline_colorscheme = 'badwolf'
+let g:Powerline_colorscheme = 'badwolf'
 
 " }}}
 " Python-Mode {{{
 
 let g:pymode_doc = 1
-let g:pymode_doc_key = '<localleader>ds'
+let g:pymode_doc_key = 'M'
 let g:pydoc = 'pydoc'
 let g:pymode_syntax = 1
 let g:pymode_syntax_all = 0
@@ -1128,13 +1283,13 @@ let g:pymode_rope_always_show_complete_menu = 0
 command! ScratchToggle call ScratchToggle()
 
 function! ScratchToggle()
-  if exists("w:is_scratch_window")
-    unlet w:is_scratch_window
-    exec "q"
-  else
+    if exists("w:is_scratch_window")
+        unlet w:is_scratch_window
+        exec "q"
+    else
         exec "normal! :Sscratch\<cr>\<C-W>L"
-    let w:is_scratch_window = 1
-  endif
+        let w:is_scratch_window = 1
+    endif
 endfunction
 
 nnoremap <silent> <leader><tab> :ScratchToggle<cr>
@@ -1156,14 +1311,41 @@ let g:SuperTabCrMapping = 1
 
 let g:syntastic_enable_signs = 1
 let g:syntastic_check_on_open = 1
-let g:syntastic_disabled_filetypes = ['html', 'rst']
+let g:syntastic_java_checker = 'javac'
+let g:syntastic_mode_map = {
+            \ "mode": "active",
+            \ "active_filetypes": [],
+            \ "passive_filetypes": ['java', 'html', 'rst', 'scala']
+            \ }
 let g:syntastic_stl_format = '[%E{%e Errors}%B{, }%W{%w Warnings}]'
 let g:syntastic_jsl_conf = '$HOME/.vim/jsl.conf'
 
 " }}}
-" YankRing {{{
+" Splice {{{
 
-let g:yankring_history_dir = '~/.cache'
+let g:splice_prefix = "-"
+
+let g:splice_initial_mode = "grid"
+
+let g:splice_initial_layout_grid = 0
+let g:splice_initial_layout_loupe = 0
+let g:splice_initial_layout_compare = 0
+let g:splice_initial_layout_path = 0
+
+let g:splice_initial_diff_grid = 1
+let g:splice_initial_diff_loupe = 0
+let g:splice_initial_diff_compare = 1
+let g:splice_initial_diff_path = 0
+
+let g:splice_initial_scrollbind_grid = 0
+let g:splice_initial_scrollbind_loupe = 0
+let g:splice_initial_scrollbind_compare = 0
+let g:splice_initial_scrollbind_path = 0
+
+let g:splice_wrap = "nowrap"
+
+" }}}
+" YankRing {{{
 
 function! YRRunAfterMaps()
     " Make Y yank to end of line.
@@ -1196,36 +1378,146 @@ vnoremap ar a[
 " Stuff that should probably be broken out into plugins, but hasn't proved to be
 " worth the time to do so just yet.
 
-" DiffOrig {{{
+" Synstack {{{
 
-" Convenient command to see the difference between the current buffer and the
-" file it was loaded from, thus the changes you made.
-" Only define it when not defined already.
-if !exists(":DiffOrig")
-  command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
-                  \ | wincmd p | diffthis
-endif
+" Show the stack of syntax hilighting classes affecting whatever is under the
+" cursor.
+function! SynStack()
+  echo join(map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")'), " > ")
+endfunc
+
+nnoremap <F7> :call SynStack()<CR>
 
 " }}}
-" Spelling {{{
+" Diffwhite Toggle {{{
 
-" Dictionnaire français
-" Liste des propositions par CTRL-X_CTRL-K
-"set dictionary+=/usr/share/dict/french
+set diffopt-=iwhite
+let g:diffwhitespaceon = 0
+function! ToggleDiffWhitespace()
+    if g:diffwhitespaceon
+        set diffopt-=iwhite
+        let g:diffwhitespaceon = 0
+    else
+        set diffopt+=iwhite
+        let g:diffwhitespaceon = 1
+    endif
+    diffupdate
+endfunc
 
-if has("spell")
-    setlocal spell spelllang=
-    map ,s :setlocal spell spelllang=fr,en<cr>
-    map ,sf :setlocal spell spelllang=fr<cr>
-    map ,se :setlocal spell spelllang=en<cr>
-    map ,sn :setlocal spell spelllang=<cr>
-endif
+nnoremap <leader>W :call ToggleDiffWhitespace()<CR>
 
-"let loaded_vimspell = 1
-"set spellsuggest=10
-"let spell_executable = "aspell"
-"let spell_auto_type = ''
-"let spell_insert_mode = 0
+" }}}
+" Error Toggles {{{
+
+command! ErrorsToggle call ErrorsToggle()
+function! ErrorsToggle() " {{{
+  if exists("w:is_error_window")
+    unlet w:is_error_window
+    exec "q"
+  else
+    exec "Errors"
+    lopen
+    let w:is_error_window = 1
+  endif
+endfunction " }}}
+
+command! -bang -nargs=? QFixToggle call QFixToggle(<bang>0)
+function! QFixToggle(forced) " {{{
+  if exists("g:qfix_win") && a:forced == 0
+    cclose
+    unlet g:qfix_win
+  else
+    copen 10
+    let g:qfix_win = bufnr("$")
+  endif
+endfunction " }}}
+
+nmap <silent> <f3> :ErrorsToggle<cr>
+nmap <silent> <f4> :QFixToggle<cr>
+
+" }}}
+" Hg {{{
+
+function! s:HgDiff() " {{{
+    diffthis
+
+    let fn = expand('%:p')
+    let ft = &ft
+
+    wincmd v
+    edit __hgdiff_orig__
+
+    setlocal buftype=nofile
+
+    normal ggdG
+    execute "silent r!hg cat --rev . " . fn
+    normal ggdd
+
+    execute "setlocal ft=" . ft
+
+    diffthis
+    diffupdate
+endfunction " }}}
+command! -nargs=0 HgDiff call s:HgDiff()
+" nnoremap <leader>hd :HgDiff<cr>
+
+function! s:HgBlame() " {{{
+    let fn = expand('%:p')
+
+    wincmd v
+    wincmd h
+    edit __hgblame__
+    vertical resize 28
+
+    setlocal scrollbind winfixwidth nolist nowrap nonumber buftype=nofile ft=none
+
+    normal ggdG
+    execute "silent r!hg blame -undq " . fn
+    normal ggdd
+    execute ':%s/\v:.*$//'
+
+    wincmd l
+    setlocal scrollbind
+    syncbind
+endfunction " }}}
+command! -nargs=0 HgBlame call s:HgBlame()
+" nnoremap <leader>hb :HgBlame<cr>
+
+" }}}
+" Ack motions {{{
+
+" Motions to Ack for things.  Works with pretty much everything, including:
+"
+"   w, W, e, E, b, B, t*, f*, i*, a*, and custom text objects
+"
+" Awesome.
+"
+" Note: If the text covered by a motion contains a newline it won't work.  Ack
+" searches line-by-line.
+
+nnoremap <silent> <leader>A :set opfunc=<SID>AckMotion<CR>g@
+xnoremap <silent> <leader>A :<C-U>call <SID>AckMotion(visualmode())<CR>
+
+nnoremap <bs> :Ack! '\b<c-r><c-w>\b'<cr>
+xnoremap <silent> <bs> :<C-U>call <SID>AckMotion(visualmode())<CR>
+
+function! s:CopyMotionForType(type)
+    if a:type ==# 'v'
+        silent execute "normal! `<" . a:type . "`>y"
+    elseif a:type ==# 'char'
+        silent execute "normal! `[v`]y"
+    endif
+endfunction
+
+function! s:AckMotion(type) abort
+    let reg_save = @@
+
+    call s:CopyMotionForType(a:type)
+
+    execute "normal! :Ack! --literal " . shellescape(@@) . "\<cr>"
+
+    let @@ = reg_save
+endfunction
 
 " }}}
 " Indent Guides {{{
@@ -1277,14 +1569,12 @@ hi def BlockColor6 guibg=#4a4a4a ctermbg=239
 nnoremap <leader>B :call BlockColor()<cr>
 
 " }}}
-" Pulse {{{
+" Pulse Line {{{
 
-function! PulseCursorLine()
+function! s:Pulse() " {{{
     let current_window = winnr()
-
     windo set nocursorline
     execute current_window . 'wincmd w'
-
     setlocal cursorline
 
     redir => old_hi
@@ -1293,39 +1583,112 @@ function! PulseCursorLine()
     let old_hi = split(old_hi, '\n')[0]
     let old_hi = substitute(old_hi, 'xxx', '', '')
 
-    hi CursorLine guibg=#2a2a2a ctermbg=233
-    redraw
-    sleep 20m
+    let steps = 9
+    let width = 1
+    let start = width
+    let end = steps * width
+    let color = 233
 
-    hi CursorLine guibg=#333333 ctermbg=235
-    redraw
-    sleep 20m
-
-    hi CursorLine guibg=#3a3a3a ctermbg=237
-    redraw
-    sleep 20m
-
-    hi CursorLine guibg=#444444 ctermbg=239
-    redraw
-    sleep 20m
-
-    hi CursorLine guibg=#3a3a3a ctermbg=237
-    redraw
-    sleep 20m
-
-    hi CursorLine guibg=#333333 ctermbg=235
-    redraw
-    sleep 20m
-
-    hi CursorLine guibg=#2a2a2a ctermbg=233
-    redraw
-    sleep 20m
+    for i in range(start, end, width)
+        execute "hi CursorLine ctermbg=" . (color + i)
+        redraw
+        sleep 6m
+    endfor
+    for i in range(end, start, -1 * width)
+        execute "hi CursorLine ctermbg=" . (color + i)
+        redraw
+        sleep 6m
+    endfor
 
     execute 'hi ' . old_hi
+endfunction " }}}
+command! -nargs=0 Pulse call s:Pulse()
 
-    windo set cursorline
-    execute current_window . 'wincmd w'
-endfunction
+" }}}
+" Highlight Word {{{
+"
+" This mini-plugin provides a few mappings for highlighting words temporarily.
+"
+" Sometimes you're looking at a hairy piece of code and would like a certain
+" word or two to stand out temporarily.  You can search for it, but that only
+" gives you one color of highlighting.  Now you can use <leader>N where N is
+" a number from 1-6 to highlight the current word in a specific color.
+
+function! HiInterestingWord(n) " {{{
+    " Save our location.
+    normal! mz
+
+    " Yank the current word into the z register.
+    normal! "zyiw
+
+    " Calculate an arbitrary match ID.  Hopefully nothing else is using it.
+    let mid = 86750 + a:n
+
+    " Clear existing matches, but don't worry if they don't exist.
+    silent! call matchdelete(mid)
+
+    " Construct a literal pattern that has to match at boundaries.
+    let pat = '\V\<' . escape(@z, '\') . '\>'
+
+    " Actually match the words.
+    call matchadd("InterestingWord" . a:n, pat, 1, mid)
+
+    " Move back to our original location.
+    normal! `z
+endfunction " }}}
+
+" Mappings {{{
+
+nnoremap <silent> <leader>1 :call HiInterestingWord(1)<cr>
+nnoremap <silent> <leader>2 :call HiInterestingWord(2)<cr>
+nnoremap <silent> <leader>3 :call HiInterestingWord(3)<cr>
+nnoremap <silent> <leader>4 :call HiInterestingWord(4)<cr>
+nnoremap <silent> <leader>5 :call HiInterestingWord(5)<cr>
+nnoremap <silent> <leader>6 :call HiInterestingWord(6)<cr>
+
+" }}}
+" Default Highlights {{{
+
+hi def InterestingWord1 guifg=#000000 ctermfg=16 guibg=#ffa724 ctermbg=214
+hi def InterestingWord2 guifg=#000000 ctermfg=16 guibg=#aeee00 ctermbg=154
+hi def InterestingWord3 guifg=#000000 ctermfg=16 guibg=#8cffba ctermbg=121
+hi def InterestingWord4 guifg=#000000 ctermfg=16 guibg=#b88853 ctermbg=137
+hi def InterestingWord5 guifg=#000000 ctermfg=16 guibg=#ff9eb8 ctermbg=211
+hi def InterestingWord6 guifg=#000000 ctermfg=16 guibg=#ff2c4b ctermbg=195
+
+" }}}
+
+" }}}
+" DiffOrig {{{
+
+" Convenient command to see the difference between the current buffer and the
+" file it was loaded from, thus the changes you made.
+" Only define it when not defined already.
+if !exists(":DiffOrig")
+  command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
+                  \ | wincmd p | diffthis
+endif
+
+" }}}
+" Spelling {{{
+
+" Dictionnaire français
+" Liste des propositions par CTRL-X_CTRL-K
+"set dictionary+=/usr/share/dict/french
+
+if has("spell")
+    setlocal spell spelllang=
+    map ,s :setlocal spell spelllang=fr,en<cr>
+    map ,sf :setlocal spell spelllang=fr<cr>
+    map ,se :setlocal spell spelllang=en<cr>
+    map ,sn :setlocal spell spelllang=<cr>
+endif
+
+"let loaded_vimspell = 1
+"set spellsuggest=10
+"let spell_executable = "aspell"
+"let spell_auto_type = ''
+"let spell_insert_mode = 0
 
 " }}}
 
@@ -1333,6 +1696,8 @@ endfunction
 " Environments (GUI/Console) ---------------------------------------------- {{{
 
 if has('gui_running')
+    " GUI Vim
+
     if has("win32")
         set guifont=Courier:h10:cANSI
     else
@@ -1343,7 +1708,7 @@ if has('gui_running')
         endif
     endif
 
-	" Remove all the UI cruft
+    " Remove all the UI cruft
     set go-=T   " No toolbar
     set go-=l   " No scrollbars
     set go-=L
@@ -1353,7 +1718,7 @@ if has('gui_running')
     " set guioptions+=c    " Use console dialogs instead of popup
 
     set mousefocus                " Le focus suit la souris
-    set mousemodel=popup_setpos   " Le bouton droit affiche une popup
+    " set mousemodel=popup_setpos   " Le bouton droit affiche une popup
 
     highlight SpellBad term=underline gui=undercurl guisp=Orange
 
@@ -1363,9 +1728,13 @@ if has('gui_running')
     set guicursor+=i-ci:ver20-iCursor
 else
     " Console Vim
+
+    " Mouse support
+    set mouse=a
+
     "set term=xterm
     set t_Co=256
-    colorscheme molokai
+    " colorscheme molokai
     "set t_Co=8
     "set termencoding=utf-8
     "set ttymouse=xterm
@@ -1376,6 +1745,41 @@ endif
 "    " path: répertoires utilisés lors d'une recherche et autres commandes
 "    set path=.,/usr/include,usr/local/include
 " endif
+
+" }}}
+" Status line ------------------------------------------------------------- {{{
+
+augroup ft_statuslinecolor
+    au!
+
+    au InsertEnter * hi StatusLine ctermfg=196 guifg=#FF3145
+    au InsertLeave * hi StatusLine ctermfg=130 guifg=#CD5907
+augroup END
+
+set statusline=%f    " Path.
+set statusline+=%m   " Modified flag.
+set statusline+=%r   " Readonly flag.
+set statusline+=%w   " Preview window flag.
+
+set statusline+=\    " Space.
+
+set statusline+=%#redbar#                " Highlight the following as a warning.
+set statusline+=%{SyntasticStatuslineFlag()} " Syntastic errors.
+set statusline+=%*                           " Reset highlighting.
+
+set statusline+=%=   " Right align.
+
+" File format, encoding and type.  Ex: "(unix/utf-8/python)"
+set statusline+=(
+set statusline+=%{&ff}                        " Format (unix/DOS).
+set statusline+=/
+set statusline+=%{strlen(&fenc)?&fenc:&enc}   " Encoding (utf-8).
+set statusline+=/
+set statusline+=%{&ft}                        " Type (python).
+set statusline+=)
+
+" Line and column position and counts.
+set statusline+=\ (line\ %l\/%L,\ col\ %03c)
 
 " }}}
 " Local config ------------------------------------------------------------ {{{
