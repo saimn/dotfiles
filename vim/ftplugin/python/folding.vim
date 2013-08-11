@@ -47,8 +47,8 @@ endif
 setlocal foldmethod=expr
 setlocal foldexpr=GetPythonFold(v:lnum)
 setlocal foldtext=PythonFoldText()
-"nnoremap <buffer> <localleader>D :setlocal foldtext=PythonFoldTextDocstrings()<cr>
-"nnoremap <buffer> <localleader>d :setlocal foldtext=PythonFoldText()<cr>
+nnoremap <buffer> <localleader>Ft :setlocal foldtext=PythonFoldTextDocstrings()<cr>
+nnoremap <buffer> <localleader>ft :setlocal foldtext=PythonFoldText()<cr>
 
 function! PythonFoldText()
     " ignore decorators
@@ -79,7 +79,9 @@ function! PythonFoldTextDocstrings()
     " add docstrings
     let line = getline(fs)
     if getline(fs + 1) =~ '^\s*"""'
-        let line = line . "  (" . getline(fs + 1) . ")"
+        " Not sure which wrapping symbols I like yet.
+        " «»≺≻⸮⸫
+        let line = line . "  «" . getline(fs + 1) . "»"
         let line = substitute(line, '\s*"""', '', 'g')
         let line = substitute(line, '"""', '', 'g')
     endif

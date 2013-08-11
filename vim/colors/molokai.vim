@@ -119,8 +119,8 @@ hi SpecialComment  guifg=#465457               gui=bold
 hi Special         guifg=#66D9EF guibg=bg      gui=italic
 hi SpecialKey      guifg=#888A85               gui=italic
 hi Statement       guifg=#F92672               gui=bold
-hi StatusLine      guifg=#CD5907 guibg=fg
-hi StatusLineNC    guifg=#808080 guibg=#080808
+hi StatusLine      guifg=#262626 guibg=fg
+hi StatusLineNC    guifg=#262626 guibg=#080808
 hi StorageClass    guifg=#FD971F               gui=italic
 hi Structure       guifg=#66D9EF
 hi Tag             guifg=#F92672               gui=italic
@@ -169,7 +169,7 @@ if &t_Co > 255
    hi EasyMotionTarget ctermfg=11
    hi EasyMotionShade  ctermfg=8
 
-   hi DiffAdd         ctermfg=181 ctermbg=24
+   hi DiffAdd                     ctermbg=24
    hi DiffChange      ctermfg=181 ctermbg=239
    hi DiffDelete      ctermfg=162 ctermbg=53
    hi DiffText                    ctermbg=102 cterm=bold
