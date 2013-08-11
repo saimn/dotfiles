@@ -4,9 +4,6 @@
 [submodule "awesome/vicious"]
 	path = awesome/vicious
 	url = http://git.sysphere.org/vicious
-[submodule "vim/bundle/vim-sparkup"]
-	path = vim/bundle/vim-sparkup
-	url = http://github.com/bingaman/vim-sparkup.git
 [submodule "vim/bundle/ack"]
 	path = vim/bundle/ack
 	url = http://github.com/mileszs/ack.vim.git
@@ -46,16 +43,19 @@
 [submodule "vim/bundle/syntastic"]
 	path = vim/bundle/syntastic
 	url = https://github.com/scrooloose/syntastic.git
-[submodule "vim/bundle/vim-commentary"]
-	path = vim/bundle/vim-commentary
-	url = https://github.com/tpope/vim-commentary.git
-[submodule "vim/bundle/vim-javascript"]
-	path = vim/bundle/vim-javascript
-	url = https://github.com/pangloss/vim-javascript.git
-[submodule "vim/bundle/vim-makegreen"]
-	path = vim/bundle/vim-makegreen
-	url = https://github.com/sjl/vim-makegreen.git
 [submodule "vim/bundle/yankring"]
 	path = vim/bundle/yankring
 	url = https://github.com/vim-scripts/YankRing.vim.git
 	ignore = dirty
+[submodule "vim/bundle/commentary"]
+	path = vim/bundle/commentary
+	url = https://github.com/tpope/vim-commentary.git
+[submodule "vim/bundle/javascript"]
+	path = vim/bundle/javascript
+	url = https://github.com/pangloss/vim-javascript.git
+[submodule "vim/bundle/sparkup"]
+	path = vim/bundle/sparkup
+	url = http://github.com/bingaman/vim-sparkup.git
+[submodule "vim/bundle/makegreen"]
+	path = vim/bundle/makegreen
+	url = https://github.com/sjl/vim-makegreen.git
