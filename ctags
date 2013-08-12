@@ -12,6 +12,8 @@
 --exclude=.git
 --exclude=.hg
 --exclude=.ropeproject
+--exclude=.tox
 --exclude=_build
 --exclude=build
 --exclude=dist
+--exclude=htmlcov

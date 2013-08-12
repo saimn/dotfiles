@@ -1,4 +1,6 @@
 --smart-case
+--ignore-dir=.tox
+--ignore-dir=htmlcov
 
 # idl files
 --type-set

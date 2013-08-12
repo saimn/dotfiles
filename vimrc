@@ -532,8 +532,8 @@ vnoremap # :<C-u>call <SID>VSetSearch()<CR>??<CR><c-o>
 " nnoremap ˚ :lprevious<cr>zvzz
 " inoremap ∆ <esc>:lnext<cr>zvzz
 " inoremap ˚ <esc>:lprevious<cr>zvzz
-nnoremap <m-Down> :cnext<cr>zvzz
-nnoremap <m-Up> :cprevious<cr>zvzz
+nnoremap <m-j> :cnext<cr>zvzz
+nnoremap <m-k> :cprevious<cr>zvzz
 
 " nnoremap <left>  :cprev<cr>zvzz
 " nnoremap <right> :cnext<cr>zvzz
@@ -598,17 +598,12 @@ set foldtext=MyFoldText()
 " Filetype-specific ------------------------------------------------------- {{{
 
 augroup filetypedetect
-   autocmd BufRead,BufNewFile *.txt setfiletype text
-   autocmd BufRead,BufNewFile *.tpl setfiletype html
-   autocmd BufRead,BufNewFile *.pro setfiletype idlang
-   autocmd BufRead,BufNewFile *.mkd setfiletype mkd
-   autocmd BufRead,BufNewFile *.less setfiletype less
-   autocmd BufRead,BufNewFile *.wiki setfiletype Wikipedia
-   autocmd BufRead,BufNewFile *wikipedia.org* setfiletype Wikipedia
-   autocmd BufRead,BufNewFile *camptocamp.org* setfiletype camptocamp
-   autocmd BufRead,BufNewFile vimperator* setfiletype bbcode
-   autocmd BufRead,BufNewFile *conky* setfiletype conkyrc
-   autocmd BufRead,BufNewFile *.inc setfiletype php
+    autocmd BufRead,BufNewFile *.pro setfiletype idlang
+    autocmd BufRead,BufNewFile *wikipedia.org* setfiletype Wikipedia
+    autocmd BufRead,BufNewFile *camptocamp.org* setfiletype camptocamp
+    autocmd BufRead,BufNewFile vimperator* setfiletype bbcode
+    autocmd BufRead,BufNewFile *conky* setfiletype conkyrc
+    autocmd BufRead,BufNewFile *.inc setfiletype php
 augroup END
 
 if has("autocmd")
@@ -618,11 +613,8 @@ if has("autocmd")
                 \| exe "normal! g`\"" | endif
 
    " Templates
-   " au BufNewFile *.xsl 0r~/.vim/templates/xsl.xsl
-   " au BufNewFile *.xml 0r~/.vim/templates/xml.xml
    " au BufNewFile *.html 0r~/.vim/templates/html.html
    " au BufNewFile *.c 0r~/.vim/templates/c.c
-   " au BufNewFile *.php 0r~/.vim/templates/php.php
 endif
 
 " C {{{
@@ -740,6 +732,7 @@ let g:html_indent_tags = ['p', 'li']
 augroup ft_html
     au!
 
+    au BufNewFile,BufRead *.tpl setlocal setfiletype html
     au BufNewFile,BufRead *.html setlocal filetype=htmldjango
     au FileType html,jinja,htmldjango setlocal foldmethod=manual
     au FileType html,jinja,htmldjango setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
@@ -829,7 +822,10 @@ augroup END
 augroup ft_markdown
     au!
 
-    au BufNewFile,BufRead *.m*down setlocal filetype=markdown foldlevel=1
+    au BufNewFile,BufRead *.m*down setlocal filetype=markdown
+    au BufNewFile,BufRead *.md setfiletype markdown
+    au BufNewFile,BufRead *.mkd setfiletype markdown
+    au FileType markdown setlocal foldlevel=1
 
     " Use <localleader>1/2/3 to add headings.
     au Filetype markdown nnoremap <buffer> <localleader>1 yypVr=:redraw<cr>
@@ -987,7 +983,10 @@ augroup END
 
 augroup ft_txt
     au!
-    au FileType text setlocal textwidth=78 lbr "fo+=a "spell spelllang=fr
+    au BufRead,BufNewFile *.txt setfiletype text
+
+    " au FileType text setlocal textwidth=78 lbr wrap fo=l "spell spelllang=fr
+    au FileType text setlocal textwidth=78 lbr fo+=a "spell spelllang=fr
     au FileType tex setlocal textwidth=78 "spell spelllang=fr
     au FileType camptocamp setlocal spell spelllang=fr
 augroup END
@@ -1096,7 +1095,7 @@ let g:ctrlp_max_height = 20
 let g:ctrlp_extensions = ['tag']
 
 let g:ctrlp_map = '<leader>,'
-nnoremap <leader>. :CtrlPTag<cr>
+nnoremap <leader>; :CtrlPTag<cr>
 nnoremap <leader>b :CtrlPBuffer<cr>
 
 let g:ctrlp_prompt_mappings = {
@@ -1125,7 +1124,7 @@ let my_ctrlp_git_command = "" .
 
 let my_ctrlp_ffind_command = "ffind --semi-restricted --dir %s --type e -B -f"
 
-let g:ctrlp_user_command = ['.git/', my_ctrlp_ffind_command, my_ctrlp_ffind_command]
+let g:ctrlp_user_command = ['.git/', my_ctrlp_ffind_command, my_ctrlp_user_command]
 
 " }}}
 " Dispatch {{{
@@ -1209,7 +1208,7 @@ augroup ps_nerdtree
 augroup END
 
 let NERDTreeHighlightCursorline = 1
-let NERDTreeIgnore = ['.vim$', '\~$', '.*\.pyo$', '.*\.pyc$', 'pip-log\.txt$',
+let NERDTreeIgnore = ['\~$', '.*\.pyo$', '.*\.pyc$', 'pip-log\.txt$',
                     \ 'xapian_index', '.*.pid', 'monitor.py', '.*-fixtures-.*.json',
                     \ '.*\.o$', 'db.db', 'tags.bak', '.*\.pdf$', '.*\.mid$',
                     \ '.*\.midi$']
