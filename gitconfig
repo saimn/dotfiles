@@ -5,7 +5,7 @@
    email = contact@saimon.org
 [core]
    editor = vim +0
-   # excludesfile = ~/.gitignore
+   excludesfile = ~/.gitignore
    # autocrlf = input
    # safecrlf = true
 [alias]
