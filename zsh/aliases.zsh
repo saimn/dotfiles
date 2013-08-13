@@ -51,6 +51,7 @@ alias firedev='firefox -no-remote -P Webdev'
 alias gbook='goobook query @ | sort | column -t'
 alias ht='urxvt -name htop -title htop +sb -geometry 80x6 -e htop &'
 alias ipyqt='ipython2 qtconsole --pylab'
+alias myctags='ctags -R .'
 alias wo='workon'
 alias xp='xprop | grep "WM_WINDOW_ROLE\|WM_CLASS" && echo "WM_CLASS(STRING) = \"NAME\", \"CLASS\""'
 

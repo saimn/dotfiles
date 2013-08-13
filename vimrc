@@ -808,6 +808,8 @@ augroup END
 augroup ft_mail
     au!
 
+    au BufRead,BufNewFile ~/.mutt/tmp/mutt* setfiletype mail
+
     au Filetype mail setlocal spell
 augroup END
 
@@ -857,7 +859,6 @@ augroup ft_muttrc
     au!
 
     au BufRead,BufNewFile *.muttrc set ft=muttrc
-    autocmd BufRead,BufNewFile ~/.mutt/tmp/mutt* setfiletype mail
 
     au FileType muttrc setlocal foldmethod=marker foldmarker={{{,}}}
 augroup END

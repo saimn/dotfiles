@@ -48,8 +48,8 @@ nmap ,cqmh :g/^\([>*] \)\+On.*wrote:$/d<CR>
 map ,db /^On.*wrote:$/e
 
 " Kill more than 1 empty quoted lines
-nmap ,ceql :g/^\(>\)\{2,}\s*$/d<CR>
-nmap ,cqel :%s/^> \s*$//<CR>
+nmap ,ceql :silent g/^\(>\)\{2,}\s*$/d<CR>
+nmap ,cqel :silent %s/^> \s*$//<CR>
 
 " Kill power quote - change wierd "> blah>" to >>
 nmap ,kpq :s/^> *[a-zA-Z]*>/>>/e
@@ -72,7 +72,6 @@ map ,re call MailCondenseRe()
 " Sven's wondeful change subject macro
 map ,cs 1G/^Subject: <CR>yypIX-Old-<ESC>-W
 vmap ,qp    :s/^/> /<CR>
-
 
 " Clean the Email Function
 function! CleanEmail()
