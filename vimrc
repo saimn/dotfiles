@@ -234,7 +234,7 @@ iabbrev qqs quelques
 nnoremap <leader>n :setlocal number!<cr>
 
 " Sort lines
-nnoremap <leader>s vip:!sort<cr>
+nnoremap <leader>so vip:!sort<cr>
 vnoremap <leader>s :!sort<cr>
 
 " Tabs
@@ -287,7 +287,7 @@ inoremap <C-u> <esc>mzgUiw`za
 nnoremap <f9> mzggg?G`z
 
 " Substitute
-nnoremap <leader>s :%s//<left>
+nnoremap <leader>: :%s//<left>
 
 " Diffoff
 nnoremap <leader>D :diffoff!<cr>
@@ -399,14 +399,16 @@ inoremap <c-]> <c-x><c-]>
 " }}}
 " Quick editing ----------------------------------------------------------- {{{
 
-nnoremap <leader>ev :vsplit ~/.vimrc<cr>
 nnoremap <leader>ed :vsplit ~/.vim/custom-dictionary.utf-8.add<cr>
-nnoremap <leader>eo :vsplit ~/org<cr>4j
+nnoremap <leader>eg :vsplit ~/.gitconfig<cr>
 nnoremap <leader>eh :vsplit ~/.hgrc<cr>
-nnoremap <leader>ep :vsplit ~/.pentadactylrc<cr>
 nnoremap <leader>em :vsplit ~/.mutt/muttrc<cr>
-nnoremap <leader>ez :vsplit ~/lib/dotfiles/zsh<cr>4j
+nnoremap <leader>eo :vsplit ~/org<cr>4j
+nnoremap <leader>ep :vsplit ~/.pentadactylrc<cr>
+nnoremap <leader>er :vsplit ~/lib/dotfiles/README<cr>
 nnoremap <leader>et :vsplit ~/.tmux.conf<cr>
+nnoremap <leader>ev :vsplit ~/.vimrc<cr>
+nnoremap <leader>ez :vsplit ~/lib/dotfiles/zsh<cr>4j
 
 " }}}
 " Searching and movement -------------------------------------------------- {{{
@@ -986,7 +988,7 @@ augroup ft_txt
     au BufRead,BufNewFile *.txt setfiletype text
 
     " au FileType text setlocal textwidth=78 lbr wrap fo=l "spell spelllang=fr
-    au FileType text setlocal textwidth=78 lbr fo+=a "spell spelllang=fr
+    au FileType text setlocal textwidth=78 lbr "fo+=a spell spelllang=fr
     au FileType tex setlocal textwidth=78 "spell spelllang=fr
     au FileType camptocamp setlocal spell spelllang=fr
 augroup END
@@ -1130,7 +1132,7 @@ let g:ctrlp_user_command = ['.git/', my_ctrlp_ffind_command, my_ctrlp_user_comma
 " Dispatch {{{
 
 nnoremap <leader>d :Dispatch<cr>
-nnoremap <leader>m :Dispatch<cr>
+" nnoremap <leader>m :Dispatch<cr>
 
 " }}}
 " Fugitive {{{
@@ -1226,6 +1228,7 @@ let g:org_heading_shade_leading_stars = 0
 " let g:org_plugins = ['ShowHide', '|', 'Navigator', 'EditStructure', '|', 'Todo', 'Date', 'Misc']
 
 let g:org_todo_keywords = ['TODO', '|', 'DONE']
+let g:org_agenda_files = ['~/org/index.org']
 
 " let g:org_debug = 1
 
@@ -1677,10 +1680,10 @@ endif
 
 if has("spell")
     setlocal spell spelllang=
-    map ,s :setlocal spell spelllang=fr,en<cr>
-    map ,sf :setlocal spell spelllang=fr<cr>
-    map ,se :setlocal spell spelllang=en<cr>
-    map ,sn :setlocal spell spelllang=<cr>
+    nnoremap <leader>sp :setlocal spell spelllang=fr,en<cr>
+    nnoremap <leader>sf :setlocal spell spelllang=fr<cr>
+    nnoremap <leader>se :setlocal spell spelllang=en<cr>
+    nnoremap <leader>sn :setlocal spell spelllang=<cr>
 endif
 
 "let loaded_vimspell = 1
@@ -1702,8 +1705,8 @@ if has('gui_running')
     else
         if $HOSTNAME == "goudes"
             set guifont=Inconsolata\ for\ Powerline\ 11
-        else
-            set guifont=Inconsolata\ for\ Powerline\ 12
+        else "if $HOSTNAME == "DSK000977"
+            set guifont=Droid\ Sans\ Mono\ for\ Powerline\ 10
         endif
     endif
 
