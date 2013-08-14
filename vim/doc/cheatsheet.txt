@@ -1,0 +1,127 @@
+*cheatsheet.txt*
+
+==============================================================================
+1. Spell
+
+Liste des propositions par CTRL-X_CTRL-K ?
+
+z=     sur un mot souligné affiche une liste de corrections possibles
+zg     rajoute un mot dans le dictionnaire
+zug    pour annuler l'ajout au dictionnaire
+]s     pour aller au prochain mot mal orthographié
+[s     pour le précédent 
+
+
+==============================================================================
+2. Leader Mappings
+
+Config >
+  let g:ctrlp_map = '<leader>,'
+  let g:pymode_rope_global_prefix = "<localleader>R"
+  let g:pymode_rope_local_prefix = "<localleader>r"
+  let mapleader = ","
+  let maplocalleader = "\\"
+<
+
+All
+  *<leader>P*       :set paste<CR>"*P<CR>:set nopaste<CR>
+  *<leader>p*       :silent! set paste<CR>"*p<CR>:set nopaste<CR>
+  *<leader>v*       <C-w>v
+  *<leader>y*       "*y
+  *<leader><space>* :noh<cr>:call clearmatches()<cr>
+
+Normal >
+  <leader># gwap
+  <leader>! :Shell 
+  <leader>: :%s//<left>
+  <leader>1 :call HiInterestingWord(1)<cr>
+  <leader>2 :call HiInterestingWord(2)<cr>
+  <leader>3 :call HiInterestingWord(3)<cr>
+  <leader>4 :call HiInterestingWord(4)<cr>
+  <leader>5 :call HiInterestingWord(5)<cr>
+  <leader>6 :call HiInterestingWord(6)<cr>
+  <leader>a :Ack!<space>
+  <leader>A :set opfunc=<SID>AckMotion<CR>g@
+  <leader>B :call BlockColor()<cr>
+  <leader>b :CtrlPBuffer<cr>
+  <leader>c <Plug>CommentaryLine
+  <leader><cr> :silent !myctags<cr>:redraw!<cr>
+  <leader>; :CtrlPTag<cr>
+  <leader>D :diffoff!<cr>
+  <leader>d :Dispatch<cr>
+  <leader>/ :execute "Ack! '" . substitute(substitute(substitute(@/, "\\\\<", "\\\\b", ""), "\\\\>", "\\\\b", ""), "\\\\v", "", "") . "'"<CR>
+  <leader>? :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
+  <leader>ga :Gadd<cr>
+  <leader>gb :Gblame<cr>
+  <leader>gci :Gcommit<cr>
+  <leader>gco :Gcheckout<cr>
+  <leader>gd :Gdiff<cr>
+  <leader>gl :Shell git gl -18<cr>:wincmd \|<cr>
+  <leader>gm :Gmove<cr>
+  <leader>gr :Gremove<cr>
+  <leader>gs :Gstatus<cr>
+  <leader>gw :Gwrite<cr>
+  <leader>H :Gbrowse<cr>
+  <leader>I :call IndentGuides()<cr>
+  <leader>i :set list!<cr>
+  <leader>L :LinediffReset<cr>
+  <leader>n :setlocal number!<cr>
+  <leader>S ^vg_y:execute @@<cr>:echo 'Sourced line.'<cr>
+  <leader>so vip:!sort<cr>
+  <leader>sp :setlocal spell spelllang=fr,en<cr>
+  <leader>sf :setlocal spell spelllang=fr<cr>
+  <leader>se :setlocal spell spelllang=en<cr> 
+  <leader>sn :setlocal spell spelllang=<cr>
+  <leader>) :tabnext<cr>
+  <leader>( :tabprev<cr>
+  <leader><tab> :ScratchToggle<cr>
+  <leader>u :syntax sync fromstart<cr>:redraw!<cr>
+  <leader>@ {v}! par 72j
+  <leader>V V`]
+  <leader>W :call ToggleDiffWhitespace()<CR>
+  <leader>w mz:%s/\s\+$//<cr>:let @/=''<cr>`z
+  " nnoremap <leader>hb :HgBlame<cr>
+  " nnoremap <leader>hd :HgDiff<cr>
+<
+
+Visual >
+  vnoremap <leader>H :Gbrowse<cr>
+  vnoremap <leader>l :Linediff<cr>
+  vnoremap <leader>s :!sort<cr>
+  vnoremap <leader>S y:execute @@<cr>:echo 'Sourced selection.'<cr>
+  vnoremap <leader>y "*ygv
+<
+
+Visual, not select >
+  xmap <leader>c <Plug>Commentary
+  xnoremap <leader>A :<C-U>call <SID>AckMotion(visualmode())<CR>
+<
+
+### Filetype specific
+
+CSS sort properties >
+  *.less,*.css nnoremap <buffer> <localleader>S ?{<CR>jV/\v^\s*\}?$<CR>k:sort<CR>:noh<CR>
+<
+
+MARKDOWN Use <localleader>1/2/3 to add headings >
+ markdown nnoremap <buffer> <localleader>1 yypVr=:redraw<cr>
+ markdown nnoremap <buffer> <localleader>2 yypVr-:redraw<cr>
+ markdown nnoremap <buffer> <localleader>3 mzI###<space>`zllll <ESC>
+ markdown nnoremap <buffer> <localleader>p VV:'<,'>!python -m json.tool<cr>
+ markdown vnoremap <buffer> <localleader>p :!python -m json.tool<cr>
+<
+
+RST >
+  rst nnoremap <buffer> <localleader>1 yypVr=:redraw<cr>
+  rst nnoremap <buffer> <localleader>2 yypVr-:redraw<cr>
+  rst nnoremap <buffer> <localleader>3 yypVr~:redraw<cr>
+  rst nnoremap <buffer> <localleader>4 yypVr`:redraw<cr>
+<
+
+XML >
+  xml nnoremap <buffer> <localleader>f Vatzf  -> fold current tag
+  xml nnoremap <buffer> <localleader>= Vat=   -> indent tag
+<
+
+==============================================================================
+vim:tw=78:ts=8:ft=help:fdm=marker:

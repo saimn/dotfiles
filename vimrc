@@ -54,7 +54,7 @@ set colorcolumn=+1
 " now I'll just use ascii pipes.  They're ugly but at least I won't want to kill
 " myself when trying to move around a file.
 set fillchars=diff:⣿,vert:│
-set fillchars=diff:⣿,vert:\|
+" set fillchars=diff:⣿,vert:\|
 
 " Don't try to highlight lines longer than 800 characters.
 set synmaxcol=800
@@ -66,7 +66,7 @@ set ttimeout
 set ttimeoutlen=10
 
 " Make Vim able to edit crontab files again.
-set backupskip=/tmp/*,/private/tmp/*" 
+set backupskip=/tmp/*,/private/tmp/*"
 
 " Better Completion
 set complete=.,w,b,u,t
@@ -296,7 +296,7 @@ nnoremap <leader>D :diffoff!<cr>
 nnoremap <leader># gwap
 
 " Wrappe et justifie à 72 caractères avec la touche '@'
-nnoremap <leader>@ {v}! par 72j
+" nnoremap <leader>@ {v}! par 72j
 
 " Formatting, TextMate-style
 nnoremap Q gqip
@@ -371,6 +371,9 @@ nnoremap ; :
 " map CTRL+k S N (non-breaking space) to CTRL+space
 imap <Nul> <C-k>NS
 imap <C-Space> <C-k>NS
+
+" change directory to the file being edited
+nnoremap <leader>C :cd %:p:h<CR>:pwd<CR>
 
 " disable cursor keys in normal mode
 " map <Left> :echo "no!"<cr>
@@ -1058,7 +1061,7 @@ function! s:ExecuteInShell(command) " {{{
     echo 'Shell command ' . command . ' executed.'
 endfunction " }}}
 command! -complete=shellcmd -nargs=+ Shell call s:ExecuteInShell(<q-args>)
-nnoremap <leader>! :Shell 
+nnoremap <leader>! :Shell
 
 " }}}
 " Plugin settings --------------------------------------------------------- {{{
@@ -1220,6 +1223,7 @@ let NERDTreeDirArrows = 1
 let NERDChristmasTree = 1
 let NERDTreeChDirMode = 2
 let NERDTreeMapJumpFirstChild = 'gK'
+let NERDTreeShowBookmarks = 1
 
 " }}}
 " OrgMode {{{
@@ -1673,10 +1677,6 @@ endif
 
 " }}}
 " Spelling {{{
-
-" Dictionnaire français
-" Liste des propositions par CTRL-X_CTRL-K
-"set dictionary+=/usr/share/dict/french
 
 if has("spell")
     setlocal spell spelllang=
