@@ -1318,7 +1318,8 @@ let g:sparkupNextMapping = '<c-s>'
 "}}}
 " Supertab {{{
 
-let g:SuperTabDefaultCompletionType = "<c-n>"
+let g:SuperTabDefaultCompletionType = "context"
+let g:SuperTabContextDefaultCompletionType = "<c-n>"
 let g:SuperTabLongestHighlight = 1
 let g:SuperTabCrMapping = 1
 

@@ -124,4 +124,31 @@ XML >
 <
 
 ==============================================================================
+3. List of some Vim commands
+
+
+command   action in Normal mode	~
+------------------------------------------------------------------------------
+zz        Center your screen on the current line
+gi        goes to insert mode at the last place you were in the insert mode
+
+
+Macros
+------
+
+Recording with : q<character>
+Replay with    : @<character>
+
+Windows
+-------
+
+Ctrl + w _   Max out the height of the current split
+Ctrl + w |   Max out the width of the current split
+Ctrl + w =   Normalize all split sizes
+Ctrl+W R     Swap top/bottom or left/right split
+Ctrl+W T     Break out current window into a new tabview
+Ctrl+W o     Close every window in the current tabview but the current one
+
+
+==============================================================================
 vim:tw=78:ts=8:ft=help:fdm=marker:
