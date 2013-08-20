@@ -17,7 +17,7 @@ set nocompatible                " choose no compatibility with legacy vi
 " Basic options ----------------------------------------------------------- {{{
 
 set encoding=utf-8
-set modelines=1                 " enable modelines
+set modelines=0
 set autoindent                  " always set autoindenting on
 set smartindent                 " clever autoindenting
 set showmode                    " print current mode on the last line
@@ -1300,6 +1300,15 @@ function! ScratchToggle()
 endfunction
 
 nnoremap <silent> <leader><tab> :ScratchToggle<cr>
+
+" }}}
+" Secure Modelines {{{
+
+let g:secure_modelines_allowed_items = [
+            \ "textwidth",   "tw",
+            \ "foldmethod",  "fdm",
+            \ "filetype",    "ft",
+            \ ]
 
 " }}}
 " Sparkup {{{

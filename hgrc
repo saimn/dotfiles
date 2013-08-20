@@ -66,8 +66,10 @@ attend = diff,status,log,qdiff,blame,annotate,pdiff,glog,show,di,slog,nlog,sglog
 # merge = internal:merge
 
 [web]
+cacerts = /etc/ssl/certs/ca-certificates.crt
 contact = Simon
 allowgz = true
 allowbz2 = true
 allowzip = true
 style = gitweb
+
