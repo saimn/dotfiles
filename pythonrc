@@ -20,4 +20,4 @@ else:
         readline.read_history_file(histfile)
     atexit.register(readline.write_history_file, histfile)
     del histfile, readline, rlcompleter, atexit
-    print "Python shell history and tab completion are enabled."
+    print("Python shell history and tab completion are enabled.")
