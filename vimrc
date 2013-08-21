@@ -381,6 +381,8 @@ nnoremap <leader>C :cd %:p:h<CR>:pwd<CR>
 " map <Up> :echo "no!"<cr>
 " map <Down> :echo "no!"<cr>
 
+noremap <F10> :set go+=m<CR>
+
 " Easy filetype switching {{{
 
 nnoremap _md :set ft=markdown<CR>
@@ -810,7 +812,7 @@ augroup ft_mail
 
     au BufRead,BufNewFile ~/.mutt/tmp/mutt* setfiletype mail
 
-    au Filetype mail setlocal spell
+    au Filetype mail setlocal spell spelllang=fr,en
 augroup END
 
 " }}}
@@ -1101,7 +1103,7 @@ let g:ctrlp_max_height = 20
 let g:ctrlp_extensions = ['tag']
 
 let g:ctrlp_map = '<leader>,'
-nnoremap <leader>; :CtrlPTag<cr>
+nnoremap <leader>t :CtrlPTag<cr>
 nnoremap <leader>b :CtrlPBuffer<cr>
 
 let g:ctrlp_prompt_mappings = {
@@ -1360,6 +1362,24 @@ let g:splice_initial_scrollbind_compare = 0
 let g:splice_initial_scrollbind_path = 0
 
 let g:splice_wrap = "nowrap"
+
+" }}}
+" Tagbar {{{
+
+noremap <F8> :TagbarToggle<CR>
+
+augroup ps_tagbar
+    au!
+
+    " open Tagbar also if you open a supported file in an already running Vim
+    autocmd FileType c,cpp,python nested :call tagbar#autoopen(0)
+augroup END
+
+let g:tagbar_compact = 1
+let g:tagbar_indent = 1
+let g:tagbar_show_visibility = 0
+" let g:tagbar_autoshowtag = 1
+let g:tagbar_iconchars = ['▸', '▾']
 
 " }}}
 " YankRing {{{
@@ -1727,6 +1747,7 @@ if has('gui_running')
     set go-=L
     set go-=r
     set go-=R
+    set go-=m
     " set guioptions+=a    " clipboard to autoselect
     " set guioptions+=c    " Use console dialogs instead of popup
 

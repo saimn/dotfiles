@@ -3,13 +3,22 @@
 ==============================================================================
 1. Spell
 
-Liste des propositions par CTRL-X_CTRL-K ?
+Insert Mode
+-----------
 
-z=     sur un mot souligné affiche une liste de corrections possibles
-zg     rajoute un mot dans le dictionnaire
-zug    pour annuler l'ajout au dictionnaire
-]s     pour aller au prochain mot mal orthographié
-[s     pour le précédent 
+CTRL-X_s       Spelling suggestions
+CTRL-X_CTRL-K  completion avec les dictionnaires définis dans 'dictionary'
+               (/usr/share/dict/words)
+CTRL-X_CTRL-T  same for 'thesaurus'
+
+Normal Mode
+-----------
+
+z=             sur un mot souligné affiche une liste de corrections possibles
+zg             rajoute un mot dans le dictionnaire
+zug            pour annuler l'ajout au dictionnaire
+]s             pour aller au prochain mot mal orthographié
+[s             pour le précédent
 
 
 ==============================================================================
@@ -32,7 +41,7 @@ All
 
 Normal >
   <leader># gwap
-  <leader>! :Shell 
+  <leader>! :Shell
   <leader>: :%s//<left>
   <leader>1 :call HiInterestingWord(1)<cr>
   <leader>2 :call HiInterestingWord(2)<cr>
@@ -70,7 +79,7 @@ Normal >
   <leader>so vip:!sort<cr>
   <leader>sp :setlocal spell spelllang=fr,en<cr>
   <leader>sf :setlocal spell spelllang=fr<cr>
-  <leader>se :setlocal spell spelllang=en<cr> 
+  <leader>se :setlocal spell spelllang=en<cr>
   <leader>sn :setlocal spell spelllang=<cr>
   <leader>) :tabnext<cr>
   <leader>( :tabprev<cr>
@@ -127,11 +136,24 @@ XML >
 3. List of some Vim commands
 
 
-command   action in Normal mode	~
+command   action in Normal mode
 ------------------------------------------------------------------------------
 zz        Center your screen on the current line
 gi        goes to insert mode at the last place you were in the insert mode
+gf        go to file
 
+
+command        action in Insert mode
+------------------------------------------------------------------------------
+CTRL-X_CTRL-L  Complete whole line
+CTRL-X_CTRL-F  Complete file names
+
+Paste in Insert mode
+--------------------
+
+CTRL-R "       Insert the unnamed register, containing the text of the last delete or yank
+CTRL-R *       the clipboard contents (X11: primary selection)
+CTRL-R +       the clipboard contents
 
 Macros
 ------
