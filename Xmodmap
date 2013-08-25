@@ -5,7 +5,7 @@ clear Mod4
 ! keycode 9 = Caps_Lock
 ! keycode 66 = Escape
 keycode 9   = Escape
-keycode 66  = Control_L
+keycode 66  = Escape
 keycode 134 = Caps_Lock
 add Lock    = Caps_Lock
 add Control = Control_L Control_R

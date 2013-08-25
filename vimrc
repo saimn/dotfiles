@@ -223,6 +223,21 @@ match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 " }}}
 " Abbreviations ----------------------------------------------------------- {{{
 
+function! EatChar(pat)
+    let c = nr2char(getchar(0))
+    return (c =~ a:pat) ? '' : c
+endfunction
+
+function! MakeSpacelessIabbrev(from, to)
+    execute "iabbrev <silent> ".a:from." ".a:to."<C-R>=EatChar('\\s')<CR>"
+endfunction
+function! MakeSpacelessBufferIabbrev(from, to)
+    execute "iabbrev <silent> <buffer> ".a:from." ".a:to."<C-R>=EatChar('\\s')<CR>"
+endfunction
+
+call MakeSpacelessIabbrev('bb/',  'http://bitbucket.org/')
+call MakeSpacelessIabbrev('gh/',  'http://github.com/')
+
 iabbrev qd quand
 iabbrev qq quelque
 iabbrev qqs quelques
@@ -931,7 +946,7 @@ augroup ft_python
     au FileType python set softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79
     au FileType python setlocal smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class,with
 
-    " au FileType python setlocal omnifunc=pythoncomplete#Complete
+    au FileType python setlocal omnifunc=pythoncomplete#Complete
     au FileType python setlocal define=^\s*\\(def\\\\|class\\)
     au FileType python compiler nose
     au FileType man nnoremap <buffer> <cr> :q<cr>
@@ -1372,7 +1387,7 @@ augroup ps_tagbar
     au!
 
     " open Tagbar also if you open a supported file in an already running Vim
-    autocmd FileType c,cpp,python nested :call tagbar#autoopen(0)
+    " autocmd FileType c,cpp,python nested :call tagbar#autoopen(0)
 augroup END
 
 let g:tagbar_compact = 1
