@@ -64,8 +64,10 @@ rm $HOME/.config/ipython/profile_default/ipython_config.py
 ln -s $HOME/lib/dotfiles/ipython/ipython_config.py \
     $HOME/.config/ipython/profile_default/ipython_config.py
 
-rm $HOME/.matplotlib/matplotlibrc
-ln -s $HOME/lib/dotfiles/matplotlibrc $HOME/.matplotlib/matplotlibrc
+mkdir -p $HOME/.config/matplotlib
+rm -r $HOME/.matplotlib
+rm -r $HOME/.config/matplotlib
+ln -s $HOME/lib/dotfiles/matplotlibrc $HOME/.config/matplotlib/matplotlibrc
 # }}}
 
 #{{{ Other repos
