@@ -7,11 +7,11 @@ var loaduserstyles = function()
 {
     /// Userstyles
     var userstyles = [
-        [
-            "global",
-            "*",
-            "global.css",
-        ],
+        // [
+        //     "global",
+        //     "*",
+        //     "global.css",
+        // ],
 
         // [
         //     "archlinux-forums:minimal",

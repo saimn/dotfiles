@@ -9,21 +9,19 @@ loadplugins
 source ~/.pentadactyl/styles/styles.js
 styledisable -name global
 
-" colorscheme zenburn
+colorscheme zenburn
 
-set editor="emacsclient -c"
+set editor="gvim -f"
 
 " default search engine
 set defsearch="duck"
-
-" don't show tab line if only one tab
-"set showtabline=multitab
 
 set visualbell
 
 " open all commands in a new tab
 set newtab=all
 " set showstatuslinks=2
+" set showtabline=multitab
 
 set wildmode=list:longest,list:full
 "set wildoptions=auto
@@ -82,10 +80,11 @@ command! -description 'emacs wiki'  -nargs=* emacs tabopen http://www.google.com
 command! -description 'trans en2fr' -nargs=* wr2fr tabopen http://www.wordreference.com/enfr/<args>
 command! -description 'trans fr2en' -nargs=* wr2en tabopen http://www.wordreference.com/fren/<args>
 
-":autocmd LocationChange mail\.google\.com js modes.passAllKeys = true
+":autocmd LocationChange .* -js modes.reset()
+":autocmd LocationChange webmail\.gandi\.net -js modes.set(modes.PASS_THROUGH)
+":autocmd LocationChange mail\.google\.com -js modes.set(modes.PASS_THROUGH)
 ":autocmd LocationChange google(\.(com|fr)\/(reader|calendar)) js modes.passAllKeys = true
-:autocmd LocationChange .* -js modes.reset()
-:autocmd LocationChange webmail\.gandi\.net -js modes.set(modes.PASS_THROUGH)
+set passkeys+=mail.google.com:jk<CR>
 
 " Set the Vim filetype to "mail" when editing mail in GMail with the external editor:
 ":autocmd LocationChange .* :set editor=gvim\ -f
@@ -117,8 +116,9 @@ map <C-k> :contrast -10<CR>
 " restart pentadactyl
 map <C-r> :restart<CR>
 
+map <C-b> <C-v><C-b>
 map <A-a> :dialog addbookmark<CR>
-map <A-b> :dialog bookmarks<CR>
+" map <A-b> :dialog bookmarks<CR>
 
 " Toggle userstyles/userscripts
 nmap <silent> ,s :styletoggle!<CR>:styledisable -name global<CR>
