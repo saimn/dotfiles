@@ -3,7 +3,7 @@
 # {{{ keys
 
 # Use emacs bindkey
-bindkey -e
+# bindkey -e
 
 #bindkey '^[[A'    up-line-or-history
 #bindkey '^[[B'    down-line-or-history
@@ -40,4 +40,7 @@ bindkey '\eOd' backward-word
 bindkey '^[[1;5D' vi-backward-word
 bindkey '^[[1;5C' vi-forward-word
 
+# recall the last argument of the previous command, bind to Alt-p
+# bindkey "\ep"  yank-last-arg
+bindkey "\ep"  insert-last-word
 # }}}
