@@ -1,8 +1,8 @@
 " FileName: zenburn.penta
 " Author: zouyang
 " Last Updated: Sat 08 Jan 2011 09:46:19 PM CST
-hi Cmd background-color:#313633; font-size:9pt;
-hi -a StatusLineNormal      color:#ccdc90; background-color:#313633 !important; margin-bottom:-2px; font-size:9pt;
+hi Cmd background-color:#313633; font-size:12pt; font-family: "Droid Sans Mono";
+hi -a StatusLineNormal      color:#ccdc90; background-color:#313633 !important; font-size:12pt; font-family: "Droid Sans Mono";
 
 hi -l StatusLineNormal StatusLineSecure         color:#87af87;
 hi -l StatusLineNormal StatusLineBroken         color:#ffa0a0;
@@ -14,7 +14,7 @@ hi -a Number                color:#8cd0d3;
 hi WarningMsg            color:#ffffff; background-color:#333333 !important; font-weight:bold;
 hi -l WarningMsg StatusWarningMsg
 hi -l WarningMsg CmdWarningMsg
-hi ErrorMsg              color:#80d4aa !important; background-color:#2f2f2f !important; font-weight:bold; font-size:9pt;
+hi ErrorMsg              color:#80d4aa !important; background-color:#2f2f2f !important; font-weight:bold; font-size:12pt; font-family: "Droid Sans Mono";
 hi -l ErrorMsg StatusErrorMsg
 hi -l ErrorMsg CmdErrorMsg
 hi -a ModeMsg               color:#ffcfaf; background-color:transparent !important;
@@ -32,7 +32,7 @@ hi -l Question CmdQuestion
 hi -a Tag                   color:#e89393; font-weight:bold;
 hi -a CmdLine               font-weight:normal; padding:0 3px;
 hi -a NonText               color:#404040; font-weight:bold;
-hi Normal                color:#dcdccc !important; background-color:#313633 !important; font-size:9pt;
+hi Normal                color:#dcdccc !important; background-color:#313633 !important; font-size:12pt; font-family: "Droid Sans Mono";
 hi -l Normal CmdNormal
 hi -l Normal StatusNormal
 hi -a Title                 color:#efefef; background-color:inherit; font-weight:bold;
