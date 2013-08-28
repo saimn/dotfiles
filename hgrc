@@ -15,6 +15,7 @@ grep = ! $HG locate -0 '$2' $3 $4 $5 $6 $7 $8 $9 | xargs -0 fgrep -H '$1'
 query = ! echo "current branch: `$HG branch`" ; echo "`$HG paths`" ; echo "---------- incoming ----------" ; $HG --quiet incoming --template '{author|person}: {desc|firstline| strip}\n'; echo "---------- outgoing ----------" ; $HG --quiet outgoing --template  '{author| person}: {desc|firstline|strip}\n'; echo "----------- status -----------" ; $HG --quiet status
 show = log --patch --verbose --rev
 
+logs = log --stat
 slog = log --style=$HOME/lib/mercurial-cli-templates/map-cmdline.slog
 nlog = log --style=$HOME/lib/mercurial-cli-templates/map-cmdline.nlog
 sglog = glog --style=$HOME/lib/mercurial-cli-templates/map-cmdline.sglog
@@ -59,7 +60,7 @@ prompt = ~/lib/hg-prompt/prompt.py
 [pager]
 pager = LESS=FRSXQ less
 quiet = True
-attend = diff,status,log,qdiff,blame,annotate,pdiff,glog,show,di,slog,nlog,sglog
+attend = diff,status,log,qdiff,blame,annotate,pdiff,glog,show,di,slog,nlog,sglog,logs
 
 [ui]
 # traditional merge with conflict markers

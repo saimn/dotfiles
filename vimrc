@@ -95,10 +95,10 @@ augroup END
 " Trailing whitespace {{{
 " Only shown when not in insert mode so I don't go insane.
 
-augroup trailing
-    au!
-    au InsertEnter * :set listchars-=trail:⌴
-augroup END
+" augroup trailing
+"     au!
+"     au InsertEnter * :set listchars-=trail:⌴
+" augroup END
 
 " }}}
 " Wildmenu completion {{{
@@ -268,7 +268,6 @@ nnoremap <leader><cr> :silent !myctags<cr>:redraw!<cr>
 
 " Clean trailing whitespace
 nnoremap <leader>w mz:%s/\s\+$//<cr>:let @/=''<cr>`z
-" map <F6> :%s/\s\+$//<CR>
 " Clean leading spaces
 " nmap _S :%s/^\s\+//<CR>
 
@@ -629,6 +628,9 @@ augroup filetypedetect
 augroup END
 
 if has("autocmd")
+    " Remove trailing whitespace
+    " autocmd BufWritePre * :%s/\s\+$//e
+
     " Remember last location in file, but not for commit messages.
     " see :help last-position-jump
     au BufReadPost * if &filetype !~ '^git\c' && line("'\"") > 0 && line("'\"") <= line("$")
@@ -1131,7 +1133,7 @@ let g:ctrlp_prompt_mappings = {
 
 let ctrlp_filter_greps = "".
     \ "egrep -iv '\\.(" .
-    \ "jar|class|swp|swo|log|so|o|pyc|jpe?g|png|gif|mo|po" .
+    \ "jar|class|swp|swo|log|so|o|pyc|pyo|jpe?g|png|gif|mo|po" .
     \ ")$' | " .
     \ "egrep -v '^(\\./)?(" .
     \ "deploy/|lib/|classes/|libs/|deploy/vendor/|.git/|.hg/|.svn/|.*migrations/|docs/build/" .
@@ -1752,7 +1754,7 @@ if has('gui_running')
         if $HOSTNAME == "goudes"
             set guifont=Inconsolata\ for\ Powerline\ 11
         else "if $HOSTNAME == "DSK000977"
-            set guifont=Droid\ Sans\ Mono\ for\ Powerline\ 10
+            set guifont=Inconsolata\ for\ Powerline\ 10
         endif
     endif
 
