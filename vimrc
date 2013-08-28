@@ -1751,8 +1751,8 @@ if has('gui_running')
     if has("win32")
         set guifont=Courier:h10:cANSI
     else
-        if $HOSTNAME == "goudes"
-            set guifont=Inconsolata\ for\ Powerline\ 11
+        if hostname() == "thunderball"
+            set guifont=Inconsolata\ for\ Powerline\ 12
         else "if $HOSTNAME == "DSK000977"
             set guifont=Inconsolata\ for\ Powerline\ 10
         endif
