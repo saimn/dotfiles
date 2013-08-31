@@ -3,16 +3,14 @@
 ==============================================================================
 1. Spell
 
-Insert Mode
------------
+Insert Mode~
 
 CTRL-X_s       Spelling suggestions
 CTRL-X_CTRL-K  completion avec les dictionnaires définis dans 'dictionary'
                (/usr/share/dict/words)
 CTRL-X_CTRL-T  same for 'thesaurus'
 
-Normal Mode
------------
+Normal Mode~
 
 z=             sur un mot souligné affiche une liste de corrections possibles
 zg             rajoute un mot dans le dictionnaire
@@ -24,110 +22,110 @@ zug            pour annuler l'ajout au dictionnaire
 ==============================================================================
 2. Leader Mappings
 
-Config >
+Config~
+>
   let g:ctrlp_map = '<leader>,'
   let g:pymode_rope_global_prefix = "<localleader>R"
   let g:pymode_rope_local_prefix = "<localleader>r"
   let mapleader = ","
   let maplocalleader = "\\"
 <
+Normal mode~
 
-All
-  *<leader>P*       :set paste<CR>"*P<CR>:set nopaste<CR>
-  *<leader>p*       :silent! set paste<CR>"*p<CR>:set nopaste<CR>
-  *<leader>v*       <C-w>v
-  *<leader>y*       "*y
-  *<leader><space>* :noh<cr>:call clearmatches()<cr>
+" <leader>hb :HgBlame<cr>
+" <leader>hd :HgDiff<cr>
 
-Normal >
-  <leader># gwap
-  <leader>! :Shell
-  <leader>: :%s//<left>
-  <leader>1 :call HiInterestingWord(1)<cr>
-  <leader>2 :call HiInterestingWord(2)<cr>
-  <leader>3 :call HiInterestingWord(3)<cr>
-  <leader>4 :call HiInterestingWord(4)<cr>
-  <leader>5 :call HiInterestingWord(5)<cr>
-  <leader>6 :call HiInterestingWord(6)<cr>
-  <leader>a :Ack!<space>
-  <leader>A :set opfunc=<SID>AckMotion<CR>g@
-  <leader>B :call BlockColor()<cr>
-  <leader>b :CtrlPBuffer<cr>
-  <leader>c <Plug>CommentaryLine
-  <leader><cr> :silent !myctags<cr>:redraw!<cr>
-  <leader>; :CtrlPTag<cr>
-  <leader>D :diffoff!<cr>
-  <leader>d :Dispatch<cr>
-  <leader>/ :execute "Ack! '" . substitute(substitute(substitute(@/, "\\\\<", "\\\\b", ""), "\\\\>", "\\\\b", ""), "\\\\v", "", "") . "'"<CR>
-  <leader>? :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
-  <leader>ga :Gadd<cr>
-  <leader>gb :Gblame<cr>
-  <leader>gci :Gcommit<cr>
-  <leader>gco :Gcheckout<cr>
-  <leader>gd :Gdiff<cr>
-  <leader>gl :Shell git gl -18<cr>:wincmd \|<cr>
-  <leader>gm :Gmove<cr>
-  <leader>gr :Gremove<cr>
-  <leader>gs :Gstatus<cr>
-  <leader>gw :Gwrite<cr>
-  <leader>H :Gbrowse<cr>
-  <leader>I :call IndentGuides()<cr>
-  <leader>i :set list!<cr>
-  <leader>L :LinediffReset<cr>
-  <leader>n :setlocal number!<cr>
-  <leader>S ^vg_y:execute @@<cr>:echo 'Sourced line.'<cr>
-  <leader>so vip:!sort<cr>
-  <leader>sp :setlocal spell spelllang=fr,en<cr>
-  <leader>sf :setlocal spell spelllang=fr<cr>
-  <leader>se :setlocal spell spelllang=en<cr>
-  <leader>sn :setlocal spell spelllang=<cr>
-  <leader>) :tabnext<cr>
-  <leader>( :tabprev<cr>
-  <leader><tab> :ScratchToggle<cr>
-  <leader>u :syntax sync fromstart<cr>:redraw!<cr>
-  <leader>@ {v}! par 72j
-  <leader>V V`]
-  <leader>W :call ToggleDiffWhitespace()<CR>
-  <leader>w mz:%s/\s\+$//<cr>:let @/=''<cr>`z
-  " nnoremap <leader>hb :HgBlame<cr>
-  " nnoremap <leader>hd :HgDiff<cr>
-<
+*<leader>1*       :call HiInterestingWord(1)<cr>
+*<leader>2*       :call HiInterestingWord(2)<cr>
+*<leader>3*       :call HiInterestingWord(3)<cr>
+*<leader>4*       :call HiInterestingWord(4)<cr>
+*<leader>5*       :call HiInterestingWord(5)<cr>
+*<leader>6*       :call HiInterestingWord(6)<cr>
+*<leader>a*       :Ack!<space>
+*<leader>A*       :set opfunc=<SID>AckMotion<CR>g@
+*<leader>B*       :call BlockColor()<cr>
+*<leader>b*       :CtrlPBuffer<cr>
+*<leader>c*       <Plug>CommentaryLine
+*<leader><cr>*    :silent !myctags<cr>:redraw!<cr>
+*<leader>;*       :CtrlPTag<cr>
+*<leader>D*       :diffoff!<cr>
+*<leader>d*       :Dispatch<cr>
+*<leader>/*       :execute "Ack! '" . substitute(substitute(substitute(@/, "\\\\<", "\\\\b", ""), "\\\\>", "\\\\b", ""), "\\\\v", "", "") . "'"<CR>
+*<leader>?*       :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
+*<leader>ga*      :Gadd<cr>
+*<leader>gb*      :Gblame<cr>
+*<leader>gci*     :Gcommit<cr>
+*<leader>gco*     :Gcheckout<cr>
+*<leader>gd*      :Gdiff<cr>
+*<leader>gl*      :Shell git gl -18<cr>:wincmd \|<cr>
+*<leader>gm*      :Gmove<cr>
+*<leader>gr*      :Gremove<cr>
+*<leader>gs*      :Gstatus<cr>
+*<leader>#*       gwap
+*<leader>gw*      :Gwrite<cr>
+*<leader>H*       :Gbrowse<cr>
+*<leader>I*       :call IndentGuides()<cr>
+*<leader>i*       :set list!<cr>
+*<leader>L*       :LinediffReset<cr>
+*<leader>n*       :setlocal number!<cr>
+*<leader>P*       :set paste<CR>"*P<CR>:set nopaste<CR>
+*<leader>p*       :silent! set paste<CR>"*p<CR>:set nopaste<CR>
+*<leader>se*      :setlocal spell spelllang=en<cr>
+*<leader>sf*      :setlocal spell spelllang=fr<cr>
+*<leader>!*       :Shell
+*<leader>:*       :%s//<left>
+*<leader>sn*      :setlocal spell spelllang=<cr>
+*<leader>so*      vip:!sort<cr>
+*<leader><space>* :noh<cr>:call clearmatches()<cr>
+*<leader>sp*      :setlocal spell spelllang=fr,en<cr>
+*<leader>S*       ^vg_y:execute @@<cr>:echo 'Sourced line.'<cr>
+*<leader>)*       :tabnext<cr>
+*<leader>(*       :tabprev<cr>
+*<leader><tab>*   :ScratchToggle<cr>
+*<leader>u*       :syntax sync fromstart<cr>:redraw!<cr>
+*<leader>v*       <C-w>v
+*<leader>@*       {v}! par 72j
+*<leader>V*       V`]
+*<leader>W*       :call ToggleDiffWhitespace()<CR>
+*<leader>w*       mz:%s/\s\+$//<cr>:let @/=''<cr>`z
+*<leader>y*       "*y
 
-Visual >
-  vnoremap <leader>H :Gbrowse<cr>
-  vnoremap <leader>l :Linediff<cr>
-  vnoremap <leader>s :!sort<cr>
-  vnoremap <leader>S y:execute @@<cr>:echo 'Sourced selection.'<cr>
-  vnoremap <leader>y "*ygv
-<
+Visual mode~
 
-Visual, not select >
-  xmap <leader>c <Plug>Commentary
-  xnoremap <leader>A :<C-U>call <SID>AckMotion(visualmode())<CR>
-<
+*<leader>H*   :Gbrowse<cr>
+*<leader>l*   :Linediff<cr>
+*<leader>s*   :!sort<cr>
+*<leader>S*   y:execute @@<cr>:echo 'Sourced selection.'<cr>
+*<leader>y*   "*ygv
 
-### Filetype specific
+Visual, not select~
 
-CSS sort properties >
+*<leader>c*   <Plug>Commentary
+*<leader>A*   :<C-U>call <SID>AckMotion(visualmode())<CR>
+
+Filetype specific~
+
+* CSS sort properties
+>
   *.less,*.css nnoremap <buffer> <localleader>S ?{<CR>jV/\v^\s*\}?$<CR>k:sort<CR>:noh<CR>
 <
-
-MARKDOWN Use <localleader>1/2/3 to add headings >
+* MARKDOWN Use <localleader>1/2/3 to add headings
+>
  markdown nnoremap <buffer> <localleader>1 yypVr=:redraw<cr>
  markdown nnoremap <buffer> <localleader>2 yypVr-:redraw<cr>
  markdown nnoremap <buffer> <localleader>3 mzI###<space>`zllll <ESC>
  markdown nnoremap <buffer> <localleader>p VV:'<,'>!python -m json.tool<cr>
  markdown vnoremap <buffer> <localleader>p :!python -m json.tool<cr>
 <
-
-RST >
+* RST
+>
   rst nnoremap <buffer> <localleader>1 yypVr=:redraw<cr>
   rst nnoremap <buffer> <localleader>2 yypVr-:redraw<cr>
   rst nnoremap <buffer> <localleader>3 yypVr~:redraw<cr>
   rst nnoremap <buffer> <localleader>4 yypVr`:redraw<cr>
 <
-
-XML >
+* XML
+>
   xml nnoremap <buffer> <localleader>f Vatzf  -> fold current tag
   xml nnoremap <buffer> <localleader>= Vat=   -> indent tag
 <
@@ -141,19 +139,14 @@ command   action in Normal mode
 zz        Center your screen on the current line
 gi        goes to insert mode at the last place you were in the insert mode
 gf        go to file
+gv        récupère la dernière sélection visuelle
+cc        change whole line
 
 
 command        action in Insert mode
 ------------------------------------------------------------------------------
 CTRL-X_CTRL-L  Complete whole line
 CTRL-X_CTRL-F  Complete file names
-
-Paste in Insert mode
---------------------
-
-CTRL-R "       Insert the unnamed register, containing the text of the last delete or yank
-CTRL-R *       the clipboard contents (X11: primary selection)
-CTRL-R +       the clipboard contents
 
 Macros
 ------
@@ -171,6 +164,59 @@ Ctrl+W R     Swap top/bottom or left/right split
 Ctrl+W T     Break out current window into a new tabview
 Ctrl+W o     Close every window in the current tabview but the current one
 
+==============================================================================
+4. Copy / paste
+
+"aY     yank current line into register "a"
+"ap     paste from register "a"
+"*Y     yank line into special register "*" which is the system clipboard
+"*p     paste from register "*": the system clipboard
+"_D     delete from cursor until the end of line, but don't copy
+
+Paste in Insert mode~
+
+CTRL-R "       Insert the unnamed register, containing the text of the last delete or yank
+CTRL-R *       the clipboard contents (X11: primary selection)
+CTRL-R +       the clipboard contents
+
+==============================================================================
+5. Search & replace
+
+* remplacer une sélection (Ctrl+R0 permet de coller le contenu du registre 0)
+>
+    :%s/Ctrl+R0/remplacer/g
+<
+* Faire une modification/recherche dans plusieurs fichiers:
+>
+  :argdo %s/test/retest/g | w
+<
+ou le mot test est le mot que vous cherchez et retest le mot à remplacer, on
+repète la commande dans tout le fichier avec g et on valide l'écriture.
+
+==============================================================================
+6. End of line
+
+Convert file format to unix/dos:
+>
+    :set ff=unix
+    :set ff=dos
+<
+Supprimer tous les retours à la ligne
+>
+    :s/\n//
+<
+Insérer un retour à la ligne après un texte précis (eg. "EOL")
+>
+    :s/\(EOL\)/\1\r/g
+<
+Supprimer le dernier caractère de chaque ligne
+>
+    :s/.$//
+<
+Supprimer les blancs en fin de ligne
+>
+    :s/\( \|\t\)*$//
+<
 
 ==============================================================================
 vim:tw=78:ts=8:ft=help:fdm=marker:

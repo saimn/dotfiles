@@ -942,7 +942,8 @@ augroup END
 augroup ft_python
     au!
     " add header
-    au BufNewFile *.py 0put=\"#!/usr/bin/env python2\"|1put=\"# -*- coding: utf-8 -*-\<nl>\<nl>\"|$
+    au BufNewFile *.py 0put=\"# -*- coding: utf-8 -*-\<nl>\<nl>\"|$
+    " au BufNewFile *.py 0put=\"#!/usr/bin/env python2\"|1put=\"# -*- coding: utf-8 -*-\<nl>\<nl>\"|$
 
     " make Python follow PEP8 ( http://www.python.org/dev/peps/pep-0008/ )
     au FileType python set softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79
@@ -1011,7 +1012,7 @@ augroup ft_txt
     au BufRead,BufNewFile *.txt setfiletype text
 
     " au FileType text setlocal textwidth=78 lbr wrap fo=l "spell spelllang=fr
-    au FileType text setlocal textwidth=78 lbr "fo+=a spell spelllang=fr
+    au FileType text setlocal textwidth=78 lbr complete+=k "fo+=a spell spelllang=fr
     au FileType tex setlocal textwidth=78 "spell spelllang=fr
     au FileType camptocamp setlocal spell spelllang=fr
 augroup END
@@ -1216,6 +1217,7 @@ let g:lisp_rainbow = 1
 " Makegreen {{{
 
 nnoremap \| :call MakeGreen('')<cr>
+" nnoremap <leader>dt :set makeprg=python\ setup.py\ test\|:call MakeGreen()<CR>
 
 " }}}
 " NERD Tree {{{
@@ -1270,15 +1272,16 @@ let g:pymode_doc = 1
 let g:pymode_doc_key = 'M'
 let g:pydoc = 'pydoc'
 let g:pymode_syntax = 1
-let g:pymode_syntax_all = 0
+let g:pymode_syntax_all = 1
 let g:pymode_syntax_builtin_objs = 1
 let g:pymode_syntax_print_as_function = 0
 let g:pymode_syntax_space_errors = 0
-let g:pymode_run = 0
+let g:pymode_run = 1
+let g:pymode_run_key = '<leader>r'
 let g:pymode_lint = 0
 let g:pymode_breakpoint = 0
-let g:pymode_utils_whitespaces = 0
-let g:pymode_virtualenv = 0
+let g:pymode_utils_whitespaces = 1
+let g:pymode_virtualenv = 1
 let g:pymode_folding = 0
 
 let g:pymode_options_indent = 0
@@ -1328,6 +1331,12 @@ let g:secure_modelines_allowed_items = [
             \ "foldmethod",  "fdm",
             \ "filetype",    "ft",
             \ ]
+
+" }}}
+" SnipMate {{{
+
+" imap <C-J> <Plug>SnipMateNextOrTrigger
+" smap <C-J> <Plug>SnipMateNextOrTrigger
 
 " }}}
 " Sparkup {{{

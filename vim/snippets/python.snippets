@@ -1,5 +1,7 @@
 snippet #!
 	#!/usr/bin/env python
+snippet utf8
+	# -*- coding: utf-8 -*-
 snippet from
 	from ${1:sys} import ${2:*}
 snippet imp
@@ -87,3 +89,5 @@ snippet rpdb
 	import rpdb2; rpdb2.start_embedded_debugger("asdf")
 snippet pp
 	from pprint import pprint; pprint($1)$2
+snippet trace
+	import traceback, sys; traceback.print_exception(*sys.exc_info())
