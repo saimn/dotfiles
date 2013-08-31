@@ -48,7 +48,7 @@ Emacs*shadowThickness:          1
 ! URxvt*boldItalicFont: xft:DejaVu Sans Mono:style=BoldOblique:pixelsize=12
 
 !URxvt*font: xft:Droid Sans Mono for Powerline:style=Regular:pixelsize=12
-URxvt*font: xft:Inconsolata for Powerline:style=Medium:pixelsize=16
+URxvt*font: xft:Inconsolata for Powerline:style=Medium:pixelsize=14
 !URxvt*font: xft:Source Code Pro for Powerline:style=Medium,Regular:pixelsize=12
 
 ! URxvt*geometry: 80x27

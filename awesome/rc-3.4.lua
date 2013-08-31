@@ -56,6 +56,10 @@ end
 -- }}}
 
 -- {{{ Variable definitions
+-- Themes define colours, icons, and wallpapers
+-- beautiful.init("@AWESOME_THEMES_PATH@/default/theme.lua")
+beautiful.init(home .. "/.config/awesome/themes/zenburn/theme.lua")
+
 
 local altkey = "Mod1"
 local modkey = "Mod4"
@@ -74,10 +78,6 @@ local editor_cmd = terminal .. " -e " .. editor
 local filemgr    = "pcmanfm"
 local htop_cmd   = terminal.." -name htop -geometry 80x7 -e htop"
 local lock_cmd   = "xscreensaver-command -lock"
-
--- Themes define colours, icons, and wallpapers
--- beautiful.init("@AWESOME_THEMES_PATH@/default/theme.lua")
-beautiful.init(home .. "/.config/awesome/themes/zenburn/theme.lua")
 
 -- Note to include a separate config file:
 -- dofile(config .. "/keybindings.lua")
@@ -707,12 +707,14 @@ root.keys(globalkeys)
 awful.rules.rules = {
     -- All clients will match this rule.
     { rule = { },
-      properties = { focus = true,
-                     size_hints_honor = false,
-                     keys = clientkeys,
-                     buttons = clientbuttons,
-                     border_width = beautiful.border_width,
-                     border_color = beautiful.border_normal },
+      properties = {
+          focus = true,
+          size_hints_honor = false,
+          keys = clientkeys,
+          buttons = clientbuttons,
+          border_width = beautiful.border_width,
+          border_color = beautiful.border_normal
+      },
       callback = awful.titlebar.add
     },
     { rule = { class = "Firefox", instance = "Navigator" },
