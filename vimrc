@@ -401,9 +401,8 @@ noremap <F10> :set go+=m<CR>
 
 nnoremap _md :set ft=markdown<CR>
 nnoremap _hd :set ft=htmldjango<CR>
-nnoremap _jt :set ft=htmljinja<CR>
+nnoremap _hj :set ft=htmljinja<CR>
 nnoremap _js :set ft=javascript<CR>
-nnoremap _cw :set ft=confluencewiki<CR>
 nnoremap _pd :set ft=python.django<CR>
 nnoremap _d  :set ft=diff<CR>
 
@@ -756,7 +755,7 @@ let g:html_indent_tags = ['p', 'li']
 augroup ft_html
     au!
 
-    au BufNewFile,BufRead *.tpl setlocal setfiletype html
+    au BufNewFile,BufRead *.tpl setlocal filetype=html
     au BufNewFile,BufRead *.html setlocal filetype=htmldjango
     au FileType html,jinja,htmldjango setlocal foldmethod=manual
     au FileType html,jinja,htmldjango setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
@@ -1106,6 +1105,7 @@ xmap <leader>c <Plug>Commentary
 augroup plugin_commentary
     au!
     au FileType htmldjango setlocal commentstring={#\ %s\ #}
+    au FileType jinja setlocal commentstring={#\ %s\ #}
     au FileType clojurescript setlocal commentstring=;\ %s
     au FileType lisp setlocal commentstring=;\ %s
     au FileType puppet setlocal commentstring=#\ %s
