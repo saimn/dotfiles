@@ -62,7 +62,7 @@ alias v="vim"
 alias vi="vim"
 alias sv="sudo vim"
 
-alias less="/usr/share/vim/vim73/macros/less.sh"
+# alias less="/usr/share/vim/vim73/macros/less.sh"
 
 # simple webserver on port 8000
 alias webshare='python2 -m SimpleHTTPServer'

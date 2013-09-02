@@ -19,7 +19,6 @@ set nocompatible                " choose no compatibility with legacy vi
 set encoding=utf-8
 set modelines=0
 set autoindent                  " always set autoindenting on
-set smartindent                 " clever autoindenting
 set showmode                    " print current mode on the last line
 set showcmd                     " display incomplete commands
 set hidden                      " Allow backgrounding buffers without writing them
@@ -48,7 +47,8 @@ set linebreak     " ne casse pas les mots en fin de ligne
 set dictionary=/usr/share/dict/words
 set spellfile=~/.vim/custom-dictionary.utf-8.add
 set colorcolumn=+1
-" set autochdir           " change current dir
+" set autochdir                   " change current dir
+" set smartindent                 " clever autoindenting
 
 " iTerm2 is currently slow as ball at rendering the nice unicode lines, so for
 " now I'll just use ascii pipes.  They're ugly but at least I won't want to kill
@@ -93,12 +93,16 @@ augroup END
 
 " }}}
 " Trailing whitespace {{{
-" Only shown when not in insert mode so I don't go insane.
 
-" augroup trailing
-"     au!
-"     au InsertEnter * :set listchars-=trail:⌴
-" augroup END
+augroup trailing
+    au!
+
+    " Only shown when not in insert mode so I don't go insane.
+    " au InsertEnter * :set listchars-=trail:⌴
+
+    " Remove trailing whitespace
+    autocmd BufWritePre * :%s/\s\+$//e
+augroup END
 
 " }}}
 " Wildmenu completion {{{
@@ -131,11 +135,11 @@ set suffixes+=.info,.aux,.log,.dvi,.bbl,.out,.o,.lo
 " Line Return {{{
 
 " Make sure Vim returns to the same line when you reopen a file.
-" Thanks, Amit
+" (but not for commit messages. see :help last-position-jump)
 augroup line_return
     au!
     au BufReadPost *
-        \ if line("'\"") > 0 && line("'\"") <= line("$") |
+        \ if &filetype !~ '^git\c' && line("'\"") > 0 && line("'\"") <= line("$") |
         \     execute 'normal! g`"zvzz' |
         \ endif
 augroup END
@@ -210,10 +214,10 @@ let g:badwolf_css_props_highlight = 1
 colorscheme badwolf
 
 " Reload the colorscheme whenever we write the file.
-augroup color_badwolf_dev
-    au!
-    au BufWritePost badwolf.vim color badwolf
-augroup END
+" augroup color_badwolf_dev
+"     au!
+"     au BufWritePost badwolf.vim color badwolf
+" augroup END
 
 " Highlight VCS conflict markers
 match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
@@ -626,20 +630,6 @@ augroup filetypedetect
     autocmd BufRead,BufNewFile *.inc setfiletype php
 augroup END
 
-if has("autocmd")
-    " Remove trailing whitespace
-    " autocmd BufWritePre * :%s/\s\+$//e
-
-    " Remember last location in file, but not for commit messages.
-    " see :help last-position-jump
-    au BufReadPost * if &filetype !~ '^git\c' && line("'\"") > 0 && line("'\"") <= line("$")
-                \| exe "normal! g`\"" | endif
-
-   " Templates
-   " au BufNewFile *.html 0r~/.vim/templates/html.html
-   " au BufNewFile *.c 0r~/.vim/templates/c.c
-endif
-
 " C {{{
 
 augroup ft_c
@@ -911,7 +901,7 @@ augroup END
 augroup ft_pentadactyl
     au!
     au BufNewFile,BufRead .pentadactylrc set filetype=pentadactyl
-    au BufNewFile,BufRead ~/Library/Caches/TemporaryItems/pentadactyl-*.tmp set nolist wrap linebreak columns=100 colorcolumn=0
+    au BufNewFile,BufRead /tmp/**/pentadactyl.txt set nolist wrap linebreak columns=100 colorcolumn=0
 augroup END
 
 " }}}
@@ -1501,50 +1491,50 @@ nmap <silent> <f4> :QFixToggle<cr>
 " }}}
 " Hg {{{
 
-function! s:HgDiff() " {{{
-    diffthis
+" function! s:HgDiff() " {{{
+"     diffthis
 
-    let fn = expand('%:p')
-    let ft = &ft
+"     let fn = expand('%:p')
+"     let ft = &ft
 
-    wincmd v
-    edit __hgdiff_orig__
+"     wincmd v
+"     edit __hgdiff_orig__
 
-    setlocal buftype=nofile
+"     setlocal buftype=nofile
 
-    normal ggdG
-    execute "silent r!hg cat --rev . " . fn
-    normal ggdd
+"     normal ggdG
+"     execute "silent r!hg cat --rev . " . fn
+"     normal ggdd
 
-    execute "setlocal ft=" . ft
+"     execute "setlocal ft=" . ft
 
-    diffthis
-    diffupdate
-endfunction " }}}
-command! -nargs=0 HgDiff call s:HgDiff()
-" nnoremap <leader>hd :HgDiff<cr>
+"     diffthis
+"     diffupdate
+" endfunction " }}}
+" command! -nargs=0 HgDiff call s:HgDiff()
+" " nnoremap <leader>hd :HgDiff<cr>
 
-function! s:HgBlame() " {{{
-    let fn = expand('%:p')
+" function! s:HgBlame() " {{{
+"     let fn = expand('%:p')
 
-    wincmd v
-    wincmd h
-    edit __hgblame__
-    vertical resize 28
+"     wincmd v
+"     wincmd h
+"     edit __hgblame__
+"     vertical resize 28
 
-    setlocal scrollbind winfixwidth nolist nowrap nonumber buftype=nofile ft=none
+"     setlocal scrollbind winfixwidth nolist nowrap nonumber buftype=nofile ft=none
 
-    normal ggdG
-    execute "silent r!hg blame -undq " . fn
-    normal ggdd
-    execute ':%s/\v:.*$//'
+"     normal ggdG
+"     execute "silent r!hg blame -undq " . fn
+"     normal ggdd
+"     execute ':%s/\v:.*$//'
 
-    wincmd l
-    setlocal scrollbind
-    syncbind
-endfunction " }}}
-command! -nargs=0 HgBlame call s:HgBlame()
-" nnoremap <leader>hb :HgBlame<cr>
+"     wincmd l
+"     setlocal scrollbind
+"     syncbind
+" endfunction " }}}
+" command! -nargs=0 HgBlame call s:HgBlame()
+" " nnoremap <leader>hb :HgBlame<cr>
 
 " }}}
 " Ack motions {{{
