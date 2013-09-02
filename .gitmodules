@@ -55,7 +55,7 @@
 	url = https://github.com/pangloss/vim-javascript.git
 [submodule "vim/bundle/sparkup"]
 	path = vim/bundle/sparkup
-	url = http://github.com/bingaman/vim-sparkup.git
+	url = https://github.com/mitsuhiko/vim-sparkup.git
 [submodule "vim/bundle/makegreen"]
 	path = vim/bundle/makegreen
 	url = https://github.com/sjl/vim-makegreen.git
