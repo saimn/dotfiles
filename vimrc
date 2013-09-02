@@ -172,6 +172,9 @@ set formatoptions+=1        " Don't break a line after a one-letter word
 "set formatoptions+=a       " Automatic formatting of paragraphs
 set formatoptions+=t        " Auto-wrap text using textwidth
 set formatoptions+=c        " Auto-wrap comments using textwidth
+if v:version > 703 || v:version == 703
+  set formatoptions+=j " Delete comment char when joining commented lines
+endif
 
 set colorcolumn=+1
 
@@ -400,6 +403,10 @@ nnoremap <leader>C :cd %:p:h<CR>:pwd<CR>
 " map <Down> :echo "no!"<cr>
 
 noremap <F10> :set go+=m<CR>
+
+" expand %% to current directory in command-line mode
+" http://vimcasts.org/e/14
+cnoremap %% <C-R>=expand('%:h').'/'<cr>
 
 " Easy filetype switching {{{
 
