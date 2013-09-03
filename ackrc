@@ -1,5 +1,6 @@
 --smart-case
 --ignore-dir=.tox
+--ignore-dir=build
 --ignore-dir=htmlcov
 
 # idl files

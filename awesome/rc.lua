@@ -500,9 +500,9 @@ awful.rules.rules = {
     -- float, centered & no titlebar
     { rule_any = { class = { "MPlayer", "Vlc" } },
       properties = { floating = true }, callback = function(c)
-                                                      awful.titlebar.remove(c)
-                                                      awful.placement.centered(c)
-                                                   end },
+          if c.titlebar then awful.titlebar.remove(c) end
+          awful.placement.centered(c)
+      end },
 }
 -- }}}
 
