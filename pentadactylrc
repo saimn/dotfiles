@@ -80,11 +80,13 @@ command! -description 'emacs wiki'  -nargs=* emacs tabopen http://www.google.com
 command! -description 'trans en2fr' -nargs=* wr2fr tabopen http://www.wordreference.com/enfr/<args>
 command! -description 'trans fr2en' -nargs=* wr2en tabopen http://www.wordreference.com/fren/<args>
 
-":autocmd LocationChange .* -js modes.reset()
-":autocmd LocationChange webmail\.gandi\.net -js modes.set(modes.PASS_THROUGH)
+:autocmd LocationChange .* -js modes.reset()
+:autocmd LocationChange webmail\.gandi\.net -js modes.set(modes.PASS_THROUGH)
+:autocmd LocationChange feedhq\.org -js modes.set(modes.PASS_THROUGH)
 ":autocmd LocationChange mail\.google\.com -js modes.set(modes.PASS_THROUGH)
 ":autocmd LocationChange google(\.(com|fr)\/(reader|calendar)) js modes.passAllKeys = true
 set passkeys+=mail.google.com:jk<CR>
+set passkeys+=linuxfr.org:jk<CR>
 
 " Set the Vim filetype to "mail" when editing mail in GMail with the external editor:
 ":autocmd LocationChange .* :set editor=gvim\ -f

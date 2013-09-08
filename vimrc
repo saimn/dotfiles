@@ -678,11 +678,11 @@ augroup ft_css
 
     au BufNewFile,BufRead *.less setlocal filetype=less
 
-    au Filetype less,css setlocal foldmethod=marker
-    au Filetype less,css setlocal foldmarker={,}
-    au Filetype less,css setlocal omnifunc=csscomplete#CompleteCSS
-    au Filetype less,css setlocal iskeyword+=-
-    au FileType less,css setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
+    au Filetype less,css,scss setlocal foldmethod=marker
+    au Filetype less,css,scss setlocal foldmarker={,}
+    au Filetype less,css,scss setlocal omnifunc=csscomplete#CompleteCSS
+    au Filetype less,css,scss setlocal iskeyword+=-
+    au FileType less,css,scss setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
 
     " Use <leader>S to sort properties.  Turns this:
     "
@@ -747,13 +747,11 @@ augroup END
 " }}}
 " HTML, Django, Jinja, Dram {{{
 
-let g:html_indent_tags = ['p', 'li']
-
 augroup ft_html
     au!
 
     au BufNewFile,BufRead *.tpl setlocal filetype=html
-    au BufNewFile,BufRead *.html setlocal filetype=htmldjango
+    au BufNewFile,BufRead *.html setlocal filetype=htmljinja
     au FileType html,jinja,htmldjango setlocal foldmethod=manual
     au FileType html,jinja,htmldjango setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
 
@@ -1107,6 +1105,7 @@ augroup plugin_commentary
     au FileType lisp setlocal commentstring=;\ %s
     au FileType puppet setlocal commentstring=#\ %s
     au FileType fish setlocal commentstring=#\ %s
+    au FileType vimperator setlocal commentstring=\"\ %s
 augroup END
 
 " }}}
