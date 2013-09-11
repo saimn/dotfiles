@@ -62,6 +62,7 @@ Normal mode~
 *<leader>B*       :call BlockColor()<cr>
 *<leader>b*       :CtrlPBuffer<cr>
 *<leader>c*       <Plug>CommentaryLine
+*<leader>C*       Change cwd
 *<leader><cr>*    :silent !myctags<cr>:redraw!<cr>
 *<leader>;*       :CtrlPTag<cr>
 *<leader>D*       :diffoff!<cr>

@@ -53,6 +53,7 @@
 [submodule "vim/bundle/sparkup"]
 	path = vim/bundle/sparkup
 	url = https://github.com/mitsuhiko/vim-sparkup.git
+	ignore = dirty
 [submodule "vim/bundle/makegreen"]
 	path = vim/bundle/makegreen
 	url = https://github.com/sjl/vim-makegreen.git

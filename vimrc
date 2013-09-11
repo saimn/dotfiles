@@ -112,7 +112,7 @@ set wildmenu
 set wildmode=longest:full,full
 
 set wildignore+=.hg,.git,.svn                    " Version control
-set wildignore+=*.aux,*.out,*.toc                " LaTeX intermediate files
+set wildignore+=*.aux,*.out,*.toc,.dvi,.bbl      " LaTeX intermediate files
 set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg   " binary images
 set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest " compiled object files
 set wildignore+=*.spl                            " compiled spelling word lists
@@ -129,7 +129,7 @@ set wildignore+=*.orig                           " Merge resolution files
 " When doing tab completion, give the following files lower priority. You may
 " wish to set 'wildignore' to completely ignore files, and 'wildmenu' to enable
 " enhanced tab completion. These can be done in the user vimrc file.
-set suffixes+=.info,.aux,.log,.dvi,.bbl,.out,.o,.lo
+set suffixes+=.info,.log,.lo
 
 " }}}
 " Line Return {{{
@@ -277,6 +277,13 @@ nnoremap <leader><cr> :silent !myctags<cr>:redraw!<cr>
 nnoremap <leader>w mz:%s/\s\+$//<cr>:let @/=''<cr>`z
 " Clean leading spaces
 " nmap _S :%s/^\s\+//<CR>
+
+" Send visual selection to paste.stevelosh.com
+vnoremap <c-p> :w !curl -sF 'sprunge=<-' 'http://paste.stevelosh.com' \| tr -d '\n ' \| pbcopy && open `pbpaste`<cr>
+
+" Select entire buffer
+nnoremap vaa ggvGg_
+nnoremap Vaa ggVG
 
 " "Uppercase word" mapping.
 "
@@ -428,6 +435,7 @@ inoremap <c-]> <c-x><c-]>
 " }}}
 " Quick editing ----------------------------------------------------------- {{{
 
+nnoremap <leader>ec :vsplit ~/.vim/doc/cheatsheet.txt<cr>
 nnoremap <leader>ed :vsplit ~/.vim/custom-dictionary.utf-8.add<cr>
 nnoremap <leader>eg :vsplit ~/.gitconfig<cr>
 nnoremap <leader>eh :vsplit ~/.hgrc<cr>
@@ -943,7 +951,7 @@ augroup ft_python
     au FileType python set softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79
     au FileType python setlocal smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class,with
 
-    au FileType python setlocal omnifunc=pythoncomplete#Complete
+    " au FileType python setlocal omnifunc=pythoncomplete#Complete
     au FileType python setlocal define=^\s*\\(def\\\\|class\\)
     au FileType python compiler nose
     au FileType man nnoremap <buffer> <cr> :q<cr>
@@ -1331,8 +1339,8 @@ let g:secure_modelines_allowed_items = [
 " }}}
 " SnipMate {{{
 
-" imap <C-J> <Plug>SnipMateNextOrTrigger
-" smap <C-J> <Plug>SnipMateNextOrTrigger
+imap <C-J> <Plug>SnipMateNextOrTrigger
+smap <C-J> <Plug>SnipMateNextOrTrigger
 
 " }}}
 " Sparkup {{{
@@ -1360,6 +1368,8 @@ let g:syntastic_mode_map = {
             \ }
 let g:syntastic_stl_format = '[%E{%e Errors}%B{, }%W{%w Warnings}]'
 let g:syntastic_jsl_conf = '$HOME/.vim/jsl.conf'
+
+" nnoremap <leader>C :SyntasticCheck<cr>
 
 " }}}
 " Splice {{{
@@ -1417,6 +1427,13 @@ function! YRRunAfterMaps()
     " Don't clobber the yank register when pasting over text in visual mode.
     vnoremap p :<c-u>YRPaste 'p', 'v'<cr>gv:YRYankRange 'v'<cr>
 endfunction
+
+nnoremap <silent> <F11> :YRShow<CR>
+
+" }}}
+" YouCompleteMe {{{
+
+let g:ycm_min_num_of_chars_for_completion = 4
 
 " }}}
 
