@@ -1339,8 +1339,8 @@ let g:secure_modelines_allowed_items = [
 " }}}
 " SnipMate {{{
 
-imap <C-J> <Plug>SnipMateNextOrTrigger
-smap <C-J> <Plug>SnipMateNextOrTrigger
+imap <C-J> <Plug>snipMateNextOrTrigger
+smap <C-J> <Plug>snipMateNextOrTrigger
 
 " }}}
 " Sparkup {{{
