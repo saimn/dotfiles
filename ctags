@@ -3,9 +3,6 @@
 --regex-IDL=/^pro[ \t]+([a-zA-Z0-9_:]+)/\1/p,procedure/i
 --regex-IDL=/^function[ \t]+([a-zA-Z0-9_:]+)/\1/f,function/i
 
---python-kinds=cfm
---javascript-kinds=cm
-
 --langdef=js
 --langmap=js:.js
 --regex-js=/([A-Za-z0-9._$]+)[ \t]*[:=][ \t]*\{/\1/,object/
@@ -14,6 +11,11 @@
 --regex-js=/([A-Za-z0-9._$]+)[ \t]*[:=][ \t]*\[/\1/,array/
 --regex-js=/([^= ]+)[ \t]*=[ \t]*[^"]'[^']*/\1/,string/
 --regex-js=/([^= ]+)[ \t]*=[ \t]*[^']"[^"]*/\1/,string/
+
+--python-kinds=cfm
+--javascript-kinds=cm
+--fields=-s
+--fields=+l
 
 --languages=-html
 
