@@ -252,6 +252,9 @@ iabbrev qqs quelques
 " }}}
 " Convenience mappings ---------------------------------------------------- {{{
 
+" Don't make a # force column zero.
+inoremap # X<BS>#
+
 " Toggle line numbers
 nnoremap <leader>n :setlocal number!<cr>
 
@@ -262,6 +265,8 @@ vnoremap <leader>s :!sort<cr>
 " Tabs
 nnoremap <leader>( :tabprev<cr>
 nnoremap <leader>) :tabnext<cr>
+" nnoremap <leader>t :tabnew<cr>
+" nnoremap <leader>w :tabclose<cr>
 
 " System clipboard interaction.  Mostly from:
 " https://github.com/henrik/dotfiles/blob/master/vim/config/mappings.vim
@@ -414,6 +419,10 @@ noremap <F10> :set go+=m<CR>
 " expand %% to current directory in command-line mode
 " http://vimcasts.org/e/14
 cnoremap %% <C-R>=expand('%:h').'/'<cr>
+
+" Ctrl-+ pour augmenter la taille de la police
+noremap <C-Up> :let &guifont=substitute(&guifont, '\d\+', '\=eval(submatch(0)+1)', '')<CR>
+noremap <C-Down> :let &guifont=substitute(&guifont, '\d\+', '\=eval(submatch(0)-1)', '')<CR>
 
 " Easy filetype switching {{{
 
@@ -755,11 +764,42 @@ augroup END
 " }}}
 " HTML, Django, Jinja, Dram {{{
 
+fun! s:SelectHTML()
+  let n = 1
+  while n < 50 && n < line("$")
+    " check for jinja
+    if getline(n) =~ '{%\s*\(extends\|block\|macro\|set\|if\|for\|include\|trans\)\>'
+      set ft=htmljinja
+      return
+    endif
+    " check for django
+    if getline(n) =~ '{%\s*\(extends\|block\|comment\|ssi\|if\|for\|blocktrans\)\>'
+      set ft=htmldjango
+      return
+    endif
+    " check for mako
+    if getline(n) =~ '<%\(def\|inherit\)'
+      set ft=mako
+      return
+    endif
+    " check for genshi
+    if getline(n) =~ 'xmlns:py\|py:\(match\|for\|if\|def\|strip\|xmlns\)'
+      set ft=genshi
+      return
+    endif
+    let n = n + 1
+  endwhile
+  " go with html
+  set ft=html
+endfun
+
 augroup ft_html
     au!
 
-    au BufNewFile,BufRead *.tpl setlocal filetype=html
-    au BufNewFile,BufRead *.html setlocal filetype=htmljinja
+    au BufNewFile,BufRead *.html,*.htm,*.tpl call s:SelectHTML()
+    " au BufNewFile,BufRead *.tpl setlocal filetype=html
+    " au BufNewFile,BufRead *.html setlocal filetype=htmljinja
+
     au FileType html,jinja,htmldjango setlocal foldmethod=manual
     au FileType html,jinja,htmldjango setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
 
@@ -1439,6 +1479,8 @@ let g:ycm_complete_in_comments = 1
 let g:ycm_min_num_of_chars_for_completion = 4
 let g:ycm_seed_identifiers_with_syntax = 1
 
+" nnoremap <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
+
 " }}}
 
 " }}}
@@ -1790,9 +1832,10 @@ if has('gui_running')
     set go-=L
     set go-=r
     set go-=R
-    set go-=m
-    " set guioptions+=a    " clipboard to autoselect
-    " set guioptions+=c    " Use console dialogs instead of popup
+    set go-=m   " No menubar
+    set go-=e   " non-GUI tab pages line
+    " set go+=a    " clipboard to autoselect
+    " set go+=c    " Use console dialogs instead of popup
 
     set mousefocus                " Le focus suit la souris
     " set mousemodel=popup_setpos   " Le bouton droit affiche une popup
@@ -1803,6 +1846,10 @@ if has('gui_running')
     set guicursor=n-c:block-Cursor-blinkon0
     set guicursor+=v:block-vCursor-blinkon0
     set guicursor+=i-ci:ver20-iCursor
+
+    " Make shift-insert work like in Xterm
+    map <S-Insert> <MiddleMouse>
+    map! <S-Insert> <MiddleMouse>
 else
     " Console Vim
 
