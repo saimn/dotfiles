@@ -265,7 +265,7 @@ vnoremap <leader>s :!sort<cr>
 " Tabs
 nnoremap <leader>( :tabprev<cr>
 nnoremap <leader>) :tabnext<cr>
-" nnoremap <leader>t :tabnew<cr>
+nnoremap <leader>t :tabnew<cr>
 " nnoremap <leader>w :tabclose<cr>
 
 " System clipboard interaction.  Mostly from:
@@ -1165,7 +1165,7 @@ let g:ctrlp_max_height = 20
 let g:ctrlp_extensions = ['tag']
 
 let g:ctrlp_map = '<leader>,'
-nnoremap <leader>t :CtrlPTag<cr>
+nnoremap <leader>; :CtrlPTag<cr>
 nnoremap <leader>b :CtrlPBuffer<cr>
 
 let g:ctrlp_prompt_mappings = {
@@ -1245,6 +1245,11 @@ let g:event_handler_attributes_complete = 0
 let g:rdfa_attributes_complete = 0
 let g:microdata_attributes_complete = 0
 let g:atia_attributes_complete = 0
+
+" }}}
+" KWbdi {{{
+
+map <leader>q <Plug>Kwbd
 
 " }}}
 " Linediff {{{

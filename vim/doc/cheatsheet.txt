@@ -48,98 +48,100 @@ Config~
 <
 Normal mode~
 
-" <leader>hb :HgBlame<cr>
-" <leader>hd :HgDiff<cr>
-
-*<leader>1*       :call HiInterestingWord(1)<cr>
-*<leader>2*       :call HiInterestingWord(2)<cr>
-*<leader>3*       :call HiInterestingWord(3)<cr>
-*<leader>4*       :call HiInterestingWord(4)<cr>
-*<leader>5*       :call HiInterestingWord(5)<cr>
-*<leader>6*       :call HiInterestingWord(6)<cr>
-*<leader>a*       :Ack!<space>
-*<leader>A*       :set opfunc=<SID>AckMotion<CR>g@
-*<leader>B*       :call BlockColor()<cr>
-*<leader>b*       :CtrlPBuffer<cr>
-*<leader>c*       <Plug>CommentaryLine
-*<leader>C*       Change cwd
-*<leader><cr>*    :silent !myctags<cr>:redraw!<cr>
-*<leader>;*       :CtrlPTag<cr>
-*<leader>D*       :diffoff!<cr>
-*<leader>d*       :Dispatch<cr>
-*<leader>/*       :execute "Ack! '" . substitute(substitute(substitute(@/, "\\\\<", "\\\\b", ""), "\\\\>", "\\\\b", ""), "\\\\v", "", "") . "'"<CR>
-*<leader>?*       :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
-*<leader>ga*      :Gadd<cr>
-*<leader>gb*      :Gblame<cr>
-*<leader>gci*     :Gcommit<cr>
-*<leader>gco*     :Gcheckout<cr>
-*<leader>gd*      :Gdiff<cr>
-*<leader>gl*      :Shell git gl -18<cr>:wincmd \|<cr>
-*<leader>gm*      :Gmove<cr>
-*<leader>gr*      :Gremove<cr>
-*<leader>gs*      :Gstatus<cr>
-*<leader>#*       gwap
-*<leader>gw*      :Gwrite<cr>
-*<leader>H*       :Gbrowse<cr>
-*<leader>I*       :call IndentGuides()<cr>
-*<leader>i*       :set list!<cr>
-*<leader>L*       :LinediffReset<cr>
-*<leader>n*       :setlocal number!<cr>
-*<leader>P*       :set paste<CR>"*P<CR>:set nopaste<CR>
-*<leader>p*       :silent! set paste<CR>"*p<CR>:set nopaste<CR>
-*<leader>se*      :setlocal spell spelllang=en<cr>
-*<leader>sf*      :setlocal spell spelllang=fr<cr>
 *<leader>!*       :Shell
 *<leader>:*       :%s//<left>
-*<leader>sn*      :setlocal spell spelllang=<cr>
-*<leader>so*      vip:!sort<cr>
-*<leader><space>* :noh<cr>:call clearmatches()<cr>
-*<leader>sp*      :setlocal spell spelllang=fr,en<cr>
-*<leader>S*       ^vg_y:execute @@<cr>:echo 'Sourced line.'<cr>
-*<leader>)*       :tabnext<cr>
-*<leader>(*       :tabprev<cr>
-*<leader><tab>*   :ScratchToggle<cr>
-*<leader>u*       :syntax sync fromstart<cr>:redraw!<cr>
-*<leader>v*       <C-w>v
+*<leader>,*       :CtrlP
+*<leader>;*       :CtrlPTag
 *<leader>@*       {v}! par 72j
+*<leader>#*       gwap
+*<leader>/*       Ack
+*<leader>?*       :execute 'vimgrep /'.@/.'/g %'<CR>:copen
+*<leader>)*       :tabnext
+*<leader>(*       :tabprev
+*<leader><tab>*   :ScratchToggle
+*<leader><cr>*    :silent !myctags<cr>:redraw!
+*<leader><space>* :noh<cr>:call clearmatches()
+
+*<leader>1*       :call HiInterestingWord(1)
+*<leader>2*       :call HiInterestingWord(2)
+*<leader>3*       :call HiInterestingWord(3)
+*<leader>4*       :call HiInterestingWord(4)
+*<leader>5*       :call HiInterestingWord(5)
+*<leader>6*       :call HiInterestingWord(6)
+
+*<leader>a*       :Ack!<space>
+*<leader>A*       :set opfunc=<SID>AckMotion<CR>g@
+*<leader>B*       :call BlockColor()
+*<leader>b*       :CtrlPBuffer
+*<leader>c*       <Plug>CommentaryLine
+*<leader>C*       Change cwd
+*<leader>D*       :diffoff!
+*<leader>d*       :Dispatch
+*<leader>ga*      :Gadd
+*<leader>gb*      :Gblame
+*<leader>gci*     :Gcommit
+*<leader>gco*     :Gcheckout
+*<leader>gd*      :Gdiff
+*<leader>gl*      :Shell git gl -18<cr>:wincmd \|
+*<leader>gm*      :Gmove
+*<leader>gr*      :Gremove
+*<leader>gs*      :Gstatus
+*<leader>gw*      :Gwrite
+*<leader>H*       :Gbrowse
+*<leader>I*       :call IndentGuides()
+*<leader>i*       :set list!
+*<leader>L*       :LinediffReset
+*<leader>n*       :setlocal number!
+*<leader>P*       :set paste<CR>"*P<CR>:set nopaste
+*<leader>p*       :silent! set paste<CR>"*p<CR>:set nopaste
+*<leader>q*       <Plug>Kwbd
+*<leader>se*      :setlocal spell spelllang=en
+*<leader>sf*      :setlocal spell spelllang=fr
+*<leader>sn*      :setlocal spell spelllang=
+*<leader>so*      vip:!sort
+*<leader>sp*      :setlocal spell spelllang=fr,en
+*<leader>S*       ^vg_y:execute @@<cr>:echo 'Sourced line.'
+*<leader>t*       :tabnew
+*<leader>u*       :syntax sync fromstart<cr>:redraw!
+*<leader>v*       <C-w>v
 *<leader>V*       V`]
-*<leader>W*       :call ToggleDiffWhitespace()<CR>
+*<leader>W*       :call ToggleDiffWhitespace()
 *<leader>w*       mz:%s/\s\+$//<cr>:let @/=''<cr>`z
 *<leader>y*       "*y
 
 Visual mode~
 
-*<leader>H*   :Gbrowse<cr>
-*<leader>l*   :Linediff<cr>
-*<leader>s*   :!sort<cr>
-*<leader>S*   y:execute @@<cr>:echo 'Sourced selection.'<cr>
+*<leader>H*   :Gbrowse
+*<leader>l*   :Linediff
+*<leader>s*   :!sort
+*<leader>S*   y:execute @@<cr>:echo 'Sourced selection.'
 *<leader>y*   "*ygv
 
 Visual, not select~
 
 *<leader>c*   <Plug>Commentary
-*<leader>A*   :<C-U>call <SID>AckMotion(visualmode())<CR>
+*<leader>A*   :<C-U>call <SID>AckMotion(visualmode())
 
 Filetype specific~
 
 * CSS sort properties
 >
-  *.less,*.css nnoremap <buffer> <localleader>S ?{<CR>jV/\v^\s*\}?$<CR>k:sort<CR>:noh<CR>
+  *.less,*.css nnoremap <buffer> <localleader>S ?{<CR>jV/\v^\s*\}?$<CR>k:sort<CR>:noh
 <
 * MARKDOWN Use <localleader>1/2/3 to add headings
 >
- markdown nnoremap <buffer> <localleader>1 yypVr=:redraw<cr>
- markdown nnoremap <buffer> <localleader>2 yypVr-:redraw<cr>
+ markdown nnoremap <buffer> <localleader>1 yypVr=:redraw
+ markdown nnoremap <buffer> <localleader>2 yypVr-:redraw
  markdown nnoremap <buffer> <localleader>3 mzI###<space>`zllll <ESC>
- markdown nnoremap <buffer> <localleader>p VV:'<,'>!python -m json.tool<cr>
- markdown vnoremap <buffer> <localleader>p :!python -m json.tool<cr>
+ markdown nnoremap <buffer> <localleader>p VV:'<,'>!python -m json.tool
+ markdown vnoremap <buffer> <localleader>p :!python -m json.tool
 <
 * RST
 >
-  rst nnoremap <buffer> <localleader>1 yypVr=:redraw<cr>
-  rst nnoremap <buffer> <localleader>2 yypVr-:redraw<cr>
-  rst nnoremap <buffer> <localleader>3 yypVr~:redraw<cr>
-  rst nnoremap <buffer> <localleader>4 yypVr`:redraw<cr>
+  rst nnoremap <buffer> <localleader>1 yypVr=:redraw
+  rst nnoremap <buffer> <localleader>2 yypVr-:redraw
+  rst nnoremap <buffer> <localleader>3 yypVr~:redraw
+  rst nnoremap <buffer> <localleader>4 yypVr`:redraw
 <
 * XML
 >
