@@ -9,6 +9,8 @@ PATH="$HOME/bin/git:${PATH}"
 PATH="$HOME/.local/bin:${PATH}"
 export PATH
 
+fpath=( "$HOME/lib/dotfiles/zsh" $fpath )
+
 # Source Prezto.
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
