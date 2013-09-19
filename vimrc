@@ -646,7 +646,6 @@ set foldtext=MyFoldText()
 " Filetype-specific ------------------------------------------------------- {{{
 
 augroup filetypedetect
-    au BufRead,BufNewFile vimperator* setfiletype bbcode
     au BufRead,BufNewFile *conky* setfiletype conkyrc
 augroup END
 
@@ -943,7 +942,7 @@ augroup END
 
 augroup ft_pentadactyl
     au!
-    au BufNewFile,BufRead .pentadactylrc set filetype=pentadactyl
+    au BufNewFile,BufRead *pentadactylrc set filetype=pentadactyl
     au BufNewFile,BufRead /tmp/**/pentadactyl.txt set nolist wrap linebreak columns=100 colorcolumn=0
 augroup END
 
@@ -1156,7 +1155,7 @@ augroup plugin_commentary
     au FileType lisp setlocal commentstring=;\ %s
     au FileType puppet setlocal commentstring=#\ %s
     au FileType fish setlocal commentstring=#\ %s
-    au FileType vimperator setlocal commentstring=\"\ %s
+    au FileType pentadactyl setlocal commentstring=\"\ %s
 augroup END
 
 " }}}

@@ -199,5 +199,3 @@ nmap <silent> <leader>m :stmute<CR>
 "EOF
 
 " }}}
-
-" vim:ft=vimperator:
