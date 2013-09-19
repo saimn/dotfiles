@@ -11,7 +11,8 @@ styledisable -name global
 
 colorscheme molokai
 
-set editor="gvim -f"
+" gvim is the default
+" set editor="gvim -f"
 
 " default search engine
 set defsearch="duck"

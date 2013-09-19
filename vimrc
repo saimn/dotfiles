@@ -646,12 +646,8 @@ set foldtext=MyFoldText()
 " Filetype-specific ------------------------------------------------------- {{{
 
 augroup filetypedetect
-    autocmd BufRead,BufNewFile *.pro setfiletype idlang
-    autocmd BufRead,BufNewFile *wikipedia.org* setfiletype Wikipedia
-    autocmd BufRead,BufNewFile *camptocamp.org* setfiletype camptocamp
-    autocmd BufRead,BufNewFile vimperator* setfiletype bbcode
-    autocmd BufRead,BufNewFile *conky* setfiletype conkyrc
-    autocmd BufRead,BufNewFile *.inc setfiletype php
+    au BufRead,BufNewFile vimperator* setfiletype bbcode
+    au BufRead,BufNewFile *conky* setfiletype conkyrc
 augroup END
 
 " C {{{
@@ -673,18 +669,6 @@ augroup ft_commonlisp
     au syntax lisp RainbowParenthesesLoadBraces
 
     au FileType lisp call TurnOnLispFolding()
-augroup END
-
-" }}}
-" Confluence {{{
-
-augroup ft_c
-    au!
-
-    au BufRead,BufNewFile *.confluencewiki setlocal filetype=confluencewiki
-
-    " Wiki pages should be soft-wrapped.
-    au FileType confluencewiki setlocal wrap linebreak nolist
 augroup END
 
 " }}}
@@ -797,17 +781,15 @@ augroup ft_html
     au!
 
     au BufNewFile,BufRead *.html,*.htm,*.tpl call s:SelectHTML()
-    " au BufNewFile,BufRead *.tpl setlocal filetype=html
-    " au BufNewFile,BufRead *.html setlocal filetype=htmljinja
 
-    au FileType html,jinja,htmldjango setlocal foldmethod=manual
-    au FileType html,jinja,htmldjango setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
+    au FileType html,htmljinja,htmldjango setlocal foldmethod=manual
+    au FileType html,htmljinja,htmldjango setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
 
     " Use <localleader>f to fold the current tag.
-    au FileType html,jinja,htmldjango nnoremap <buffer> <localleader>f Vatzf
+    au FileType html,htmljinja,htmldjango nnoremap <buffer> <localleader>f Vatzf
 
     " Use <localleader>t to fold the current templatetag.
-    au FileType html,jinja,htmldjango nmap <buffer> <localleader>t viikojozf
+    au FileType html,htmljinja,htmldjango nmap <buffer> <localleader>t viikojozf
 
     " Use Shift-Return to turn this:
     "     <tag>|</tag>
@@ -816,22 +798,30 @@ augroup ft_html
     "     <tag>
     "         |
     "     </tag>
-    au FileType html,jinja,htmldjango nnoremap <buffer> <s-cr> vit<esc>a<cr><esc>vito<esc>i<cr><esc>
+    au FileType html,htmljinja,htmldjango nnoremap <buffer> <s-cr> vit<esc>a<cr><esc>vito<esc>i<cr><esc>
 
     " Smarter pasting
-    au FileType html,jinja,htmldjango nnoremap <buffer> p :<C-U>YRPaste 'p'<CR>v`]=`]
-    au FileType html,jinja,htmldjango nnoremap <buffer> P :<C-U>YRPaste 'P'<CR>v`]=`]
-    au FileType html,jinja,htmldjango nnoremap <buffer> π :<C-U>YRPaste 'p'<CR>
-    au FileType html,jinja,htmldjango nnoremap <buffer> ∏ :<C-U>YRPaste 'P'<CR>
+    au FileType html,htmljinja,htmldjango nnoremap <buffer> p :<C-U>YRPaste 'p'<CR>v`]=`]
+    au FileType html,htmljinja,htmldjango nnoremap <buffer> P :<C-U>YRPaste 'P'<CR>v`]=`]
+    au FileType html,htmljinja,htmldjango nnoremap <buffer> π :<C-U>YRPaste 'p'<CR>
+    au FileType html,htmljinja,htmldjango nnoremap <buffer> ∏ :<C-U>YRPaste 'P'<CR>
 
     " Indent tag
-    au FileType html,jinja,htmldjango nnoremap <buffer> <localleader>= Vat=
+    au FileType html,htmljinja,htmldjango nnoremap <buffer> <leader>= Vat=
 
     " Django tags
-    au FileType jinja,htmldjango inoremap <buffer> <c-t> {%<space><space>%}<left><left><left>
+    au FileType htmljinja,htmldjango inoremap <buffer> <c-t> {%<space><space>%}<left><left><left>
 
     " Django variables
-    au FileType jinja,htmldjango inoremap <buffer> <c-b> {{<space><space>}}<left><left><left>
+    au FileType htmljinja,htmldjango inoremap <buffer> <c-b> {{<space><space>}}<left><left><left>
+augroup END
+
+" }}}
+" IDL {{{
+
+augroup ft_idl
+    au!
+    autocmd BufRead,BufNewFile *.pro setfiletype idlang
 augroup END
 
 " }}}
@@ -958,6 +948,14 @@ augroup ft_pentadactyl
 augroup END
 
 " }}}
+" Php {{{
+
+augroup ft_php
+    au!
+    autocmd BufRead,BufNewFile *.inc setfiletype php
+augroup END
+
+" }}}
 " Postgresql {{{
 
 augroup ft_postgres
@@ -1052,11 +1050,16 @@ augroup END
 augroup ft_txt
     au!
     au BufRead,BufNewFile *.txt setfiletype text
+    " au BufRead,BufNewFile *wikipedia.org* setfiletype Wikipedia
+    " au BufRead,BufNewFile *camptocamp.org* setfiletype camptocamp
 
     " au FileType text setlocal textwidth=78 lbr wrap fo=l "spell spelllang=fr
     au FileType text setlocal textwidth=78 lbr complete+=k "fo+=a spell spelllang=fr
     au FileType tex setlocal textwidth=78 "spell spelllang=fr
-    au FileType camptocamp setlocal spell spelllang=fr
+
+    " Wiki pages should be soft-wrapped.
+    au FileType camptocamp setlocal wrap linebreak nolist spell spelllang=fr
+    au FileType Wikipedia setlocal wrap linebreak nolist spell spelllang=fr
 augroup END
 
 " }}}
@@ -1102,7 +1105,7 @@ augroup ft_xml
     au FileType xml nnoremap <buffer> <localleader>f Vatzf
 
     " Indent tag
-    au FileType xml nnoremap <buffer> <localleader>= Vat=
+    au FileType xml nnoremap <buffer> <leader>= Vat=
 augroup END
 
 " }}}
@@ -1148,7 +1151,7 @@ xmap <leader>c <Plug>Commentary
 augroup plugin_commentary
     au!
     au FileType htmldjango setlocal commentstring={#\ %s\ #}
-    au FileType jinja setlocal commentstring={#\ %s\ #}
+    au FileType htmljinja setlocal commentstring={#\ %s\ #}
     au FileType clojurescript setlocal commentstring=;\ %s
     au FileType lisp setlocal commentstring=;\ %s
     au FileType puppet setlocal commentstring=#\ %s
@@ -1390,7 +1393,13 @@ smap <C-J> <Plug>snipMateNextOrTrigger
 " }}}
 " Sparkup {{{
 
-let g:sparkupNextMapping = '<c-s>'
+augroup ft_sparkup
+    au!
+    au FileType xml,html,htmljinja,htmldjango imap <buffer> <c-e> <Plug>SparkupExecute
+    au FileType xml,html,htmljinja,htmldjango imap <buffer> <c-l> <Plug>SparkupNext
+augroup END
+
+" let g:sparkupNextMapping = '<c-s>'
 
 "}}}
 " Supertab {{{
