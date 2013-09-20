@@ -22,6 +22,8 @@
 --exclude=.git
 --exclude=.hg
 --exclude=*.min.js
+--exclude=*.pyc
+--exclude=*.pyo
 --exclude=.ropeproject
 --exclude=.tox
 --exclude=_build

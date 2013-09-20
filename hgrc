@@ -7,6 +7,7 @@ ignore = ~/.hgignore
 [alias]
 st = status -SC
 di = diff
+fdiff = diff -U 10000000000000
 
 addremove = --similarity 100
 blame = annotate --user --number
@@ -19,6 +20,9 @@ logs = log --stat
 slog = log --style=$HOME/lib/mercurial-cli-templates/map-cmdline.slog
 nlog = log --style=$HOME/lib/mercurial-cli-templates/map-cmdline.nlog
 sglog = glog --style=$HOME/lib/mercurial-cli-templates/map-cmdline.sglog
+
+outs = outgoing -n --style=$HOME/lib/mercurial-cli-templates/map-cmdline.slog
+ins = incoming -n --style=$HOME/lib/mercurial-cli-templates/map-cmdline.slog
 
 [color]
 diff.diffline = bold
@@ -56,6 +60,12 @@ record =
 transplant =
 
 prompt = ~/lib/hg-prompt/prompt.py
+
+[merge-tools]
+splice.executable = vim
+splice.args = -f $base $local $other $output -c 'SpliceInit'
+splice.premerge = keep
+splice.priority = 1
 
 [pager]
 pager = LESS=FRSXQ less
