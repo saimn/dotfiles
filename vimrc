@@ -407,6 +407,8 @@ noremap <F10> :set go+=m<CR>
 " http://vimcasts.org/e/14
 cnoremap %% <C-R>=expand('%:h').'/'<cr>
 
+nnoremap <leader>o :e <C-R>=expand('%:h').'/'<cr>
+
 " Ctrl-+ pour augmenter la taille de la police
 noremap <C-Up> :let &guifont=substitute(&guifont, '\d\+', '\=eval(submatch(0)+1)', '')<CR>
 noremap <C-Down> :let &guifont=substitute(&guifont, '\d\+', '\=eval(submatch(0)-1)', '')<CR>
@@ -1151,6 +1153,7 @@ let g:ctrlp_reuse_window = 'NERD_tree_2'
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_max_height = 20
 let g:ctrlp_extensions = ['tag']
+let g:ctrlp_switch_buffer = 'et'
 
 let g:ctrlp_map = '<leader>,'
 nnoremap <leader>; :CtrlPTag<cr>

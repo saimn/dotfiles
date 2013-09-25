@@ -9,7 +9,7 @@ st = status -SC
 di = diff
 fdiff = diff -U 10000000000000
 
-addremove = --similarity 100
+addremove = addremove --similarity 100
 blame = annotate --user --number
 revertall = revert --all --no-backup
 grep = ! $HG locate -0 '$2' $3 $4 $5 $6 $7 $8 $9 | xargs -0 fgrep -H '$1'
@@ -62,7 +62,7 @@ transplant =
 prompt = ~/lib/hg-prompt/prompt.py
 
 [merge-tools]
-splice.executable = vim
+splice.executable = gvim
 splice.args = -f $base $local $other $output -c 'SpliceInit'
 splice.premerge = keep
 splice.priority = 1
