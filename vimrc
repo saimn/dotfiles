@@ -1003,6 +1003,8 @@ augroup ft_python
     au FileType python inoremap <buffer> <c-b> """"""<left><left><left>
 
     au FileType python iabbrev <buffer> afo assert False, "Okay"
+
+    au FileType python map <buffer> <localleader>p :call Autopep8()<CR>
 augroup END
 
 " }}}
