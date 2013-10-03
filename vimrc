@@ -1179,11 +1179,11 @@ let g:ctrlp_prompt_mappings = {
 \ }
 
 let ctrlp_filter_greps = "".
-    \ "egrep -iv '\\.(" .
-    \ "jar|class|swp|swo|log|so|o|pyc|pyo|jpe?g|png|gif|mo|po" .
+    \ "egrep -iv '\.(" .
+    \ "jar|class|swp|swo|log|so|o|pyc|pyo|jpe?g|png|gif|mo|po|min\.js" .
     \ ")$' | " .
-    \ "egrep -v '^(\\./)?(" .
-    \ "deploy/|lib/|classes/|libs/|deploy/vendor/|.git/|.hg/|.svn/|.*migrations/|docs/build/" .
+    \ "egrep -v '^(\.\/)?(" .
+    \ "deploy/|lib/|libs/|.git/|.hg/|.svn/|.tox/|dist/|build/|docs/build/|docs/_build/" .
     \ ")'"
 
 let my_ctrlp_user_command = "" .
@@ -1194,7 +1194,9 @@ let my_ctrlp_git_command = "" .
     \ "cd %s && git ls-files --exclude-standard -co | " .
     \ ctrlp_filter_greps
 
-let my_ctrlp_ffind_command = "ffind --semi-restricted --dir %s --type e -B -f"
+let my_ctrlp_ffind_command = "" .
+    \ "ffind --semi-restricted --dir %s --type e -B -f | " .
+    \ ctrlp_filter_greps
 
 let g:ctrlp_user_command = ['.git/', my_ctrlp_ffind_command, my_ctrlp_user_command]
 
