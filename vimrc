@@ -980,7 +980,7 @@ augroup END
 
 augroup ft_python
     au!
-    " add header
+    " add header for new files
     au BufNewFile *.py 0put=\"# -*- coding: utf-8 -*-\<nl>\<nl>\"|$
     " au BufNewFile *.py 0put=\"#!/usr/bin/env python2\"|1put=\"# -*- coding: utf-8 -*-\<nl>\<nl>\"|$
 
@@ -1136,7 +1136,7 @@ nnoremap <leader>! :Shell
 " Ack {{{
 
 nnoremap <leader>a :Ack!<space>
-let g:ackprg = 'ack --smart-case --nogroup --nocolor --column'
+let g:ackprg = 'ag --smart-case --nogroup --nocolor --column'
 
 " }}}
 " Autoclose {{{
