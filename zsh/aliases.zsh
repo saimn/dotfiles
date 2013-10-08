@@ -43,6 +43,7 @@ alias -s conf="vim"
 alias -s html="firefox -new-tab"
 
 # misc commands
+alias ack=ag
 alias dif='colordiff -u'
 alias chromium='chromium --disk-cache-dir=/tmp/chromium-cache'
 alias ff='firefox -new-tab'

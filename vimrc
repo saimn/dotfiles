@@ -230,24 +230,11 @@ match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 " }}}
 " Abbreviations ----------------------------------------------------------- {{{
 
-function! EatChar(pat)
-    let c = nr2char(getchar(0))
-    return (c =~ a:pat) ? '' : c
-endfunction
-
-function! MakeSpacelessIabbrev(from, to)
-    execute "iabbrev <silent> ".a:from." ".a:to."<C-R>=EatChar('\\s')<CR>"
-endfunction
-function! MakeSpacelessBufferIabbrev(from, to)
-    execute "iabbrev <silent> <buffer> ".a:from." ".a:to."<C-R>=EatChar('\\s')<CR>"
-endfunction
-
-call MakeSpacelessIabbrev('bb/',  'http://bitbucket.org/')
-call MakeSpacelessIabbrev('gh/',  'http://github.com/')
-
 iabbrev qd quand
 iabbrev qq quelque
 iabbrev qqs quelques
+iabbrev gh/ http://github.com/
+iabbrev ssig -- <cr>Simon
 
 " }}}
 " Convenience mappings ---------------------------------------------------- {{{
@@ -276,7 +263,7 @@ noremap <leader>P :set paste<CR>"*P<CR>:set nopaste<CR>
 vnoremap <leader>y "*ygv
 
 " Rebuild Ctags (mnemonic RC -> CR -> <cr>)
-nnoremap <leader><cr> :silent !myctags<cr>:redraw!<cr>
+nnoremap <leader><cr> :silent !ctags -R .<cr>:redraw!<cr>
 
 " Clean trailing whitespace
 nnoremap <leader>w mz:%s/\s\+$//<cr>:let @/=''<cr>`z
@@ -284,7 +271,7 @@ nnoremap <leader>w mz:%s/\s\+$//<cr>:let @/=''<cr>`z
 " nmap _S :%s/^\s\+//<CR>
 
 " Send visual selection to paste.stevelosh.com
-vnoremap <c-p> :w !curl -sF 'sprunge=<-' 'http://paste.stevelosh.com' \| tr -d '\n ' \| pbcopy && open `pbpaste`<cr>
+" vnoremap <c-p> :w !curl -sF 'sprunge=<-' 'http://paste.stevelosh.com' \| tr -d '\n ' \| pbcopy && open `pbpaste`<cr>
 
 " Select entire buffer
 nnoremap vaa ggvGg_
@@ -348,7 +335,7 @@ nnoremap ><lt> V`]>
 nnoremap =- V`]=
 
 " Keep the cursor in place while joining lines
-nnoremap J mzJ`z
+" nnoremap J mzJ`z
 
 " Split line (sister to [J]oin lines)
 " The normal use of S is covered by cc, so don't worry about shadowing it.
@@ -1021,6 +1008,8 @@ augroup END
 augroup ft_rest
     au!
 
+    au FileType rst setlocal foldlevel=1
+
     au Filetype rst nnoremap <buffer> <localleader>1 yypVr=:redraw<cr>
     au Filetype rst nnoremap <buffer> <localleader>2 yypVr-:redraw<cr>
     au Filetype rst nnoremap <buffer> <localleader>3 yypVr~:redraw<cr>
@@ -1139,11 +1128,6 @@ nnoremap <leader>a :Ack!<space>
 let g:ackprg = 'ag --smart-case --nogroup --nocolor --column'
 
 " }}}
-" Autoclose {{{
-
-nmap <Leader>x <Plug>ToggleAutoCloseMappings
-
-" }}}
 " Commentary {{{
 
 nmap <leader>c <Plug>CommentaryLine
@@ -1171,6 +1155,7 @@ let g:ctrlp_extensions = ['tag']
 let g:ctrlp_map = '<leader>,'
 nnoremap <leader>; :CtrlPTag<cr>
 nnoremap <leader>b :CtrlPBuffer<cr>
+nnoremap <leader>m :CtrlPMRU<cr>
 
 let g:ctrlp_prompt_mappings = {
 \ 'PrtSelectMove("j")':   ['<c-j>', '<down>', '<s-tab>'],
@@ -1211,7 +1196,7 @@ nnoremap <leader>d :Dispatch<cr>
 " }}}
 " Fugitive {{{
 
-let g:fugitive_github_domains = ['github.banksimple.com']
+" let g:fugitive_github_domains = ['github.banksimple.com']
 
 nnoremap <leader>gd :Gdiff<cr>
 nnoremap <leader>gs :Gstatus<cr>
@@ -1255,7 +1240,7 @@ let g:atia_attributes_complete = 0
 " }}}
 " KWbdi {{{
 
-map <leader>q <Plug>Kwbd
+nnoremap <leader>q <Plug>Kwbd
 
 " }}}
 " Linediff {{{
