@@ -71,7 +71,7 @@ function! Pep8(writing)
     if !a:writing && &modified
         " Save before running
         write
-    endif	
+    endif
 
     if has('win32') || has('win16') || has('win95') || has('win64')
         setlocal sp=>%s
@@ -108,7 +108,7 @@ function! Pep8Evaluation()
             " Only if there is information about previous run
             if l:item.text =~ 'previous run: '
                 let b:pep8_prev_rate = substitute(l:item.text, '.*previous run: '.l:re_rate.'.*', '\1', 'g')
-            endif    
+            endif
         endif
     endfor
 endfunction

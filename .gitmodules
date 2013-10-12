@@ -28,9 +28,6 @@
 [submodule "vim/bundle/nerdtree"]
 	path = vim/bundle/nerdtree
 	url = https://github.com/scrooloose/nerdtree.git
-[submodule "vim/bundle/nosecompiler"]
-	path = vim/bundle/nosecompiler
-	url = https://github.com/olethanh/Vim-nosecompiler.git
 [submodule "vim/bundle/python-mode"]
 	path = vim/bundle/python-mode
 	url = https://github.com/klen/python-mode.git
@@ -54,9 +51,6 @@
 	path = vim/bundle/sparkup
 	url = https://github.com/mitsuhiko/vim-sparkup.git
 	ignore = dirty
-[submodule "vim/bundle/makegreen"]
-	path = vim/bundle/makegreen
-	url = https://github.com/sjl/vim-makegreen.git
 [submodule "vim/bundle/orgmode"]
 	path = vim/bundle/orgmode
 	url = https://github.com/jceb/vim-orgmode.git
@@ -124,3 +118,6 @@
 [submodule "vim/bundle/autopep8"]
 	path = vim/bundle/autopep8
 	url = https://github.com/tell-k/vim-autopep8.git
+[submodule "vim/bundle/pytest-compiler"]
+	path = vim/bundle/pytest-compiler
+	url = https://github.com/5long/pytest-vim-compiler.git

@@ -834,7 +834,6 @@ augroup ft_javascript
     au FileType javascript setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
     au FileType javascript setlocal foldmethod=marker
     au FileType javascript setlocal foldmarker={,}
-    au FileType javascript call MakeSpacelessBufferIabbrev('clog', 'console.log();<left><left>')
 
     " Make {<cr> insert a pair of brackets in such a way that the cursor is correctly
     " positioned inside of them AND the following code doesn't get unfolded.
@@ -979,8 +978,10 @@ augroup ft_python
 
     " au FileType python setlocal omnifunc=pythoncomplete#Complete
     au FileType python setlocal define=^\s*\\(def\\\\|class\\)
-    au FileType python compiler nose
     au FileType man nnoremap <buffer> <cr> :q<cr>
+
+    au FileType python compiler pytest
+    " au FileType python let b:dispatch = 'py.test'
 
     " Jesus tapdancing Christ, built-in Python syntax, you couldn't let me
     " override this in a normal way, could you?
@@ -993,6 +994,8 @@ augroup ft_python
 
     au FileType python iabbrev <buffer> afo assert False, "Okay"
 
+    " Autopep8
+    let g:autopep8_select="E1,E2,E3,E4,W2,W3"
     au FileType python map <buffer> <localleader>p :call Autopep8()<CR>
 augroup END
 
@@ -1052,6 +1055,9 @@ augroup ft_txt
     " Wiki pages should be soft-wrapped.
     au FileType camptocamp setlocal wrap linebreak nolist spell spelllang=fr
     au FileType Wikipedia setlocal wrap linebreak nolist spell spelllang=fr
+
+    " spell check for commit messages
+    au Filetype svn,*commit* setlocal spell spelllang=en
 augroup END
 
 " }}}
@@ -1204,10 +1210,10 @@ nnoremap <leader>d :Dispatch<cr>
 nnoremap <leader>gd :Gdiff<cr>
 nnoremap <leader>gs :Gstatus<cr>
 nnoremap <leader>gw :Gwrite<cr>
-nnoremap <leader>ga :Gadd<cr>
+nnoremap <leader>ga :Git add %<cr>
 nnoremap <leader>gb :Gblame<cr>
 nnoremap <leader>gco :Gcheckout<cr>
-nnoremap <leader>gci :Gcommit<cr>
+nnoremap <leader>gci :Gcommit --verbose<cr>
 nnoremap <leader>gm :Gmove<cr>
 nnoremap <leader>gr :Gremove<cr>
 nnoremap <leader>gl :Shell git gl -18<cr>:wincmd \|<cr>
@@ -1255,12 +1261,6 @@ nnoremap <leader>L :LinediffReset<cr>
 " Lisp (built-in) {{{
 
 let g:lisp_rainbow = 1
-
-" }}}
-" Makegreen {{{
-
-nnoremap \| :call MakeGreen('')<cr>
-" nnoremap <leader>dt :set makeprg=python\ setup.py\ test\|:call MakeGreen()<CR>
 
 " }}}
 " NERD Tree {{{
@@ -1443,7 +1443,7 @@ let g:splice_wrap = "nowrap"
 " }}}
 " Tagbar {{{
 
-noremap <F8> :TagbarToggle<CR>
+noremap <F9> :TagbarToggle<CR>
 
 augroup ps_tagbar
     au!
