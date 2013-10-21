@@ -1,4 +1,6 @@
+*.egg-info
 .tox
 build
 htmlcov
+tags
 
