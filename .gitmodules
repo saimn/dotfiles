@@ -109,6 +109,7 @@
 [submodule "vim/bundle/YouCompleteMe"]
 	path = vim/bundle/YouCompleteMe
 	url = https://github.com/Valloric/YouCompleteMe.git
+	ignore = dirty
 [submodule "vim/bundle/pentadactyl"]
 	path = vim/bundle/pentadactyl
 	url = https://github.com/dogrover/vim-pentadactyl.git

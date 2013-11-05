@@ -101,7 +101,7 @@
    autosetupmerge = true
    autosetuprebase = always
 [push]
-   default = upstream
+	default = simple
 [github]
    user = saimn
 
