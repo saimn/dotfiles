@@ -52,7 +52,7 @@ export QT_PLUGIN_PATH=$HOME/.kde4/lib/kde4/plugins/:/usr/lib/kde4/plugins/
 
 # Autostart {{{
 
-emacs --daemon &
+# emacs --daemon &
 
 # Start agents
 eval $(gpg-agent --daemon)

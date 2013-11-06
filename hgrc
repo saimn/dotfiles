@@ -57,6 +57,7 @@ progress =
 purge =
 rebase =
 record =
+shelve =
 transplant =
 
 prompt = ~/lib/hg-prompt/prompt.py

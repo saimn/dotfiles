@@ -110,6 +110,8 @@ map <C-left> -silent :bprev<CR>
 
 map <leader>t -silent :tabopen about:newtab<CR>
 
+map <leader><Space> :set nohlfind<CR>
+
 " Show/hide toolbars
 map <F9> :set go+=mT<CR>
 map <F10> :set go-=mT<CR>
@@ -135,8 +137,8 @@ map -modes=n,v <C-F6> y:!~/bin/supergenpass<Space>'<S-Insert>'<Return><Esc>2gi<S
 map -modes=i <C-F6> <Esc><C-F6>
 
 " Faster scrolling
-"map -builtin <C-e> 3<C-e>
-"map -builtin <C-y> 3<C-y>
+map -builtin <C-e> 3<C-e>
+map -builtin <C-y> 3<C-y>
 "nmap <BS> <Space>
 "nmap <S-BS> <S-Space>
 
