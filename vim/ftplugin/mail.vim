@@ -7,13 +7,13 @@ set spelllang=fr,en
 "set list
 "set listchars=trail:_,tab:>.
 "set expandtab
-"set comments=s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,fb:- 
+"set comments=s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,fb:-
 "set noshowmatch
 "set ft=headers
 "syn on
 
 " Autoflow paragraphs you edit as you type, no more gq!
-set fo=aw2t
+set fo=atqn1
 
 " }}}
 
@@ -44,7 +44,7 @@ map ,cqoq :%s/^>\s\+/> /e
 " remove all > On blah... stuff left behind in quoted text - huggie
 nmap ,cqmh :g/^\([>*] \)\+On.*wrote:$/d<CR>
 
-" Clear blank lines after my On foo wrote: 
+" Clear blank lines after my On foo wrote:
 map ,db /^On.*wrote:$/e
 
 " Kill more than 1 empty quoted lines
@@ -58,7 +58,7 @@ nmap ,kpq :s/^> *[a-zA-Z]*>/>>/e
 nmap ,ksr :%s/   \+/  /g
 
 " remove quoted sig
-map ,rq /^> *-- 
+map ,rq /^> *--
 
 "    ,Sl = "squeeze lines"
 "    Turn all blocks of empty lines (within current visual)
