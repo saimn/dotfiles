@@ -1464,6 +1464,13 @@ let g:tagbar_show_visibility = 0
 let g:tagbar_iconchars = ['▸', '▾']
 
 " }}}
+" Viewdoc {{{
+
+let g:viewdoc_open = "belowright vnew"
+let g:viewdoc_pydoc_cmd ="/usr/bin/pydoc2"
+" let g:viewdoc_man_cmd='LANG=en_US.UTF-8 /usr/bin/man'
+
+" }}}
 " YankRing {{{
 
 function! YRRunAfterMaps()
