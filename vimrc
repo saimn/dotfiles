@@ -862,6 +862,11 @@ augroup ft_make
 augroup END
 
 " }}}
+" Man {{{
+
+runtime! ftplugin/man.vim
+
+" }}}
 " Markdown {{{
 
 augroup ft_markdown
