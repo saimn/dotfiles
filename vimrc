@@ -487,8 +487,22 @@ nnoremap * *<c-o>
 " screen.  Both will pulse the cursor line so you can see where the hell you
 " are.  <c-\> will also fold everything in the buffer and then unfold just
 " enough for you to see the destination line.
-nnoremap <c-]> <c-]>mzzvzz15<c-e>`z:Pulse<cr>
-nnoremap <c-\> <c-w>v<c-]>mzzMzvzz15<c-e>`z:Pulse<cr>
+function! JumpToTag()
+    execute "normal! \<c-]>mzzvzz15\<c-e>"
+    execute "keepjumps normal! `z"
+    Pulse
+endfunction
+
+function! JumpToTagInSplit()
+    execute "normal! \<c-w>v\<c-]>mzzMzvzz15\<c-e>"
+    execute "keepjumps normal! `z"
+    Pulse
+endfunction
+
+nnoremap <c-]> :silent! call JumpToTag()<cr>
+nnoremap <c-\> :silent! call JumpToTagInSplit()<cr>
+
+" nnoremap <c-\> <c-w>v<c-]>mzzMzvzz15<c-e>`z:Pulse<cr>
 
 " Keep search matches in the middle of the window.
 nnoremap n nzzzv
@@ -591,9 +605,8 @@ vnoremap <Space> za
 " "Refocus" folds
 nnoremap ,z zMzvzz
 
-" Make zO recursively open whatever top level fold we're in, no matter where the
-" cursor happens to be.
-nnoremap zO zCzO
+" Make zO recursively open whatever fold we're in, even if it's partially open.
+nnoremap zO zczO
 
 " "Focus" the current line.  Basically:
 "
@@ -1711,18 +1724,13 @@ nnoremap <leader>B :call BlockColor()<cr>
 " Pulse Line {{{
 
 function! s:Pulse() " {{{
-    let current_window = winnr()
-    windo set nocursorline
-    execute current_window . 'wincmd w'
-    setlocal cursorline
-
     redir => old_hi
         silent execute 'hi CursorLine'
     redir END
     let old_hi = split(old_hi, '\n')[0]
     let old_hi = substitute(old_hi, 'xxx', '', '')
 
-    let steps = 9
+    let steps = 8
     let width = 1
     let start = width
     let end = steps * width
