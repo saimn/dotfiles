@@ -881,6 +881,7 @@ function! s:HgStatus_AddRemove(linestart, lineend) abort
     let l:filenames = s:HgStatus_GetSelectedFiles(a:linestart, a:lineend, ['!', '?'])
     if len(l:filenames) == 0
         call s:error("No files to add or remove in selection or current line.")
+        return
     endif
 
     " Run `addremove` on those paths.
@@ -896,6 +897,7 @@ function! s:HgStatus_Commit(linestart, lineend, bang, vertical) abort
     let l:filenames = s:HgStatus_GetSelectedFiles(a:linestart, a:lineend, ['M', 'A', 'R'])
     if len(l:filenames) == 0
         call s:error("No files to commit in selection or file.")
+        return
     endif
 
     " Run `Hgcommit` on those paths.
@@ -924,6 +926,7 @@ function! s:HgStatus_QNew(linestart, lineend, patchname, ...) abort
     let l:filenames = s:HgStatus_GetSelectedFiles(a:linestart, a:lineend, ['M', 'A', 'R'])
     if len(l:filenames) == 0
         call s:error("No files in selection or file to create patch.")
+        return
     endif
 
     " Run `Hg qnew` on those paths.
@@ -942,6 +945,7 @@ function! s:HgStatus_QRefresh(linestart, lineend) abort
     let l:filenames = s:HgStatus_GetSelectedFiles(a:linestart, a:lineend, ['M', 'A', 'R'])
     if len(l:filenames) == 0
         call s:error("No files in selection or file to refresh the patch.")
+        return
     endif
 
     " Run `Hg qrefresh` on those paths.
@@ -1009,6 +1013,30 @@ function! s:HgEdit(bang, filename) abort
 endfunction
 
 call s:AddMainCommand("-bang -nargs=? -complete=customlist,s:ListRepoFiles Hgedit :call s:HgEdit(<bang>0, <f-args>)")
+
+" }}}
+
+" Hgvimgrep {{{
+
+function! s:HgVimGrep(bang, pattern, ...) abort
+    let l:repo = s:hg_repo()
+    let l:file_paths = []
+    if a:0 > 0
+        for ff in a:000
+            let l:full_ff = l:repo.GetFullPath(ff)
+            call add(l:file_paths, l:full_ff)
+        endfor
+    else
+        call add(l:file_paths, l:repo.root_dir . "**")
+    endif
+    if a:bang
+        execute "vimgrep! " . a:pattern . " " . join(l:file_paths, " ")
+    else
+        execute "vimgrep " . a:pattern . " " . join(l:file_paths, " ")
+    endif
+endfunction
+
+call s:AddMainCommand("-bang -nargs=+ -complete=customlist,s:ListRepoFiles Hgvimgrep :call s:HgVimGrep(<bang>0, <f-args>)")
 
 " }}}
 
