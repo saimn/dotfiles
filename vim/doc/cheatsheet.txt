@@ -36,7 +36,20 @@ zug            pour annuler l'ajout au dictionnaire
 
 
 ==============================================================================
-2. Leader Mappings
+2. Mappings
+
+Fn keys~
+
+*<F2>*    :NERDTreeToggle
+*<F3>*    :ErrorsToggle
+*<F4>*    :QFixToggle
+*<F5>*    :GundoToggle
+*<F6>*    :set paste!
+*<F7>*    :call SynStack()
+*<F9>*    :TagbarToggle
+*<F10>*   :set go+=m
+*<F11>*   :YRShow
+*<F12>*    mzggg?G`z  (Panic Button)
 
 Config~
 >
@@ -58,6 +71,7 @@ Normal mode~
 *<leader>?*       :execute 'vimgrep /'.@/.'/g %'<CR>:copen
 *<leader>)*       :tabnext
 *<leader>(*       :tabprev
+<leader>]       :YcmCompleter GoToDefinitionElseDeclaration
 *<leader><tab>*   :ScratchToggle
 *<leader><cr>*    :silent !myctags<cr>:redraw!
 *<leader><space>* :noh<cr>:call clearmatches()

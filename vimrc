@@ -304,7 +304,7 @@ nnoremap Vaa ggVG
 inoremap <C-u> <esc>mzgUiw`za
 
 " Panic Button
-nnoremap <f9> mzggg?G`z
+nnoremap <F12> mzggg?G`z
 
 " Substitute
 nnoremap <leader>: :%s//<left>
@@ -1421,6 +1421,7 @@ let g:SuperTabCrMapping = 1
 "}}}
 " Syntastic {{{
 
+let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_enable_signs = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_java_checker = 'javac'
@@ -1506,10 +1507,12 @@ nnoremap <silent> <F11> :YRShow<CR>
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_complete_in_comments = 1
+let g:ycm_confirm_extra_conf = 1
 " let g:ycm_min_num_of_chars_for_completion = 4
 let g:ycm_seed_identifiers_with_syntax = 1
 
-" nnoremap <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
+" nnoremap <leader>] :YcmCompleter GoToDefinitionElseDeclaration<CR>
+nnoremap <leader>] :YcmCompleter GoToDeclaration<CR>mzzMzvzz15<c-e>`z:Pulse<cr>
 
 " }}}
 
@@ -1565,7 +1568,7 @@ command! ErrorsToggle call ErrorsToggle()
 function! ErrorsToggle() " {{{
   if exists("w:is_error_window")
     unlet w:is_error_window
-    exec "q"
+    lclose
   else
     exec "Errors"
     lopen
@@ -1584,8 +1587,8 @@ function! QFixToggle(forced) " {{{
   endif
 endfunction " }}}
 
-nmap <silent> <f3> :ErrorsToggle<cr>
-nmap <silent> <f4> :QFixToggle<cr>
+nmap <silent> <F3> :ErrorsToggle<cr>
+nmap <silent> <F4> :QFixToggle<cr>
 
 " }}}
 " Hg {{{
