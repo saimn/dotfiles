@@ -113,9 +113,6 @@
 [submodule "vim/bundle/pentadactyl"]
 	path = vim/bundle/pentadactyl
 	url = https://github.com/dogrover/vim-pentadactyl.git
-[submodule "vim/bundle/delimitMate"]
-	path = vim/bundle/delimitMate
-	url = https://github.com/Raimondi/delimitMate.git
 [submodule "vim/bundle/autopep8"]
 	path = vim/bundle/autopep8
 	url = https://github.com/tell-k/vim-autopep8.git
@@ -123,7 +120,3 @@
 [submodule "vim/bundle/pytest-compiler"]
 	path = vim/bundle/pytest-compiler
 	url = https://github.com/5long/pytest-vim-compiler.git
-[submodule "vim/bundle/viewdoc"]
-	path = vim/bundle/viewdoc
-	url = https://github.com/powerman/vim-plugin-viewdoc.git
-	ignore = dirty
