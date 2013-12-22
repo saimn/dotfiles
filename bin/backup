@@ -95,7 +95,7 @@ function backup_system () {
 # backup musique {{{
 function backup_music () {
 
-   SRC="/data/Musique"
+   SRC="$HOME/Musique"
    check_backup
 
    read -p "Backup $SRC to $DST ? y/[n]" answer
@@ -130,15 +130,15 @@ DESCRIPTION
    make backup
 
 OPTIONS
-   -h | --help    : Display a help screen and quit.
-   --music        : Music
-   --mail         : Mail
-   --home         : Home
-   --system       : System files (from sysbackup.inc.txt)
-   --nexus        : nexus
-   --wd | --sg    : select disk to use
-   -d | --dry-run : Simulation mode
-   -b | --backup  : Backup deleted and modified files
+   -h | --help          : Display a help screen and quit.
+   --music              : Music
+   --mail               : Mail
+   --home               : Home
+   --system             : System files (from sysbackup.inc.txt)
+   --nexus              : nexus
+   -d | --dry-run       : Simulation mode
+   -b | --backup        : Backup deleted and modified files
+   --wd | --sg | --wd25 : select disk to use
 
 AUTHOR
    Simon <@>
@@ -158,6 +158,7 @@ while true; do
       -b | --backup)    RSYNC_BACKUP=1; shift ;;
       --wd)             DST="/run/media/simon/857344cd-6fa4-428c-a68b-08b211b2cedd"; shift ;;
       --sg)             DST="/run/media/simon/d3946868-9424-459b-8288-e572975c62e4"; shift ;;
+      --wd25)           DST="/run/media/simon/SIMON"; shift ;;
       --music)          backup_music; exit 0 ;;
       --mail)           backup_mail; exit 0 ;;
       --home)           backup_home; exit 0 ;;
