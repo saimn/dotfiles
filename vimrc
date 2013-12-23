@@ -1405,14 +1405,6 @@ augroup END
 " let g:sparkupNextMapping = '<c-s>'
 
 "}}}
-" Supertab {{{
-
-let g:SuperTabDefaultCompletionType = "context"
-let g:SuperTabContextDefaultCompletionType = "<c-n>"
-let g:SuperTabLongestHighlight = 1
-let g:SuperTabCrMapping = 1
-
-"}}}
 " Syntastic {{{
 
 let g:syntastic_always_populate_loc_list = 1
