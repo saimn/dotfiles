@@ -1,13 +1,11 @@
-snippet #!
-	#!/usr/bin/env python
-snippet utf8
+snippet utf8 "utf8 encoding" b
 	# -*- coding: utf-8 -*-
-snippet from
-	from ${1:sys} import ${2:*}
-snippet imp
+endsnippet
+
+snippet imp "import" b
 	import ${1:module}
-snippet pprint
-	from pprint import pprint
+endsnippet
+
 # Module Docstring
 snippet docs
 	'''
@@ -15,15 +13,13 @@ snippet docs
 	Author: ${2:`g:snips_author`}
 	Description: ${3}
 	'''
-snippet while
-	while ${1:True}:
-		${2:pass}
-snippet for
-	for ${1:x} in ${2:xs}:
-		${3:pass}
+endsnippet
+
 snippet fore
 	for ${1:n}, ${2:item} in enumerate(${3:items}):
 		${4:pass}
+endsnippet
+
 snippet class
 	class ${1:ClassName}(${2:object}):
 		"""${3:docstring for $1}"""
@@ -31,71 +27,63 @@ snippet class
 			${5:super($1, self).__init__()}
 			self.$4 = $4
 			${6}
+endsnippet
+
 snippet def
 	def ${1:function}(${2}):
 		${3:pass}
+endsnippet
+
 snippet defs
 	def ${1:method}(self${2}):
 		${3:pass}
-snippet prop
-	@property
-	def ${1:method}(self${2}):
-		${3:pass}
+endsnippet
+
 snippet lam
 	lambda ${1:args}: ${2:action}
+endsnippet
+
 snippet .
 	self.
-snippet try Try/Except
-	try:
-		${1:pass}
-	except ${2:Exception}, ${3:e}:
-		${4:raise $3}
-snippet try Try/Except/Else
-	try:
-		${1:pass}
-	except ${2:Exception}, ${3:e}:
-		${4:raise $3}
-	else:
-		${5:pass}
-snippet try Try/Except/Finally
-	try:
-		${1:pass}
-	except ${2:Exception}, ${3:e}:
-		${4:raise $3}
-	finally:
-		${5:pass}
-snippet try Try/Except/Else/Finally
-	try:
-		${1:pass}
-	except ${2:Exception}, ${3:e}:
-		${4:raise $3}
-	else:
-		${5:pass}
-	finally:
-		${6:pass}
-snippet ifmain
-	if __name__ == '__main__':
-		${1:main()}
+endsnippet
+
 # __magic__
 snippet _
 	__${1:init}__${2}
+endsnippet
+
 snippet ***
 	*args, **kwargs
+endsnippet
+
 snippet af
 	assert False, repr(${1})$2
-snippet pdb
-	import pdb; pdb.set_trace()
-snippet ipdb
-	import ipdb; ipdb.set_trace()
+endsnippet
+
 snippet rpdb
 	import rpdb2; rpdb2.start_embedded_debugger("asdf")
+endsnippet
+
 snippet pp
-	from pprint import pprint; pprint($1)$2
+	from pprint import pprint
+	pprint($1)
+endsnippet
+
+snippet pprint
+	from pprint import pprint
+	pprint($1)
+endsnippet
+
 snippet trace
 	import traceback, sys; traceback.print_exception(*sys.exc_info())
+endsnippet
+
 snippet mem
 	import resource
 	def print_memory():
 		usage=resource.getrusage(resource.RUSAGE_SELF)
 		return "usertime=%s systime=%s mem=%s mb" % (
 			usage[0], usage[1], usage[2] * resource.getpagesize() / 1e6)
+endsnippet
+
+# vim:ft=snippets:

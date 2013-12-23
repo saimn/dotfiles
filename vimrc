@@ -1394,12 +1394,6 @@ let g:secure_modelines_allowed_items = [
             \ ]
 
 " }}}
-" SnipMate {{{
-
-imap <C-J> <Plug>snipMateNextOrTrigger
-smap <C-J> <Plug>snipMateNextOrTrigger
-
-" }}}
 " Sparkup {{{
 
 augroup ft_sparkup
@@ -1478,6 +1472,15 @@ let g:tagbar_show_visibility = 0
 let g:tagbar_iconchars = ['▸', '▾']
 
 " }}}
+" Ultisnips {{{
+
+let g:UltiSnipsSnippetDirectories = ['UltiSnips', 'snippets']
+let g:UltiSnipsExpandTrigger="<c-tab>"
+let g:UltiSnipsListSnippets="<c-s-tab>"
+" let g:UltiSnipsJumpForwardTrigger="<c-j>"
+" let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+
+" }}}
 " Viewdoc {{{
 
 let g:viewdoc_open = "belowright vnew"
@@ -1510,6 +1513,9 @@ let g:ycm_complete_in_comments = 1
 let g:ycm_confirm_extra_conf = 1
 " let g:ycm_min_num_of_chars_for_completion = 4
 let g:ycm_seed_identifiers_with_syntax = 1
+
+" remove '<S-TAB>' to avoid conflict with ultisnips
+let g:ycm_key_list_previous_completion=['<Up>']
 
 " nnoremap <leader>] :YcmCompleter GoToDefinitionElseDeclaration<CR>
 nnoremap <leader>] :YcmCompleter GoToDeclaration<CR>mzzMzvzz15<c-e>`z:Pulse<cr>
