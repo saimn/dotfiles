@@ -647,10 +647,6 @@ set foldtext=MyFoldText()
 " }}}
 " Filetype-specific ------------------------------------------------------- {{{
 
-augroup filetypedetect
-    au BufRead,BufNewFile *conky* setfiletype conkyrc
-augroup END
-
 " C {{{
 
 augroup ft_c
@@ -815,14 +811,6 @@ augroup ft_html
 
     " Django variables
     au FileType htmljinja,htmldjango inoremap <buffer> <c-b> {{<space><space>}}<left><left><left>
-augroup END
-
-" }}}
-" IDL {{{
-
-augroup ft_idl
-    au!
-    autocmd BufRead,BufNewFile *.pro setfiletype idlang
 augroup END
 
 " }}}
