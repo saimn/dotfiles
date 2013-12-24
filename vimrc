@@ -1059,7 +1059,6 @@ augroup ft_txt
     au FileType tex setlocal textwidth=78 "spell spelllang=fr
 
     " Wiki pages should be soft-wrapped.
-    au FileType camptocamp setlocal wrap linebreak nolist spell spelllang=fr
     au FileType Wikipedia setlocal wrap linebreak nolist spell spelllang=fr
 
     " spell check for commit messages
