@@ -5,16 +5,8 @@ snippet c) "insert copyright" b
 	`&enc[:2] == "utf" ? "©" : "(c)"` Copyright `strftime("%Y")` ${1:`g:snips_author`}. All Rights Reserved.${2}
 endsnippet
 
-snippet date "insert date" b
-	`strftime("%Y-%m-%d")`
-endsnippet
-
-snippet gh "github url" b
-	http://github.com/
-endsnippet
-
-snippet bb "bitbucket url" b
-	http://bitbucket.org/
+snippet date "insert date"
+	`!v strftime("%Y-%m-%d")`
 endsnippet
 
 # vim:ft=snippets:

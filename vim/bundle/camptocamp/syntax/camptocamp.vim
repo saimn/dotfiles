@@ -3,27 +3,19 @@
 " Maintainer: Saïmon <contact at saimon dot org>
 " URL: http://github.com/saimn/c2c-tools/
 " Version: 1
-" Last Change: 2010 Oct 27
+" Last Change: 2013-12-24
 " Remark: Uses HTML syntax file. Based on Markdown & BBCode syntax files.
 
-" Read the HTML syntax to start with
-if version < 600
-  so <sfile>:p:h/html.vim
-else
-  runtime! syntax/html.vim
-  unlet b:current_syntax
+if exists("b:current_syntax")
+  finish
 endif
 
-" don't use standard HiLink, it will not work with included syntax files
-if version < 508
-  command! -nargs=+ HtmlHiLink hi link <args>
-else
-  command! -nargs=+ HtmlHiLink hi def link <args>
-endif
+" Read the HTML syntax to start with
+runtime! syntax/html.vim
+unlet b:current_syntax
 
 syn case ignore
 syn spell toplevel
-set spell
 
 " bbcode formatting
 syn match bbcodeItem contained "\[\s*[-a-zA-Z0-9]\+"hs=s+1 contains=@NoSpell
@@ -83,40 +75,40 @@ syn match  mkdListItem  "^\s*\d\+\.\s\+"
 
 " HTML highlighting
 
-HtmlHiLink bbcodeTag Identifier
-HtmlHiLink bbcodeItem Statement
-HtmlHiLink bbcodeArgument Type
-HtmlHiLink bbcodeValue Constant
-HtmlHiLink bbcodeUrl Underlined
-HtmlHiLink bbcodeImage Underlined
+hi def link bbcodeTag Identifier
+hi def link bbcodeItem Statement
+hi def link bbcodeArgument Type
+hi def link bbcodeValue Constant
+hi def link bbcodeUrl Underlined
+hi def link bbcodeImage Underlined
 
-HtmlHiLink bbcodeStrike Comment
-HtmlHiLink bbcodeCite String
-HtmlHiLink bbcodeQuote String
-HtmlHiLink bbcodeMonospace PreProc
-HtmlHiLink bbcodeColor Special
-HtmlHiLink bbcodeAcronym Special
+hi def link bbcodeStrike Comment
+hi def link bbcodeCite String
+hi def link bbcodeQuote String
+hi def link bbcodeMonospace PreProc
+hi def link bbcodeColor Special
+hi def link bbcodeAcronym Special
 
-HtmlHiLink mkdListItem Identifier 
+hi def link mkdListItem Identifier
 
-HtmlHiLink bbcodeBoldUnderlineItalic bbcodeBoldItalicUnderline
-HtmlHiLink bbcodeItalicBold bbcodeBoldItalic
-HtmlHiLink bbcodeItalicBoldUnderline bbcodeBoldItalicUnderline
-HtmlHiLink bbcodeItalicUnderlineBold bbcodeBoldItalicUnderline
-HtmlHiLink bbcodeUnderlineBold bbcodeBoldUnderline
-HtmlHiLink bbcodeUnderlineBoldItalic bbcodeBoldItalicUnderline
-HtmlHiLink bbcodeUnderlineItalic bbcodeItalicUnderline
-HtmlHiLink bbcodeUnderlineItalicBold bbcodeBoldItalicUnderline
+hi def link bbcodeBoldUnderlineItalic bbcodeBoldItalicUnderline
+hi def link bbcodeItalicBold bbcodeBoldItalic
+hi def link bbcodeItalicBoldUnderline bbcodeBoldItalicUnderline
+hi def link bbcodeItalicUnderlineBold bbcodeBoldItalicUnderline
+hi def link bbcodeUnderlineBold bbcodeBoldUnderline
+hi def link bbcodeUnderlineBoldItalic bbcodeBoldItalicUnderline
+hi def link bbcodeUnderlineItalic bbcodeItalicUnderline
+hi def link bbcodeUnderlineItalicBold bbcodeBoldItalicUnderline
 
-HtmlHiLink bbcodeBold htmlBold
-HtmlHiLink bbcodeBoldItalic htmlBoldItalic
-HtmlHiLink bbcodeBoldItalicUnderline htmlBoldUnderlineItalic
-HtmlHiLink bbcodeBoldUnderline htmlBoldUnderline
-HtmlHiLink bbcodeItalic htmlItalic
-HtmlHiLink bbcodeItalicUnderline htmlUnderlineItalic
-HtmlHiLink bbcodeUnderline htmlUnderline
+hi def link bbcodeBold htmlBold
+hi def link bbcodeBoldItalic htmlBoldItalic
+hi def link bbcodeBoldItalicUnderline htmlBoldUnderlineItalic
+hi def link bbcodeBoldUnderline htmlBoldUnderline
+hi def link bbcodeItalic htmlItalic
+hi def link bbcodeItalicUnderline htmlUnderlineItalic
+hi def link bbcodeUnderline htmlUnderline
 
-HtmlHiLink wikiLink	Underlined
+hi def link wikiLink	Underlined
 
 if !exists("html_my_rendering")
    hi def htmlBold                term=bold cterm=bold gui=bold
@@ -129,4 +121,3 @@ if !exists("html_my_rendering")
 endif
 
 let b:current_syntax = "camptocamp"
-delcommand HtmlHiLink
