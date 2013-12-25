@@ -249,8 +249,9 @@ vnoremap <leader>s :!sort<cr>
 " Tabs
 nnoremap <leader>( :tabprev<cr>
 nnoremap <leader>) :tabnext<cr>
-nnoremap <leader>t :tabnew<cr>
-" nnoremap <leader>w :tabclose<cr>
+nnoremap <leader>tt :tabs<cr>
+nnoremap <leader>tn :tabnew<cr>
+nnoremap <leader>tc :tabclose<cr>
 
 " System clipboard interaction.  Mostly from:
 " https://github.com/henrik/dotfiles/blob/master/vim/config/mappings.vim
