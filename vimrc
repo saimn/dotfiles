@@ -1336,21 +1336,24 @@ let g:pymode_options_other = 0
 let g:pymode_options = 0
 
 let g:pymode_rope = 1
-let g:pymode_rope_global_prefix = "<localleader>R"
-let g:pymode_rope_local_prefix = "<localleader>r"
-let g:pymode_rope_auto_project = 1
-let g:pymode_rope_enable_autoimport = 1
-let g:pymode_rope_autoimport_generate = 1
-let g:pymode_rope_autoimport_underlineds = 0
-let g:pymode_rope_codeassist_maxfixes = 10
-let g:pymode_rope_sorted_completions = 1
-let g:pymode_rope_extended_complete = 1
-let g:pymode_rope_autoimport_modules = ["os", "shutil", "datetime"]
-let g:pymode_rope_confirm_saving = 1
-let g:pymode_rope_vim_completion = 1
-let g:pymode_rope_guess_project = 1
-let g:pymode_rope_goto_def_newwin = 0
-let g:pymode_rope_always_show_complete_menu = 0
+let g:pymode_rope_completion = 0
+let g:pymode_rope_autoimport = 1
+
+" let g:pymode_rope_global_prefix = "<localleader>R"
+" let g:pymode_rope_local_prefix = "<localleader>r"
+" let g:pymode_rope_auto_project = 1
+" let g:pymode_rope_enable_autoimport = 1
+" let g:pymode_rope_autoimport_generate = 1
+" let g:pymode_rope_autoimport_underlineds = 0
+" let g:pymode_rope_codeassist_maxfixes = 10
+" let g:pymode_rope_sorted_completions = 1
+" let g:pymode_rope_extended_complete = 1
+" let g:pymode_rope_autoimport_modules = ["os", "shutil", "datetime"]
+" let g:pymode_rope_confirm_saving = 1
+" let g:pymode_rope_vim_completion = 1
+" let g:pymode_rope_guess_project = 1
+" let g:pymode_rope_goto_def_newwin = 0
+" let g:pymode_rope_always_show_complete_menu = 0
 
 " }}}
 " Scratch {{{
