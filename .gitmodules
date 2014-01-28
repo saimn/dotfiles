@@ -82,12 +82,6 @@
 [submodule "vim/bundle/securemodelines"]
 	path = vim/bundle/securemodelines
 	url = https://github.com/ciaranm/securemodelines.git
-[submodule "vim/bundle/tlib"]
-	path = vim/bundle/tlib
-	url = https://github.com/tomtom/tlib_vim.git
-[submodule "vim/bundle/vim-addon-mw-utils"]
-	path = vim/bundle/vim-addon-mw-utils
-	url = https://github.com/MarcWeber/vim-addon-mw-utils.git
 [submodule "vim/bundle/tagbar"]
 	path = vim/bundle/tagbar
 	url = https://github.com/majutsushi/tagbar.git
