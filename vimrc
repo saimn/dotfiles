@@ -879,7 +879,8 @@ augroup ft_markdown
     " Use <localleader>1/2/3 to add headings.
     au Filetype markdown nnoremap <buffer> <localleader>1 yypVr=:redraw<cr>
     au Filetype markdown nnoremap <buffer> <localleader>2 yypVr-:redraw<cr>
-    au Filetype markdown nnoremap <buffer> <localleader>3 mzI###<space>`zllll <ESC>
+    au Filetype markdown nnoremap <buffer> <localleader>3 mzI###<space><esc>`zllll
+    au Filetype markdown nnoremap <buffer> <localleader>4 mzI####<space><esc>`zlllll
 
     au Filetype markdown nnoremap <buffer> <localleader>p VV:'<,'>!python -m json.tool<cr>
     au Filetype markdown vnoremap <buffer> <localleader>p :!python -m json.tool<cr>
@@ -955,6 +956,7 @@ augroup ft_postgres
     au BufNewFile,BufRead *.sql set filetype=pgsql
     au FileType pgsql set foldmethod=indent
     au FileType pgsql set softtabstop=2 shiftwidth=2
+    au FileType pgsql setlocal commentstring=--\ %s comments=:--
 augroup END
 
 " }}}
@@ -1673,7 +1675,7 @@ function! IndentGuides() " {{{
         execute '2match IndentGuides /\%(\_^\s*\)\@<=\%(\%'.(0*&sw+1).'v\|\%'.(1*&sw+1).'v\|\%'.(2*&sw+1).'v\|\%'.(3*&sw+1).'v\|\%'.(4*&sw+1).'v\|\%'.(5*&sw+1).'v\|\%'.(6*&sw+1).'v\|\%'.(7*&sw+1).'v\)\s/'
     endif
 endfunction " }}}
-hi def IndentGuides guibg=#303030
+hi def IndentGuides guibg=#303030 ctermbg=234
 nnoremap <leader>I :call IndentGuides()<cr>
 
 " }}}
