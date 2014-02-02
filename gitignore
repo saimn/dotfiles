@@ -1,2 +1,7 @@
 tags
 TAGS
+weechat/*.log
+weechat/*.txt
+weechat/irc.conf
+weechat/logs/
+weechat/script/
