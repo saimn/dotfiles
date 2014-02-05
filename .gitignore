@@ -26,6 +26,13 @@ vim/local.vim
 vim/plugin/notmuch.vim
 vim/syntax/notmuch-*.vim
 vimperator/info/
+weechat/*.log
+weechat/*.txt
+weechat/buffer_autoset.conf
+weechat/irc.conf
+weechat/logs/
+weechat/script/
+weechat/xfer/
 xmonad/history
 xmonad/xmonad-x86_64-linux
 xmonad/xmonad.errors
