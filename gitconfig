@@ -73,6 +73,7 @@
 
 [diff]
    renames = true
+   algorithm = patience
 [color]
    branch = auto
    diff = auto
