@@ -44,14 +44,31 @@ set autoread
 set shiftround
 set title
 set linebreak     " ne casse pas les mots en fin de ligne
-set dictionary=/usr/share/dict/words
-set spellfile=~/.vim/custom-dictionary.utf-8.add
 set colorcolumn=+1
 " set autochdir                   " change current dir
 " set smartindent                 " clever autoindenting
 
-" iTerm2 is currently slow as ball at rendering the nice unicode lines, so for
-" now I'll just use ascii pipes.  They're ugly but at least I won't want to kill
+" Spelling
+"
+" There are three dictionaries I use for spellchecking:
+"
+"   /usr/share/dict/words
+"   Basic stuff.
+"
+"   ~/.vim/custom-dictionary.utf-8.add
+"   Custom words (like my name).  This is in my (version-controlled) dotfiles.
+"
+"   ~/.vim-local-dictionary.utf-8.add
+"   More custom words.  This is *not* version controlled, so I can stick
+"   work stuff in here without leaking internal names and shit.
+"
+" I also remap zG to add to the local dict (vanilla zG is useless anyway).
+set dictionary=/usr/share/dict/words
+set spellfile=~/.vim/custom-dictionary.utf-8.add,~/.vim-local-dictionary.utf-8.add
+nnoremap zG 2zg
+
+" iTerm2 is currently slow as balls at rendering the nice unicode lines, so for
+" now I'll just use ASCII pipes.  They're ugly but at least I won't want to kill
 " myself when trying to move around a file.
 set fillchars=diff:⣿,vert:│
 " set fillchars=diff:⣿,vert:\|
@@ -93,11 +110,11 @@ augroup END
 
 " }}}
 " Trailing whitespace {{{
+" Only shown when not in insert mode so I don't go insane.
 
 augroup trailing
     au!
 
-    " Only shown when not in insert mode so I don't go insane.
     " au InsertEnter * :set listchars-=trail:⌴
 
     " Remove trailing whitespace
@@ -147,7 +164,7 @@ augroup END
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
-set expandtab               " use spaces, not tabs (optional)
+set expandtab               " use spaces, not tabs
 set wrap
 
 " Autorise le passage d'une ligne à l'autre avec les flèches gauche et droite
@@ -954,6 +971,8 @@ augroup ft_postgres
     au!
 
     au BufNewFile,BufRead *.sql set filetype=pgsql
+    au BufNewFile,BufRead *.pgsql set filetype=pgsql
+
     au FileType pgsql set foldmethod=indent
     au FileType pgsql set softtabstop=2 shiftwidth=2
     au FileType pgsql setlocal commentstring=--\ %s comments=:--
@@ -1043,6 +1062,16 @@ augroup ft_sh
     au!
     " header
     au BufNewFile *.sh,*.bash 0put =\"#!/bin/bash\<nl># -*- coding: utf-8 -*-\<nl>\<nl>\"|$
+augroup END
+
+" }}}
+" Standard In {{{
+
+augroup ft_stdin
+    au!
+
+    " Treat buffers from stdin (e.g.: echo foo | vim -) as scratch.
+    au StdinReadPost * :set buftype=nofile
 augroup END
 
 " }}}
