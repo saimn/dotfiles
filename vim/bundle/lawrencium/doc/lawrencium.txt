@@ -29,7 +29,8 @@
 3.  Status Window           |lawrencium-status-window|
 4.  Log Window              |lawrencium-log-window|
 5.  Annotate Window         |lawrencium-annotate-window|
-6.  Global Settings         |lawrencium-global-settings|
+6.  MQ Series Window        |lawrencium-mqseries-window|
+7.  Global Settings         |lawrencium-global-settings|
 
 
 =============================================================================
@@ -184,6 +185,11 @@ All commands defined by |lawrencium| are local to each buffer.
                         provided with repository-relative names. If no file is
                         given, the search will be run in the whole repository.
 
+                                                *:Hgqseries*
+:Hgqseries              If you have the 'mq' extension enabled, show the
+                        current patch series, with indicators about which
+                        patches are applied, and which ones are not.
+
 
 =============================================================================
 3.  Status Window                               *lawrencium-status-window*
@@ -275,6 +281,29 @@ defined in it. Also, unless the global |lawrencium_define_mappings| is set to
 `0`, some commands are mapped to keyboard shortcuts, as detailed in the
 following descriptions.
 
+                                                *:Hglogdiffsum*
+:Hglogdiffsum           Splits the previous window to show a diff summary (as
+                        returned by `hg diff`) of the change specified on
+                        the current line.
+                        Mapped to |<C-U>|.
+
+                                                *:Hglogdiffsum_r*
+:Hglogdiffsum {rev1} {rev2}
+                        Same as |:Hglogdiffsum| but shows a diff summary of
+                        the change between the two specified revisions. If
+                        only {rev1} is specified, the change at that revision
+                        will be shown.
+
+                                                *:Hglogvdiffsum*
+:Hglogvdiffsum          Same as |:Hglogdiffsum| but opens a vertical split
+                        instead of a horizontal one.
+                        Mapped to |<C-H>| and |<CR>|.
+
+                                                *:Hglogvdiffsum_r*
+:Hglogvdiffsum {rev1} {rev2}
+                        Same as |:Hglogdiffsum_r| but opens a vertical split
+                        instead of a horizontal one.
+
                                                 *:Hglogrevedit*
 :Hglogrevedit           Looks at the revision specified on the current line,
                         and opens that revision for edit in the previous
@@ -286,21 +315,28 @@ following descriptions.
 
                                                 *:Hglogdiff*
 :Hglogdiff              Looks at the revision specified on the current line,
-                        and runs an `hg diff` between that revision and the
-                        previously listed revision (in the line below). It
-                        opens that diff in the previous window.
-                        It doesn't do anything if the cursor is on the last
-                        line.
-                        Mapped to |<CR>|.
+                        and opens a Vim diff between that revision and its
+                        first parent.
+                        This is only valid if the logged path maps to a file
+                        (i.e. not a directory, and not the whole repository as
+                        with |:Hglog|).
+                        Mapped to |<C-D>|.
 
                                                 *:Hglogdiff_r*
-:Hglogdiff {rev}        Same as |:Hglogdiff|, but opens a diff between the
-                        specified revision and the working directory.
-
-                                                *:Hglogdiff_r_r*
 :Hglogdiff {rev1} {rev2}
                         Same as |:Hglogdiff|, but opens a diff between the
-                        two specified revisions.
+                        specified revisions. If only {rev1} is specified,
+                        opens a Vim diff between that revision and its first
+                        parent.
+
+                                                *:Hglogvdiff*
+:Hglogvdiff             Same as |:Hglogdiff|, but opens a vertical split
+                        instead of a horizontal one.
+
+                                                *:Hglogvdiff_r*
+:Hglogvdiff {rev1} {rev2}
+                        Same as |:Hglogdiff_r| but opens a vertical split
+                        instead of a horizontal one.
 
                                                 *lawrencium-log-mappings*
 A few other mappings are available in the log window:
@@ -324,7 +360,33 @@ is set to `0`.
 
 
 =============================================================================
-6.  Global Settings                             *lawrencium-global-settings*
+6.  MQ Series Window                            *lawrencium-mqseries-window*
+
+The following commands are available in a |:Hgqseries| window along with the
+specified keyboard mappings, unless the |lawrencium_define_mappings| setting
+is set to `0`.
+
+                                                *Hgqseriesgoto*
+:Hgqseriesgoto          Go to the patch under the cursor.
+                        Mapped to |<C-g>|.
+
+                                                *Hgqserieseditmessage*
+:Hgqserieseditmessage   Edit the commit message for the top patch, if any.
+                        Mapped to |<C-e>|.
+
+                                                *Hgqseriesrename*
+:Hgqseriesrename {name}
+                        Rename the patch under the cursor with the given name.
+
+                                                *lawrencium-mqseries-mappings*
+A few other mappings are available in the MQ series window:
+
+    q                   Quit the MQ series window.
+
+
+
+=============================================================================
+7.  Global Settings                             *lawrencium-global-settings*
 
 The following global settings can be defined in your |vimrc| to change the
 default behaviour of Lawrencium.
