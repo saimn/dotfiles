@@ -1426,10 +1426,15 @@ augroup END
 "}}}
 " Syntastic {{{
 
+let g:syntastic_aggregate_errors = 1
 let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_enable_signs = 1
 let g:syntastic_check_on_open = 1
-let g:syntastic_java_checker = 'javac'
+
+let g:syntastic_enable_signs = 1
+let g:syntastic_error_symbol = '✗'
+let g:syntastic_warning_symbol = '⚠'
+
+" let g:syntastic_java_checker = 'javac'
 let g:syntastic_mode_map = {
             \ "mode": "active",
             \ "active_filetypes": [],
@@ -1437,6 +1442,9 @@ let g:syntastic_mode_map = {
             \ }
 let g:syntastic_stl_format = '[%E{%e Errors}%B{, }%W{%w Warnings}]'
 let g:syntastic_jsl_conf = '$HOME/.vim/jsl.conf'
+
+" let g:syntastic_python_flake8_quiet_messages
+let g:syntastic_python_flake8_exec = 'flake8-python2'
 
 " nnoremap <leader>C :SyntasticCheck<cr>
 
