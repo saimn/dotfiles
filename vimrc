@@ -1493,7 +1493,7 @@ let g:tagbar_iconchars = ['▸', '▾']
 " }}}
 " Ultisnips {{{
 
-let g:UltiSnipsSnippetDirectories = ['UltiSnips', 'snippets']
+let g:UltiSnipsSnippetDirectories = ['UltiSnips', 'mysnippets']
 let g:UltiSnipsExpandTrigger="<c-tab>"
 let g:UltiSnipsListSnippets="<c-s-tab>"
 " let g:UltiSnipsJumpForwardTrigger="<c-j>"
