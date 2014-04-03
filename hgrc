@@ -85,3 +85,4 @@ allowbz2 = true
 allowzip = true
 style = gitweb
 
+%include ~/.hgrc.local

@@ -112,3 +112,5 @@
 	cmd = vim -f -d -c \"wincmd J\" \"$MERGED\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"
 [pull]
 	rebase = true
+[include]
+    path = .gitconfig.local

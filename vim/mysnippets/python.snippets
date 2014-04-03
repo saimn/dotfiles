@@ -78,6 +78,10 @@ snippet trace
 	import traceback, sys; traceback.print_exception(*sys.exc_info())
 endsnippet
 
+snippet stack
+	import traceback; traceback.print_stack()
+endsnippet
+
 snippet mem
 	import resource
 	def print_memory():
