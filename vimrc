@@ -137,7 +137,7 @@ set wildignore+=*.sw?                            " Vim swap files
 set wildignore+=*.DS_Store                       " OSX bullshit
 set wildignore+=*.luac                           " Lua byte code
 set wildignore+=migrations                       " Django migrations
-set wildignore+=*.pyc                            " Python byte code
+set wildignore+=*.pyc,*.pyo                      " Python byte code
 set wildignore+=*.orig                           " Merge resolution files
 
 " When doing tab completion, give the following files lower priority. You may
@@ -1366,9 +1366,9 @@ let g:pymode_options_fold = 0
 let g:pymode_options_other = 0
 let g:pymode_options = 0
 
-let g:pymode_rope = 1
+let g:pymode_rope = 0
 let g:pymode_rope_completion = 0
-let g:pymode_rope_autoimport = 1
+let g:pymode_rope_autoimport = 0
 
 " let g:pymode_rope_global_prefix = "<localleader>R"
 " let g:pymode_rope_local_prefix = "<localleader>r"
@@ -1385,6 +1385,11 @@ let g:pymode_rope_autoimport = 1
 " let g:pymode_rope_guess_project = 1
 " let g:pymode_rope_goto_def_newwin = 0
 " let g:pymode_rope_always_show_complete_menu = 0
+
+" }}}
+" Riv {{{
+
+let g:riv_fold_level=0
 
 " }}}
 " Scratch {{{
@@ -1527,7 +1532,10 @@ nnoremap <silent> <F11> :YRShow<CR>
 " }}}
 " YouCompleteMe {{{
 
+let g:ycm_add_preview_to_completeopt = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
+let g:ycm_autoclose_preview_window_after_completion = 1
+
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_complete_in_comments = 1
 let g:ycm_confirm_extra_conf = 1
@@ -1537,8 +1545,8 @@ let g:ycm_seed_identifiers_with_syntax = 1
 " remove '<S-TAB>' to avoid conflict with ultisnips
 let g:ycm_key_list_previous_completion=['<Up>']
 
-" nnoremap <leader>] :YcmCompleter GoToDefinitionElseDeclaration<CR>
-nnoremap <leader>] :YcmCompleter GoToDeclaration<CR>mzzMzvzz15<c-e>`z:Pulse<cr>
+nnoremap <leader>] :YcmCompleter GoToDefinitionElseDeclaration<CR>mzzMzvzz15<c-e>`z:Pulse<cr>
+" nnoremap <leader>] :YcmCompleter GoToDeclaration<CR>mzzMzvzz15<c-e>`z:Pulse<cr>
 
 " }}}
 
