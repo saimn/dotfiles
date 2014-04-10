@@ -1170,6 +1170,11 @@ nnoremap <leader>a :Ack!<space>
 let g:ackprg = 'ag --smart-case --nogroup --nocolor --column'
 
 " }}}
+" Bbye {{{
+
+nnoremap <Leader>q :Bdelete<CR>
+
+" }}}
 " Commentary {{{
 
 nmap <leader>c <Plug>CommentaryLine
@@ -1279,11 +1284,6 @@ let g:event_handler_attributes_complete = 0
 let g:rdfa_attributes_complete = 0
 let g:microdata_attributes_complete = 0
 let g:atia_attributes_complete = 0
-
-" }}}
-" KWbdi {{{
-
-nnoremap <leader>q <Plug>Kwbd
 
 " }}}
 " Linediff {{{
