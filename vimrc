@@ -1490,9 +1490,11 @@ augroup ps_tagbar
     " autocmd FileType c,cpp,python nested :call tagbar#autoopen(0)
 augroup END
 
+let g:tagbar_autofocus = 1
 let g:tagbar_compact = 1
 let g:tagbar_indent = 1
 let g:tagbar_show_visibility = 0
+let g:tagbar_zoomwidth = 0
 " let g:tagbar_autoshowtag = 1
 let g:tagbar_iconchars = ['▸', '▾']
 
