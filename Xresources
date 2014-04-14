@@ -41,7 +41,6 @@ Emacs*shadowThickness:          1
 
 ! URxvt settings {{{
 
-
 ! URxvt*font:           xft:DejaVu Sans Mono:style=Book:pixelsize=12
 ! URxvt*boldFont:       xft:DejaVu Sans Mono:style=Bold:pixelsize=12
 ! URxvt*italicFont:     xft:DejaVu Sans Mono:style=Oblique:pixelsize=12
@@ -79,20 +78,23 @@ URxvt*visualBell:               true
 URxvt.urgentOnBell:             true
 
 ! scrollbar style - rxvt (default), plain (most compact), next, or xterm
-URxvt*scrollBar:                false
-URxvt*scrollBar_right:          true
+URxvt.scrollBar:                true
+URxvt.scrollBar_right:          true
+URxvt.scrollBar_floating:       true
 URxvt.scrollstyle:              plain
+URxvt.scrollTtyOutput:          false
+URxvt.scrollTtyKeypress:        true
 URxvt*secondaryScroll:          true
 
 ! URxvt*perl-lib:                 /usr/lib/urxvt/perl/
-URxvt.perl-lib:                 .urxvt/
+! URxvt.perl-lib:                 .urxvt/
 
 ! perl-ext-common remplacé par perl-ext depuis v9.16 :
 URxvt.perl-ext:                 default,matcher,searchable-scrollback,clipboard,url-select,keyboard-select
 
 ! urlLauncher remplacé par url-launcher depuis v9.16 :
 URxvt.url-launcher:             firefox
-URxvt*urlLauncher:              firefox
+! URxvt*urlLauncher:              firefox
 ! URxvt.urlLauncher:              x-www-browser
 
 URxvt*matcher.button:           1
