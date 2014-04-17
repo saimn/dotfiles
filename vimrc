@@ -437,6 +437,10 @@ nnoremap _js :set ft=javascript<CR>
 nnoremap _pd :set ft=python.django<CR>
 nnoremap _d  :set ft=diff<CR>
 
+" Ranger
+" nnoremap <leader>r :silent !ranger %:h<cr>:redraw!<cr>
+" nnoremap <leader>R :silent !ranger<cr>:redraw!<cr>
+
 " }}}
 " Insert Mode Completion {{{
 
@@ -1170,6 +1174,19 @@ nnoremap <leader>a :Ack!<space>
 let g:ackprg = 'ag --smart-case --nogroup --nocolor --column'
 
 " }}}
+" Airline {{{
+
+let g:airline_powerline_fonts = 1
+let g:airline_section_z = airline#section#create_right(['%3l:%1c'])
+let g:airline_theme='badwolf'
+
+let g:airline#extensions#branch#enabled = 1
+let g:airline#extensions#syntastic#enabled = 1
+let g:airline#extensions#tagbar#enabled = 1
+let g:airline#extensions#virtualenv#enabled = 1
+let g:airline#extensions#whitespace#enabled = 0
+
+" }}}
 " Bbye {{{
 
 nnoremap <Leader>q :Bdelete<CR>
@@ -1334,13 +1351,6 @@ let g:org_todo_keywords = ['TODO', '|', 'DONE']
 let g:org_agenda_files = ['~/org/index.org']
 
 " let g:org_debug = 1
-
-" }}}
-" Powerline {{{
-
-let g:Powerline_symbols = 'fancy'
-let g:Powerline_cache_enabled = 1
-let g:Powerline_colorscheme = 'badwolf'
 
 " }}}
 " Python-Mode {{{
