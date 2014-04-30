@@ -80,9 +80,7 @@ attend = diff,status,log,qdiff,blame,annotate,pdiff,glog,show,di,slog,nlog,sglog
 [web]
 cacerts = /etc/ssl/certs/ca-certificates.crt
 contact = Simon
-allowgz = true
-allowbz2 = true
-allowzip = true
+allow_archive = bz2, gz, zip
 style = gitweb
 
 %include ~/.hgrc.local
