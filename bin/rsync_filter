@@ -3,6 +3,8 @@
 - *.log
 - *.swp
 - *~
+- /tags
+- .git/modules
 
 - .Cache*/
 - .Trash-1000/
@@ -11,6 +13,7 @@
 - .ccache/
 - .gvfs/
 - .local/share/akonadi/
+- .local/share/baloo/
 - .macromedia/
 - .mozilla/**/Cache
 - .thumbnails/
@@ -21,6 +24,7 @@
 
 - Mail/
 - Musique/
+- VirtualBox*/
 - VirtualMachines/
 - data/
 - lib/virtualenvs/

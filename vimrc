@@ -1060,6 +1060,15 @@ augroup ft_ruby
 augroup END
 
 " }}}
+" Salt {{{
+
+augroup ft_salt
+    au!
+
+    au BufRead,BufNewFile *.sls setfiletype yaml
+augroup END
+
+" }}}
 " Shell {{{
 
 augroup ft_sh
