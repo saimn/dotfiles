@@ -5,17 +5,20 @@
 git clone git@github.com:saimn/dotfiles.git ~/lib/dotfiles
 
 for i in "ackrc" "bashrc" "ctags" "gitconfig" "hgrc" "lessfilter" "mailcap" \
-    "pythonrc" "screenrc" "tmux.conf" "vim" "vimrc" "xbindkeysrc" \
+    "pythonrc" "pdbrc" "screenrc" "tmux.conf" "vim" "vimrc" "xbindkeysrc" \
     "Xresources" "Xmodmap" "xprofile"
 do
     rm $HOME/.$i
     ln -s $HOME/lib/dotfiles/$i $HOME/.$i
 done
 
-rm ~/.config/zathura ~/.config/awesome ~/bin
+rm $HOME/.config/{awesome,zathura} $HOME/bin
 ln -s $HOME/lib/dotfiles/bin/ $HOME/bin
 ln -s $HOME/lib/dotfiles/awesome/ $HOME/.config/awesome
 ln -s $HOME/lib/dotfiles/zathura/ $HOME/.config/zathura
+
+rm $HOME/.config/ranger/rc.conf
+ln -s $HOME/lib/dotfiles/ranger/rc.conf $HOME/.config/ranger/rc.conf
 
 mkdir -p $HOME/lib/dotfiles/vim/tmp/{backup,swap,undo}
 
@@ -56,8 +59,7 @@ ln -s ~/lib/mail/mutt .mutt
 #cd ~/lib/python/virtualenvwrapper
 #sudo python setup.py install
 
-mkdir -p $HOME/lib/python
-mkdir -p $HOME/lib/virtualenvs
+mkdir -p $HOME/lib/{python,virtualenvs}
 ln -s ~/lib/virtualenvs/  ~/.virtualenvs
 
 rm $HOME/.config/ipython/profile_default/ipython_config.py
@@ -71,11 +73,11 @@ ln -s $HOME/lib/dotfiles/matplotlibrc $HOME/.config/matplotlib/matplotlibrc
 # }}}
 
 #{{{ Other repos
-git clone git@github.com:saimn/color-theme-wombat.git           ~/lib/color-theme-wombat
+# git clone git@github.com:saimn/color-theme-wombat.git           ~/lib/color-theme-wombat
 git clone https://github.com/mitsuhiko/flask-sphinx-themes.git  ~/lib/flask-sphinx-themes
 git clone https://github.com/jsmits/github-cli.git              ~/lib/github-cli
 # git clone git://gitorious.org/mutt-notmuch/mutt-notmuch.git     ~/lib/mutt-notmuch
-git clone https://github.com/apenwarr/sshuttle.git              ~/lib/sshuttle
+# git clone https://github.com/apenwarr/sshuttle.git              ~/lib/sshuttle
 git clone https://github.com/gfxmonk/supergenpass.git           ~/lib/supergenpass
 
 hg clone https://bitbucket.org/thayerwilliams/vimbrant          ~/lib/vimbrant
