@@ -1437,6 +1437,14 @@ let g:secure_modelines_allowed_items = [
             \ ]
 
 " }}}
+" Signify {{{
+
+let g:signify_vcs_list = [ 'git', 'hg' ]
+" let g:signify_disable_by_default = 0
+" let g:signify_skip_filetype = { 'vim': 1, 'c': 1 }
+" let g:signify_skip_filename = { '/home/user/.vimrc': 1 }
+
+"}}}
 " Sparkup {{{
 
 augroup ft_sparkup
