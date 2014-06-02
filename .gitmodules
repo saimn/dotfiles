@@ -126,3 +126,6 @@
 [submodule "vim/bundle/signify"]
 	path = vim/bundle/signify
 	url = https://github.com/mhinz/vim-signify
+[submodule "vim/bundle/salt"]
+	path = vim/bundle/salt
+	url = https://github.com/saltstack/salt-vim.git

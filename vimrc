@@ -1062,11 +1062,14 @@ augroup END
 " }}}
 " Salt {{{
 
-augroup ft_salt
-    au!
+" Force using the Jinja template syntax file
+let g:sls_use_jinja_syntax = 1
 
-    au BufRead,BufNewFile *.sls setfiletype yaml
-augroup END
+" augroup ft_salt
+"     au!
+
+"     au BufRead,BufNewFile *.sls setfiletype yaml
+" augroup END
 
 " }}}
 " Shell {{{
