@@ -1147,6 +1147,7 @@ augroup END
 augroup ft_xml
     au!
 
+    au FileType xml setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
     au FileType xml setlocal foldmethod=manual
 
     " Use <localleader>f to fold the current tag.
