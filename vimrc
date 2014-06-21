@@ -401,7 +401,9 @@ nnoremap <c-n> :bnext!<CR>
 nnoremap <c-p> :bprev!<CR>
 
 " make ; do the same thing as :
-nnoremap ; :
+" nnoremap ; :
+" visual command line
+nnoremap ; :<c-f>
 
 " map CTRL+k S N (non-breaking space) to CTRL+space
 imap <Nul> <C-k>NS
