@@ -28,9 +28,7 @@ c = get_config()
 # c.InteractiveShellApp.exec_PYTHONSTARTUP = True
 
 # lines of code to run at IPython startup.
-c.InteractiveShellApp.exec_lines = [
-    'import os,sys',
-]
+# c.InteractiveShellApp.exec_lines = []
 
 # Enable GUI event loop integration with any of ('glut', 'gtk', 'gtk3', 'none',
 # 'osx', 'pyglet', 'qt', 'qt4', 'tk', 'wx').
@@ -55,12 +53,12 @@ c.InteractiveShellApp.extensions = [
     # 'memory_profiler_ext',
 ]
 
-# run the module as a script.
-# c.interactiveshellapp.module_to_run = ''
+# Run the module as a script.
+# c.InteractiveShellApp.module_to_run = ''
 
-# should variables loaded at startup (by startup files, exec_lines, etc.) be
+# Should variables loaded at startup (by startup files, exec_lines, etc.) be
 # hidden from tools like %who?
-# c.interactiveshellapp.hide_initial_ns = true
+# c.InteractiveShellApp.hide_initial_ns = True
 
 # dotted module name of an IPython extension to load.
 # c.InteractiveShellApp.extra_extension = ''
@@ -106,9 +104,7 @@ c.InteractiveShellApp.extensions = [
 # c.TerminalIPythonApp.log_level = 30
 
 # lines of code to run at IPython startup.
-c.TerminalIPythonApp.exec_lines = [
-    'import os,sys',
-]
+# c.TerminalIPythonApp.exec_lines = []
 
 # Suppress warning messages about legacy config files
 # c.TerminalIPythonApp.ignore_old_config = False
@@ -489,6 +485,14 @@ c.TerminalInteractiveShell.term_title = True
 # If False, only the completion results from the first non-empty completer will
 # be returned.
 # c.IPCompleter.merge_completions = True
+# Instruct the completer to use __all__ for the completion
+#
+# Specifically, when completing on ``object.<tab>``.
+#
+# When True: only those names in obj.__all__ will be included.
+#
+# When False [default]: the __all__ attribute is ignored
+# c.IPCompleter.limit_to__all__ = False
 
 # Activate greedy completion
 #

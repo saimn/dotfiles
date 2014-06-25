@@ -2,15 +2,18 @@
 - *.iso
 - *.log
 - *.swp
+- *.pyc
 - *~
 - /tags
 - .git/modules
 
+- __pycache__/
 - .Cache*/
 - .Trash-1000/
 - .adobe/
 - .cache*/
 - .ccache/
+- *.egg-info/
 - .gvfs/
 - .local/share/akonadi/
 - .local/share/baloo/
