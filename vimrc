@@ -273,9 +273,12 @@ nnoremap <leader>tc :tabclose<cr>
 " System clipboard interaction.  Mostly from:
 " https://github.com/henrik/dotfiles/blob/master/vim/config/mappings.vim
 noremap <leader>y "*y
-noremap <leader>p :silent! set paste<CR>"*p<CR>:set nopaste<CR>
-noremap <leader>P :set paste<CR>"*P<CR>:set nopaste<CR>
+noremap <leader>Y "+y
 vnoremap <leader>y "*ygv
+vnoremap <leader>Y "+ygv
+" noremap <leader>p :silent! set paste<CR>"*p<CR>:set nopaste<CR>
+noremap <leader>p :set paste<CR>"*P<CR>:set nopaste<CR>
+noremap <leader>P :set paste<CR>"+P<CR>:set nopaste<CR>
 
 " Rebuild Ctags (mnemonic RC -> CR -> <cr>)
 nnoremap <leader><cr> :silent !ctags -R .<cr>:redraw!<cr>
@@ -891,12 +894,14 @@ runtime! ftplugin/man.vim
 " }}}
 " Markdown {{{
 
+let g:markdown_folding = 1
+
 augroup ft_markdown
     au!
 
-    au BufNewFile,BufRead *.m*down setlocal filetype=markdown
-    au BufNewFile,BufRead *.md setfiletype markdown
-    au BufNewFile,BufRead *.mkd setfiletype markdown
+    " au BufNewFile,BufRead *.m*down setlocal filetype=markdown
+    " au BufNewFile,BufRead *.md setfiletype markdown
+    " au BufNewFile,BufRead *.mkd setfiletype markdown
     au FileType markdown setlocal foldlevel=1
 
     " Use <localleader>1/2/3 to add headings.
