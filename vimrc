@@ -272,6 +272,7 @@ nnoremap <leader>tc :tabclose<cr>
 
 " System clipboard interaction.  Mostly from:
 " https://github.com/henrik/dotfiles/blob/master/vim/config/mappings.vim
+" *: primary, +: clipboard
 noremap <leader>y "*y
 noremap <leader>Y "+y
 vnoremap <leader>y "*ygv
@@ -360,7 +361,8 @@ nnoremap =- V`]=
 nnoremap S i<cr><esc>^mwgk:silent! s/\v +$//<cr>:noh<cr>`w
 
 " HTML tag closing
-inoremap <C-_> <space><bs><esc>:call InsertCloseTag()<cr>a
+" inoremap <C-_> <space><bs><esc>:call InsertCloseTag()<cr>a
+inoremap <C-_> </<C-X><C-O>
 
 " Source
 vnoremap <leader>S y:execute @@<cr>:echo 'Sourced selection.'<cr>
@@ -449,8 +451,12 @@ nnoremap _d  :set ft=diff<CR>
 " }}}
 " Insert Mode Completion {{{
 
+" filenames
 inoremap <c-f> <c-x><c-f>
+" tags
 inoremap <c-]> <c-x><c-]>
+" dictionary
+inoremap <c-k> <c-x><c-k>
 
 " }}}
 
@@ -859,6 +865,7 @@ augroup ft_javascript
     au FileType javascript setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
     au FileType javascript setlocal foldmethod=marker
     au FileType javascript setlocal foldmarker={,}
+    au FileType javascript setlocal omnifunc=javascriptcomplete#Complete
 
     " Make {<cr> insert a pair of brackets in such a way that the cursor is correctly
     " positioned inside of them AND the following code doesn't get unfolded.
