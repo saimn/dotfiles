@@ -1424,11 +1424,6 @@ let g:pymode_rope_autoimport = 0
 " let g:pymode_rope_always_show_complete_menu = 0
 
 " }}}
-" Riv {{{
-
-let g:riv_fold_level=0
-
-" }}}
 " Scratch {{{
 
 command! ScratchToggle call ScratchToggle()
