@@ -111,9 +111,13 @@ function backup_music () {
 # backup nexus {{{
 function backup_nexus () {
     rsync $OPTS $DRYRUN --prune-empty-dirs \
-        --exclude=Android/ --exclude="LOST.DIR/" --exclude=".Trash-1000/" \
+        --exclude=Android/ \
+        --exclude="LOST.DIR/" \
+        --exclude=".Trash-1000/" \
         --exclude=Musique/ \
-        /run/media/simon/35EE-1E0E/ ~/Private/telephone/nexus/
+        --exclude=Voyages-SNCF/ \
+        --exclude=storage/ \
+        ~/Android/Mémoire\ de\ stockage\ interne/ ~/Private/telephone/motog/
 }
 # }}}
 

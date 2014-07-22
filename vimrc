@@ -1372,11 +1372,11 @@ let NERDTreeShowBookmarks = 1
 " }}}
 " OrgMode {{{
 
-let g:org_heading_shade_leading_stars = 0
+let g:org_heading_shade_leading_stars = 1
 " let g:org_plugins = ['ShowHide', '|', 'Navigator', 'EditStructure', '|', 'Todo', 'Date', 'Misc']
 
 let g:org_todo_keywords = ['TODO', '|', 'DONE']
-let g:org_agenda_files = ['~/org/index.org']
+let g:org_agenda_files = ['~/org/home.org', '~/org/work.org']
 
 " let g:org_debug = 1
 
