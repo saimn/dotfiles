@@ -1,0 +1,8 @@
+#compdef grunt
+
+if type grunt > /dev/null; then
+  eval "$(grunt --completion=zsh)"
+
+  _grunt_completion "$@"
+fi
+

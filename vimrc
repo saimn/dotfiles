@@ -1232,6 +1232,7 @@ augroup plugin_commentary
     au FileType lisp setlocal commentstring=;\ %s
     au FileType puppet setlocal commentstring=#\ %s
     au FileType fish setlocal commentstring=#\ %s
+    au FileType cfg setlocal commentstring=#\ %s
     au FileType pentadactyl setlocal commentstring=\"\ %s
 augroup END
 
@@ -1444,9 +1445,10 @@ nnoremap <silent> <leader><tab> :ScratchToggle<cr>
 " Secure Modelines {{{
 
 let g:secure_modelines_allowed_items = [
-            \ "textwidth",   "tw",
-            \ "foldmethod",  "fdm",
-            \ "filetype",    "ft",
+            \ "textwidth",     "tw",
+            \ "foldmethod",    "fdm",
+            \ "filetype",      "ft",
+            \ "commentstring", "cms",
             \ ]
 
 " }}}

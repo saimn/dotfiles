@@ -1,0 +1,10 @@
+#compdef npm
+
+# Node Package Manager completion, letting npm do all the completion work
+# replace /usr/share/zsh/functions/Completion/Unix/_npm while it is outdated
+
+if type npm > /dev/null; then
+  eval "$(npm completion)"
+
+  _npm_completion "$@"
+fi

@@ -69,9 +69,9 @@ alias sv="sudo vim"
 alias webshare='python2 -m SimpleHTTPServer'
 
 # open & close dropbox coffre
-alias sync="unison default -batch"
-alias coffre-open='encfs $HOME/Dropbox/coffre $HOME/Documents/coffre-dropbox'
-alias coffre-close='fusermount -u $HOME/Documents/coffre-dropbox'
+# alias sync="unison default -batch"
+# alias coffre-open='encfs $HOME/Dropbox/coffre $HOME/Documents/coffre-dropbox'
+# alias coffre-close='fusermount -u $HOME/Documents/coffre-dropbox'
 
 # ping (since control-c don't work for break ping)
 alias ping="ping -c 3"

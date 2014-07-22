@@ -9,7 +9,8 @@ PATH="$HOME/bin/git:${PATH}"
 PATH="$HOME/.local/bin:${PATH}"
 export PATH
 
-fpath=( "$HOME/lib/dotfiles/zsh" $fpath )
+# modify fpath before call compinit
+fpath=( "$HOME/lib/dotfiles/zsh" "$HOME/lib/dotfiles/zsh/completion" $fpath )
 
 # Source Prezto.
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then

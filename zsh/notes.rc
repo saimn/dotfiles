@@ -1,5 +1,4 @@
-# -*- shell-script -*-
-# vim: set syntax=zsh:
+# vim: ft=zsh
 
 # {{{ Startup
 uname -sr
