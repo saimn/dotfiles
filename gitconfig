@@ -33,9 +33,9 @@
    gflog = log -p --cc --graph --decorate
 
    # summary of what you're going to pull/push
-   incoming = "!git fetch && git log ..origin/master --stat"
-   outgoing = log --oneline origin/master..HEAD
-   sync = !git pull && git push
+   in = "!git fetch && git log ..origin/master --stat"
+   out = log --oneline origin/master..HEAD
+   sync = !git stash && git pull && git new && git stash pop
 
    # see what new commits have been created by the last command (typically after a "git pull")
    new = !sh -c 'git log $1@{1}..$1@{0} "$@"'
@@ -52,7 +52,7 @@
    w = whatchanged -p
 
    # info
-   info = remote -v
+   remotes = remote -v
 
    # fires up a git daemon for the repo you are currently in
    serve = daemon --verbose --export-all --base-path=.git --reuseaddr --strict-paths .git/
@@ -62,7 +62,7 @@
    prune-all = !git remote | xargs -n 1 git remote prune
 
    # Show git branches sorted by latest commit
-   latest = for-each-ref --sort=-committerdate --format='%(committerdate:relative) %(refname:short)'
+   latest = for-each-ref --sort=-committerdate --format='%(color:green)%(committerdate:relative) %(color:yellow)%(objectname:short) %(color:white)%(refname:short) %(color:blue)%(authorname) %(color:white)%(contents:subject)'
 
    ours = "!f() { git checkout --ours -- $@ && git add -- $@; }; f"
    theirs = "!f() { git checkout --theirs -- $@ && git add -- $@; }; f"
@@ -93,9 +93,6 @@
    added = yellow
    changed = green
    untracked = cyan
-[merge]
-   tool = meld
-   stat = true
 [rebase]
    stat = true
 [branch]
@@ -103,14 +100,16 @@
    autosetuprebase = always
 [push]
 	default = simple
+[pull]
+    rebase = true
+[merge]
+   tool = gvimdiff3
+   stat = true
+[mergetool "gvimdiff3"]
+    cmd = gvim -f -d -c \"wincmd J\" \"$MERGED\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"
+[mergetool "vimdiff3"]
+    cmd = vim -f -d -c \"wincmd J\" \"$MERGED\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"
 [github]
    user = saimn
-
-[mergetool "gvimdiff3"]
-	cmd = gvim -f -d -c \"wincmd J\" \"$MERGED\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"
-[mergetool "vimdiff3"]
-	cmd = vim -f -d -c \"wincmd J\" \"$MERGED\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"
-[pull]
-	rebase = true
 [include]
     path = .gitconfig.local
