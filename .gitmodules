@@ -132,3 +132,6 @@
 [submodule "vim/bundle/ipython"]
 	path = vim/bundle/ipython
 	url = https://github.com/ivanov/vim-ipython.git
+[submodule "vim/bundle/clam"]
+	path = vim/bundle/clam
+	url = https://github.com/sjl/clam.vim.git

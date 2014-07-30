@@ -134,9 +134,7 @@ set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg   " binary images
 set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest " compiled object files
 set wildignore+=*.spl                            " compiled spelling word lists
 set wildignore+=*.sw?                            " Vim swap files
-set wildignore+=*.DS_Store                       " OSX bullshit
 set wildignore+=*.luac                           " Lua byte code
-set wildignore+=migrations                       " Django migrations
 set wildignore+=*.pyc,*.pyo                      " Python byte code
 set wildignore+=*.orig                           " Merge resolution files
 
@@ -355,6 +353,12 @@ nnoremap =- V`]=
 
 " Keep the cursor in place while joining lines
 " nnoremap J mzJ`z
+
+" Join an entire paragraph.
+"
+" Useful for writing GitHub comments in actual Markdown and then translating it
+" to their bastardized version of Markdown.
+nnoremap <leader>J mzvipJ`z
 
 " Split line (sister to [J]oin lines)
 " The normal use of S is covered by cc, so don't worry about shadowing it.
@@ -1173,26 +1177,6 @@ augroup END
 
 " }}}
 " }}}
-" Shell ------------------------------------------------------------------- {{{
-
-function! s:ExecuteInShell(command) " {{{
-    let command = join(map(split(a:command), 'expand(v:val)'))
-    let winnr = bufwinnr('^' . command . '$')
-    silent! execute  winnr < 0 ? 'botright vnew ' . fnameescape(command) : winnr . 'wincmd w'
-    setlocal buftype=nowrite bufhidden=wipe nobuflisted noswapfile nowrap nonumber
-    echo 'Execute ' . command . '...'
-    silent! execute 'silent %!'. command
-    silent! redraw
-    silent! execute 'au BufUnload <buffer> execute bufwinnr(' . bufnr('#') . ') . ''wincmd w'''
-    silent! execute 'nnoremap <silent> <buffer> <LocalLeader>r :call <SID>ExecuteInShell(''' . command . ''')<CR>:AnsiEsc<CR>'
-    silent! execute 'nnoremap <silent> <buffer> q :q<CR>'
-    silent! execute 'AnsiEsc'
-    echo 'Shell command ' . command . ' executed.'
-endfunction " }}}
-command! -complete=shellcmd -nargs=+ Shell call s:ExecuteInShell(<q-args>)
-nnoremap <leader>! :Shell
-
-" }}}
 " Plugin settings --------------------------------------------------------- {{{
 
 " Ack {{{
@@ -1217,6 +1201,14 @@ let g:airline#extensions#whitespace#enabled = 0
 " Bbye {{{
 
 nnoremap <Leader>q :Bdelete<CR>
+
+" }}}
+" Clam {{{
+
+nnoremap ! :Clam<space>
+vnoremap ! :ClamVisual<space>
+let g:clam_autoreturn = 1
+let g:clam_debug = 1
 
 " }}}
 " Commentary {{{
@@ -1637,7 +1629,8 @@ function! ToggleDiffWhitespace()
     diffupdate
 endfunc
 
-nnoremap <leader>W :call ToggleDiffWhitespace()<CR>
+" TODO: Figure out the diffexpr shit necessary to make this buffer-local.
+" nnoremap <leader>W :call ToggleDiffWhitespace()<CR>
 
 " }}}
 " Error Toggles {{{
