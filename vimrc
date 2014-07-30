@@ -373,9 +373,9 @@ vnoremap <leader>S y:execute @@<cr>:echo 'Sourced selection.'<cr>
 nnoremap <leader>S ^vg_y:execute @@<cr>:echo 'Sourced line.'<cr>
 
 " Marks and Quotes
-noremap ' `
-noremap æ '
-noremap ` <C-^>
+" noremap ' `
+" noremap æ '
+" noremap ` <C-^>
 
 " Select (charwise) the contents of the current line, excluding indentation.
 " Great for pasting Python lines into REPLs.
@@ -410,9 +410,9 @@ nnoremap <c-n> :bnext!<CR>
 nnoremap <c-p> :bprev!<CR>
 
 " make ; do the same thing as :
-" nnoremap ; :
+nnoremap ; :
 " visual command line
-nnoremap ; :<c-f>
+" nnoremap ; :<c-f>
 
 " map CTRL+k S N (non-breaking space) to CTRL+space
 imap <Nul> <C-k>NS
@@ -708,8 +708,6 @@ augroup END
 augroup ft_css
     au!
 
-    au BufNewFile,BufRead *.less setlocal filetype=less
-
     au Filetype less,css,scss setlocal foldmethod=marker
     au Filetype less,css,scss setlocal foldmarker={,}
     au Filetype less,css,scss setlocal omnifunc=csscomplete#CompleteCSS
@@ -739,12 +737,15 @@ augroup ft_css
 
     " Make {<cr> insert a pair of brackets in such a way that the cursor is correctly
     " positioned inside of them AND the following code doesn't get unfolded.
-    au BufNewFile,BufRead *.less,*.css inoremap <buffer> {<cr> {}<left><cr><space><space><space><space>.<cr><esc>kA<bs>
+    au BufNewFile,BufRead *.less,*.css,*.scss inoremap <buffer> {<cr> {}<left><cr><space><space><space><space>.<cr><esc>kA<bs>
 augroup END
 
 augroup ft_less
     au!
-    autocmd FileWritePost,BufWritePost *.less :call LessCSSCompress()
+
+    au BufNewFile,BufRead *.less setlocal filetype=less
+    " au FileWritePost,BufWritePost *.less :call LessCSSCompress()
+
     function! LessCSSCompress()
         let cwd = expand(':p:h')
         let name = expand(':t:r')
@@ -1003,12 +1004,12 @@ augroup END
 " }}}
 " Puppet {{{
 
-augroup ft_puppet
-    au!
+" augroup ft_puppet
+"     au!
 
-    au Filetype puppet setlocal foldmethod=marker
-    au Filetype puppet setlocal foldmarker={,}
-augroup END
+"     au Filetype puppet setlocal foldmethod=marker
+"     au Filetype puppet setlocal foldmarker={,}
+" augroup END
 
 " }}}
 " Python {{{
@@ -1208,7 +1209,7 @@ nnoremap <Leader>q :Bdelete<CR>
 nnoremap ! :Clam<space>
 vnoremap ! :ClamVisual<space>
 let g:clam_autoreturn = 1
-let g:clam_debug = 1
+" let g:clam_debug = 1
 
 " }}}
 " Commentary {{{
@@ -1760,39 +1761,6 @@ function! IndentGuides() " {{{
 endfunction " }}}
 hi def IndentGuides guibg=#303030 ctermbg=234
 nnoremap <leader>I :call IndentGuides()<cr>
-
-" }}}
-" Block Colors {{{
-
-let g:blockcolor_state = 0
-function! BlockColor() " {{{
-    if g:blockcolor_state
-        let g:blockcolor_state = 0
-        call matchdelete(77881)
-        call matchdelete(77882)
-        call matchdelete(77883)
-        call matchdelete(77884)
-        call matchdelete(77885)
-        call matchdelete(77886)
-    else
-        let g:blockcolor_state = 1
-        call matchadd("BlockColor1", '^ \{4}.*', 1, 77881)
-        call matchadd("BlockColor2", '^ \{8}.*', 2, 77882)
-        call matchadd("BlockColor3", '^ \{12}.*', 3, 77883)
-        call matchadd("BlockColor4", '^ \{16}.*', 4, 77884)
-        call matchadd("BlockColor5", '^ \{20}.*', 5, 77885)
-        call matchadd("BlockColor6", '^ \{24}.*', 6, 77886)
-    endif
-endfunction " }}}
-" Default highlights {{{
-hi def BlockColor1 guibg=#222222 ctermbg=234
-hi def BlockColor2 guibg=#2a2a2a ctermbg=235
-hi def BlockColor3 guibg=#353535 ctermbg=236
-hi def BlockColor4 guibg=#3d3d3d ctermbg=237
-hi def BlockColor5 guibg=#444444 ctermbg=238
-hi def BlockColor6 guibg=#4a4a4a ctermbg=239
-" }}}
-nnoremap <leader>B :call BlockColor()<cr>
 
 " }}}
 " Pulse Line {{{
