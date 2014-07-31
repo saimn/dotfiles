@@ -135,3 +135,6 @@
 [submodule "vim/bundle/clam"]
 	path = vim/bundle/clam
 	url = https://github.com/sjl/clam.vim.git
+[submodule "vim/bundle/tern_for_vim"]
+	path = vim/bundle/tern_for_vim
+	url = https://github.com/marijnh/tern_for_vim.git
