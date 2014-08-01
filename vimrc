@@ -280,7 +280,7 @@ noremap <leader>p :set paste<CR>"*P<CR>:set nopaste<CR>
 noremap <leader>P :set paste<CR>"+P<CR>:set nopaste<CR>
 
 " Rebuild Ctags (mnemonic RC -> CR -> <cr>)
-nnoremap <leader><cr> :silent !ctags -R .<cr>:redraw!<cr>
+nnoremap <leader><cr> :silent !myctags<cr>:redraw!<cr>
 
 " Clean trailing whitespace
 nnoremap <leader>w mz:%s/\s\+$//<cr>:let @/=''<cr>`z
@@ -426,8 +426,6 @@ nnoremap <leader>C :cd %:p:h<CR>:pwd<CR>
 " map <Right> :echo "no!"<cr>
 " map <Up> :echo "no!"<cr>
 " map <Down> :echo "no!"<cr>
-
-noremap <F10> :set go+=m<CR>
 
 " expand %% to current directory in command-line mode
 " http://vimcasts.org/e/14
@@ -637,7 +635,7 @@ nnoremap <Space> za
 vnoremap <Space> za
 
 " "Refocus" folds
-nnoremap ,z zMzvzz
+nnoremap <leader>z zMzvzz
 
 " Make zO recursively open whatever fold we're in, even if it's partially open.
 nnoremap zO zczO
@@ -1189,12 +1187,14 @@ let g:ackprg = 'ag --smart-case --nogroup --nocolor --column'
 " Airline {{{
 
 let g:airline_powerline_fonts = 1
-let g:airline_section_z = airline#section#create_right(['%3l:%1c'])
+" let g:airline_section_z = airline#section#create_right(['%2p%% %3l:%1c'])
 let g:airline_theme='badwolf'
 
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#syntastic#enabled = 1
-let g:airline#extensions#tagbar#enabled = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tagbar#enabled = 0
+let g:airline#extensions#tmuxline#enabled = 0
 let g:airline#extensions#virtualenv#enabled = 1
 let g:airline#extensions#whitespace#enabled = 0
 
@@ -1226,6 +1226,7 @@ augroup plugin_commentary
     au FileType puppet setlocal commentstring=#\ %s
     au FileType fish setlocal commentstring=#\ %s
     au FileType cfg setlocal commentstring=#\ %s
+    au FileType tmux setlocal commentstring=#\ %s
     au FileType pentadactyl setlocal commentstring=\"\ %s
 augroup END
 
@@ -1274,9 +1275,18 @@ let my_ctrlp_ffind_command = "" .
 let g:ctrlp_user_command = ['.git/', my_ctrlp_ffind_command, my_ctrlp_user_command]
 
 " }}}
+" DirDiff {{{
+
+" just
+nnoremap <Leader>@g <Plug>DirDiffGet
+nnoremap <Leader>@p <Plug>DirDiffPut
+nnoremap <Leader>@j <Plug>DirDiffNext
+nnoremap <Leader>@k <Plug>DirDiffPrev
+
+" }}}
 " Dispatch {{{
 
-nnoremap <leader>d :Dispatch<cr>
+nnoremap <leader>d :Dispatch
 " nnoremap <leader>m :Dispatch<cr>
 
 " }}}
@@ -1301,9 +1311,9 @@ augroup ft_fugitive
     au BufNewFile,BufRead .git/index setlocal nolist
 augroup END
 
-" "Hub"
-nnoremap <leader>H :Gbrowse<cr>
-vnoremap <leader>H :Gbrowse<cr>
+" Hub
+nnoremap <leader>gh :Gbrowse<cr>
+vnoremap <leader>gh :Gbrowse<cr>
 
 " }}}
 " Gundo {{{
@@ -1876,6 +1886,24 @@ endif
 "let spell_insert_mode = 0
 
 " }}}
+" Menubar Toggle {{{
+
+set go-=m
+let g:menubar_on = 0
+function! ToggleMenuBar()
+    if g:menubar_on
+        set go-=m
+        let g:menubar_on = 0
+    else
+        set go+=m
+        let g:menubar_on = 1
+    endif
+    diffupdate
+endfunc
+
+nnoremap <F10> :call ToggleMenuBar()<CR>
+
+" }}}
 
 " }}}
 " Environments (GUI/Console) ---------------------------------------------- {{{
@@ -1940,37 +1968,37 @@ endif
 " }}}
 " Status line ------------------------------------------------------------- {{{
 
-augroup ft_statuslinecolor
-    au!
+" augroup ft_statuslinecolor
+"     au!
 
-    au InsertEnter * hi StatusLine ctermfg=196 guifg=#FF3145
-    au InsertLeave * hi StatusLine ctermfg=130 guifg=#CD5907
-augroup END
+"     au InsertEnter * hi StatusLine ctermfg=196 guifg=#FF3145
+"     au InsertLeave * hi StatusLine ctermfg=130 guifg=#CD5907
+" augroup END
 
-set statusline=%f    " Path.
-set statusline+=%m   " Modified flag.
-set statusline+=%r   " Readonly flag.
-set statusline+=%w   " Preview window flag.
+" set statusline=%f    " Path.
+" set statusline+=%m   " Modified flag.
+" set statusline+=%r   " Readonly flag.
+" set statusline+=%w   " Preview window flag.
 
-set statusline+=\    " Space.
+" set statusline+=\    " Space.
 
-set statusline+=%#redbar#                " Highlight the following as a warning.
-set statusline+=%{SyntasticStatuslineFlag()} " Syntastic errors.
-set statusline+=%*                           " Reset highlighting.
+" set statusline+=%#redbar#                " Highlight the following as a warning.
+" set statusline+=%{SyntasticStatuslineFlag()} " Syntastic errors.
+" set statusline+=%*                           " Reset highlighting.
 
-set statusline+=%=   " Right align.
+" set statusline+=%=   " Right align.
 
-" File format, encoding and type.  Ex: "(unix/utf-8/python)"
-set statusline+=(
-set statusline+=%{&ff}                        " Format (unix/DOS).
-set statusline+=/
-set statusline+=%{strlen(&fenc)?&fenc:&enc}   " Encoding (utf-8).
-set statusline+=/
-set statusline+=%{&ft}                        " Type (python).
-set statusline+=)
+" " File format, encoding and type.  Ex: "(unix/utf-8/python)"
+" set statusline+=(
+" set statusline+=%{&ff}                        " Format (unix/DOS).
+" set statusline+=/
+" set statusline+=%{strlen(&fenc)?&fenc:&enc}   " Encoding (utf-8).
+" set statusline+=/
+" set statusline+=%{&ft}                        " Type (python).
+" set statusline+=)
 
-" Line and column position and counts.
-set statusline+=\ (line\ %l\/%L,\ col\ %03c)
+" " Line and column position and counts.
+" set statusline+=\ (line\ %l\/%L,\ col\ %03c)
 
 " }}}
 " Local config ------------------------------------------------------------ {{{

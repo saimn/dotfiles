@@ -47,7 +47,7 @@ Fn keys~
 *<F6>*    :set paste!
 *<F7>*    :call SynStack()
 *<F9>*    :TagbarToggle
-*<F10>*   :set go+=m
+*<F10>*   :call ToggleMenuBar()
 *<F11>*   :YRShow
 *<F12>*    mzggg?G`z  (Panic Button)
 
@@ -61,11 +61,10 @@ Config~
 <
 Normal mode~
 
-*<leader>!*       :Shell
+*<leader>!*       :Shell/Clam
 *<leader>:*       :%s//<left>
 *<leader>,*       :CtrlP
 *<leader>;*       :CtrlPTag
-*<leader>@*       {v}! par 72j
 *<leader>#*       gwap
 *<leader>/*       Ack
 *<leader>?*       :execute 'vimgrep /'.@/.'/g %'<CR>:copen
@@ -85,7 +84,6 @@ Normal mode~
 
 *<leader>a*       :Ack!<space>
 *<leader>A*       :set opfunc=<SID>AckMotion<CR>g@
-*<leader>B*       :call BlockColor()
 *<leader>b*       :CtrlPBuffer
 *<leader>c*       <Plug>CommentaryLine
 *<leader>C*       Change cwd
@@ -101,7 +99,7 @@ Normal mode~
 *<leader>gr*      :Gremove
 *<leader>gs*      :Gstatus
 *<leader>gw*      :Gwrite
-*<leader>H*       :Gbrowse
+*<leader>gh*      :Gbrowse
 *<leader>I*       :call IndentGuides()
 *<leader>i*       :set list!
 *<leader>L*       :LinediffReset
@@ -122,10 +120,11 @@ Normal mode~
 *<leader>W*       :call ToggleDiffWhitespace()
 *<leader>w*       mz:%s/\s\+$//<cr>:let @/=''<cr>`z
 *<leader>y*       "*y
+*<leader>z*       Refocus folds
 
 Visual mode~
 
-*<leader>H*   :Gbrowse
+*<leader>gh*   :Gbrowse
 *<leader>l*   :Linediff
 *<leader>s*   :!sort
 *<leader>S*   y:execute @@<cr>:echo 'Sourced selection.'
