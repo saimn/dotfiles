@@ -1543,6 +1543,19 @@ let g:tagbar_zoomwidth = 0
 " let g:tagbar_autoshowtag = 1
 let g:tagbar_iconchars = ['▸', '▾']
 
+"  }}}
+" Tmuxline {{{
+
+  let g:tmuxline_preset = {
+      \'a'       : '#H',
+      \'b'       : '#S',
+      \'c'       : '#W',
+      \'win'     : '#I #W',
+      \'cwin'    : '#I #W',
+      \'x'       : '#(uptime  | cut -d " " -f 1,2,3)',
+      \'y'       : '%H:%M',
+      \'z'       : '#T'}
+
 " }}}
 " Ultisnips {{{
 
