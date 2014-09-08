@@ -54,6 +54,8 @@
    # info
    remotes = remote -v
 
+   pushb = !git push -u origin $(git rev-parse --abbrev-ref HEAD)
+
    # fires up a git daemon for the repo you are currently in
    serve = daemon --verbose --export-all --base-path=.git --reuseaddr --strict-paths .git/
    serveall = daemon --verbose --export-all --base-path=. --reuseaddr .
