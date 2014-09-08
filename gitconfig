@@ -99,9 +99,11 @@
    autosetupmerge = true
    autosetuprebase = always
 [push]
-	default = simple
+    default = simple
 [pull]
     rebase = true
+[status]
+    submodulesummary = true
 [merge]
    tool = gvimdiff3
    stat = true
