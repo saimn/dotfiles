@@ -9,28 +9,36 @@
    # autocrlf = input
    # safecrlf = true
 [alias]
-   addrm = add -u
    br = branch
-   ci = commit -v
    co = checkout
    cp = cherry-pick
-   ls = ls-files
+   rb = rebase
    st = status -sb
    tags = tag -l
 
+   ls = ls-files
+   ignored = ls-files --others
+
+   ci = commit -v
    unci = reset HEAD^
    uncommit = reset HEAD^
    unstage = reset HEAD --
-   ignored = ls-files --others
+
+   amend = commit --amend --no-edit
+   fixup = commit --fixup
+   squash = commit --squash
 
    # log
-   authorcount = shortlog -sn
+   authorcount = shortlog -sn --no-merges
    authors = "!git log --format='%aN <%aE>' | sort -u"
    logs = log --stat
-   logv = log -p
+   logv = log --patch-with-stat
    oneline = log --graph --all --abbrev-commit --decorate --pretty=oneline
    hist = log --graph --all --pretty=format:'%C(auto)%h%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)[%an]%Creset'
    gflog = log -p --cc --graph --decorate
+
+   # Credit an author on the latest commit
+   credit = "!f() { git commit --amend --author \"$1 <$2>\" -C HEAD; }; f"
 
    # summary of what you're going to pull/push
    in = "!git fetch && git log ..origin/master --stat"
@@ -101,11 +109,12 @@
    autosetupmerge = true
    autosetuprebase = always
 [push]
-    default = simple
+    default = upstream
 [pull]
-    rebase = true
+    rebase = preserve
 [status]
     submodulesummary = true
+	showUntrackedFiles = all
 [merge]
    tool = gvimdiff3
    stat = true

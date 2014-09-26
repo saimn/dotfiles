@@ -1257,7 +1257,7 @@ let ctrlp_filter_greps = "".
     \ "jar|class|swp|swo|log|so|o|pyc|pyo|jpe?g|png|gif|mo|po|min\.js" .
     \ ")$' | " .
     \ "egrep -v '^(\.\/)?(" .
-    \ "deploy/|lib/|libs/|.git/|.hg/|.svn/|.tox/|dist/|build/|docs/build/|docs/_build/" .
+    \ "node_modules/|lib/|libs/|.git/|.hg/|.svn/|.tox/|dist/|build/|docs/build/|docs/_build/" .
     \ ")'"
 
 let my_ctrlp_user_command = "" .

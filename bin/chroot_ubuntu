@@ -1,0 +1,21 @@
+#!/bin/sh
+
+function activate () {
+  mount -t proc proc /mnt/ubuntu/proc
+  mount -t sysfs sys /mnt/ubuntu/sys
+  mount -o bind /dev /mnt/ubuntu/dev
+  mount -o bind /dev/pts /mnt/ubuntu/dev/pts
+  chroot /mnt/ubuntu /bin/bash
+}
+
+function deactivate () {
+  umount /mnt/ubuntu/dev/pts
+  umount /mnt/ubuntu/dev
+  umount /mnt/ubuntu/sys
+  umount /mnt/ubuntu/proc
+}
+
+case "$1x" in
+    "x") activate;;
+  "-sx") deactivate; exit;;
+esac
