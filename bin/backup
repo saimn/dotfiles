@@ -117,7 +117,8 @@ function backup_nexus () {
         --exclude=Musique/ \
         --exclude=Voyages-SNCF/ \
         --exclude=storage/ \
-        ~/Android/Mémoire\ de\ stockage\ interne/ ~/Private/telephone/motog/
+        --exclude=DCIM/.thumbnails/ \
+        ~/Android/emulated/legacy/ ~/Private/telephone/motog/
 }
 # }}}
 
