@@ -39,10 +39,6 @@ end
 -- }}}
 
 -- {{{ Variable definitions
--- Themes define colours, icons, and wallpapers
-beautiful.init("/usr/share/awesome/themes/default/theme.lua")
--- beautiful.init(home .. "/.config/awesome/themes/zenburn/theme.lua")
-
 -- This is used later as the default terminal and editor to run.
 local altkey = "Mod1"
 local modkey = "Mod4"
@@ -61,6 +57,10 @@ local editor_cmd = terminal .. " -e " .. editor
 local filemgr    = "pcmanfm"
 local htop_cmd   = terminal.." -name htop -geometry 80x7 -e htop"
 local lock_cmd   = "xscreensaver-command -lock"
+
+-- Themes define colours, icons, and wallpapers
+-- beautiful.init("/usr/share/awesome/themes/default/theme.lua")
+beautiful.init(home .. "/.config/awesome/themes/niceandclean/theme.lua")
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 local layouts =
@@ -191,6 +191,25 @@ mytasklist.buttons = awful.util.table.join(
                                               if client.focus then client.focus:raise() end
                                           end))
 
+-- Keyboard map indicator and changer
+kbdcfg = {}
+kbdcfg.cmd = "setxkbmap"
+kbdcfg.layout = { { "fr", "oss" }, { "us", "altgr-intl" } }
+kbdcfg.current = 1  -- fr is our default layout
+kbdcfg.widget = wibox.widget.textbox()
+kbdcfg.widget:set_text(" " .. kbdcfg.layout[kbdcfg.current][1] .. " ")
+kbdcfg.switch = function ()
+  kbdcfg.current = kbdcfg.current % #(kbdcfg.layout) + 1
+  local t = kbdcfg.layout[kbdcfg.current]
+  kbdcfg.widget:set_text(" " .. t[1] .. " ")
+  os.execute( kbdcfg.cmd .. " " .. t[1] .. " " .. t[2] )
+end
+
+ -- Mouse bindings
+kbdcfg.widget:buttons(
+ awful.util.table.join(awful.button({ }, 1, function () kbdcfg.switch() end))
+)
+
 for s = 1, screen.count() do
     -- Create a promptbox for each screen
     mypromptbox[s] = awful.widget.prompt()
@@ -222,6 +241,7 @@ for s = 1, screen.count() do
     -- Widgets that are aligned to the right
     local right_layout = wibox.layout.fixed.horizontal()
     if s == 1 then right_layout:add(wibox.widget.systray()) end
+    right_layout:add(kbdcfg.widget)
     right_layout:add(mytextclock)
     right_layout:add(mylayoutbox[s])
 
