@@ -56,20 +56,16 @@ end
 -- }}}
 
 -- {{{ Variable definitions
--- Themes define colours, icons, and wallpapers
--- beautiful.init("@AWESOME_THEMES_PATH@/default/theme.lua")
-beautiful.init(home .. "/.config/awesome/themes/zenburn/theme.lua")
-
 
 local altkey = "Mod1"
 local modkey = "Mod4"
 
-local home   = os.getenv("HOME")
-local host   = oscapture("hostname")
-local config = awful.util.getdir("config")
-local exec   = awful.util.spawn
-local sexec  = awful.util.spawn_with_shell
-local scount = screen.count()
+local home       = os.getenv("HOME")
+local host       = oscapture("hostname")
+local config     = awful.util.getdir("config")
+local exec       = awful.util.spawn
+local sexec      = awful.util.spawn_with_shell
+local scount     = screen.count()
 local terminal   = "urxvtc"
 local browser    = os.getenv("BROWSER") or "firefox"
 local mail_cmd   = terminal.." -T Mutt -name Mutt -e mutt"
@@ -78,6 +74,10 @@ local editor_cmd = terminal .. " -e " .. editor
 local filemgr    = "pcmanfm"
 local htop_cmd   = terminal.." -name htop -geometry 80x7 -e htop"
 local lock_cmd   = "xscreensaver-command -lock"
+
+-- Themes define colours, icons, and wallpapers
+-- beautiful.init("@AWESOME_THEMES_PATH@/default/theme.lua")
+beautiful.init(home .. "/.config/awesome/themes/zenburn/theme.lua")
 
 -- Note to include a separate config file:
 -- dofile(config .. "/keybindings.lua")
@@ -132,19 +132,19 @@ myawesomemenu = {
 }
 
 mymainmenu = awful.menu({ items = {
-                              { "awesome", myawesomemenu, beautiful.awesome_icon },
-                              { "Suspend", "sudo pm-suspend" },
-                              { "Restart", "systemctl reboot" },
-                              { "Shutdown", "systemctl poweroff" },
-                              { "term", terminal },
-                              { "htop", htop_cmd },
-                              { "browser", browser },
-                              { "mail", mail_cmd },
-                              { "files", filemgr },
-                              { "lock", lock_cmd },
-                              { "quit", awesome.quit }
-                           }
-                        })
+    { "awesome", myawesomemenu, beautiful.awesome_icon },
+    { "Suspend", "sudo pm-suspend" },
+    { "Reboot", "systemctl reboot" },
+    { "Shutdown", "systemctl poweroff" },
+    { "term", terminal },
+    { "htop", htop_cmd },
+    { "browser", browser },
+    { "mail", mail_cmd },
+    { "files", filemgr },
+    { "lock", lock_cmd },
+    { "quit", awesome.quit }
+  }
+})
 
 mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
                                      menu = mymainmenu })
@@ -666,6 +666,7 @@ clientkeys = awful.util.table.join(
 -- }}}
 
 -- {{{ Keyboard digits
+-- Compute the maximum number of digit we need, limited to 9
 local keynumber = 0
 for s = 1, scount do
    keynumber = math.min(9, math.max(#tags[s], keynumber));
@@ -740,16 +741,16 @@ awful.rules.rules = {
     -- float, centered & no titlebar
     { rule_any = { class = { "MPlayer", "Vlc" } },
       properties = { floating = true }, callback = function(c)
-                                                      awful.titlebar.remove(c)
-                                                      awful.placement.centered(c)
-                                                   end },
+          awful.titlebar.remove(c)
+          awful.placement.centered(c)
+      end },
 }
 -- }}}
 
 
 -- {{{ Signals
 --
--- {{{ Manage signal handler
+-- {{{ Signal function to execute when a new client appears.
 client.connect_signal("manage", function (c, startup)
     -- Add a titlebar
     -- awful.titlebar.add(c, { modkey = modkey })

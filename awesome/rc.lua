@@ -12,6 +12,11 @@ local naughty = require("naughty")
 local menubar = require("menubar")
 -- User libraries
 local functions = require("functions")
+-- local revelation = require("revelation")
+local vicious = require("vicious")
+-- require("vicious.contrib")
+local scratch = require("scratch")
+-- }}}
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -62,9 +67,11 @@ local lock_cmd   = "xscreensaver-command -lock"
 -- beautiful.init("/usr/share/awesome/themes/default/theme.lua")
 beautiful.init(home .. "/.config/awesome/themes/niceandclean/theme.lua")
 
+-- Note to include a separate config file:
+-- dofile(config .. "/keybindings.lua")
+
 -- Table of layouts to cover with awful.layout.inc, order matters.
-local layouts =
-{
+local layouts = {
     awful.layout.suit.floating,
     awful.layout.suit.tile,
     -- awful.layout.suit.tile.left,
@@ -436,7 +443,7 @@ clientkeys = awful.util.table.join(
 
 -- {{{ Keyboard digits
 -- Compute the maximum number of digit we need, limited to 9
-keynumber = 0
+local keynumber = 0
 for s = 1, screen.count() do
    keynumber = math.min(9, math.max(#tags[s], keynumber))
 end
@@ -448,31 +455,31 @@ end
 for i = 1, keynumber do
     globalkeys = awful.util.table.join(globalkeys,
         awful.key({ modkey }, "#" .. i + 9,
-                  function ()
-                        local screen = mouse.screen
-                        if tags[screen][i] then
-                            awful.tag.viewonly(tags[screen][i])
-                        end
-                  end),
+        function ()
+            local screen = mouse.screen
+            if tags[screen][i] then
+                awful.tag.viewonly(tags[screen][i])
+            end
+        end),
         awful.key({ modkey, "Control" }, "#" .. i + 9,
-                  function ()
-                      local screen = mouse.screen
-                      if tags[screen][i] then
-                          awful.tag.viewtoggle(tags[screen][i])
-                      end
-                  end),
+        function ()
+            local screen = mouse.screen
+            if tags[screen][i] then
+                awful.tag.viewtoggle(tags[screen][i])
+            end
+        end),
         awful.key({ modkey, "Shift" }, "#" .. i + 9,
-                  function ()
-                      if client.focus and tags[client.focus.screen][i] then
-                          awful.client.movetotag(tags[client.focus.screen][i])
-                      end
-                  end),
+        function ()
+            if client.focus and tags[client.focus.screen][i] then
+                awful.client.movetotag(tags[client.focus.screen][i])
+            end
+        end),
         awful.key({ modkey, "Control", "Shift" }, "#" .. i + 9,
-                  function ()
-                      if client.focus and tags[client.focus.screen][i] then
-                          awful.client.toggletag(tags[client.focus.screen][i])
-                      end
-                  end))
+        function ()
+            if client.focus and tags[client.focus.screen][i] then
+                awful.client.toggletag(tags[client.focus.screen][i])
+            end
+        end))
 end
 -- }}}
 
