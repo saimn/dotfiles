@@ -54,18 +54,21 @@ local config     = awful.util.getdir("config")
 local exec       = awful.util.spawn
 local sexec      = awful.util.spawn_with_shell
 local scount     = screen.count()
+local theme      = "/niceandclean/theme.lua"
+local themedir   = config .. "/themes"
+local wicons     = themedir .. "/icons"
+
 local terminal   = "urxvtc"
 local browser    = os.getenv("BROWSER") or "firefox"
 local mail_cmd   = terminal.." -T Mutt -name Mutt -e mutt"
 local editor     = os.getenv("EDITOR") or "vim"
 local editor_cmd = terminal .. " -e " .. editor
-local filemgr    = "pcmanfm"
 local htop_cmd   = terminal.." -name htop -geometry 80x7 -e htop"
 local lock_cmd   = "xscreensaver-command -lock"
 
 -- Themes define colours, icons, and wallpapers
 -- beautiful.init("/usr/share/awesome/themes/default/theme.lua")
-beautiful.init(home .. "/.config/awesome/themes/niceandclean/theme.lua")
+beautiful.init(themedir .. theme)
 
 -- Note to include a separate config file:
 -- dofile(config .. "/keybindings.lua")
@@ -117,24 +120,28 @@ end
 -- {{{ Menu
 -- Create a laucher widget and a main menu
 myawesomemenu = {
-   { "manual", terminal .. " -e man awesome" },
+   -- { "manual", terminal .. " -e man awesome" },
    { "edit config", editor_cmd .. " " .. awesome.conffile },
    { "restart", awesome.restart },
    { "quit", awesome.quit }
 }
 
 mymainmenu = awful.menu({ items = {
-    { "awesome", myawesomemenu, beautiful.awesome_icon },
-    { "Suspend", "sudo pm-suspend" },
-    { "Reboot", "systemctl reboot" },
-    { "Shutdown", "systemctl poweroff" },
-    { "terminal", terminal },
-    { "htop", htop_cmd },
-    { "browser", browser },
-    { "mail", mail_cmd },
-    { "files", filemgr },
-    { "lock", lock_cmd },
-    { "quit", awesome.quit }
+    -- { "awesome", myawesomemenu, beautiful.awesome_icon },
+   { "edit config", editor_cmd .. " " .. awesome.conffile },
+   { "restart", awesome.restart },
+   { "quit", awesome.quit },
+   { "run", function() mypromptbox[mouse.screen]:run() end },
+   { "----------", "" },
+   { "suspend", "sudo pm-suspend" },
+   { "reboot", "systemctl reboot" },
+   { "shutdown", "systemctl poweroff" },
+   { "lock", lock_cmd },
+   { "----------", "" },
+   { "terminal", terminal },
+   { "htop", htop_cmd },
+   -- { "browser", browser },
+   -- { "mail", mail_cmd },
   }
 })
 
