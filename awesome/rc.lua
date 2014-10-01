@@ -54,6 +54,10 @@ local config     = awful.util.getdir("config")
 local exec       = awful.util.spawn
 local sexec      = awful.util.spawn_with_shell
 local scount     = screen.count()
+
+-- appearance
+local barheight       = 20
+local borderwidth     = 0
 local theme      = "/niceandclean/theme.lua"
 local themedir   = config .. "/themes"
 local wicons     = themedir .. "/icons"
@@ -127,7 +131,7 @@ myawesomemenu = {
 }
 
 mymainmenu = awful.menu({ items = {
-    -- { "awesome", myawesomemenu, beautiful.awesome_icon },
+   -- { "awesome", myawesomemenu, beautiful.awesome_icon },
    { "edit config", editor_cmd .. " " .. awesome.conffile },
    { "restart", awesome.restart },
    { "quit", awesome.quit },
@@ -152,9 +156,149 @@ mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
 menubar.utils.terminal = terminal -- Set the terminal for applications that require it
 -- }}}
 
+-- {{{ Widgets
+
+-- Separators
+spacer = wibox.widget.textbox()
+spacer:set_text(" | ")
+
+-- VOL widget
+volicon = wibox.widget.imagebox()
+volicon:set_image(wicons .. "/him/vol-red.png")
+volwidget = wibox.widget.textbox()
+vicious.register(volwidget, vicious.widgets.volume, "$1$2", 1, "Master")
+volwidget:buttons(awful.util.table.join(
+awful.button(k_n, 1, function () sexec("amixer -q set Master toggle") end)
+))
+
+-- MEM widget
+memicon = wibox.widget.imagebox()
+memicon:set_image(wicons .. "/him/mem-red.png")
+memwidget = wibox.widget.textbox()
+vicious.register(memwidget, vicious.widgets.mem, "$1%", 30)
+
+-- NET widget
+dnicon = wibox.widget.imagebox()
+upicon = wibox.widget.imagebox()
+dnicon:set_image(wicons .. "/him/downw-red.png")
+upicon:set_image(wicons .. "/him/upw-green.png")
+netwidget = wibox.widget.textbox()
+vicious.register(netwidget, vicious.widgets.net, "${enp4s0 down_kb} / ${enp4s0 up_kb}", 1)
+
+-- CPU widget
+cpuicon = wibox.widget.imagebox()
+cpuicon:set_image(wicons .. "/him/cpuinfow-red.png")
+cpuwidget = wibox.widget.textbox()
+vicious.register(cpuwidget, vicious.widgets.cpu, "$1%", 1)
+
+-- TEMP widget
+tempwidget = wibox.widget.textbox()
+vicious.register(tempwidget, vicious.widgets.thermal, "$1°C", 30, { "coretemp.0", "core"})
+--vicious.register(tempwidget, vicious.widgets.thermal, "$1°C", 30, "thermal_zone0")
+
+-- FS widget
+fswidget = wibox.widget.textbox()
+vicious.register(fswidget, vicious.widgets.fs, '${/ avail_gb}G', 120)
+disk = require("misc.diskusage")
+-- the first argument is the widget to trigger the diskusage
+-- the second/third is the percentage at which a line gets orange/red
+-- true = show only local filesystems
+disk.addToWidget(fswidget, 75, 90, true)
+
+if host == 'laptop' then
+
+    --[[ NETwidget (TODO)
+    neticon = wibox.widget.imagebox()
+    neticon:set_image(wicons .. "/him/wifi-blue.png")
+    -- Netcfg widget
+    vicious.contrib = require("vicious.contrib")
+    netcfgwidget = wibox.widget.textbox()
+    vicious.register(netctlwidget, vicious.contrib.netctl, "$1", 10)]]
+
+    -- BATwidget
+    baticon = wibox.widget.imagebox()
+    batwidget = wibox.widget.textbox()
+    --batwidget:set_background_color(beautiful.bg_normal)
+    function battery()
+        local output = ''
+        local batpath = "/sys/devices/platform/smapi/BAT0"
+
+        file = io.open(batpath .. "/state", "r")
+        local state = file:read()
+        file:close()
+
+        file = io.open(batpath .. "/remaining_percent", "r")
+        local percent = file:read("*n")
+        file:close()
+
+        if (state == "discharging") then
+            if(percent < 5) then
+                baticon:set_image(wicons .. "/him/bat-red.png")
+                sexec("systemctl suspend")
+            elseif(percent < 15) then
+                baticon:set_image(wicons .. "/him/bat-red.png")
+            elseif(percent < 25) then
+                baticon:set_image(wicons .. "/him/bat-orange.png")
+            else
+                baticon:set_image(wicons .. "/him/bat-green.png")
+            end
+        elseif (state == "charging") then
+            baticon:set_image(wicons .. "/him/bat-blue.png")
+        else
+            baticon:set_image(wicons .. "/him/bat-white.png")
+        end
+
+        file = io.open(batpath .. "/remaining_running_time", "r")
+        local time = file:read()
+        --local timeh = math.floor(time/60)
+        --local timem = time%60
+        file:close()
+
+        local file = io.open(batpath .. "/power_now", "r")
+        local watt = file:read("*n")
+        file:close()
+
+        if(state == "discharging") then
+            output = percent .. "% " .. watt .. " "..time.."m"
+        elseif (state == "charging") then
+            file = io.open(batpath .. "/remaining_charging_time", "r")
+            local time = file:read()
+            --local timeh = math.floor(time/60)
+            --local timem = time%60
+            file:close()
+            output = percent .. "% "..time.."m"
+        elseif (state == "idle") then
+            output = percent .. "%"
+        else
+            output = "N/A"
+        end
+
+        return output
+    end
+    batwidget:set_text(battery())
+    batwidget:add_signal('mouse::enter', function () --TODO: add text
+        batinfo =   { naughty.notify({    title      = "BAT0"
+                                        , text       = "test"
+                                        , timeout    = 6
+                                        , position   = "top_right"
+                                        , fg         = beautiful.fg_focus
+                                        , bg         = beautiful.bg_focus
+                                    })
+        }
+    end)
+    batwidget:add_signal('mouse::leave', function () naughty.destroy(batinfo[1]) end)
+    mybatterytimer = timer({ timeout = 6 })
+    mybatterytimer:add_signal("timeout", function() batwidget:set_text(battery()) end)
+    mybatterytimer:start()
+end
+
+-- }}}
 
 -- {{{ Wibox
 -- Create a textclock widget
+clockicon = wibox.widget.imagebox()
+clockicon:set_image(wicons .. "/him/time-red.png")
+-- mytextclock = awful.widget.textclock({align = "right"}, "%H:%M ",5)
 mytextclock = awful.widget.textclock()
 
 -- Create a wibox for each screen and add it
@@ -172,38 +316,38 @@ mytaglist.buttons = awful.util.table.join(
                     )
 mytasklist = {}
 mytasklist.buttons = awful.util.table.join(
-                     awful.button({ }, 1, function (c)
-                                              if c == client.focus then
-                                                  c.minimized = true
-                                              else
-                                                  -- Without this, the following
-                                                  -- :isvisible() makes no sense
-                                                  c.minimized = false
-                                                  if not c:isvisible() then
-                                                      awful.tag.viewonly(c:tags()[1])
-                                                  end
-                                                  -- This will also un-minimize
-                                                  -- the client, if needed
-                                                  client.focus = c
-                                                  c:raise()
-                                              end
-                                          end),
-                     awful.button({ }, 3, function ()
-                                              if instance then
-                                                  instance:hide()
-                                                  instance = nil
-                                              else
-                                                  instance = awful.menu.clients({ width=250 })
-                                              end
-                                          end),
-                     awful.button({ }, 4, function ()
-                                              awful.client.focus.byidx(1)
-                                              if client.focus then client.focus:raise() end
-                                          end),
-                     awful.button({ }, 5, function ()
-                                              awful.client.focus.byidx(-1)
-                                              if client.focus then client.focus:raise() end
-                                          end))
+    awful.button({ }, 1, function (c)
+        if c == client.focus then
+            c.minimized = true
+        else
+            -- Without this, the following
+            -- :isvisible() makes no sense
+            c.minimized = false
+            if not c:isvisible() then
+                awful.tag.viewonly(c:tags()[1])
+            end
+            -- This will also un-minimize
+            -- the client, if needed
+            client.focus = c
+            c:raise()
+        end
+    end),
+    awful.button({ }, 3, function ()
+        if instance then
+            instance:hide()
+            instance = nil
+        else
+            instance = awful.menu.clients({ width=250 })
+        end
+    end),
+    awful.button({ }, 4, function ()
+        awful.client.focus.byidx(1)
+        if client.focus then client.focus:raise() end
+    end),
+    awful.button({ }, 5, function ()
+        awful.client.focus.byidx(-1)
+        if client.focus then client.focus:raise() end
+    end))
 
 -- Keyboard map indicator and changer
 kbdcfg = {}
@@ -231,10 +375,11 @@ for s = 1, screen.count() do
     -- We need one layoutbox per screen.
     mylayoutbox[s] = awful.widget.layoutbox(s)
     mylayoutbox[s]:buttons(awful.util.table.join(
-                           awful.button({ }, 1, function () awful.layout.inc(layouts, 1) end),
-                           awful.button({ }, 3, function () awful.layout.inc(layouts, -1) end),
-                           awful.button({ }, 4, function () awful.layout.inc(layouts, 1) end),
-                           awful.button({ }, 5, function () awful.layout.inc(layouts, -1) end)))
+        awful.button({ }, 1, function () awful.layout.inc(layouts, 1) end),
+        awful.button({ }, 3, function () awful.layout.inc(layouts, -1) end),
+        awful.button({ }, 4, function () awful.layout.inc(layouts, 1) end),
+        awful.button({ }, 5, function () awful.layout.inc(layouts, -1) end)))
+
     -- Create a taglist widget
     mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.filter.all, mytaglist.buttons)
 
@@ -244,7 +389,9 @@ for s = 1, screen.count() do
     -- Create the wibox
     mywibox[s] = awful.wibox({ position = "top",
                                height = 20,
-                               screen = s })
+                               screen = s,
+                               border_width = borderwidth,
+                               height = barheight })
 
     -- Widgets that are aligned to the left
     local left_layout = wibox.layout.fixed.horizontal()
@@ -254,9 +401,25 @@ for s = 1, screen.count() do
 
     -- Widgets that are aligned to the right
     local right_layout = wibox.layout.fixed.horizontal()
-    if s == 1 then right_layout:add(wibox.widget.systray()) end
+    right_layout:add(volicon)
+    right_layout:add(volwidget)
+    right_layout:add(spacer)
+    right_layout:add(cpuicon)
+    right_layout:add(cpuwidget)
+    right_layout:add(spacer)
+    right_layout:add(memicon)
+    right_layout:add(memwidget)
+    right_layout:add(spacer)
+    -- right_layout:add(upicon)
+    -- right_layout:add(netwidget)
+    -- right_layout:add(downicon)
+    -- right_layout:add(spacer)
     right_layout:add(kbdcfg.widget)
+    right_layout:add(spacer)
+    right_layout:add(clockicon)
     right_layout:add(mytextclock)
+    right_layout:add(spacer)
+    if s == 1 then right_layout:add(wibox.widget.systray()) end
     right_layout:add(mylayoutbox[s])
 
     -- Now bring it all together (with the tasklist in the middle)
