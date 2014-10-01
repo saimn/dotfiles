@@ -57,9 +57,9 @@ local sexec      = awful.util.spawn_with_shell
 local scount     = screen.count()
 
 -- appearance
-local barheight       = 20
+local barheight       = 25
 local borderwidth     = 0
-local theme      = "/niceandclean/theme.lua"
+local theme      = "/mytheme/theme.lua"
 local themedir   = config .. "/themes"
 local wicons     = themedir .. "/icons"
 
@@ -81,19 +81,19 @@ beautiful.init(themedir .. theme)
 -- Table of layouts to cover with awful.layout.inc, order matters.
 local layouts = {
     awful.layout.suit.floating,
+    lain.layout.uselesstile,
+    lain.layout.uselesstile.bottom,
+    lain.layout.centerwork,
+    lain.layout.uselessfair,
+    awful.layout.suit.max,
     -- awful.layout.suit.tile,
     -- awful.layout.suit.tile.left,
     -- awful.layout.suit.tile.bottom,
     -- awful.layout.suit.tile.top,
-    lain.layout.uselesstile,
-    lain.layout.uselesstile.bottom,
     -- awful.layout.suit.fair,
     -- awful.layout.suit.fair.horizontal,
-    lain.layout.centerwork,
-    lain.layout.uselessfair,
     -- awful.layout.suit.spiral,
     -- awful.layout.suit.spiral.dwindle,
-    -- awful.layout.suit.max,
     -- awful.layout.suit.max.fullscreen,
     -- awful.layout.suit.magnifier,
     -- lain.layout.termfair,
@@ -112,8 +112,8 @@ end
 
 -- {{{ Tags
 tags = {
-  names  = { " mail ", " web ", " term ", " code ", " misc ", 6, 7, 8, " media " },
-  layout = { layouts[1], layouts[1], layouts[1], layouts[1], layouts[1],
+  names  = { " mail ", " irc ", " www ", " term ", " code ", " misc ", 7, 8, 9 },
+  layout = { layouts[3], layouts[3], layouts[1], layouts[2], layouts[2],
              layouts[1], layouts[1], layouts[1], layouts[1]
 }}
 
@@ -128,30 +128,19 @@ end
 
 
 -- {{{ Menu
--- Create a laucher widget and a main menu
-myawesomemenu = {
-   -- { "manual", terminal .. " -e man awesome" },
-   { "edit config", editor_cmd .. " " .. awesome.conffile },
-   { "restart", awesome.restart },
-   { "quit", awesome.quit }
-}
-
 mymainmenu = awful.menu({ items = {
-   -- { "awesome", myawesomemenu, beautiful.awesome_icon },
-   { "edit config", editor_cmd .. " " .. awesome.conffile },
-   { "restart", awesome.restart },
-   { "quit", awesome.quit },
-   { "run", function() mypromptbox[mouse.screen]:run() end },
-   { "----------", "" },
-   { "suspend", "sudo pm-suspend" },
-   { "reboot", "systemctl reboot" },
-   { "shutdown", "systemctl poweroff" },
-   { "lock", lock_cmd },
-   { "----------", "" },
-   { "terminal", terminal },
-   { "htop", htop_cmd },
-   -- { "browser", browser },
-   -- { "mail", mail_cmd },
+    { "edit config", editor_cmd .. " " .. awesome.conffile },
+    { "restart", awesome.restart },
+    { "quit", awesome.quit },
+    { "run", function() mypromptbox[mouse.screen]:run() end },
+    { "----------", "" },
+    { "suspend", "sudo pm-suspend" },
+    { "reboot", "systemctl reboot" },
+    { "shutdown", "systemctl poweroff" },
+    { "lock", lock_cmd },
+    { "----------", "" },
+    { "terminal", terminal },
+    { "htop", htop_cmd },
   }
 })
 
@@ -162,15 +151,32 @@ mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
 menubar.utils.terminal = terminal -- Set the terminal for applications that require it
 -- }}}
 
--- {{{ Widgets
+-- {{{ Wibox
+markup = lain.util.markup
+white  = beautiful.fg_focus
+gray   = beautiful.fg_normal
+
+-- Create a textclock widget
+clockicon = wibox.widget.imagebox(wicons .. "/him/time-red.png")
+mytextclock = awful.widget.textclock(" %a %d %b  %H:%M")
+
+-- Calendar
+lain.widgets.calendar:attach(mytextclock, { fg = beautiful.fg_focus, font_size = 10 })
 
 -- Separators
 spacer = wibox.widget.textbox()
 spacer:set_text(" | ")
 
+-- ALSA volume bar
+-- volume = lain.widgets.alsabar({ ticks = true })
+-- volmargin = wibox.layout.margin(volume.bar, 5, 8, 80)
+-- volmargin:set_top(7)
+-- volmargin:set_bottom(7)
+-- volumewidget = wibox.widget.background(volmargin)
+-- volumewidget:set_bgimage(beautiful.vol_bg)
+
 -- VOL widget
-volicon = wibox.widget.imagebox()
-volicon:set_image(wicons .. "/him/vol-red.png")
+volicon = wibox.widget.imagebox(wicons .. "/him/vol-red.png")
 volwidget = wibox.widget.textbox()
 vicious.register(volwidget, vicious.widgets.volume, "$1$2", 1, "Master")
 volwidget:buttons(awful.util.table.join(
@@ -178,134 +184,45 @@ awful.button(k_n, 1, function () sexec("amixer -q set Master toggle") end)
 ))
 
 -- MEM widget
-memicon = wibox.widget.imagebox()
-memicon:set_image(wicons .. "/him/mem-red.png")
+memicon = wibox.widget.imagebox(wicons .. "/him/mem-red.png")
 memwidget = wibox.widget.textbox()
 vicious.register(memwidget, vicious.widgets.mem, "$1%", 30)
 
 -- NET widget
-dnicon = wibox.widget.imagebox()
-upicon = wibox.widget.imagebox()
-dnicon:set_image(wicons .. "/him/downw-red.png")
-upicon:set_image(wicons .. "/him/upw-green.png")
+dnicon = wibox.widget.imagebox(wicons .. "/him/downw-red.png")
+upicon = wibox.widget.imagebox(wicons .. "/him/upw-green.png")
 netwidget = wibox.widget.textbox()
 vicious.register(netwidget, vicious.widgets.net, "${enp4s0 down_kb} / ${enp4s0 up_kb}", 1)
 
 -- CPU widget
-cpuicon = wibox.widget.imagebox()
-cpuicon:set_image(wicons .. "/him/cpuinfow-red.png")
+cpuicon = wibox.widget.imagebox(wicons .. "/him/cpuinfow-red.png")
 cpuwidget = wibox.widget.textbox()
 vicious.register(cpuwidget, vicious.widgets.cpu, "$1%", 1)
 
--- TEMP widget
+--[[ TEMP widget
 tempwidget = wibox.widget.textbox()
 vicious.register(tempwidget, vicious.widgets.thermal, "$1°C", 30, { "coretemp.0", "core"})
 --vicious.register(tempwidget, vicious.widgets.thermal, "$1°C", 30, "thermal_zone0")
+]]
 
--- FS widget
-fswidget = wibox.widget.textbox()
-vicious.register(fswidget, vicious.widgets.fs, '${/ avail_gb}G', 120)
-disk = require("misc.diskusage")
--- the first argument is the widget to trigger the diskusage
--- the second/third is the percentage at which a line gets orange/red
--- true = show only local filesystems
-disk.addToWidget(fswidget, 75, 90, true)
+--[[ /home fs
+fshome = lain.widgets.fs({
+    partition = "/home",
+    settings  = function()
+        fs_notification_preset.fg = white
 
-if host == 'laptop' then
+        hdd = ""
+        p   = ""
 
-    --[[ NETwidget (TODO)
-    neticon = wibox.widget.imagebox()
-    neticon:set_image(wicons .. "/him/wifi-blue.png")
-    -- Netcfg widget
-    vicious.contrib = require("vicious.contrib")
-    netcfgwidget = wibox.widget.textbox()
-    vicious.register(netctlwidget, vicious.contrib.netctl, "$1", 10)]]
-
-    -- BATwidget
-    baticon = wibox.widget.imagebox()
-    batwidget = wibox.widget.textbox()
-    --batwidget:set_background_color(beautiful.bg_normal)
-    function battery()
-        local output = ''
-        local batpath = "/sys/devices/platform/smapi/BAT0"
-
-        file = io.open(batpath .. "/state", "r")
-        local state = file:read()
-        file:close()
-
-        file = io.open(batpath .. "/remaining_percent", "r")
-        local percent = file:read("*n")
-        file:close()
-
-        if (state == "discharging") then
-            if(percent < 5) then
-                baticon:set_image(wicons .. "/him/bat-red.png")
-                sexec("systemctl suspend")
-            elseif(percent < 15) then
-                baticon:set_image(wicons .. "/him/bat-red.png")
-            elseif(percent < 25) then
-                baticon:set_image(wicons .. "/him/bat-orange.png")
-            else
-                baticon:set_image(wicons .. "/him/bat-green.png")
-            end
-        elseif (state == "charging") then
-            baticon:set_image(wicons .. "/him/bat-blue.png")
-        else
-            baticon:set_image(wicons .. "/him/bat-white.png")
+        if fs_now.used >= 50 then
+            hdd = " Hdd "
+            p   = fs_now.used .. " "
         end
 
-        file = io.open(batpath .. "/remaining_running_time", "r")
-        local time = file:read()
-        --local timeh = math.floor(time/60)
-        --local timem = time%60
-        file:close()
-
-        local file = io.open(batpath .. "/power_now", "r")
-        local watt = file:read("*n")
-        file:close()
-
-        if(state == "discharging") then
-            output = percent .. "% " .. watt .. " "..time.."m"
-        elseif (state == "charging") then
-            file = io.open(batpath .. "/remaining_charging_time", "r")
-            local time = file:read()
-            --local timeh = math.floor(time/60)
-            --local timem = time%60
-            file:close()
-            output = percent .. "% "..time.."m"
-        elseif (state == "idle") then
-            output = percent .. "%"
-        else
-            output = "N/A"
-        end
-
-        return output
+        widget:set_markup(markup(gray, hdd) .. markup(white, p))
     end
-    batwidget:set_text(battery())
-    batwidget:add_signal('mouse::enter', function () --TODO: add text
-        batinfo =   { naughty.notify({    title      = "BAT0"
-                                        , text       = "test"
-                                        , timeout    = 6
-                                        , position   = "top_right"
-                                        , fg         = beautiful.fg_focus
-                                        , bg         = beautiful.bg_focus
-                                    })
-        }
-    end)
-    batwidget:add_signal('mouse::leave', function () naughty.destroy(batinfo[1]) end)
-    mybatterytimer = timer({ timeout = 6 })
-    mybatterytimer:add_signal("timeout", function() batwidget:set_text(battery()) end)
-    mybatterytimer:start()
-end
-
--- }}}
-
--- {{{ Wibox
--- Create a textclock widget
-clockicon = wibox.widget.imagebox()
-clockicon:set_image(wicons .. "/him/time-red.png")
--- mytextclock = awful.widget.textclock({align = "right"}, "%H:%M ",5)
-mytextclock = awful.widget.textclock()
+})
+]]
 
 -- Create a wibox for each screen and add it
 mywibox = {}
@@ -406,20 +323,22 @@ for s = 1, screen.count() do
 
     -- Widgets that are aligned to the right
     local right_layout = wibox.layout.fixed.horizontal()
-    right_layout:add(volicon)
-    right_layout:add(volwidget)
-    right_layout:add(spacer)
     right_layout:add(cpuicon)
     right_layout:add(cpuwidget)
     right_layout:add(spacer)
     right_layout:add(memicon)
     right_layout:add(memwidget)
     right_layout:add(spacer)
+    -- right_layout:add(fshome)
+    -- right_layout:add(spacer)
     -- right_layout:add(upicon)
     -- right_layout:add(netwidget)
     -- right_layout:add(downicon)
     -- right_layout:add(spacer)
     right_layout:add(kbdcfg.widget)
+    right_layout:add(spacer)
+    right_layout:add(volicon)
+    right_layout:add(volwidget)
     right_layout:add(spacer)
     right_layout:add(clockicon)
     right_layout:add(mytextclock)
@@ -464,7 +383,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Shift" }, "f", function () exec(browser) end),
     awful.key({ modkey, "Shift" }, "m", function () exec(mail_cmd) end),
     awful.key({ modkey, "Shift" }, "r", function () exec("emacsclient --eval '(make-remember-frame)'") end),
-    awful.key({ modkey, "Shift" }, "s", function () scratch.drop(terminal, "center", "center", 0.6, 0.6) end),
+    awful.key({ modkey,         }, "s", function () scratch.drop(terminal, "center", "center", 0.6, 0.6) end),
     awful.key({ modkey, "Shift" }, "Return", function () exec(terminal) end),
     awful.key({ modkey, "Control" }, "l", function () exec(lock_cmd) end),
     -- awful.key({ modkey }, "g", function () sexec("GTK2_RC_FILES=~/.gtkrc-gajim gajim") end),
@@ -483,19 +402,18 @@ globalkeys = awful.util.table.join(
     -- }}}
 
     -- {{{ Prompt menus
-    -- awful.key({ modkey }, "F2", function ()
-    --     awful.prompt.run({ prompt = "Run: " }, mypromptbox[mouse.screen].widget,
-    --         function (...) mypromptbox[mouse.screen].text = exec(unpack(arg), false) end,
-    --         awful.completion.shell, awful.util.getdir("cache") .. "/history")
-    -- end),
     awful.key({ modkey }, "F2", function ()
-                 awful.util.spawn("dmenu_run -i -p 'Run command:'" ..
-                                  " -nb '" .. beautiful.bg_normal ..
-                                  "' -nf '" .. beautiful.fg_normal ..
-                                  "' -sb '" .. beautiful.bg_focus ..
-                                  "' -sf '" .. beautiful.fg_focus .. "'")
-                               end),
-
+        awful.util.spawn("dmenu_run -i -p 'Run command:'" ..
+        " -nb '" .. beautiful.bg_normal ..
+        "' -nf '" .. beautiful.fg_normal ..
+        "' -sb '" .. beautiful.bg_focus ..
+        "' -sf '" .. beautiful.fg_focus .. "'")
+    end),
+    awful.key({ modkey }, "F3", function ()
+        awful.prompt.run({ prompt = "Run: " }, mypromptbox[mouse.screen].widget,
+            function (...) mypromptbox[mouse.screen].text = exec(unpack(arg), false) end,
+            awful.completion.shell, awful.util.getdir("cache") .. "/history")
+    end),
     -- awful.key({ modkey }, "F3", function ()
     --     awful.prompt.run({ prompt = "Dictionary: " }, promptbox[mouse.screen].widget,
     --         function (words)
@@ -506,7 +424,7 @@ globalkeys = awful.util.table.join(
         awful.prompt.run({ prompt = "Web: " }, promptbox[mouse.screen].widget,
             function (command)
                 sexec(browser.." 'http://duckduckgo.com/?q="..command.."'")
-                awful.tag.viewonly(tags[scount][2])
+                awful.tag.viewonly(tags[scount][3])
             end)
     end),
     awful.key({ modkey }, "F5", function ()
@@ -515,19 +433,22 @@ globalkeys = awful.util.table.join(
     end),
     -- }}}
 
-    -- {{{ Awesome controls
+    -- Show/Hide Wibox
     awful.key({ modkey }, "b", function ()
-		wibox[mouse.screen].visible = not wibox[mouse.screen].visible
-	end),
+        mywibox[mouse.screen].visible = not mywibox[mouse.screen].visible
+    end),
+
     awful.key({ modkey, "Control" }, "r", awesome.restart),
     awful.key({ modkey, "Control" }, "q", awesome.quit),
-    -- }}}
 
-    -- {{{ Tag browsing
+    -- On the fly useless gaps change
+    awful.key({ altkey, "Control" }, "+", function () lain.util.useless_gaps_resize(1) end),
+    awful.key({ altkey, "Control" }, "-", function () lain.util.useless_gaps_resize(-1) end),
+
+    -- Tag browsing
     awful.key({ modkey }, "Left",   awful.tag.viewprev),
     awful.key({ modkey }, "Right",  awful.tag.viewnext),
     awful.key({ modkey }, "Escape", awful.tag.history.restore),
-    -- }}}
 
     -- {{{ Layout manipulation
     awful.key({ modkey            }, "l",     function () awful.tag.incmwfact( 0.05)    end),
@@ -544,7 +465,7 @@ globalkeys = awful.util.table.join(
     -- {{{ Focus controls
     -- awful.key({ modkey }, "e", revelation.revelation),
     awful.key({ modkey }, "p", function () awful.screen.focus_relative(1)  end),
-    awful.key({ modkey }, "s", function () scratch.pad.toggle() end),
+    -- awful.key({ modkey }, "s", function () scratch.pad.toggle() end),
     awful.key({ modkey }, "u", awful.client.urgent.jumpto),
     awful.key({ modkey }, "j", function ()
         awful.client.focus.byidx(1)
@@ -556,7 +477,7 @@ globalkeys = awful.util.table.join(
     end),
     awful.key({ modkey }, "Tab", function ()
         -- awful.client.focus.history.previous()
-        awful.client.cycle(true)
+        -- awful.client.cycle(true)
         awful.client.focus.byidx(-1)
         if client.focus then client.focus:raise() end
     end),
@@ -591,7 +512,7 @@ clientkeys = awful.util.table.join(
     awful.key({ modkey }, "t", function (c) c.ontop = not c.ontop end),
     awful.key({ modkey }, "Return",  function (c) c:swap(awful.client.getmaster()) end),
 
-    awful.key({ modkey, "Control" }, "s", function (c) scratch.pad.set(c, 0.60, 0.60, true) end),
+    -- awful.key({ modkey, "Control" }, "s", function (c) scratch.pad.set(c, 0.60, 0.60, true) end),
 
     -- move and resize floaters with the keyboard
     awful.key({ modkey, "Control" }, "Next",  function () awful.client.moveresize( 20,  20, -40, -40) end),
@@ -680,7 +601,7 @@ awful.rules.rules = {
       callback = awful.titlebar.add
     },
     { rule = { class = "Firefox", instance = "Navigator" },
-      properties = { tag = tags[screen.count()][2] }, callback = maximize },
+      properties = { tag = tags[screen.count()][3] }, callback = maximize },
     { rule = { class = "Firefox" }, except = { instance = "Navigator" },
       properties = {floating = true}, callback = awful.placement.centered },
     { rule = { class = "URxvt", instance = "htop" },
@@ -693,8 +614,8 @@ awful.rules.rules = {
       properties = { floating = true }, callback = awful.titlebar.remove },
     { rule = { class = "Xmessage", instance = "xmessage" },
       properties = { floating = true } },
-    { rule = { class = "Thunderbird" }, properties = { tag = tags[1][1]} },
-    { rule = { class = "Gajim.py" },    properties = { tag = tags[1][1]} },
+    -- { rule = { class = "Thunderbird" }, properties = { tag = tags[1][1]} },
+    -- { rule = { class = "Gajim.py" },    properties = { tag = tags[1][1]} },
     { rule = { class = "gimp" },        properties = { floating = true } },
     -- float & centered
     { rule_any = { class = { "Mirage", "feh", "Pinentry.*" } },
@@ -805,26 +726,25 @@ end
 
 -- {{{ Autostart apps
 
+run_once("urxvtd", "-q -f -o", "urxvtd -q -f -o")
+
 if host == "thunderball" then
-   -- run_once("/usr/lib/gnome-settings-daemon/gnome-settings-daemon")
-   -- run_once("nm-applet --sm-disable", "", "nm-applet")
-   -- run_once("wicd-client","-t","/usr/bin/python2 -O /usr/share/wicd/gtk/wicd-client.py -t")
-   run_once("urxvtd", "-q -f -o", "urxvtd -q -f -o")
    run_once("volumeicon")
    run_once("xcompmgr")
-   run_once("conky -c /home/simon/.conky/conkyrc_seamod")
    run_once("syndaemon -t -k -i 2 -d")
-   run_once("synapse", "-s", "synapse -s")
    -- run_once("gpaste")
 elseif host == "DSK000977" then
-   run_once("urxvtd", "-q -f -o", "urxvtd -q -f -o")
    run_once("volumeicon")
    run_once("xcompmgr")
-   -- run_once("conky -c /home/simon/.conky/conkyrc_seamod")
    run_once("syndaemon -t -k -i 2 -d")
-   -- run_once("synapse", "-s", "synapse -s")
 end
 
+-- run_once("/usr/lib/gnome-settings-daemon/gnome-settings-daemon")
+-- run_once("nm-applet --sm-disable", "", "nm-applet")
+-- run_once("wicd-client","-t","/usr/bin/python2 -O /usr/share/wicd/gtk/wicd-client.py -t")
+-- run_once("synapse", "-s", "synapse -s")
+-- run_once("conky -c /home/simon/.conky/conkyrc_seamod")
+-- run_once("compton")
 -- run_once("xbindkeys")
 run_once("xscreensaver -nosplash", nil, "xscreensaver -nosplash")
 -- run_once("emacs", "--daemon")
