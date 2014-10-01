@@ -78,7 +78,7 @@ URxvt*visualBell:               true
 URxvt.urgentOnBell:             true
 
 ! scrollbar style - rxvt (default), plain (most compact), next, or xterm
-URxvt.scrollBar:                true
+URxvt.scrollBar:                false
 URxvt.scrollBar_right:          true
 URxvt.scrollBar_floating:       true
 URxvt.scrollstyle:              plain

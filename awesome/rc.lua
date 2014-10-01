@@ -16,6 +16,7 @@ local functions = require("functions")
 local vicious = require("vicious")
 -- require("vicious.contrib")
 local scratch = require("scratch")
+local lain = require("lain")
 -- }}}
 
 -- {{{ Error handling
@@ -80,17 +81,22 @@ beautiful.init(themedir .. theme)
 -- Table of layouts to cover with awful.layout.inc, order matters.
 local layouts = {
     awful.layout.suit.floating,
-    awful.layout.suit.tile,
+    -- awful.layout.suit.tile,
     -- awful.layout.suit.tile.left,
-    awful.layout.suit.tile.bottom,
+    -- awful.layout.suit.tile.bottom,
     -- awful.layout.suit.tile.top,
-    awful.layout.suit.fair,
+    lain.layout.uselesstile,
+    lain.layout.uselesstile.bottom,
+    -- awful.layout.suit.fair,
     -- awful.layout.suit.fair.horizontal,
+    lain.layout.centerwork,
+    lain.layout.uselessfair,
     -- awful.layout.suit.spiral,
     -- awful.layout.suit.spiral.dwindle,
-    awful.layout.suit.max,
+    -- awful.layout.suit.max,
     -- awful.layout.suit.max.fullscreen,
-    awful.layout.suit.magnifier
+    -- awful.layout.suit.magnifier,
+    -- lain.layout.termfair,
 }
 -- }}}
 
@@ -388,7 +394,6 @@ for s = 1, screen.count() do
 
     -- Create the wibox
     mywibox[s] = awful.wibox({ position = "top",
-                               height = 20,
                                screen = s,
                                border_width = borderwidth,
                                height = barheight })

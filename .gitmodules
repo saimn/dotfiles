@@ -146,3 +146,6 @@
 [submodule "vim/bundle/tmuxline"]
 	path = vim/bundle/tmuxline
 	url = https://github.com/edkolev/tmuxline.vim
+[submodule "awesome/lain"]
+	path = awesome/lain
+	url = https://github.com/copycat-killer/lain.git

@@ -44,7 +44,7 @@ else
 end
 --}}}
 
-theme.font          = "sans 8"
+theme.font          = "Source Sans Pro 10"
 
 theme.bg_normal     = "#222222"
 theme.bg_focus      = "#444444"
@@ -130,5 +130,17 @@ theme.layout_spiral = themedir .. "/layouts/spiralw.png"
 theme.layout_dwindle = themedir .. "/layouts/dwindlew.png"
 
 theme.awesome_icon = themedir .. "/awesome16.png"
+
+-- Lain layouts
+theme.useless_gap_width  = 10
+theme.lain_icons         = os.getenv("HOME") .. "/.config/awesome/lain/icons/layout/default/"
+theme.layout_termfair    = theme.lain_icons .. "termfairw.png"
+theme.layout_cascade     = theme.lain_icons .. "cascadew.png"
+theme.layout_cascadetile = theme.lain_icons .. "cascadetilew.png"
+theme.layout_centerwork  = theme.lain_icons .. "centerworkw.png"
+theme.layout_uselesstile = theme.layout_tile
+theme.layout_uselesstileleft = theme.layout_tileleft
+theme.layout_uselesstilebottom = theme.layout_tilebottom
+theme.layout_uselessfair = theme.layout_fairh
 
 return theme
