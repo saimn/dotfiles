@@ -12,7 +12,7 @@ local naughty = require("naughty")
 local menubar = require("menubar")
 -- User libraries
 local functions = require("functions")
--- local revelation = require("revelation")
+local revelation = require("revelation")
 local vicious = require("vicious")
 -- require("vicious.contrib")
 local scratch = require("scratch")
@@ -74,6 +74,8 @@ local lock_cmd   = "xscreensaver-command -lock"
 -- Themes define colours, icons, and wallpapers
 -- beautiful.init("/usr/share/awesome/themes/default/theme.lua")
 beautiful.init(themedir .. theme)
+
+revelation.init()
 
 -- Note to include a separate config file:
 -- dofile(config .. "/keybindings.lua")
@@ -161,7 +163,8 @@ clockicon = wibox.widget.imagebox(wicons .. "/him/time-red.png")
 mytextclock = awful.widget.textclock(" %a %d %b  %H:%M")
 
 -- Calendar
-lain.widgets.calendar:attach(mytextclock, { fg = beautiful.fg_focus, font_size = 10 })
+lain.widgets.calendar:attach(mytextclock, { fg = beautiful.fg_focus,
+                                            font_size = 10 })
 
 -- Separators
 spacer = wibox.widget.textbox()
@@ -197,7 +200,7 @@ vicious.register(netwidget, vicious.widgets.net, "${enp4s0 down_kb} / ${enp4s0 u
 -- CPU widget
 cpuicon = wibox.widget.imagebox(wicons .. "/him/cpuinfow-red.png")
 cpuwidget = wibox.widget.textbox()
-vicious.register(cpuwidget, vicious.widgets.cpu, "$1%", 1)
+vicious.register(cpuwidget, vicious.widgets.cpu, "$1%", 5)
 
 --[[ TEMP widget
 tempwidget = wibox.widget.textbox()
@@ -463,7 +466,7 @@ globalkeys = awful.util.table.join(
     -- }}}
 
     -- {{{ Focus controls
-    -- awful.key({ modkey }, "e", revelation.revelation),
+    awful.key({ modkey }, "e", revelation),
     awful.key({ modkey }, "p", function () awful.screen.focus_relative(1)  end),
     -- awful.key({ modkey }, "s", function () scratch.pad.toggle() end),
     awful.key({ modkey }, "u", awful.client.urgent.jumpto),
