@@ -616,26 +616,32 @@ awful.rules.rules = {
       },
       callback = awful.titlebar.add
     },
+
     { rule = { class = "Firefox", instance = "Navigator" },
-      properties = { tag = tags[screen.count()][3] }, callback = maximize },
+      properties = { tag = tags[1][3] }, callback = maximize },
     { rule = { class = "Firefox" }, except = { instance = "Navigator" },
       properties = {floating = true}, callback = awful.placement.centered },
+
     { rule = { class = "URxvt", instance = "htop" },
       properties = { floating = true }, callback = awful.titlebar.remove },
     { rule = { class = "URxvt", instance = "Mutt" },
-      properties = { tag = tags[screen.count()][1] }, },
+      properties = { tag = tags[1][1] }, },
+
     -- { rule = { class = "Emacs",    instance = "emacs" },
-    --   properties = { tag = tags[screen.count()][2] } },
+    --   properties = { tag = tags[1][2] } },
     { rule = { class = "Emacs",    instance = "_Remember_" },
       properties = { floating = true }, callback = awful.titlebar.remove },
+
     { rule = { class = "Xmessage", instance = "xmessage" },
       properties = { floating = true } },
     -- { rule = { class = "Thunderbird" }, properties = { tag = tags[1][1]} },
     -- { rule = { class = "Gajim.py" },    properties = { tag = tags[1][1]} },
     { rule = { class = "gimp" },        properties = { floating = true } },
+
     -- float & centered
     { rule_any = { class = { "Mirage", "feh", "Pinentry.*" } },
       properties = { floating = true }, callback = awful.placement.centered },
+
     -- float, centered & no titlebar
     { rule_any = { class = { "MPlayer", "Vlc" } },
       properties = { floating = true }, callback = function(c)
@@ -746,12 +752,10 @@ run_once("urxvtd", "-q -f -o", "urxvtd -q -f -o")
 
 if host == "thunderball" then
    run_once("volumeicon")
-   run_once("xcompmgr")
    run_once("syndaemon -t -k -i 2 -d")
    -- run_once("gpaste")
 elseif host == "DSK000977" then
    run_once("volumeicon")
-   run_once("xcompmgr")
    run_once("syndaemon -t -k -i 2 -d")
 end
 
@@ -760,7 +764,8 @@ end
 -- run_once("wicd-client","-t","/usr/bin/python2 -O /usr/share/wicd/gtk/wicd-client.py -t")
 -- run_once("synapse", "-s", "synapse -s")
 -- run_once("conky -c /home/simon/.conky/conkyrc_seamod")
--- run_once("compton")
+run_once("compton")
+-- run_once("xcompmgr")
 -- run_once("xbindkeys")
 run_once("xscreensaver -nosplash", nil, "xscreensaver -nosplash")
 -- run_once("emacs", "--daemon")
