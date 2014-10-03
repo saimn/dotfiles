@@ -63,6 +63,7 @@ local theme      = "/mytheme/theme.lua"
 local themedir   = config .. "/themes"
 local wicons     = themedir .. "/icons"
 
+-- apps
 local terminal   = "urxvtc"
 local browser    = os.getenv("BROWSER") or "firefox"
 local mail_cmd   = terminal.." -T Mutt -name Mutt -e mutt"
@@ -75,10 +76,22 @@ local lock_cmd   = "xscreensaver-command -lock"
 -- beautiful.init("/usr/share/awesome/themes/default/theme.lua")
 beautiful.init(themedir .. theme)
 
+-- Revelation
 revelation.init()
 
 -- Note to include a separate config file:
 -- dofile(config .. "/keybindings.lua")
+
+-- Notifications
+-- blue "#34bdef", green "#a6e22e", red "#f92671"
+-- require("misc.notifications")
+naughty.config.padding = 10
+naughty.config.spacing = 10
+naughty.config.defaults.position = "top_right"
+naughty.config.defaults.border_width = 2
+naughty.config.presets.normal.border_color = beautiful.border_normal
+naughty.config.presets.critical.border_color = beautiful.border_focus
+naughty.config.presets.critical.bg = beautiful.bg_urgent
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 local layouts = {
@@ -320,7 +333,7 @@ for s = 1, screen.count() do
 
     -- Widgets that are aligned to the left
     local left_layout = wibox.layout.fixed.horizontal()
-    left_layout:add(mylauncher)
+    -- left_layout:add(mylauncher)
     left_layout:add(mytaglist[s])
     left_layout:add(mypromptbox[s])
 

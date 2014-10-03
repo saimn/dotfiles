@@ -13,7 +13,7 @@ themedir      = themes .. themename
 theme.wallpaper = themedir .. "/rainbow.png"
 --}}}
 
-theme.font          = "Source Sans Pro 12"
+theme.font          = "Source Sans Pro 10"
 
 theme.bg_normal     = "#222222"
 theme.bg_focus      = "#444444"

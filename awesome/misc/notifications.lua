@@ -1,5 +1,8 @@
 -- Show fancy notifications for backlight and (eventually) volume hotkeys
+--
+local awful = require("awful")
 require("awful.util")
+
 config      = awful.util.getdir("config")
 themedir    = config .. "/themes"
 wicons      = themedir .. "/icons"
@@ -30,8 +33,7 @@ end
 local bright_notification = nil
 local bright_icon = image(wicons .. "/guff/brightness.png")
 local bright_img = image.argb32(212, 50, nil)
-bright_img:draw_rectangle(0, 0, bright_img.width, bright_img.height, true,
-    bg)
+bright_img:draw_rectangle(0, 0, bright_img.width, bright_img.height, true, bg)
 bright_img:insert(bright_icon, 0, 1)
 
 function brightness_notify(brightness)
@@ -39,7 +41,7 @@ function brightness_notify(brightness)
     img:draw_rectangle(60, 20, 130, 10, true, bg_bar)
     --img:draw_rectangle(62, 22, 126 * brightness / 100, 6, true, fg_bar)
     img:draw_rectangle(62, 22, 126 * brightness / 15, 6, true, fg_bar)
-    
+
     local id = nil
     if bright_notification then id = bright_notification.id end
     bright_notification = naughty.notify(
@@ -100,7 +102,7 @@ function volume_notify(volume)
     img:insert(vol_icon, 0, 1)
     img:draw_rectangle(60, 20, 130, 10, true, bg_bar)
     img:draw_rectangle(62, 22, 126 * volume / 100, 6, true, fg_bar)
-    
+
     local id = nil
     if vol_notification then id = vol_notification.id end
     vol_notification = naughty.notify(
