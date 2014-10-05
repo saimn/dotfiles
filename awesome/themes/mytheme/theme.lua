@@ -25,7 +25,7 @@ theme.fg_focus      = "#ffffff"
 theme.fg_urgent     = "#ffffff"
 theme.fg_minimize   = "#ffffff"
 
-theme.border_width  = "2"
+theme.border_width  = "3"
 theme.border_normal = "#747474"
 --theme.border_focus  = "#535d6c"
 theme.border_marked = "#91231c"
@@ -118,7 +118,7 @@ theme.layout_floating               = themedir .. "/icons/floating.png"
 theme.awesome_icon = themedir .. "/awesome16.png"
 
 -- Lain layouts
-theme.useless_gap_width  = 10
+theme.useless_gap_width  = 15
 theme.lain_icons         = config .. "/lain/icons/layout/default/"
 theme.layout_termfair    = theme.lain_icons .. "termfairw.png"
 theme.layout_cascade     = theme.lain_icons .. "cascadew.png"

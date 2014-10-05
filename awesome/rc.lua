@@ -72,6 +72,8 @@ local editor_cmd = terminal .. " -e " .. editor
 local htop_cmd   = terminal.." -name htop -geometry 80x7 -e htop"
 local lock_cmd   = "xscreensaver-command -lock"
 
+if host == "fireball" then volchan = "Master -c 0" else volchan = "Master" end
+
 -- Themes define colours, icons, and wallpapers
 -- beautiful.init("/usr/share/awesome/themes/default/theme.lua")
 beautiful.init(themedir .. theme)
