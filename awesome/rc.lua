@@ -252,6 +252,10 @@ batwidget = lain.widgets.bat({
             widget:set_markup(" AC ")
             baticon:set_image(beautiful.widget_ac)
             return
+        elseif tonumber(bat_now.perc) > 100 then
+            widget:set_markup(" 100% ")
+            baticon:set_image(beautiful.widget_battery)
+            return
         elseif tonumber(bat_now.perc) <= 5 then
             baticon:set_image(beautiful.widget_battery_empty)
         elseif tonumber(bat_now.perc) <= 15 then
