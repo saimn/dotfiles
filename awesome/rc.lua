@@ -174,7 +174,7 @@ white  = beautiful.fg_focus
 gray   = beautiful.fg_normal
 
 -- Create a textclock widget
-clockicon = wibox.widget.imagebox(wicons .. "/him/time-red.png")
+clockicon = wibox.widget.imagebox(beautiful.widget_clock)
 mytextclock = awful.widget.textclock(" %a %d %b  %H:%M")
 
 -- Calendar
@@ -182,8 +182,10 @@ lain.widgets.calendar:attach(mytextclock, { fg = beautiful.fg_focus,
                                             font_size = 10 })
 
 -- Separators
-spacer = wibox.widget.textbox()
-spacer:set_text(" | ")
+-- spacer = wibox.widget.textbox()
+-- spacer:set_text(" | ")
+spacer = wibox.widget.imagebox()
+spacer:set_image(beautiful.arrl)
 
 -- ALSA volume bar
 -- volume = lain.widgets.alsabar({ ticks = true })
@@ -194,7 +196,7 @@ spacer:set_text(" | ")
 -- volumewidget:set_bgimage(beautiful.vol_bg)
 
 -- VOL widget
-volicon = wibox.widget.imagebox(wicons .. "/him/vol-red.png")
+volicon = wibox.widget.imagebox(beautiful.widget_vol)
 volwidget = wibox.widget.textbox()
 vicious.register(volwidget, vicious.widgets.volume, "$1$2", 1, "Master")
 volwidget:buttons(awful.util.table.join(
@@ -202,18 +204,18 @@ awful.button(k_n, 1, function () sexec("amixer -q set Master toggle") end)
 ))
 
 -- MEM widget
-memicon = wibox.widget.imagebox(wicons .. "/him/mem-red.png")
+memicon = wibox.widget.imagebox(beautiful.widget_mem)
 memwidget = wibox.widget.textbox()
 vicious.register(memwidget, vicious.widgets.mem, "$1%", 30)
 
 -- NET widget
-dnicon = wibox.widget.imagebox(wicons .. "/him/downw-red.png")
-upicon = wibox.widget.imagebox(wicons .. "/him/upw-green.png")
+dnicon = wibox.widget.imagebox(beautiful.widget_net_down)
+upicon = wibox.widget.imagebox(beautiful.widget_net_up)
 netwidget = wibox.widget.textbox()
 vicious.register(netwidget, vicious.widgets.net, "${enp4s0 down_kb} / ${enp4s0 up_kb}", 1)
 
 -- CPU widget
-cpuicon = wibox.widget.imagebox(wicons .. "/him/cpuinfow-red.png")
+cpuicon = wibox.widget.imagebox(beautiful.widget_cpu)
 cpuwidget = wibox.widget.textbox()
 vicious.register(cpuwidget, vicious.widgets.cpu, "$1%", 5)
 
@@ -241,6 +243,25 @@ fshome = lain.widgets.fs({
     end
 })
 ]]
+
+-- Battery
+baticon = wibox.widget.imagebox(beautiful.widget_battery)
+batwidget = lain.widgets.bat({
+    settings = function()
+        if bat_now.perc == "N/A" then
+            widget:set_markup(" AC ")
+            baticon:set_image(beautiful.widget_ac)
+            return
+        elseif tonumber(bat_now.perc) <= 5 then
+            baticon:set_image(beautiful.widget_battery_empty)
+        elseif tonumber(bat_now.perc) <= 15 then
+            baticon:set_image(beautiful.widget_battery_low)
+        else
+            baticon:set_image(beautiful.widget_battery)
+        end
+        widget:set_markup(" " .. bat_now.perc .. "% ")
+    end
+})
 
 -- Create a wibox for each screen and add it
 mywibox = {}
@@ -346,6 +367,9 @@ for s = 1, screen.count() do
     right_layout:add(spacer)
     right_layout:add(memicon)
     right_layout:add(memwidget)
+    right_layout:add(spacer)
+    right_layout:add(baticon)
+    right_layout:add(batwidget)
     right_layout:add(spacer)
     -- right_layout:add(fshome)
     -- right_layout:add(spacer)
