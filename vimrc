@@ -237,6 +237,34 @@ colorscheme badwolf
 " Highlight VCS conflict markers
 match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 
+" Badwolf colors:
+" plain          = #f8f6f2
+" snow           = #ffffff
+" coal           = #000000
+" brightgravel   = #d9cec3
+" lightgravel    = #998f84
+" gravel         = #857f78
+" mediumgravel   = #666462
+" deepgravel     = #45413b
+" deepergravel   = #35322d
+" darkgravel     = #242321
+" blackgravel    = #1c1b1a
+" blackestgravel = #141413
+" dalespale      = #fade3e
+" dirtyblonde    = #f4cf86
+" taffy          = #ff2c4b
+" saltwatertaffy = #8cffba
+" tardis         = #0a9dff
+" orange         = #ffa724
+" lime           = #aeee00
+" dress          = #ff9eb8
+" toffee         = #b88853
+" coffee         = #c7915b
+" darkroast      = #88633f
+
+" Highlight Special
+hi Special guifg=#ffa724
+
 " }}}
 
 " }}}
