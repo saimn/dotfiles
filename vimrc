@@ -2,6 +2,60 @@
 " Based on Steve Losh's vimrc :
 " http://bitbucket.org/sjl/dotfiles/src/tip/vim/
 
+" Plugins ----------------------------------------------------------------- {{{
+
+call plug#begin('~/.vim/plugged')
+
+Plug '5long/pytest-vim-compiler'
+Plug 'AndrewRadev/linediff.vim', { 'on': ['Linediff', 'LinediffReset'] }
+Plug 'ap/vim-css-color'
+Plug 'bling/vim-airline'
+Plug 'ciaranm/securemodelines'
+Plug 'dogrover/vim-pentadactyl', { 'for': 'pentadactyl' }
+Plug 'edkolev/tmuxline.vim', { 'on': 'TmuxlineSnapshot' }
+Plug 'exu/pgsql.vim', { 'for': 'pgsql' }
+Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
+Plug 'honza/vim-snippets'
+Plug 'ivanov/vim-ipython'
+Plug 'jceb/vim-orgmode', { 'for': 'org' }
+Plug 'junegunn/vim-github-dashboard', { 'on': ['GHDashboard', 'GHActivity'] }
+Plug 'kien/ctrlp.vim'
+Plug 'kien/rainbow_parentheses.vim', { 'for': 'lisp' }
+Plug 'klen/python-mode'
+Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
+Plug 'marijnh/tern_for_vim', { 'for': 'javascript' }
+Plug 'mhinz/vim-signify'
+Plug 'michaeljsmith/vim-indent-object'
+Plug 'mileszs/ack.vim', { 'on': 'Ack' }
+Plug 'mitsuhiko/vim-jinja', { 'for': 'htmljinja' }
+Plug 'mitsuhiko/vim-sparkup', { 'on': ['SparkupExecute', 'SparkupNext'] }
+Plug 'moll/vim-bbye', { 'on': 'Bdelete' }
+Plug 'mxw/vim-jsx', { 'for': 'javascript' }
+Plug 'othree/html5.vim'
+Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+Plug 'saltstack/salt-vim', { 'for': 'yaml' }
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'scrooloose/syntastic'
+Plug 'SirVer/ultisnips'
+" Plug 'sjl/AnsiEsc.vim'
+Plug 'sjl/badwolf'
+Plug 'sjl/clam.vim', { 'on': ['Clam', 'ClamVisual'] }
+Plug 'sjl/gundo.vim', { 'on': 'GundoToggle' }
+Plug 'sjl/splice.vim', { 'on': 'SpliceInit' }
+Plug 'tell-k/vim-autopep8', { 'on': 'Autopep8' }
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-dispatch', { 'on': 'Dispatch' }
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-markdown', { 'for': 'markdown' }
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'Valloric/YouCompleteMe', { 'do': './install.sh --clang-completer --system-libclang' }
+Plug 'vim-scripts/YankRing.vim', { 'on': 'YRShow' }
+Plug 'wavded/vim-stylus', { 'for': 'stylus' }
+
+call plug#end()
+
+" }}}
 " Preamble ---------------------------------------------------------------- {{{
 
 " Dear /bin/bash: fuck you and your bullshit, arcane command-line behaviour.

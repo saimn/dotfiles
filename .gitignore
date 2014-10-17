@@ -21,6 +21,7 @@ pentadactyl/info/
 perso/
 vim/.netrwhist
 vim/.VimballRecord
+vim/plugged/
 vim/tmp/
 vim/local.vim
 vim/plugin/notmuch.vim
