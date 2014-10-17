@@ -31,6 +31,7 @@ Plug 'mileszs/ack.vim', { 'on': 'Ack' }
 Plug 'mitsuhiko/vim-jinja', { 'for': 'htmljinja' }
 Plug 'mitsuhiko/vim-sparkup', { 'on': ['SparkupExecute', 'SparkupNext'] }
 Plug 'moll/vim-bbye', { 'on': 'Bdelete' }
+Plug 'mtth/scratch.vim'
 Plug 'mxw/vim-jsx', { 'for': 'javascript' }
 Plug 'othree/html5.vim'
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
@@ -53,6 +54,7 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'Valloric/YouCompleteMe', { 'do': './install.sh --clang-completer --system-libclang' }
 Plug 'vim-scripts/Conflict2Diff', { 'on': 'Conflict2Diff' }
+Plug 'vim-scripts/DirDiff.vim', { 'on': 'DirDiff' }
 Plug 'vim-scripts/YankRing.vim', { 'on': 'YRShow' }
 Plug 'wavded/vim-stylus', { 'for': 'stylus' }
 
