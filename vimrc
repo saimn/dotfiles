@@ -23,7 +23,7 @@ Plug 'kien/ctrlp.vim'
 Plug 'kien/rainbow_parentheses.vim', { 'for': 'lisp' }
 Plug 'klen/python-mode'
 Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
-Plug 'marijnh/tern_for_vim', { 'for': 'javascript' }
+Plug 'marijnh/tern_for_vim', { 'for': 'javascript', 'do': 'npm install' }
 Plug 'mhinz/vim-signify'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'mileszs/ack.vim', { 'on': 'Ack' }
