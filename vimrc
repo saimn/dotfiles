@@ -22,7 +22,7 @@ Plug 'jceb/vim-orgmode', { 'for': 'org' }
 Plug 'junegunn/vim-github-dashboard', { 'on': ['GHDashboard', 'GHActivity'] }
 Plug 'kien/ctrlp.vim'
 Plug 'kien/rainbow_parentheses.vim', { 'for': 'lisp' }
-Plug 'klen/python-mode'
+Plug 'klen/python-mode', { 'for': 'python' }
 Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
 Plug 'marijnh/tern_for_vim', { 'for': 'javascript', 'do': 'npm install' }
 Plug 'mhinz/vim-signify'
@@ -31,7 +31,7 @@ Plug 'mileszs/ack.vim', { 'on': 'Ack' }
 Plug 'mitsuhiko/vim-jinja', { 'for': 'htmljinja' }
 Plug 'mitsuhiko/vim-sparkup', { 'on': ['SparkupExecute', 'SparkupNext'] }
 Plug 'moll/vim-bbye', { 'on': 'Bdelete' }
-Plug 'mtth/scratch.vim'
+Plug 'mtth/scratch.vim', { 'on': 'Scratch' }
 Plug 'mxw/vim-jsx', { 'for': 'javascript' }
 Plug 'othree/html5.vim'
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
@@ -60,8 +60,8 @@ Plug 'wavded/vim-stylus', { 'for': 'stylus' }
 
 Plug '~/.vim/bundle/camptocamp', { 'for': 'camptocamp' }
 Plug '~/.vim/bundle/closetags-custom'
-Plug '~/.vim/bundle/django-custom'
-Plug '~/.vim/bundle/idlang'
+Plug '~/.vim/bundle/django-custom', { 'for': ['django', 'htmldjango'] }
+Plug '~/.vim/bundle/idlang', { 'for': 'idlang' }
 
 call plug#end()
 
