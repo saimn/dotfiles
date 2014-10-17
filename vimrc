@@ -56,6 +56,11 @@ Plug 'vim-scripts/Conflict2Diff', { 'on': 'Conflict2Diff' }
 Plug 'vim-scripts/YankRing.vim', { 'on': 'YRShow' }
 Plug 'wavded/vim-stylus', { 'for': 'stylus' }
 
+Plug '~/.vim/bundle/camptocamp', { 'for': 'camptocamp' }
+Plug '~/.vim/bundle/closetags-custom'
+Plug '~/.vim/bundle/django-custom'
+Plug '~/.vim/bundle/idlang'
+
 call plug#end()
 
 " }}}
@@ -66,7 +71,6 @@ let $BASH_ENV = "~/.bash_profile"
 set shell=/bin/bash
 
 filetype off
-execute pathogen#infect()
 filetype plugin indent on       " load file type plugins + indentation
 set nocompatible                " choose no compatibility with legacy vi
 
