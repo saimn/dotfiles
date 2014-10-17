@@ -15,6 +15,7 @@ Plug 'dogrover/vim-pentadactyl', { 'for': 'pentadactyl' }
 Plug 'edkolev/tmuxline.vim', { 'on': 'TmuxlineSnapshot' }
 Plug 'exu/pgsql.vim', { 'for': 'pgsql' }
 Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
+Plug 'groenewege/vim-less', { 'for': 'less' }
 Plug 'honza/vim-snippets'
 Plug 'ivanov/vim-ipython'
 Plug 'jceb/vim-orgmode', { 'for': 'org' }
