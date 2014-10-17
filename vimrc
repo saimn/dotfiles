@@ -43,6 +43,7 @@ Plug 'sjl/badwolf'
 Plug 'sjl/clam.vim', { 'on': ['Clam', 'ClamVisual'] }
 Plug 'sjl/gundo.vim', { 'on': 'GundoToggle' }
 Plug 'sjl/splice.vim', { 'on': 'SpliceInit' }
+" Plug 'smancill/conky-syntax.vim', { 'for': 'conkyrc' }
 Plug 'tell-k/vim-autopep8', { 'on': 'Autopep8' }
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-dispatch', { 'on': 'Dispatch' }
