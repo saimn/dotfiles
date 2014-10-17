@@ -50,6 +50,7 @@ Plug 'tpope/vim-markdown', { 'for': 'markdown' }
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'Valloric/YouCompleteMe', { 'do': './install.sh --clang-completer --system-libclang' }
+Plug 'vim-scripts/Conflict2Diff', { 'on': 'Conflict2Diff' }
 Plug 'vim-scripts/YankRing.vim', { 'on': 'YRShow' }
 Plug 'wavded/vim-stylus', { 'for': 'stylus' }
 
