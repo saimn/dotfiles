@@ -15,19 +15,20 @@ Plug 'dogrover/vim-pentadactyl', { 'for': 'pentadactyl' }
 Plug 'edkolev/tmuxline.vim', { 'on': 'TmuxlineSnapshot' }
 Plug 'exu/pgsql.vim', { 'for': 'pgsql' }
 Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
+Plug 'gregsexton/MatchTag', { 'for': ['html', 'xml'] }
 Plug 'groenewege/vim-less', { 'for': 'less' }
 Plug 'honza/vim-snippets'
 Plug 'ivanov/vim-ipython'
 Plug 'jceb/vim-orgmode', { 'for': 'org' }
 Plug 'junegunn/vim-github-dashboard', { 'on': ['GHDashboard', 'GHActivity'] }
 Plug 'kien/ctrlp.vim'
-Plug 'kien/rainbow_parentheses.vim', { 'for': 'lisp' }
+" Plug 'kien/rainbow_parentheses.vim', { 'for': 'lisp' }
 Plug 'klen/python-mode', { 'for': 'python' }
 Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
 Plug 'marijnh/tern_for_vim', { 'for': 'javascript', 'do': 'npm install' }
 Plug 'mhinz/vim-signify'
-Plug 'michaeljsmith/vim-indent-object'
-Plug 'mileszs/ack.vim', { 'on': 'Ack' }
+" Plug 'michaeljsmith/vim-indent-object'
+Plug 'mileszs/ack.vim'
 Plug 'mitsuhiko/vim-jinja', { 'for': 'htmljinja' }
 Plug 'mitsuhiko/vim-sparkup', { 'on': ['SparkupExecute', 'SparkupNext'] }
 Plug 'moll/vim-bbye', { 'on': 'Bdelete' }
@@ -725,7 +726,8 @@ set foldlevelstart=0
 nnoremap <Space> za
 vnoremap <Space> za
 
-" "Refocus" folds
+" "Refocus" the current line: close all folds and open just the folds containing
+" the current line.
 nnoremap <leader>z zMzvzz
 
 " Make zO recursively open whatever fold we're in, even if it's partially open.
@@ -741,7 +743,7 @@ nnoremap zO zczO
 " This mapping wipes out the z mark, which I never use.
 "
 " I use :sus for the rare times I want to actually background Vim.
-nnoremap <c-z> mzzMzvzz15<c-e>`z:Pulse<cr>
+" nnoremap <c-z> mzzMzvzz15<c-e>`z:Pulse<cr>
 
 function! MyFoldText() " {{{
     let line = getline(v:foldstart)
@@ -780,16 +782,18 @@ augroup END
 " }}}
 " Common Lisp {{{
 
-augroup ft_commonlisp
-    au!
+" let g:lisp_rainbow = 1
 
-    au FileType lisp RainbowParenthesesActivate
-    au syntax lisp RainbowParenthesesLoadRound
-    au syntax lisp RainbowParenthesesLoadSquare
-    au syntax lisp RainbowParenthesesLoadBraces
+" augroup ft_commonlisp
+"     au!
 
-    au FileType lisp call TurnOnLispFolding()
-augroup END
+"     au FileType lisp RainbowParenthesesActivate
+"     au syntax lisp RainbowParenthesesLoadRound
+"     au syntax lisp RainbowParenthesesLoadSquare
+"     au syntax lisp RainbowParenthesesLoadBraces
+
+"     au FileType lisp call TurnOnLispFolding()
+" augroup END
 
 " }}}
 " CSS and LessCSS {{{
@@ -847,24 +851,24 @@ augroup END
 " }}}
 " Django {{{
 
-augroup ft_django
-    au!
+" augroup ft_django
+"     au!
 
-    au BufNewFile,BufRead urls.py           setlocal nowrap
-    au BufNewFile,BufRead urls.py           normal! zR
-    au BufNewFile,BufRead dashboard.py      normal! zR
-    au BufNewFile,BufRead local_settings.py normal! zR
+"     au BufNewFile,BufRead urls.py           setlocal nowrap
+"     au BufNewFile,BufRead urls.py           normal! zR
+"     au BufNewFile,BufRead dashboard.py      normal! zR
+"     au BufNewFile,BufRead local_settings.py normal! zR
 
-    au BufNewFile,BufRead admin.py     setlocal filetype=python.django
-    au BufNewFile,BufRead urls.py      setlocal filetype=python.django
-    au BufNewFile,BufRead models.py    setlocal filetype=python.django
-    au BufNewFile,BufRead views.py     setlocal filetype=python.django
-    au BufNewFile,BufRead settings.py  setlocal filetype=python.django
-    au BufNewFile,BufRead settings.py  setlocal foldmethod=marker
-    au BufNewFile,BufRead forms.py     setlocal filetype=python.django
-    au BufNewFile,BufRead common_settings.py  setlocal filetype=python.django
-    au BufNewFile,BufRead common_settings.py  setlocal foldmethod=marker
-augroup END
+"     au BufNewFile,BufRead admin.py     setlocal filetype=python.django
+"     au BufNewFile,BufRead urls.py      setlocal filetype=python.django
+"     au BufNewFile,BufRead models.py    setlocal filetype=python.django
+"     au BufNewFile,BufRead views.py     setlocal filetype=python.django
+"     au BufNewFile,BufRead settings.py  setlocal filetype=python.django
+"     au BufNewFile,BufRead settings.py  setlocal foldmethod=marker
+"     au BufNewFile,BufRead forms.py     setlocal filetype=python.django
+"     au BufNewFile,BufRead common_settings.py  setlocal filetype=python.django
+"     au BufNewFile,BufRead common_settings.py  setlocal foldmethod=marker
+" augroup END
 
 " }}}
 " HTML, Django, Jinja, Dram {{{
@@ -924,8 +928,8 @@ augroup ft_html
     " Smarter pasting
     au FileType html,htmljinja,htmldjango nnoremap <buffer> p :<C-U>YRPaste 'p'<CR>v`]=`]
     au FileType html,htmljinja,htmldjango nnoremap <buffer> P :<C-U>YRPaste 'P'<CR>v`]=`]
-    au FileType html,htmljinja,htmldjango nnoremap <buffer> π :<C-U>YRPaste 'p'<CR>
-    au FileType html,htmljinja,htmldjango nnoremap <buffer> ∏ :<C-U>YRPaste 'P'<CR>
+    " au FileType html,htmljinja,htmldjango nnoremap <buffer> π :<C-U>YRPaste 'p'<CR>
+    " au FileType html,htmljinja,htmldjango nnoremap <buffer> ∏ :<C-U>YRPaste 'P'<CR>
 
     " Indent tag
     au FileType html,htmljinja,htmldjango nnoremap <buffer> <leader>= Vat=
@@ -950,6 +954,9 @@ augroup END
 " }}}
 " Javascript {{{
 
+" let g:tern_show_argument_hints = 'on_hold'
+let g:tern_show_signature_in_pum = 1
+
 augroup ft_javascript
     au!
 
@@ -959,7 +966,7 @@ augroup ft_javascript
     au FileType javascript setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
     au FileType javascript setlocal foldmethod=marker
     au FileType javascript setlocal foldmarker={,}
-    au FileType javascript setlocal omnifunc=javascriptcomplete#Complete
+    " au FileType javascript setlocal omnifunc=javascriptcomplete#Complete
 
     " Make {<cr> insert a pair of brackets in such a way that the cursor is correctly
     " positioned inside of them AND the following code doesn't get unfolded.
@@ -1383,8 +1390,6 @@ nnoremap <leader>d :Dispatch
 " }}}
 " Fugitive {{{
 
-" let g:fugitive_github_domains = ['github.banksimple.com']
-
 nnoremap <leader>gd :Gdiff<cr>
 nnoremap <leader>gs :Gstatus<cr>
 nnoremap <leader>gw :Gwrite<cr>
@@ -1392,15 +1397,10 @@ nnoremap <leader>ga :Git add %<cr>
 nnoremap <leader>gb :Gblame<cr>
 nnoremap <leader>gco :Gcheckout<cr>
 nnoremap <leader>gci :Gcommit --verbose<cr>
+nnoremap <leader>gca :Gcommit --all --verbose<cr>
 nnoremap <leader>gm :Gmove<cr>
 nnoremap <leader>gr :Gremove<cr>
-nnoremap <leader>gl :Shell git gl -18<cr>:wincmd \|<cr>
-
-augroup ft_fugitive
-    au!
-
-    au BufNewFile,BufRead .git/index setlocal nolist
-augroup END
+nnoremap <leader>gl :Shell git hist<cr>:wincmd \|<cr>
 
 " Hub
 nnoremap <leader>gh :Gbrowse<cr>
@@ -1429,11 +1429,6 @@ let g:atia_attributes_complete = 0
 
 vnoremap <leader>l :Linediff<cr>
 nnoremap <leader>L :LinediffReset<cr>
-
-" }}}
-" Lisp (built-in) {{{
-
-let g:lisp_rainbow = 1
 
 " }}}
 " NERD Tree {{{
@@ -1706,10 +1701,10 @@ nnoremap <leader>] :YcmCompleter GoToDefinitionElseDeclaration<CR>mzzMzvzz15<c-e
 
 " Shortcut for [] {{{
 
-onoremap ir i[
-onoremap ar a[
-vnoremap ir i[
-vnoremap ar a[
+" onoremap ir i[
+" onoremap ar a[
+" vnoremap ir i[
+" vnoremap ar a[
 
 " }}}
 
@@ -2078,31 +2073,6 @@ endif
 "     au InsertEnter * hi StatusLine ctermfg=196 guifg=#FF3145
 "     au InsertLeave * hi StatusLine ctermfg=130 guifg=#CD5907
 " augroup END
-
-" set statusline=%f    " Path.
-" set statusline+=%m   " Modified flag.
-" set statusline+=%r   " Readonly flag.
-" set statusline+=%w   " Preview window flag.
-
-" set statusline+=\    " Space.
-
-" set statusline+=%#redbar#                " Highlight the following as a warning.
-" set statusline+=%{SyntasticStatuslineFlag()} " Syntastic errors.
-" set statusline+=%*                           " Reset highlighting.
-
-" set statusline+=%=   " Right align.
-
-" " File format, encoding and type.  Ex: "(unix/utf-8/python)"
-" set statusline+=(
-" set statusline+=%{&ff}                        " Format (unix/DOS).
-" set statusline+=/
-" set statusline+=%{strlen(&fenc)?&fenc:&enc}   " Encoding (utf-8).
-" set statusline+=/
-" set statusline+=%{&ft}                        " Type (python).
-" set statusline+=)
-
-" " Line and column position and counts.
-" set statusline+=\ (line\ %l\/%L,\ col\ %03c)
 
 " }}}
 " Local config ------------------------------------------------------------ {{{
