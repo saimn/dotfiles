@@ -8,6 +8,7 @@ call plug#begin('~/.vim/plugged')
 
 Plug '5long/pytest-vim-compiler'
 Plug 'AndrewRadev/linediff.vim', { 'on': ['Linediff', 'LinediffReset'] }
+Plug 'airblade/vim-gitgutter'
 Plug 'ap/vim-css-color'
 Plug 'bling/vim-airline'
 Plug 'ciaranm/securemodelines'
@@ -26,7 +27,7 @@ Plug 'kien/ctrlp.vim'
 Plug 'klen/python-mode', { 'for': 'python' }
 Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
 Plug 'marijnh/tern_for_vim', { 'for': 'javascript', 'do': 'npm install' }
-Plug 'mhinz/vim-signify'
+" Plug 'mhinz/vim-signify'
 " Plug 'michaeljsmith/vim-indent-object'
 Plug 'mileszs/ack.vim'
 Plug 'mitsuhiko/vim-jinja', { 'for': 'htmljinja' }
@@ -47,6 +48,7 @@ Plug 'sjl/gundo.vim', { 'on': 'GundoToggle' }
 Plug 'sjl/splice.vim', { 'on': 'SpliceInit' }
 " Plug 'smancill/conky-syntax.vim', { 'for': 'conkyrc' }
 Plug 'tell-k/vim-autopep8', { 'on': 'Autopep8' }
+Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-dispatch', { 'on': 'Dispatch' }
 Plug 'tpope/vim-fugitive'
@@ -58,6 +60,7 @@ Plug 'vim-scripts/Conflict2Diff', { 'on': 'Conflict2Diff' }
 Plug 'vim-scripts/DirDiff.vim', { 'on': 'DirDiff' }
 Plug 'vim-scripts/YankRing.vim', { 'on': 'YRShow' }
 Plug 'wavded/vim-stylus', { 'for': 'stylus' }
+Plug 'w0ng/vim-hybrid'
 
 Plug '~/.vim/bundle/camptocamp', { 'for': 'camptocamp' }
 Plug '~/.vim/bundle/closetags-custom'
@@ -69,8 +72,6 @@ call plug#end()
 " }}}
 " Preamble ---------------------------------------------------------------- {{{
 
-" Dear /bin/bash: fuck you and your bullshit, arcane command-line behaviour.
-let $BASH_ENV = "~/.bash_profile"
 set shell=/bin/bash
 
 filetype off
@@ -164,8 +165,10 @@ let mapleader = ","
 let maplocalleader = "\\"
 
 " Cursorline {{{
-" Only show cursorline in the current window and in normal mode.
 
+set cursorline
+
+" Only show cursorline in the current window and in normal mode.
 augroup cline
     au!
     au WinLeave,InsertEnter * set nocursorline
@@ -290,7 +293,10 @@ let g:badwolf_tabline = 2
 " let g:badwolf_html_link_underline = 0
 " Turn on CSS properties highlighting
 let g:badwolf_css_props_highlight = 1
-colorscheme badwolf
+" colorscheme badwolf
+
+let g:hybrid_use_Xresources = 1
+colorscheme hybrid
 
 " Reload the colorscheme whenever we write the file.
 " augroup color_badwolf_dev
@@ -327,7 +333,7 @@ match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 " darkroast      = #88633f
 
 " Highlight Special
-hi Special guifg=#ffa724
+" hi Special guifg=#ffa724
 
 " }}}
 
@@ -1407,6 +1413,17 @@ nnoremap <leader>gh :Gbrowse<cr>
 vnoremap <leader>gh :Gbrowse<cr>
 
 " }}}
+" Git Gutter {{{
+
+let g:gitgutter_escape_grep = 1
+" let g:gitgutter_realtime = 0
+" let g:gitgutter_max_signs = 500
+
+highlight GitGutterAdd guifg=#d7ffaf ctermfg=193
+highlight GitGutterDelete guifg=#cc6666 ctermfg=167
+highlight GitGutterChange guifg=#d7d7ff ctermfg=189
+
+" }}}
 " Gundo {{{
 
 nnoremap <F5> :GundoToggle<CR>
@@ -1543,7 +1560,7 @@ let g:secure_modelines_allowed_items = [
 " }}}
 " Signify {{{
 
-let g:signify_vcs_list = [ 'git', 'hg' ]
+" let g:signify_vcs_list = [ 'git', 'hg' ]
 " let g:signify_disable_by_default = 0
 " let g:signify_skip_filetype = { 'vim': 1, 'c': 1 }
 " let g:signify_skip_filename = { '/home/user/.vimrc': 1 }
@@ -2037,9 +2054,12 @@ if has('gui_running')
     highlight SpellBad term=underline gui=undercurl guisp=Orange
 
     " Different cursors for different modes.
-    set guicursor=n-c:block-Cursor-blinkon0
-    set guicursor+=v:block-vCursor-blinkon0
-    set guicursor+=i-ci:ver20-iCursor
+    " set guicursor=n-c:block-Cursor-blinkon0
+    " set guicursor+=v:block-vCursor-blinkon0
+    " set guicursor+=i-ci:ver20-iCursor
+
+    " Disable all blinking:
+    set guicursor+=a:blinkon0
 
     " Make shift-insert work like in Xterm
     map <S-Insert> <MiddleMouse>
