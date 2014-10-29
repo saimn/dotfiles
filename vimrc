@@ -30,14 +30,14 @@ Plug 'marijnh/tern_for_vim', { 'for': 'javascript', 'do': 'npm install' }
 " Plug 'mhinz/vim-signify'
 " Plug 'michaeljsmith/vim-indent-object'
 Plug 'mileszs/ack.vim'
-Plug 'mitsuhiko/vim-jinja', { 'for': 'htmljinja' }
+Plug 'mitsuhiko/vim-jinja', { 'for': ['htmljinja', 'sls'] }
 Plug 'mitsuhiko/vim-sparkup', { 'on': ['SparkupExecute', 'SparkupNext'] }
 Plug 'moll/vim-bbye', { 'on': 'Bdelete' }
 Plug 'mtth/scratch.vim', { 'on': 'Scratch' }
 Plug 'mxw/vim-jsx', { 'for': 'javascript' }
 Plug 'othree/html5.vim'
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
-Plug 'saltstack/salt-vim', { 'for': 'yaml' }
+Plug 'saltstack/salt-vim', { 'for': 'sls' }
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'scrooloose/syntastic'
 Plug 'SirVer/ultisnips'
@@ -635,8 +635,8 @@ nnoremap <c-\> :silent! call JumpToTagInSplit()<cr>
 " nnoremap <c-\> <c-w>v<c-]>mzzMzvzz15<c-e>`z:Pulse<cr>
 
 " Keep search matches in the middle of the window.
-nnoremap n nzzzv
-nnoremap N Nzzzv
+nnoremap n nzzzv:Pulse<cr>
+nnoremap N Nzzzv:Pulse<cr>
 
 " Same when jumping around
 nnoremap g; g;zz
@@ -1186,12 +1186,6 @@ augroup END
 " Force using the Jinja template syntax file
 let g:sls_use_jinja_syntax = 1
 
-" augroup ft_salt
-"     au!
-
-"     au BufRead,BufNewFile *.sls setfiletype yaml
-" augroup END
-
 " }}}
 " Shell {{{
 
@@ -1245,7 +1239,7 @@ augroup END
 augroup ft_vim
     au!
 
-    au FileType vim setlocal foldmethod=marker
+    au FileType vim setlocal foldmethod=marker keywordprg=:help
     au FileType help setlocal textwidth=78
     au BufWinEnter *.txt if &ft == 'help' | wincmd L | endif
 
