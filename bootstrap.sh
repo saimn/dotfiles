@@ -34,6 +34,7 @@ ln -s ~/lib/dotfiles/zshrc ~/.zshrc
 ln -s ~/lib/dotfiles/zshenv ~/.zshenv
 ln -s ~/lib/dotfiles/zpreztorc ~/.zpreztorc
 ln -s ~/lib/prezto ~/.zprezto
+touch ~/lib/dotfiles/zsh/locals.zsh
 #}}}
 
 # {{{ Emacs
@@ -65,13 +66,12 @@ ln -s ~/lib/mail/mutt .mutt
 mkdir -p $HOME/lib/{python,virtualenvs}
 ln -s ~/lib/virtualenvs/  ~/.virtualenvs
 
-rm $HOME/.config/ipython/profile_default/ipython_config.py
-ln -s $HOME/lib/dotfiles/ipython/ipython_config.py \
-    $HOME/.config/ipython/profile_default/ipython_config.py
+rm $HOME/.config/ipython
+ln -s $HOME/lib/dotfiles/ipython $HOME/.ipython
 
-mkdir -p $HOME/.config/matplotlib
 rm -r $HOME/.matplotlib
 rm -r $HOME/.config/matplotlib
+mkdir -p $HOME/.config/matplotlib
 ln -s $HOME/lib/dotfiles/matplotlibrc $HOME/.config/matplotlib/matplotlibrc
 # }}}
 
