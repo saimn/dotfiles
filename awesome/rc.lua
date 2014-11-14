@@ -55,6 +55,7 @@ local config     = awful.util.getdir("config")
 local exec       = awful.util.spawn
 local sexec      = awful.util.spawn_with_shell
 local scount     = screen.count()
+local volchan = "Master"
 
 -- appearance
 local barheight       = 25
@@ -62,6 +63,11 @@ local borderwidth     = 0
 local theme      = "/mytheme/theme.lua"
 local themedir   = config .. "/themes"
 local wicons     = themedir .. "/icons"
+
+if host == "fireball" then
+    volchan   = "Master -c 0"
+    barheight = 40
+end
 
 -- apps
 local terminal   = "urxvtc"
@@ -71,8 +77,6 @@ local editor     = os.getenv("EDITOR") or "vim"
 local editor_cmd = terminal .. " -e " .. editor
 local htop_cmd   = terminal.." -name htop -geometry 80x7 -e htop"
 local lock_cmd   = "xscreensaver-command -lock"
-
-if host == "fireball" then volchan = "Master -c 0" else volchan = "Master" end
 
 -- Themes define colours, icons, and wallpapers
 -- beautiful.init("/usr/share/awesome/themes/default/theme.lua")
@@ -328,6 +332,7 @@ kbdcfg.switch = function ()
   kbdcfg.widget:set_text(" " .. t[1] .. " ")
   os.execute( kbdcfg.cmd .. " " .. t[1] .. " " .. t[2] )
 end
+kbdcfg.switch()
 
  -- Mouse bindings
 kbdcfg.widget:buttons(
@@ -669,7 +674,7 @@ awful.rules.rules = {
     { rule = { class = "gimp" },        properties = { floating = true } },
 
     -- float & centered
-    { rule_any = { class = { "Mirage", "feh", "Ds9", "Pinentry.*" } },
+    { rule_any = { class = { "Mirage", "feh", "Ds9", "Pinentry.*", "Wicd-client.py" } },
       properties = { floating = true }, callback = awful.placement.centered },
 
     -- float, centered & no titlebar
@@ -779,25 +784,23 @@ end
 -- {{{ Autostart apps
 
 run_once("urxvtd", "-q -f -o", "urxvtd -q -f -o")
+run_once("volumeicon")
+run_once("compton")
+run_once("xscreensaver -nosplash", nil, "xscreensaver -nosplash")
 
 if host == "thunderball" then
-   run_once("volumeicon")
-   run_once("syndaemon -t -k -i 2 -d")
-   -- run_once("gpaste")
-elseif host == "DSK000977" then
-   run_once("volumeicon")
-   run_once("syndaemon -t -k -i 2 -d")
+    run_once("syndaemon -t -k -i 2 -d")
+elseif host == "fireball" then
+    run_once("xbindkeys")
+    run_once("syndaemon -t -k -i 2 -d")
+    run_once("wicd-client","-t","/usr/bin/python2 -O /usr/share/wicd/gtk/wicd-client.py -t")
 end
 
 -- run_once("/usr/lib/gnome-settings-daemon/gnome-settings-daemon")
 -- run_once("nm-applet --sm-disable", "", "nm-applet")
--- run_once("wicd-client","-t","/usr/bin/python2 -O /usr/share/wicd/gtk/wicd-client.py -t")
 -- run_once("synapse", "-s", "synapse -s")
 -- run_once("conky -c /home/simon/.conky/conkyrc_seamod")
-run_once("compton")
 -- run_once("xcompmgr")
--- run_once("xbindkeys")
-run_once("xscreensaver -nosplash", nil, "xscreensaver -nosplash")
 -- run_once("emacs", "--daemon")
 
 -- }}}

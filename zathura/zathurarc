@@ -11,10 +11,9 @@
 
 # key bindings
 map <PageUp> navigate previous
+map <Left> navigate previous
 map <PageDown> navigate next
-
-map + zoom in
-map - zoom out
+map <Right> navigate next
 
 map <C-q> quit
 

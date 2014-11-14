@@ -2026,7 +2026,9 @@ if has('gui_running')
     else
         if hostname() == "thunderball"
             set guifont=Inconsolata\ for\ Powerline\ 12
-        else "if $HOSTNAME == "DSK000977"
+        elseif hostname() == "fireball"
+            set guifont=Inconsolata\ for\ Powerline\ 8
+        else
             set guifont=Inconsolata\ for\ Powerline\ 10
         endif
     endif

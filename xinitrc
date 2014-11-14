@@ -5,7 +5,10 @@
 # Executed by startx (run your window manager from here)
 #
 
-# xset s off                     # screen-saver control
+# turn off your screen after 5 minutes of idling
+# xset +dpms
+# xset dpms 0 0 300
+
 xset -b                          # no bell
 xset +fp /usr/share/fonts/local
 xset +fp /usr/share/fonts/TTF

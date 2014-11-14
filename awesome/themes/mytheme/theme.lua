@@ -3,6 +3,8 @@
 --{{{ Main
 local awful = require("awful")
 awful.util = require("awful.util")
+local functions = require("functions")
+local host    = oscapture("hostname")
 
 theme = {}
 
@@ -14,6 +16,9 @@ theme.wallpaper = themedir .. "/rainbow.png"
 --}}}
 
 theme.font          = "Source Sans Pro 10"
+if host == "fireball" then
+    theme.font          = "Source Sans Pro 18"
+end
 
 theme.bg_normal     = "#222222"
 theme.bg_focus      = "#444444"

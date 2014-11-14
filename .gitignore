@@ -7,6 +7,11 @@
 *~
 \#*\#
 tags
+ipython/README
+ipython/profile_default/*.sqlite
+ipython/profile_default/security/
+ipython/profile_default/startup/
+ipython/profile_default/static/
 bin/arch/
 emacs.d/ac-comphist.dat
 emacs.d/.org-id-locations
