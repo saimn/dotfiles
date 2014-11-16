@@ -4,13 +4,16 @@
 #{{{ Dotfiles
 git clone git@github.com:saimn/dotfiles.git ~/lib/dotfiles
 
-for i in "ackrc" "bashrc" "ctags" "gitconfig" "hgrc" "lessfilter" "mailcap" \
+for i in "bashrc" "ctags" "gitconfig" "hgrc" "lessfilter" "mailcap" \
     "pythonrc" "pdbrc" "screenrc" "tmux.conf" "vim" "vimrc" "xbindkeysrc" \
     "Xresources" "Xmodmap" "xprofile"
 do
     [ -e $HOME/.$i ] && rm $HOME/.$i
     ln -s $HOME/lib/dotfiles/$i $HOME/.$i
 done
+
+mkdir $HOME/.config/ranger
+mkdir -p $HOME/lib/dotfiles/vim/tmp/{backup,swap,undo}
 
 rm $HOME/.config/{awesome,zathura} $HOME/bin
 ln -s $HOME/lib/dotfiles/bin/ $HOME/bin
@@ -21,8 +24,6 @@ ln -s $HOME/lib/dotfiles/compton.conf $HOME/.config/compton.conf
 
 rm $HOME/.config/ranger/rc.conf
 ln -s $HOME/lib/dotfiles/ranger/rc.conf $HOME/.config/ranger/rc.conf
-
-mkdir -p $HOME/lib/dotfiles/vim/tmp/{backup,swap,undo}
 
 #}}}
 

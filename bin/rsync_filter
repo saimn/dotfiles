@@ -13,15 +13,19 @@
 - .adobe/
 - .cache*/
 - .ccache/
+- .config/fish/generated_completions/
 - *.egg-info/
 - .gvfs/
 - .local/share/akonadi/
 - .local/share/baloo/
 - .macromedia/
+- .module-cache/
 - .mozilla/**/Cache
 - .thumbnails/
+- .tox/
 - Cache*/
 - Trash/
+- .Trash/
 - cache*/
 - trash/
 
@@ -30,6 +34,7 @@
 - VirtualBox*/
 - VirtualMachines/
 - data/
+- lib/dotfiles/vim/plugged/
 - lib/virtualenvs/
 - node_modules/
 - tmp/

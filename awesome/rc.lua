@@ -669,7 +669,7 @@ awful.rules.rules = {
     { rule = { class = "gimp" },        properties = { floating = true } },
 
     -- float & centered
-    { rule_any = { class = { "Mirage", "feh", "Pinentry.*" } },
+    { rule_any = { class = { "Mirage", "feh", "Ds9", "Pinentry.*" } },
       properties = { floating = true }, callback = awful.placement.centered },
 
     -- float, centered & no titlebar
