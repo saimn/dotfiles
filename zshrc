@@ -27,11 +27,11 @@ export PROJECT_HOME=$HOME/Dev
 
 export PIP_DOWNLOAD_CACHE=$HOME/.cache/pip
 
-source ~/lib/dotfiles/zsh/aliases.zsh
 # source ~/lib/dotfiles/zsh/completion.zsh
 source ~/lib/dotfiles/zsh/functions.zsh
 source ~/lib/dotfiles/zsh/keys.zsh
 source ~/lib/dotfiles/zsh/ssh.zsh
+source ~/lib/dotfiles/zsh/aliases.zsh
 
 # Watch new users
 watch=(all)
