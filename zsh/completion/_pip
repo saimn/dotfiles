@@ -1,0 +1,9 @@
+#compdef pip
+
+# Pip completion, letting pip do all the completion work
+
+if type pip > /dev/null; then
+  eval "$(pip completion --zsh)"
+
+  _pip_completion "$@"
+fi
