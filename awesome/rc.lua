@@ -322,8 +322,14 @@ mytasklist.buttons = awful.util.table.join(
 -- Keyboard map indicator and changer
 kbdcfg = {}
 kbdcfg.cmd = "setxkbmap"
-kbdcfg.layout = { { "fr", "oss" }, { "us", "altgr-intl" } }
-kbdcfg.current = 1  -- fr is our default layout
+kbdcfg.layout = { { "fr", "oss" }, { "us-alt", "altgr-intl" }, { "us-intl", "intl" } }
+-- default layout
+if host == "fireball" then
+    kbdcfg.current = 2
+else
+    kbdcfg.current = 1
+end
+
 kbdcfg.widget = wibox.widget.textbox()
 kbdcfg.widget:set_text(" " .. kbdcfg.layout[kbdcfg.current][1] .. " ")
 kbdcfg.switch = function ()
@@ -332,7 +338,6 @@ kbdcfg.switch = function ()
   kbdcfg.widget:set_text(" " .. t[1] .. " ")
   os.execute( kbdcfg.cmd .. " " .. t[1] .. " " .. t[2] )
 end
-kbdcfg.switch()
 
  -- Mouse bindings
 kbdcfg.widget:buttons(

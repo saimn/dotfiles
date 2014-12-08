@@ -11,9 +11,9 @@
 
 # key bindings
 map <PageUp> navigate previous
-map <Left> navigate previous
+# map <Left> navigate previous
 map <PageDown> navigate next
-map <Right> navigate next
+# map <Right> navigate next
 
 map <C-q> quit
 

@@ -47,7 +47,7 @@ Plug 'sjl/clam.vim', { 'on': ['Clam', 'ClamVisual'] }
 Plug 'sjl/gundo.vim', { 'on': 'GundoToggle' }
 Plug 'sjl/splice.vim', { 'on': 'SpliceInit' }
 " Plug 'smancill/conky-syntax.vim', { 'for': 'conkyrc' }
-Plug 'tell-k/vim-autopep8', { 'on': 'Autopep8' }
+Plug 'tell-k/vim-autopep8', { 'for': 'python' }
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-dispatch', { 'on': 'Dispatch' }
@@ -2027,7 +2027,7 @@ if has('gui_running')
         if hostname() == "thunderball"
             set guifont=Inconsolata\ for\ Powerline\ 12
         elseif hostname() == "fireball"
-            set guifont=Inconsolata\ for\ Powerline\ 8
+            set guifont=Inconsolata\ for\ Powerline\ 10
         else
             set guifont=Inconsolata\ for\ Powerline\ 10
         endif
