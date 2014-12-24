@@ -342,7 +342,7 @@ legend.fancybox      : False  # if True, use a rounded box for the
 #figure.autolayout : False  # When True, automatically adjust subplot
                             # parameters to make the plot fit the figure
 
-figure.figsize   : 11, 8   # figure size in inches
+# figure.figsize   : 11, 8   # figure size in inches
 figure.facecolor : 0.85    # figure facecolor; 0.75 is scalar gray
 figure.edgecolor : 0.50    # figure edgecolor
 
