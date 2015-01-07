@@ -25,8 +25,6 @@ export PROJECT_HOME=$HOME/Dev
 
 [[ -f /usr/bin/virtualenvwrapper.sh ]] && source /usr/bin/virtualenvwrapper.sh
 
-export PIP_DOWNLOAD_CACHE=$HOME/.cache/pip
-
 # source ~/lib/dotfiles/zsh/completion.zsh
 source ~/lib/dotfiles/zsh/functions.zsh
 source ~/lib/dotfiles/zsh/keys.zsh

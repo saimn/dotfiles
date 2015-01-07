@@ -78,7 +78,6 @@ ln -s $HOME/lib/dotfiles/matplotlibrc $HOME/.config/matplotlib/matplotlibrc
 #{{{ Other repos
 # git clone git@github.com:saimn/color-theme-wombat.git           ~/lib/color-theme-wombat
 git clone https://github.com/mitsuhiko/flask-sphinx-themes.git  ~/lib/flask-sphinx-themes
-git clone https://github.com/jsmits/github-cli.git              ~/lib/github-cli
 # git clone git://gitorious.org/mutt-notmuch/mutt-notmuch.git     ~/lib/mutt-notmuch
 # git clone https://github.com/apenwarr/sshuttle.git              ~/lib/sshuttle
 git clone https://github.com/gfxmonk/supergenpass.git           ~/lib/supergenpass
