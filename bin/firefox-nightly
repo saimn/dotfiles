@@ -1,0 +1,8 @@
+#!/bin/sh
+# -*- coding: utf-8 -*-
+
+# cleanup
+rm -rf ~/.adobe ~/.macromedia
+
+export MOZ_DISABLE_PANGO=1
+exec /usr/bin/firefox-nightly -P Nightly "$@"

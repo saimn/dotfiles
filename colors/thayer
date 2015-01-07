@@ -10,36 +10,36 @@ urxvt*cursorColor:      #fd971f
 ! --- Thayer --- {{{
 
 ! Defaults
-*background: #262729
-*foreground: #f8f8f2
+URxvt*background: #262729
+URxvt*foreground: #f8f8f2
 
 ! Black
-*color0: #262729
-*color8: #554444
+URxvt*color0: #262729
+URxvt*color8: #554444
 ! Red
-*color1: #f92671
-*color9: #ff669d
+URxvt*color1: #f92671
+URxvt*color9: #ff669d
 ! Green
-*color2: #a6e22e
-*color10: #beed5f
+URxvt*color2: #a6e22e
+URxvt*color10: #beed5f
 ! Yellow
-*color3: #fd971f
-*color11: #e6db74
+URxvt*color3: #fd971f
+URxvt*color11: #e6db74
 ! Blue
-*color4: #34bdef
-*color12: #66d9ef
+URxvt*color4: #34bdef
+URxvt*color12: #66d9ef
 ! Magenta
-*color5: #9e6ffe
-*color13: #df92f6
+URxvt*color5: #9e6ffe
+URxvt*color13: #df92f6
 ! Cyan
-*color6: #5e7175
-*color14: #a3babf
+URxvt*color6: #5e7175
+URxvt*color14: #a3babf
 ! White
-*color7: #ccccc6
-*color15: #f8f8f2
+URxvt*color7: #ccccc6
+URxvt*color15: #f8f8f2
 ! Cursor
-*cursorColor: #b5d2dd
-*cursorBlink: false
+URxvt*cursorColor: #b5d2dd
+URxvt*cursorBlink: false
 urxvt*cursorColor: #b5d2dd
 
 ! alsamixer scheme

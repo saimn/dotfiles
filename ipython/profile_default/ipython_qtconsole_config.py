@@ -662,7 +662,7 @@ c.ZMQInteractiveShell.colors = 'Linux'
 # Subset of matplotlib rcParams that should be different for the inline backend
 c.InlineBackend.rc = {
     # 'font.size': 10,
-    'figure.figsize': (12.0, 10.0),
+    # 'figure.figsize': (10.0, 8.0),
     # 'savefig.dpi': 72,
     # 'figure.subplot.bottom': 0.125,
 }

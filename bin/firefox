@@ -14,5 +14,5 @@ else
     rm -rf ~/.adobe ~/.macromedia
 
     export MOZ_DISABLE_PANGO=1
-    exec /usr/bin/firefox "$@"
+    exec /usr/bin/firefox -P Simon "$@"
 fi

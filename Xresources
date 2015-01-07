@@ -214,8 +214,19 @@ Xmessage*defaultButton:         Quit
 !}}}
 
 !{{{ DS9
-ds9*foreground: #000
-ds9*background: #eee
+!ds9*foreground: #000
+!ds9*background: #eee
+/* ds9*background:          grey40 */
+/* ds9*foreground:          black */
+/* ds9*activeBackground:    grey50 */
+/* ds9*activeForeground:    black */
+/* ds9*disabledForeground:  grey30 */
+/* ds9*highlightBackground: black */
+/* ds9*insertBackground:    red */
+/* ds9*troughColor:         grey40 */
+/* ds9*out.out.background:  grey20 */
+/* ds9*term.t*busyfg:       grey20 */
+/* ds9*term.t*unbusyfg:     black */
 !}}}
 
 !{{{ xscreensaver
