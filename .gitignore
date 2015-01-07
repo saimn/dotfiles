@@ -10,6 +10,7 @@
 tags
 ipython/README
 ipython/profile_default/*.sqlite
+ipython/profile_default/db/
 ipython/profile_default/security/
 ipython/profile_default/startup/
 ipython/profile_default/static/
