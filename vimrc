@@ -444,6 +444,10 @@ nnoremap ql gqq
 " Easier linewise reselection of what you just pasted.
 nnoremap <leader>V V`]
 
+" Vmap for maintain Visual Mode after shifting > and <
+vmap < <gv
+vmap > >gv
+
 " Indent/dedent/autoindent what you just pasted.
 nnoremap <lt>> V`]<
 nnoremap ><lt> V`]>
