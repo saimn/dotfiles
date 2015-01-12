@@ -11,6 +11,7 @@ Plug 'AndrewRadev/linediff.vim', { 'on': ['Linediff', 'LinediffReset'] }
 Plug 'airblade/vim-gitgutter'
 Plug 'ap/vim-css-color'
 Plug 'bling/vim-airline'
+Plug 'christoomey/vim-tmux-navigator'
 Plug 'ciaranm/securemodelines'
 Plug 'dogrover/vim-pentadactyl', { 'for': 'pentadactyl' }
 Plug 'edkolev/tmuxline.vim', { 'on': 'TmuxlineSnapshot' }
