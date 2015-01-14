@@ -1661,6 +1661,8 @@ let g:tagbar_iconchars = ['▸', '▾']
 " }}}
 " Ultisnips {{{
 
+let g:UltiSnipsEditSplit = 'context'
+let g:UltiSnipsSnippetsDir = '~/.vim/mysnippets'
 let g:UltiSnipsSnippetDirectories = ['UltiSnips', 'mysnippets']
 let g:UltiSnipsExpandTrigger="<c-tab>"
 let g:UltiSnipsListSnippets="<c-s-tab>"
