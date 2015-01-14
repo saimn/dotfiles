@@ -14,6 +14,7 @@ ipython/profile_default/db/
 ipython/profile_default/security/
 ipython/profile_default/startup/
 ipython/profile_default/static/
+ipython/nbextensions/mathjax/
 bin/arch/
 emacs.d/ac-comphist.dat
 emacs.d/.org-id-locations
