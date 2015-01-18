@@ -10,6 +10,7 @@ Plug '5long/pytest-vim-compiler'
 Plug 'AndrewRadev/linediff.vim', { 'on': ['Linediff', 'LinediffReset'] }
 Plug 'airblade/vim-gitgutter'
 Plug 'ap/vim-css-color'
+Plug 'benmills/vimux'
 Plug 'bling/vim-airline'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'ciaranm/securemodelines'
@@ -1675,6 +1676,18 @@ let g:UltiSnipsListSnippets="<c-s-tab>"
 let g:viewdoc_open = "belowright vnew"
 let g:viewdoc_pydoc_cmd ="/usr/bin/pydoc2"
 " let g:viewdoc_man_cmd='LANG=en_US.UTF-8 /usr/bin/man'
+
+" }}}
+" Vimux {{{
+
+nnoremap <Leader>rp :VimuxPromptCommand<CR>
+nnoremap <Leader>rr :VimuxRunLastCommand<CR>
+" map <Leader>vm :VimuxPromptCommand("make ")<CR>
+
+" Run the current file with nose
+nnoremap <Leader>rn :call VimuxRunCommand("clear; nosetests " . bufname("%"))<CR>
+" Run command without sending a return
+" map <Leader>rq :call VimuxRunCommand("clear; nosetests " . bufname("%"), 0)<CR>
 
 " }}}
 " YankRing {{{
