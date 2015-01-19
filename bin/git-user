@@ -1,0 +1,23 @@
+#!/bin/sh
+
+get_user(){
+    echo $(git config --get user.name) "<$(git config --get user.email)>"
+}
+
+set_user(){
+    # echo "name: '$name', mail: '$addr'"
+    git config --local --unset-all user.name
+    git config --local user.name "$name"
+    git config --local user.email "$addr"
+    get_user
+}
+
+# echo "args: '$1' '$2' '$3'"
+
+[ $# -eq 3 ] && name="$2" && addr="$3"
+
+case $1 in
+  "get")   get_user;    exit 0;;
+  "set")   set_user;    exit 0;;
+  *)       get_user;    exit 0;;
+esac
