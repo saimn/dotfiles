@@ -3,6 +3,7 @@
 #
 
 PATH="$HOME/bin:${PATH}"
+PATH="$HOME/bin/fasd:${PATH}"
 PATH="$HOME/bin/html2rst:${PATH}"
 PATH="$HOME/bin/html2text:${PATH}"
 PATH="$HOME/bin/git:${PATH}"

@@ -10,3 +10,6 @@
 [submodule "awesome/revelation"]
 	path = awesome/revelation
 	url = https://github.com/guotsuan/awesome-revelation.git
+[submodule "bin/fasd"]
+	path = bin/fasd
+	url = https://github.com/clvv/fasd
