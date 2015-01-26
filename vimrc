@@ -1681,8 +1681,21 @@ let g:viewdoc_pydoc_cmd ="/usr/bin/pydoc2"
 " Vimux {{{
 
 nnoremap <Leader>rp :VimuxPromptCommand<CR>
-nnoremap <Leader>rr :VimuxRunLastCommand<CR>
-" map <Leader>vm :VimuxPromptCommand("make ")<CR>
+nnoremap <Leader>rl :VimuxRunLastCommand<CR>
+nnoremap <Leader>ri :VimuxInspectRunner<CR>
+nnoremap <Leader>rz :VimuxZoomRunner<CR>
+" map <Leader>rm :VimuxPromptCommand("make ")<CR>
+
+function! VimuxSlime()
+    call VimuxSendText(@v)
+    call VimuxSendKeys("Enter")
+endfunction
+
+" If text is selected, save it in the v buffer and send that buffer it to tmux
+vnoremap <Leader>rs "vy :call VimuxSlime()<CR>
+
+" Select current paragraph and send it to tmux
+nnoremap <Leader>rs vip<Leader>rs<CR>
 
 " Run the current file with nose
 nnoremap <Leader>rn :call VimuxRunCommand("clear; nosetests " . bufname("%"))<CR>
