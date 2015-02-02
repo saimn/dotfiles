@@ -1372,11 +1372,7 @@ let my_ctrlp_git_command = "" .
     \ "cd %s && git ls-files --exclude-standard -co | " .
     \ ctrlp_filter_greps
 
-let my_ctrlp_ffind_command = "" .
-    \ "ffind --semi-restricted --dir %s --type e -B -f | " .
-    \ ctrlp_filter_greps
-
-let g:ctrlp_user_command = ['.git/', my_ctrlp_ffind_command, my_ctrlp_user_command]
+let g:ctrlp_user_command = ['.git/', my_ctrlp_git_command, my_ctrlp_user_command]
 
 " }}}
 " DirDiff {{{
