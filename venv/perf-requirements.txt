@@ -1,0 +1,3 @@
+line-profiler
+memory_profiler
+psutil
