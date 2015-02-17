@@ -56,6 +56,7 @@ Plug 'tpope/vim-dispatch', { 'on': 'Dispatch' }
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-markdown', { 'for': 'markdown' }
 Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-surround'
 Plug 'Valloric/YouCompleteMe', { 'do': './install.sh --clang-completer --system-libclang' }
 Plug 'vim-scripts/Conflict2Diff', { 'on': 'Conflict2Diff' }
@@ -540,6 +541,8 @@ nnoremap <leader>o :e <C-R>=expand('%:h').'/'<cr>
 " Ctrl-+ pour augmenter la taille de la police
 noremap <C-Up> :let &guifont=substitute(&guifont, '\d\+', '\=eval(submatch(0)+1)', '')<CR>
 noremap <C-Down> :let &guifont=substitute(&guifont, '\d\+', '\=eval(submatch(0)-1)', '')<CR>
+
+nnoremap gz :!zeal --query "<cword>"&<CR><CR>
 
 " Easy filetype switching {{{
 
@@ -1478,7 +1481,7 @@ let g:org_heading_shade_leading_stars = 1
 " let g:org_plugins = ['ShowHide', '|', 'Navigator', 'EditStructure', '|', 'Todo', 'Date', 'Misc']
 
 let g:org_todo_keywords = ['TODO', '|', 'DONE']
-let g:org_agenda_files = ['~/org/home.org', '~/org/work.org']
+let g:org_agenda_files = ['~/org/*.org']
 
 " let g:org_debug = 1
 
@@ -1661,8 +1664,9 @@ let g:tagbar_iconchars = ['▸', '▾']
 let g:UltiSnipsEditSplit = 'context'
 let g:UltiSnipsSnippetsDir = '~/.vim/mysnippets'
 let g:UltiSnipsSnippetDirectories = ['UltiSnips', 'mysnippets']
-let g:UltiSnipsExpandTrigger="<c-tab>"
-let g:UltiSnipsListSnippets="<c-s-tab>"
+let g:UltiSnipsExpandTrigger="<c-j>"
+" let g:UltiSnipsExpandTrigger="<c-tab>"
+" let g:UltiSnipsListSnippets="<c-s-tab>"
 " let g:UltiSnipsJumpForwardTrigger="<c-j>"
 " let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 
