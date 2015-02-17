@@ -178,7 +178,7 @@ c.IPythonWidget.font_family = u'Inconsolata for Powerline'
 
 # The maximum number of lines of text before truncation. Specifying a non-
 # positive number disables text truncation (not recommended).
-# c.IPythonWidget.buffer_size = 500
+c.IPythonWidget.buffer_size = 10000
 
 #
 # c.IPythonWidget.history_lock = False
@@ -188,7 +188,7 @@ c.IPythonWidget.font_family = u'Inconsolata for Powerline'
 
 # The type of underlying text widget to use. Valid values are 'plain', which
 # specifies a QPlainTextEdit, and 'rich', which specifies a QTextEdit.
-# c.IPythonWidget.kind = 'plain'
+c.IPythonWidget.kind = 'rich'
 
 # Whether to ask for user confirmation when restarting kernel
 # c.IPythonWidget.confirm_restart = True
@@ -219,7 +219,7 @@ c.IPythonWidget.font_size = 12
 #    'custom_page_requested(str)' signal.
 # 'none'
 #    The text is written directly to the console.
-c.IPythonWidget.paging = 'hsplit'
+c.IPythonWidget.paging = 'vsplit'
 
 #
 # c.IPythonWidget.output_sep = ''
