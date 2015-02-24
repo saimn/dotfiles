@@ -17,6 +17,7 @@ Plug 'ciaranm/securemodelines'
 Plug 'dogrover/vim-pentadactyl', { 'for': 'pentadactyl' }
 Plug 'edkolev/tmuxline.vim', { 'on': 'TmuxlineSnapshot' }
 Plug 'exu/pgsql.vim', { 'for': 'pgsql' }
+Plug 'freitass/todo.txt-vim'
 Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
 Plug 'gregsexton/MatchTag', { 'for': ['html', 'xml'] }
 Plug 'groenewege/vim-less', { 'for': 'less' }
@@ -580,7 +581,7 @@ nnoremap <leader>em :vsplit ~/.mutt/muttrc<cr>
 nnoremap <leader>eo :vsplit ~/org<cr>4j
 nnoremap <leader>ep :vsplit ~/.pentadactylrc<cr>
 nnoremap <leader>er :vsplit ~/lib/dotfiles/README<cr>
-nnoremap <leader>et :vsplit ~/.tmux.conf<cr>
+nnoremap <leader>et :vsplit ~/ownCloud/todo/todo.txt<cr>
 nnoremap <leader>ev :vsplit ~/.vimrc<cr>
 nnoremap <leader>ez :vsplit ~/lib/dotfiles/zsh<cr>4j
 
@@ -2015,7 +2016,7 @@ endif
 " Spelling {{{
 
 if has("spell")
-    setlocal spell spelllang=
+    " setlocal spell spelllang=
     nnoremap <leader>sp :setlocal spell spelllang=fr,en<cr>
     nnoremap <leader>sf :setlocal spell spelllang=fr<cr>
     nnoremap <leader>se :setlocal spell spelllang=en<cr>

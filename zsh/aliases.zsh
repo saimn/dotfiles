@@ -98,4 +98,6 @@ alias gpull='git pull'
 alias gpush='git push'
 alias gst='git status -sb'
 
+alias t=todo.sh
+
 # }}}
