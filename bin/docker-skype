@@ -1,0 +1,25 @@
+#!/bin/sh
+# From https://registry.hub.docker.com/u/tomparys/skype/
+
+set -e
+
+function activate () {
+    /usr/bin/paprefs
+    pulseaudio -k
+    pulseaudio --start
+    sudo systemctl start docker.service
+    sudo docker run -d -p 55555:22 tomparys/skype
+    echo "Now run 'ssh docker-skype skype-pulseaudio' to connect"
+}
+
+function deactivate () {
+    /usr/bin/paprefs
+    pulseaudio -k
+    pulseaudio --start
+    sudo systemctl stop docker.service
+}
+
+case "$1x" in
+    "x") activate;;
+  "-sx") deactivate; exit;;
+esac
