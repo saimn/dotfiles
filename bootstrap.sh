@@ -6,7 +6,7 @@ git clone git@github.com:saimn/dotfiles.git ~/lib/dotfiles
 
 for i in "bashrc" "ctags" "gitconfig" "hgrc" "lessfilter" "mailcap" \
     "pythonrc" "pdbrc" "screenrc" "tmux.conf" "vim" "vimrc" "xbindkeysrc" \
-    "Xresources" "Xmodmap" "xprofile"
+    "Xresources" "Xmodmap" "xprofile" "dir_colors"
 do
     [ -e $HOME/.$i ] && rm $HOME/.$i
     ln -s $HOME/lib/dotfiles/$i $HOME/.$i
@@ -15,10 +15,11 @@ done
 mkdir $HOME/.config/ranger
 mkdir -p $HOME/lib/dotfiles/vim/tmp/{backup,swap,undo}
 
-rm $HOME/.config/{awesome,zathura} $HOME/bin
+rm $HOME/.config/{awesome,zathura,termite} $HOME/bin
 ln -s $HOME/lib/dotfiles/bin/ $HOME/bin
 ln -s $HOME/lib/dotfiles/awesome/ $HOME/.config/awesome
 ln -s $HOME/lib/dotfiles/zathura/ $HOME/.config/zathura
+ln -s $HOME/lib/dotfiles/termite/ $HOME/.config/termite
 
 ln -s $HOME/lib/dotfiles/compton.conf $HOME/.config/compton.conf
 
