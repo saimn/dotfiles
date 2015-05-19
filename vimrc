@@ -1157,6 +1157,9 @@ augroup ft_python
     " Autopep8
     let g:autopep8_select="E1,E2,E3,E4,W2,W3"
     au FileType python map <buffer> <localleader>p :call Autopep8()<CR>
+
+    au FileType python map <buffer> <localleader>y :0,$!yapf<CR>
+    " au FileType python nnoremap <leader>y :0,$!yapf<Cr>
 augroup END
 
 " }}}
