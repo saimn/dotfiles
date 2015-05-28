@@ -1,25 +1,19 @@
 #!/bin/sh
-# From https://registry.hub.docker.com/u/tomparys/skype/
+# From https://registry.hub.docker.com/u/tomparys/skype/ and @yannick1974
 
 set -e
 
-function activate () {
-    /usr/bin/paprefs
-    pulseaudio -k
-    pulseaudio --start
-    sudo systemctl start docker.service
-    sudo docker run -d -p 55555:22 tomparys/skype
-    echo "Now run 'ssh docker-skype skype-pulseaudio' to connect"
-}
+echo ":: Starting docker"
+pacmd load-module module-native-protocol-tcp auth-anonymous=1
+sudo systemctl start docker.service
+cont_pid=`sudo docker run -d -p 55555:22 -v $HOME/.skype:/home/docker:rw tomparys/skype`
+sleep 3s
 
-function deactivate () {
-    /usr/bin/paprefs
-    pulseaudio -k
-    pulseaudio --start
-    sudo systemctl stop docker.service
-}
+echo ":: Starting SKype ('ssh docker-skype skype-pulseaudio')"
+# ssh docker-skype skype-pulseaudio
+docker ps
+ssh -X docker-skype skype-pulseaudio && docker kill $cont_pid && docker rm $cont_pid
 
-case "$1x" in
-    "x") activate;;
-  "-sx") deactivate; exit;;
-esac
+echo ":: Stopping docker"
+pacmd unload-module module-native-protocol-tcp
+sudo systemctl stop docker.service
