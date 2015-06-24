@@ -37,7 +37,7 @@ Plug 'mitsuhiko/vim-jinja', { 'for': ['htmljinja', 'sls'] }
 Plug 'mitsuhiko/vim-sparkup', { 'on': ['SparkupExecute', 'SparkupNext'] }
 Plug 'moll/vim-bbye', { 'on': 'Bdelete' }
 Plug 'mtth/scratch.vim', { 'on': 'Scratch' }
-Plug 'mxw/vim-jsx', { 'for': 'javascript' }
+" Plug 'mxw/vim-jsx', { 'for': 'javascript' }
 Plug 'othree/html5.vim'
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'saltstack/salt-vim', { 'for': 'sls' }
@@ -48,7 +48,7 @@ Plug 'SirVer/ultisnips'
 Plug 'sjl/badwolf'
 Plug 'sjl/clam.vim', { 'on': ['Clam', 'ClamVisual'] }
 Plug 'sjl/gundo.vim', { 'on': 'GundoToggle' }
-Plug 'sjl/splice.vim', { 'on': 'SpliceInit' }
+" Plug 'sjl/splice.vim', { 'on': 'SpliceInit' }
 " Plug 'smancill/conky-syntax.vim', { 'for': 'conkyrc' }
 Plug 'tell-k/vim-autopep8', { 'for': 'python' }
 Plug 'terryma/vim-multiple-cursors'
@@ -63,7 +63,7 @@ Plug 'Valloric/YouCompleteMe', { 'do': './install.sh --clang-completer --system-
 Plug 'vim-scripts/Conflict2Diff', { 'on': 'Conflict2Diff' }
 Plug 'vim-scripts/DirDiff.vim', { 'on': 'DirDiff' }
 Plug 'vim-scripts/YankRing.vim', { 'on': 'YRShow' }
-Plug 'wavded/vim-stylus', { 'for': 'stylus' }
+" Plug 'wavded/vim-stylus', { 'for': 'stylus' }
 Plug 'w0ng/vim-hybrid'
 
 Plug '~/.vim/bundle/camptocamp', { 'for': 'camptocamp' }
@@ -155,7 +155,7 @@ set ttimeoutlen=10
 set backupskip=/tmp/*,/private/tmp/*"
 
 " Better Completion
-set complete=.,w,b,u,t
+set complete=.,w,b,u,t,i
 set completeopt=longest,menuone,preview
 
 " Save when losing focus
@@ -167,6 +167,9 @@ au VimResized * :wincmd =
 " Leader
 let mapleader = ","
 let maplocalleader = "\\"
+
+" 3: tree style
+let g:netrw_liststyle=3
 
 " Cursorline {{{
 
