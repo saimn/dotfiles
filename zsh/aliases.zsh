@@ -78,6 +78,10 @@ alias ping="ping -c 3"
 # start mutt with list mailboxes
 #[[ -x `which mutt` ]] && alias mutt="mutt -y"
 
+# alias weechat="urxvt -icon /usr/share/icons/hicolor/32x32/apps/weechat.png -T Weechat -name weechat -e weechat"
+alias weechat="urxvt -icon $HOME/lib/dotfiles/applications/weechat-64x64.png -T Weechat -name weechat -e weechat"
+alias mutt="urxvt -icon $HOME/lib/dotfiles/applications/mutt.svg -T Mutt -name Mutt -e mutt"
+
 # git
 alias g='git'
 

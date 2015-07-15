@@ -1,0 +1,10 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Name=Mutt
+Comment=IRC Client
+GenericName=Mutt
+Exec=urxvt -icon $HOME/lib/dotfiles/applications/mutt.svg -T Mutt -name mutt -e mutt
+Icon=/home/simon/lib/dotfiles/applications/mutt.svg
+StartupNotify=true
+Terminal=false
+Type=Application
