@@ -32,7 +32,7 @@ Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
 Plug 'marijnh/tern_for_vim', { 'for': 'javascript', 'do': 'npm install' }
 " Plug 'mhinz/vim-signify'
 " Plug 'michaeljsmith/vim-indent-object'
-Plug 'mileszs/ack.vim'
+" Plug 'mileszs/ack.vim'
 Plug 'mitsuhiko/vim-jinja', { 'for': ['htmljinja', 'sls'] }
 Plug 'mitsuhiko/vim-sparkup', { 'on': ['SparkupExecute', 'SparkupNext'] }
 Plug 'moll/vim-bbye', { 'on': 'Bdelete' }
@@ -53,7 +53,7 @@ Plug 'sjl/gundo.vim', { 'on': 'GundoToggle' }
 Plug 'tell-k/vim-autopep8', { 'for': 'python' }
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-dispatch', { 'on': 'Dispatch' }
+Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-markdown', { 'for': 'markdown' }
 Plug 'tpope/vim-repeat'
@@ -65,6 +65,7 @@ Plug 'vim-scripts/DirDiff.vim', { 'on': 'DirDiff' }
 Plug 'vim-scripts/YankRing.vim', { 'on': 'YRShow' }
 " Plug 'wavded/vim-stylus', { 'for': 'stylus' }
 Plug 'w0ng/vim-hybrid'
+Plug 'wincent/ferret'
 
 Plug '~/.vim/bundle/camptocamp', { 'for': 'camptocamp' }
 Plug '~/.vim/bundle/closetags-custom'
@@ -1294,8 +1295,13 @@ augroup END
 
 " Ack {{{
 
-nnoremap <leader>a :Ack!<space>
-let g:ackprg = 'ag --smart-case --nogroup --nocolor --column'
+let g:FerretMap = 0
+" let g:ackprg = 'ag --smart-case --nogroup --nocolor --column'
+
+nnoremap <leader>a :Ack<space>
+nnoremap <leader>A :Ack <C-r><C-w><CR>
+" nnoremap <leader>a <Plug>(FerretAck)
+" nnoremap <leader>A <Plug>(FerretAckWord)
 
 " }}}
 " Airline {{{
@@ -1412,7 +1418,7 @@ nnoremap <leader>gci :Gcommit --verbose<cr>
 nnoremap <leader>gca :Gcommit --all --verbose<cr>
 nnoremap <leader>gm :Gmove<cr>
 nnoremap <leader>gr :Gremove<cr>
-nnoremap <leader>gl :Shell git hist<cr>:wincmd \|<cr>
+nnoremap <leader>gl :Clam git hist<cr>:wincmd \|<cr>
 
 " Hub
 nnoremap <leader>gh :Gbrowse<cr>
@@ -1882,29 +1888,29 @@ nmap <silent> <F4> :QFixToggle<cr>
 " Note: If the text covered by a motion contains a newline it won't work.  Ack
 " searches line-by-line.
 
-nnoremap <silent> <leader>A :set opfunc=<SID>AckMotion<CR>g@
-xnoremap <silent> <leader>A :<C-U>call <SID>AckMotion(visualmode())<CR>
+" nnoremap <silent> <leader>A :set opfunc=<SID>AckMotion<CR>g@
+" xnoremap <silent> <leader>A :<C-U>call <SID>AckMotion(visualmode())<CR>
 
-nnoremap <bs> :Ack! '\b<c-r><c-w>\b'<cr>
-xnoremap <silent> <bs> :<C-U>call <SID>AckMotion(visualmode())<CR>
+" nnoremap <bs> :Ack! '\b<c-r><c-w>\b'<cr>
+" xnoremap <silent> <bs> :<C-U>call <SID>AckMotion(visualmode())<CR>
 
-function! s:CopyMotionForType(type)
-    if a:type ==# 'v'
-        silent execute "normal! `<" . a:type . "`>y"
-    elseif a:type ==# 'char'
-        silent execute "normal! `[v`]y"
-    endif
-endfunction
+" function! s:CopyMotionForType(type)
+"     if a:type ==# 'v'
+"         silent execute "normal! `<" . a:type . "`>y"
+"     elseif a:type ==# 'char'
+"         silent execute "normal! `[v`]y"
+"     endif
+" endfunction
 
-function! s:AckMotion(type) abort
-    let reg_save = @@
+" function! s:AckMotion(type) abort
+"     let reg_save = @@
 
-    call s:CopyMotionForType(a:type)
+"     call s:CopyMotionForType(a:type)
 
-    execute "normal! :Ack! --literal " . shellescape(@@) . "\<cr>"
+"     execute "normal! :Ack! --literal " . shellescape(@@) . "\<cr>"
 
-    let @@ = reg_save
-endfunction
+"     let @@ = reg_save
+" endfunction
 
 " }}}
 " Indent Guides {{{
