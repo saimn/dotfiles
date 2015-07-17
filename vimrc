@@ -2111,7 +2111,7 @@ else
     " colorscheme molokai
     "set t_Co=8
     "set termencoding=utf-8
-    "set ttymouse=xterm
+    set ttymouse=sgr
 endif
 
 " UNIX Specials
