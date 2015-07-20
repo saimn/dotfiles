@@ -24,7 +24,7 @@ Plug 'groenewege/vim-less', { 'for': 'less' }
 Plug 'honza/vim-snippets'
 Plug 'ivanov/vim-ipython'
 Plug 'jceb/vim-orgmode', { 'for': 'org' }
-Plug 'junegunn/vim-github-dashboard', { 'on': ['GHDashboard', 'GHActivity'] }
+" Plug 'junegunn/vim-github-dashboard', { 'on': ['GHDashboard', 'GHActivity'] }
 Plug 'kien/ctrlp.vim'
 " Plug 'kien/rainbow_parentheses.vim', { 'for': 'lisp' }
 Plug 'klen/python-mode', { 'for': 'python' }
