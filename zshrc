@@ -21,7 +21,7 @@ fi
 # Customize to your needs...
 
 # Python
-export WORKON_HOME=$HOME/lib/virtualenvs
+export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/Dev
 
 [[ -f /usr/bin/virtualenvwrapper.sh ]] && source /usr/bin/virtualenvwrapper.sh
