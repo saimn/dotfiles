@@ -16,12 +16,22 @@ if [ -x /usr/bin/dircolors ] || [ -x /bin/dircolors ]; then
   alias egrep='egrep --color=auto'
 fi
 
+alias e="emacsclient"
+alias g='git'
+alias j='fasd_cd -i'
+alias m='fasd -f -e mplayer' # quick opening files with mplayer
+alias o='fasd -a -e xdg-open' # quick opening files with xdg-open
+alias t=todo.sh
+alias u="cd .. && ls"
+alias v='fasd -f -e vim' # quick opening files with vim
+# alias v="vim"
+alias z='fasd_cd -d'
+
 alias ll='ls -l --group-directories-first'
 alias l='ll -Gh'
 alias lh='ll -Gh'
 alias lt='ll -tr'
 alias la='ls -la'
-alias u="cd .. && ls"
 alias lsd='ls -ld *(-/DN)'
 
 # -p : conserve les dates, droits lors de la copie
@@ -33,14 +43,14 @@ alias df='df -h'
 alias psg="ps auxw | grep -i "
 
 # per extentions
-alias -s pdf="zathura"
-alias -s ps="zathura"
-alias -s png="sxiv"
-alias -s jpg="sxiv"
-alias -s fits="ds9"
-alias -s log="less"
 alias -s conf="vim"
+alias -s fits="ds9"
 alias -s html="firefox -new-tab"
+alias -s jpg="sxiv"
+alias -s log="less"
+alias -s pdf="zathura"
+alias -s png="sxiv"
+alias -s ps="zathura"
 
 # misc commands
 alias ack=ag
@@ -55,10 +65,8 @@ alias ipyqt='ipython2 qtconsole --pylab'
 alias wo='workon'
 alias xp='xprop | grep "WM_WINDOW_ROLE\|WM_CLASS" && echo "WM_CLASS(STRING) = \"NAME\", \"CLASS\""'
 
-alias e="emacsclient"
 alias ec="emacsclient -n -c"
 alias et="emacsclient -t"
-alias v="vim"
 alias vi="vim"
 alias sv="sudo vim"
 
@@ -78,13 +86,10 @@ alias ping="ping -c 3"
 # start mutt with list mailboxes
 #[[ -x `which mutt` ]] && alias mutt="mutt -y"
 
-# alias weechat="urxvt -icon /usr/share/icons/hicolor/32x32/apps/weechat.png -T Weechat -name weechat -e weechat"
-alias weechat="urxvt -icon $HOME/lib/dotfiles/applications/weechat-64x64.png -T Weechat -name weechat -e weechat"
-alias mutt="urxvt -icon $HOME/lib/dotfiles/applications/mutt.svg -T Mutt -name Mutt -e mutt"
+alias weechat="urxvt -icon $HOME/lib/dotfiles/applications/weechat-64x64.png -T Weechat -name weechat -e weechat &"
+alias mutt="urxvt -icon $HOME/lib/dotfiles/applications/mutt.svg -T Mutt -name Mutt -e mutt &"
 
 # git
-alias g='git'
-
 alias gb='git branch'
 alias gba='git branch -a -vv'
 
@@ -101,7 +106,5 @@ alias glg='git log --stat --max-count=5'
 alias gpull='git pull'
 alias gpush='git push'
 alias gst='git status -sb'
-
-alias t=todo.sh
 
 # }}}
