@@ -59,7 +59,7 @@ Plug 'tpope/vim-markdown', { 'for': 'markdown' }
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-surround'
-Plug 'Valloric/YouCompleteMe', { 'do': './install.sh --clang-completer --system-libclang' }
+Plug 'Valloric/YouCompleteMe', { 'do': 'python2 install.py --clang-completer --system-libclang' }
 Plug 'vim-scripts/Conflict2Diff', { 'on': 'Conflict2Diff' }
 Plug 'vim-scripts/DirDiff.vim', { 'on': 'DirDiff' }
 Plug 'vim-scripts/YankRing.vim', { 'on': 'YRShow' }
