@@ -81,24 +81,30 @@ set shell=/bin/bash
 
 filetype off
 filetype plugin indent on       " load file type plugins + indentation
-set nocompatible                " choose no compatibility with legacy vi
 
 " }}}
 " Basic options ----------------------------------------------------------- {{{
 
-set encoding=utf-8
+if has('nvim')
+
+else
+    set nocompatible                " choose no compatibility with legacy vi
+    set encoding=utf-8
+    set autoindent                  " always set autoindenting on
+    set autoread
+    set backspace=indent,eol,start  " backspace through everything in insert mode
+    set laststatus=2                " show always statusline of last window
+    set ttyfast
+endif
+
 set modelines=0
-set autoindent                  " always set autoindenting on
 set showmode                    " print current mode on the last line
 set showcmd                     " display incomplete commands
 set hidden                      " Allow backgrounding buffers without writing them
 set visualbell
-set ttyfast
 set ruler
-set backspace=indent,eol,start  " backspace through everything in insert mode
 set nonumber
 set norelativenumber
-set laststatus=2                " show always statusline of last window
 set history=1000
 set undofile
 set undoreload=10000
@@ -110,7 +116,6 @@ set showbreak=↪
 set splitbelow
 set splitright
 set autowrite
-set autoread
 set shiftround
 set title
 set linebreak     " ne casse pas les mots en fin de ligne
@@ -2106,9 +2111,10 @@ if has('gui_running')
     " Make shift-insert work like in Xterm
     map <S-Insert> <MiddleMouse>
     map! <S-Insert> <MiddleMouse>
+elseif has('nvim')
+
 else
     " Console Vim
-
     " Mouse support
     set mouse=a
 
