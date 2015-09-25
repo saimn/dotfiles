@@ -35,6 +35,7 @@ export PIP_WHEEL_DIR="${WHEELHOUSE}"
 source ~/lib/dotfiles/zsh/functions.zsh
 source ~/lib/dotfiles/zsh/keys.zsh
 source ~/lib/dotfiles/zsh/ssh.zsh
+source ~/lib/dotfiles/zsh/k/k.sh
 source ~/lib/dotfiles/zsh/aliases.zsh
 
 # Watch new users
