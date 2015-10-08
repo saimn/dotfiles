@@ -41,27 +41,25 @@
    credit = "!f() { git commit --amend --author \"$1 <$2>\" -C HEAD; }; f"
 
    # summary of what you're going to pull/push
-   in = "!git fetch && git log ..origin/master --stat"
-   out = log --oneline origin/master..HEAD
+   in = !git fetch --all && git hist origin/master
+   out = log --oneline --graph origin/master..HEAD
    sync = !git stash && git pull && git new && git stash pop
+   fa = fetch -v --all --progress
 
    # see what new commits have been created by the last command (typically after a "git pull")
    new = !sh -c 'git log $1@{1}..$1@{0} "$@"'
 
-   # changes since we last did a push
-   wo = whatchanged -p origin/master..HEAD
-
    # diff
    di = diff
    staged = diff --cached
-   diffstat = diff --stat -r
-   wdiff = diff --word-diff=color
-   wshow = show --word-diff=color
-   w = whatchanged -p
+   diffs = diff --stat -r
+   diffw = diff --word-diff=color
+   showw = show --word-diff=color
 
    # info
    remotes = remote -v
 
+   # push new branch
    pushb = !git push -u origin $(git rev-parse --abbrev-ref HEAD)
 
    # fires up a git daemon for the repo you are currently in
