@@ -14,16 +14,16 @@ Plug 'benmills/vimux'
 Plug 'bling/vim-airline'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'ciaranm/securemodelines'
-Plug 'dogrover/vim-pentadactyl', { 'for': 'pentadactyl' }
+" Plug 'dogrover/vim-pentadactyl', { 'for': 'pentadactyl' }
 Plug 'edkolev/tmuxline.vim', { 'on': 'TmuxlineSnapshot' }
 Plug 'exu/pgsql.vim', { 'for': 'pgsql' }
-Plug 'freitass/todo.txt-vim'
+" Plug 'freitass/todo.txt-vim'
 Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
 Plug 'gregsexton/MatchTag', { 'for': ['html', 'xml'] }
 Plug 'groenewege/vim-less', { 'for': 'less' }
 Plug 'honza/vim-snippets'
 Plug 'ivanov/vim-ipython'
-Plug 'jceb/vim-orgmode', { 'for': 'org' }
+" Plug 'jceb/vim-orgmode', { 'for': 'org' }
 " Plug 'junegunn/vim-github-dashboard', { 'on': ['GHDashboard', 'GHActivity'] }
 Plug 'kien/ctrlp.vim'
 " Plug 'kien/rainbow_parentheses.vim', { 'for': 'lisp' }
@@ -57,7 +57,7 @@ Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-markdown', { 'for': 'markdown' }
 Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-speeddating'
+" Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-surround'
 Plug 'Valloric/YouCompleteMe', { 'do': 'python2 install.py --clang-completer --system-libclang' }
 Plug 'vim-scripts/Conflict2Diff', { 'on': 'Conflict2Diff' }
@@ -386,7 +386,6 @@ noremap <leader>y "*y
 noremap <leader>Y "+y
 vnoremap <leader>y "*ygv
 vnoremap <leader>Y "+ygv
-" noremap <leader>p :silent! set paste<CR>"*p<CR>:set nopaste<CR>
 noremap <leader>p :set paste<CR>"*P<CR>:set nopaste<CR>
 noremap <leader>P :set paste<CR>"+P<CR>:set nopaste<CR>
 
@@ -402,8 +401,8 @@ nnoremap <leader>w mz:%s/\s\+$//<cr>:let @/=''<cr>`z
 " vnoremap <c-p> :w !curl -sF 'sprunge=<-' 'http://paste.stevelosh.com' \| tr -d '\n ' \| pbcopy && open `pbpaste`<cr>
 
 " Select entire buffer
-nnoremap vaa ggvGg_
-nnoremap Vaa ggVG
+" nnoremap vaa ggvGg_
+" nnoremap Vaa ggVG
 
 " "Uppercase word" mapping.
 "
@@ -440,22 +439,19 @@ nnoremap <leader>: :%s//<left>
 " Diffoff
 nnoremap <leader>D :diffoff!<cr>
 
-" Wrappe à 72 caractères avec la touche '#'
-nnoremap <leader># gwap
-
-" Wrappe et justifie à 72 caractères avec la touche '@'
-" nnoremap <leader>@ {v}! par 72j
-
 " Formatting, TextMate-style
-nnoremap Q gqip
-vnoremap Q gq
+" nnoremap Q gqip
+" vnoremap Q gq
+nnoremap Q gwip
+vnoremap Q gw
 
 " Reformat line.
 " I never use l as a macro register anyway.
 nnoremap ql gqq
 
 " Easier linewise reselection of what you just pasted.
-nnoremap <leader>V V`]
+" nnoremap <leader>V V`]
+nnoremap <leader>V `[v`]
 
 " Vmap for maintain Visual Mode after shifting > and <
 vmap < <gv
@@ -477,7 +473,8 @@ nnoremap <leader>J mzvipJ`z
 
 " Split line (sister to [J]oin lines)
 " The normal use of S is covered by cc, so don't worry about shadowing it.
-nnoremap S i<cr><esc>^mwgk:silent! s/\v +$//<cr>:noh<cr>`w
+" nnoremap S i<cr><esc>^mwgk:silent! s/\v +$//<cr>:noh<cr>`w
+nnoremap S i<cr><esc>^mwgk:silent! s/\v +$//<cr>`w
 
 " HTML tag closing
 " inoremap <C-_> <space><bs><esc>:call InsertCloseTag()<cr>a
@@ -521,8 +518,8 @@ nnoremap <leader>u :syntax sync fromstart<cr>:redraw!<cr>
 nnoremap <c-Tab> <c-^>
 
 " On fait tourner les tampons ...
-nnoremap <c-n> :bnext!<CR>
-nnoremap <c-p> :bprev!<CR>
+" nnoremap <c-n> :bnext!<CR>
+" nnoremap <c-p> :bprev!<CR>
 
 " make ; do the same thing as :
 nnoremap ; :
@@ -969,12 +966,12 @@ augroup END
 " }}}
 " Java {{{
 
-augroup ft_java
-    au!
+" augroup ft_java
+"     au!
 
-    au FileType java setlocal foldmethod=marker
-    au FileType java setlocal foldmarker={,}
-augroup END
+"     au FileType java setlocal foldmethod=marker
+"     au FileType java setlocal foldmarker={,}
+" augroup END
 
 " }}}
 " Javascript {{{
@@ -1005,7 +1002,6 @@ augroup ft_mail
     au!
 
     au BufRead,BufNewFile ~/.mutt/tmp/mutt* setfiletype mail
-
     au Filetype mail setlocal spell spelllang=fr,en
 augroup END
 
@@ -1063,7 +1059,6 @@ augroup ft_muttrc
     au!
 
     au BufRead,BufNewFile *.muttrc set ft=muttrc
-
     au FileType muttrc setlocal foldmethod=marker foldmarker={{{,}}}
 augroup END
 
@@ -1094,11 +1089,11 @@ augroup END
 " }}}
 " Pentadactyl {{{
 
-augroup ft_pentadactyl
-    au!
-    au BufNewFile,BufRead *pentadactylrc set filetype=pentadactyl
-    au BufNewFile,BufRead /tmp/**/pentadactyl.txt set nolist wrap linebreak columns=100 colorcolumn=0
-augroup END
+" augroup ft_pentadactyl
+"     au!
+"     au BufNewFile,BufRead *pentadactylrc set filetype=pentadactyl
+"     au BufNewFile,BufRead /tmp/**/pentadactyl.txt set nolist wrap linebreak columns=100 colorcolumn=0
+" augroup END
 
 " }}}
 " Php {{{
@@ -1196,11 +1191,11 @@ augroup END
 " }}}
 " Ruby {{{
 
-augroup ft_ruby
-    au!
-    au Filetype ruby setlocal foldmethod=syntax
-    au BufRead,BufNewFile Capfile setlocal filetype=ruby
-augroup END
+" augroup ft_ruby
+"     au!
+"     au Filetype ruby setlocal foldmethod=syntax
+"     au BufRead,BufNewFile Capfile setlocal filetype=ruby
+" augroup END
 
 " }}}
 " Salt {{{
@@ -1250,10 +1245,10 @@ augroup END
 " }}}
 " Vagrant {{{
 
-augroup ft_vagrant
-    au!
-    au BufRead,BufNewFile Vagrantfile set ft=ruby
-augroup END
+" augroup ft_vagrant
+"     au!
+"     au BufRead,BufNewFile Vagrantfile set ft=ruby
+" augroup END
 
 " }}}
 " Vim {{{
@@ -1399,10 +1394,10 @@ let g:ctrlp_user_command = ['.git/', my_ctrlp_git_command, my_ctrlp_user_command
 " DirDiff {{{
 
 " just
-nnoremap <Leader>@g <Plug>DirDiffGet
-nnoremap <Leader>@p <Plug>DirDiffPut
-nnoremap <Leader>@j <Plug>DirDiffNext
-nnoremap <Leader>@k <Plug>DirDiffPrev
+" nnoremap <Leader>@g <Plug>DirDiffGet
+" nnoremap <Leader>@p <Plug>DirDiffPut
+" nnoremap <Leader>@j <Plug>DirDiffNext
+" nnoremap <Leader>@k <Plug>DirDiffPrev
 
 " }}}
 " Dispatch {{{
@@ -1622,26 +1617,26 @@ let g:syntastic_python_flake8_exec = 'flake8-python2'
 " }}}
 " Splice {{{
 
-let g:splice_prefix = "-"
+" let g:splice_prefix = "-"
 
-let g:splice_initial_mode = "grid"
+" let g:splice_initial_mode = "grid"
 
-let g:splice_initial_layout_grid = 0
-let g:splice_initial_layout_loupe = 0
-let g:splice_initial_layout_compare = 0
-let g:splice_initial_layout_path = 0
+" let g:splice_initial_layout_grid = 0
+" let g:splice_initial_layout_loupe = 0
+" let g:splice_initial_layout_compare = 0
+" let g:splice_initial_layout_path = 0
 
-let g:splice_initial_diff_grid = 1
-let g:splice_initial_diff_loupe = 0
-let g:splice_initial_diff_compare = 1
-let g:splice_initial_diff_path = 0
+" let g:splice_initial_diff_grid = 1
+" let g:splice_initial_diff_loupe = 0
+" let g:splice_initial_diff_compare = 1
+" let g:splice_initial_diff_path = 0
 
-let g:splice_initial_scrollbind_grid = 0
-let g:splice_initial_scrollbind_loupe = 0
-let g:splice_initial_scrollbind_compare = 0
-let g:splice_initial_scrollbind_path = 0
+" let g:splice_initial_scrollbind_grid = 0
+" let g:splice_initial_scrollbind_loupe = 0
+" let g:splice_initial_scrollbind_compare = 0
+" let g:splice_initial_scrollbind_path = 0
 
-let g:splice_wrap = "nowrap"
+" let g:splice_wrap = "nowrap"
 
 " }}}
 " Tagbar {{{
@@ -1691,9 +1686,9 @@ let g:UltiSnipsExpandTrigger="<c-j>"
 " }}}
 " Viewdoc {{{
 
-let g:viewdoc_open = "belowright vnew"
-let g:viewdoc_pydoc_cmd ="/usr/bin/pydoc2"
-" let g:viewdoc_man_cmd='LANG=en_US.UTF-8 /usr/bin/man'
+" let g:viewdoc_open = "belowright vnew"
+" let g:viewdoc_pydoc_cmd ="/usr/bin/pydoc2"
+" " let g:viewdoc_man_cmd='LANG=en_US.UTF-8 /usr/bin/man'
 
 " }}}
 " Vimux {{{
