@@ -31,8 +31,8 @@ export BROWSER="firefox"
 # }}}
 
 # {{{ Python
-export PYTHONPATH="$HOME/lib/python:$PYTHONPATH"
-export PYTHONSTARTUP="$HOME/.pythonrc"
+# export PYTHONPATH="$HOME/lib/python:$PYTHONPATH"
+# export PYTHONSTARTUP="$HOME/.pythonrc"
 # }}}
 
 #
