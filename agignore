@@ -1,6 +1,11 @@
 *.egg-info
+.git
+.hg
+.svn
 .tox
+_build
 build
+dist
 htmlcov
+node_modules
 tags
-

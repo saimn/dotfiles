@@ -25,7 +25,7 @@ Plug 'honza/vim-snippets'
 Plug 'ivanov/vim-ipython'
 " Plug 'jceb/vim-orgmode', { 'for': 'org' }
 " Plug 'junegunn/vim-github-dashboard', { 'on': ['GHDashboard', 'GHActivity'] }
-Plug 'kien/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 " Plug 'kien/rainbow_parentheses.vim', { 'for': 'lisp' }
 Plug 'klen/python-mode', { 'for': 'python' }
 Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
@@ -50,6 +50,7 @@ Plug 'sjl/clam.vim', { 'on': ['Clam', 'ClamVisual'] }
 Plug 'sjl/gundo.vim', { 'on': 'GundoToggle' }
 " Plug 'sjl/splice.vim', { 'on': 'SpliceInit' }
 " Plug 'smancill/conky-syntax.vim', { 'for': 'conkyrc' }
+Plug 'stefandtw/quickfix-reflector.vim'
 Plug 'tell-k/vim-autopep8', { 'for': 'python' }
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-commentary'
@@ -1364,13 +1365,13 @@ nnoremap <leader>; :CtrlPTag<cr>
 nnoremap <leader>b :CtrlPBuffer<cr>
 nnoremap <leader>m :CtrlPMRU<cr>
 
-let g:ctrlp_prompt_mappings = {
-\ 'PrtSelectMove("j")':   ['<c-j>', '<down>', '<s-tab>'],
-\ 'PrtSelectMove("k")':   ['<c-k>', '<up>', '<tab>'],
-\ 'PrtHistory(-1)':       ['<c-n>'],
-\ 'PrtHistory(1)':        ['<c-p>'],
-\ 'ToggleFocus()':        ['<c-tab>'],
-\ }
+" let g:ctrlp_prompt_mappings = {
+" \ 'PrtSelectMove("j")':   ['<c-j>', '<down>', '<s-tab>'],
+" \ 'PrtSelectMove("k")':   ['<c-k>', '<up>', '<tab>'],
+" \ 'PrtHistory(-1)':       ['<c-n>'],
+" \ 'PrtHistory(1)':        ['<c-p>'],
+" \ 'ToggleFocus()':        ['<c-tab>'],
+" \ }
 
 let ctrlp_filter_greps = "".
     \ "egrep -iv '\.(" .
@@ -1388,7 +1389,8 @@ let my_ctrlp_git_command = "" .
     \ "cd %s && git ls-files --exclude-standard -co | " .
     \ ctrlp_filter_greps
 
-let g:ctrlp_user_command = ['.git/', my_ctrlp_git_command, my_ctrlp_user_command]
+" let g:ctrlp_user_command = ['.git/', my_ctrlp_git_command, my_ctrlp_user_command]
+let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
 
 " }}}
 " DirDiff {{{
