@@ -191,11 +191,11 @@ augroup END
 
 " }}}
 " Trailing whitespace {{{
-" Only shown when not in insert mode so I don't go insane.
 
 augroup trailing
     au!
 
+    " Only shown when not in insert mode so I don't go insane.
     " au InsertEnter * :set listchars-=trail:⌴
 
     " Remove trailing whitespace
@@ -389,6 +389,9 @@ vnoremap <leader>y "*ygv
 vnoremap <leader>Y "+ygv
 noremap <leader>p :set paste<CR>"*P<CR>:set nopaste<CR>
 noremap <leader>P :set paste<CR>"+P<CR>:set nopaste<CR>
+
+" make p in Visual mode replace the selected text with the yank register
+vnoremap p <Esc>:let current_reg = @"<CR>gvdi<C-R>=current_reg<CR><Esc>
 
 " Rebuild Ctags (mnemonic RC -> CR -> <cr>)
 nnoremap <leader><cr> :silent !myctags<cr>:redraw!<cr>
@@ -592,6 +595,8 @@ nnoremap <leader>et :vsplit ~/ownCloud/todo/todo.txt<cr>
 nnoremap <leader>ev :vsplit ~/.vimrc<cr>
 nnoremap <leader>ez :vsplit ~/lib/dotfiles/zsh<cr>4j
 
+nnoremap <leader>sv :source ~/.vimrc<cr>
+
 " }}}
 " Searching and movement -------------------------------------------------- {{{
 
@@ -609,7 +614,6 @@ set gdefault                    " substitute all matches on the line
 set scrolloff=3         " min nb of lines to keep above and below the cursor.
 set sidescroll=1        " min nb of columns to scroll horizontally.(with nowrap)
 set sidescrolloff=10
-
 set virtualedit+=block  " allow cursor where there is no actual character.
 
 noremap <silent> <leader><space> :noh<cr>:call clearmatches()<cr>
@@ -1373,21 +1377,21 @@ nnoremap <leader>m :CtrlPMRU<cr>
 " \ 'ToggleFocus()':        ['<c-tab>'],
 " \ }
 
-let ctrlp_filter_greps = "".
-    \ "egrep -iv '\.(" .
-    \ "jar|class|swp|swo|log|so|o|pyc|pyo|jpe?g|png|gif|mo|po|min\.js" .
-    \ ")$' | " .
-    \ "egrep -v '^(\.\/)?(" .
-    \ "node_modules/|lib/|libs/|.git/|.hg/|.svn/|.tox/|dist/|build/|docs/build/|docs/_build/" .
-    \ ")'"
+" let ctrlp_filter_greps = "".
+"     \ "egrep -iv '\.(" .
+"     \ "jar|class|swp|swo|log|so|o|pyc|pyo|jpe?g|png|gif|mo|po|min\.js" .
+"     \ ")$' | " .
+"     \ "egrep -v '^(\.\/)?(" .
+"     \ "node_modules/|lib/|libs/|.git/|.hg/|.svn/|.tox/|dist/|build/|docs/build/|docs/_build/" .
+"     \ ")'"
 
-let my_ctrlp_user_command = "" .
-    \ "find %s '(' -type f -or -type l ')' -maxdepth 15 -not -path '*/\\.*/*' | " .
-    \ ctrlp_filter_greps
+" let my_ctrlp_user_command = "" .
+"     \ "find %s '(' -type f -or -type l ')' -maxdepth 15 -not -path '*/\\.*/*' | " .
+"     \ ctrlp_filter_greps
 
-let my_ctrlp_git_command = "" .
-    \ "cd %s && git ls-files --exclude-standard -co | " .
-    \ ctrlp_filter_greps
+" let my_ctrlp_git_command = "" .
+"     \ "cd %s && git ls-files --exclude-standard -co | " .
+"     \ ctrlp_filter_greps
 
 " let g:ctrlp_user_command = ['.git/', my_ctrlp_git_command, my_ctrlp_user_command]
 let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
@@ -1430,7 +1434,7 @@ vnoremap <leader>gh :Gbrowse<cr>
 " Git Gutter {{{
 
 let g:gitgutter_escape_grep = 1
-" let g:gitgutter_realtime = 0
+let g:gitgutter_realtime = 0
 " let g:gitgutter_max_signs = 500
 
 highlight GitGutterAdd guifg=#d7ffaf ctermfg=193
@@ -1442,7 +1446,7 @@ highlight GitGutterChange guifg=#d7d7ff ctermfg=189
 
 nnoremap <F5> :GundoToggle<CR>
 
-let g:gundo_debug = 1
+" let g:gundo_debug = 1
 let g:gundo_preview_bottom = 1
 let g:gundo_tree_statusline = "Gundo"
 let g:gundo_preview_statusline = "Gundo Preview"
@@ -1720,6 +1724,8 @@ nnoremap <Leader>rn :call VimuxRunCommand("clear; nosetests " . bufname("%"))<CR
 " }}}
 " YankRing {{{
 
+let g:yankring_history_dir = '$HOME/.vim/tmp'
+
 function! YRRunAfterMaps()
     " Make Y yank to end of line.
     nnoremap Y :<C-U>YRYankCount 'y$'<CR>
@@ -1816,8 +1822,8 @@ function! ErrorsToggle() " {{{
   endif
 endfunction " }}}
 
-command! -bang -nargs=? QFixToggle call QFixToggle(<bang>0)
-function! QFixToggle(forced) " {{{
+command! -bang -nargs=? QuickfixToggle call QuickfixToggle(<bang>0)
+function! QuickfixToggle(forced) " {{{
   if exists("g:qfix_win") && a:forced == 0
     cclose
     unlet g:qfix_win
@@ -1828,7 +1834,7 @@ function! QFixToggle(forced) " {{{
 endfunction " }}}
 
 nmap <silent> <F3> :ErrorsToggle<cr>
-nmap <silent> <F4> :QFixToggle<cr>
+nmap <silent> <F4> :QuickfixToggle<cr>
 
 " }}}
 " Hg {{{
@@ -2070,7 +2076,7 @@ if has('gui_running')
     " GUI Vim
 
     if has("win32")
-        set guifont=Courier:h10:cANSI
+        " set guifont=Courier:h10:cANSI
     else
         if hostname() == "thunderball"
             set guifont=Inconsolata\ for\ Powerline\ 12
@@ -2147,4 +2153,3 @@ if filereadable(expand("~/.vim/local.vim"))
 endif
 
 " }}}
-
