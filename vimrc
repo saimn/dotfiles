@@ -434,6 +434,15 @@ nnoremap <leader>w mz:%s/\s\+$//<cr>:let @/=''<cr>`z
 " if you do you'll probably want to use another mark.
 inoremap <C-u> <esc>mzgUiw`za
 
+" Quote words under cursor
+nnoremap <leader>" viW<esc>a"<esc>gvo<esc>i"<esc>gvo<esc>3l
+nnoremap <leader>' viW<esc>a'<esc>gvo<esc>i'<esc>gvo<esc>3l
+
+" Quote current selection
+" TODO: This only works for selections that are created "forwardly"
+vnoremap <leader>" <esc>a"<esc>gvo<esc>i"<esc>gvo<esc>ll
+vnoremap <leader>' <esc>a'<esc>gvo<esc>i'<esc>gvo<esc>ll
+
 " Panic Button
 nnoremap <F12> mzggg?G`z
 
@@ -619,9 +628,13 @@ set virtualedit+=block  " allow cursor where there is no actual character.
 noremap <silent> <leader><space> :noh<cr>:call clearmatches()<cr>
 
 runtime macros/matchit.vim
-map <tab> %
-silent! unmap [%
-silent! unmap ]%
+" map <tab> %
+" silent! unmap [%
+" silent! unmap ]%
+"
+" Jump to matching pairs easily, with Tab
+nnoremap <Tab> %
+vnoremap <Tab> %
 
 " Made D behave
 nnoremap D d$
@@ -641,13 +654,13 @@ nnoremap * *<c-o>
 function! JumpToTag()
     execute "normal! \<c-]>mzzvzz15\<c-e>"
     execute "keepjumps normal! `z"
-    Pulse
+    " Pulse
 endfunction
 
 function! JumpToTagInSplit()
     execute "normal! \<c-w>v\<c-]>mzzMzvzz15\<c-e>"
     execute "keepjumps normal! `z"
-    Pulse
+    " Pulse
 endfunction
 
 nnoremap <c-]> :silent! call JumpToTag()<cr>
@@ -656,8 +669,10 @@ nnoremap <c-\> :silent! call JumpToTagInSplit()<cr>
 " nnoremap <c-\> <c-w>v<c-]>mzzMzvzz15<c-e>`z:Pulse<cr>
 
 " Keep search matches in the middle of the window.
-nnoremap n nzzzv:Pulse<cr>
-nnoremap N Nzzzv:Pulse<cr>
+" nnoremap n nzzzv:Pulse<cr>
+" nnoremap N Nzzzv:Pulse<cr>
+nnoremap n nzzzv
+nnoremap N Nzzzv
 
 " Same when jumping around
 nnoremap g; g;zz
@@ -690,7 +705,7 @@ nnoremap VaB vaBV
 nnoremap <silent> <leader>? :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
 
 " Ack for the last search.
-nnoremap <silent> <leader>/ :execute "Ack! '" . substitute(substitute(substitute(@/, "\\\\<", "\\\\b", ""), "\\\\>", "\\\\b", ""), "\\\\v", "", "") . "'"<CR>
+" nnoremap <silent> <leader>/ :execute "Ack '" . substitute(substitute(substitute(@/, "\\\\<", "\\\\b", ""), "\\\\>", "\\\\b", ""), "\\\\v", "", "") . "'"<CR>
 
 " Directional Keys {{{
 
@@ -1145,6 +1160,9 @@ augroup ft_python
     au FileType python set softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79
     au FileType python setlocal smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class,with
 
+    " disable autowrapping
+    " autocmd filetype python setlocal formatoptions-=t
+
     " au FileType python setlocal omnifunc=pythoncomplete#Complete
     au FileType python setlocal define=^\s*\\(def\\\\|class\\)
     au FileType man nnoremap <buffer> <cr> :q<cr>
@@ -1157,7 +1175,7 @@ augroup ft_python
     au FileType python if exists("python_space_error_highlight") | unlet python_space_error_highlight | endif
 
     " Jesus, Python.  Five characters of punctuation for a damn string?
-    au FileType python inoremap <buffer> <c-g> _(u'')<left><left>
+    " au FileType python inoremap <buffer> <c-g> _(u'')<left><left>
 
     au FileType python inoremap <buffer> <c-b> """"""<left><left><left>
 
@@ -1169,6 +1187,11 @@ augroup ft_python
 
     au FileType python map <buffer> <localleader>y :0,$!yapf<CR>
     " au FileType python nnoremap <leader>y :0,$!yapf<Cr>
+
+    " Defer to isort for sorting Python imports (instead of using Unix sort)
+    if executable('isort')
+        autocmd filetype python nnoremap <leader>s mX:%! isort -<cr>`X
+    endif
 augroup END
 
 " }}}
@@ -1187,8 +1210,10 @@ augroup ft_rest
 
     au FileType rst setlocal foldlevel=1
 
-    au Filetype rst nnoremap <buffer> <localleader>1 yypVr=:redraw<cr>
-    au Filetype rst nnoremap <buffer> <localleader>2 yypVr-:redraw<cr>
+    au Filetype rst nnoremap <buffer> <localleader>1 yyPVr=jyypVr=
+    au Filetype rst nnoremap <buffer> <localleader>2 yyPVr*jyypVr*
+    " au Filetype rst nnoremap <buffer> <localleader>1 yypVr=:redraw<cr>
+    " au Filetype rst nnoremap <buffer> <localleader>2 yypVr-:redraw<cr>
     au Filetype rst nnoremap <buffer> <localleader>3 yypVr~:redraw<cr>
     au Filetype rst nnoremap <buffer> <localleader>4 yypVr`:redraw<cr>
 augroup END
@@ -1265,6 +1290,11 @@ augroup ft_vim
     au FileType help setlocal textwidth=78
     au BufWinEnter *.txt if &ft == 'help' | wincmd L | endif
 
+    " Bind <F1> to show the keyword under cursor
+    " general help can still be entered manually, with :h
+    autocmd filetype vim noremap <buffer> <F1> <Esc>:help <C-r><C-w><CR>
+    autocmd filetype vim noremap! <buffer> <F1> <Esc>:help <C-r><C-w><CR>
+
     " Reload vimrc to apply changes
     autocmd! BufWritePost .vimrc source %
 augroup END
@@ -1305,6 +1335,7 @@ let g:FerretMap = 0
 
 nnoremap <leader>a :Ack<space>
 nnoremap <leader>A :Ack <C-r><C-w><CR>
+vnoremap <leader>a y:grep! "\b<c-r>"\b"<cr>:cw<cr><cr>
 " nnoremap <leader>a <Plug>(FerretAck)
 " nnoremap <leader>A <Plug>(FerretAckWord)
 
@@ -1394,7 +1425,18 @@ nnoremap <leader>m :CtrlPMRU<cr>
 "     \ ctrlp_filter_greps
 
 " let g:ctrlp_user_command = ['.git/', my_ctrlp_git_command, my_ctrlp_user_command]
-let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
+
+" Use The Silver Searcher over grep, iff possible
+if executable('ag')
+   " Use ag over grep
+   " set grepprg=ag\ --nogroup\ --nocolor
+
+   " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+   let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
+
+   " ag is fast enough that CtrlP doesn't need to cache
+   let g:ctrlp_use_caching = 0
+endif
 
 " }}}
 " DirDiff {{{
@@ -1480,11 +1522,10 @@ augroup ps_nerdtree
     " au Filetype nerdtree nnoremap <buffer> K :q<cr>
 augroup END
 
+let NERDTreeBookmarksFile = expand("$HOME/.vim/NERDTreeBookmarks")
 let NERDTreeHighlightCursorline = 1
 let NERDTreeIgnore = ['\~$', '.*\.pyo$', '.*\.pyc$', 'pip-log\.txt$',
-                    \ 'xapian_index', '.*.pid', 'monitor.py', '.*-fixtures-.*.json',
-                    \ '.*\.o$', 'db.db', 'tags.bak', '.*\.pdf$', '.*\.mid$',
-                    \ '.*\.midi$']
+                    \ '.*\.o$', 'db.db', 'tags.bak', '.*\.pdf$']
 
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
@@ -1558,7 +1599,7 @@ function! ScratchToggle()
         unlet w:is_scratch_window
         exec "q"
     else
-        exec "normal! :Sscratch\<cr>\<C-W>L"
+        exec "normal! :Scratch\<cr>\<C-W>L"
         let w:is_scratch_window = 1
     endif
 endfunction
@@ -1756,7 +1797,8 @@ let g:ycm_seed_identifiers_with_syntax = 1
 " remove '<S-TAB>' to avoid conflict with ultisnips
 let g:ycm_key_list_previous_completion=['<Up>']
 
-nnoremap <leader>] :YcmCompleter GoToDefinitionElseDeclaration<CR>mzzMzvzz15<c-e>`z:Pulse<cr>
+nnoremap <leader>] :YcmCompleter GoToDefinitionElseDeclaration<CR>mzzMzvzz15<c-e>`z
+" nnoremap <leader>] :YcmCompleter GoToDefinitionElseDeclaration<CR>mzzMzvzz15<c-e>`z:Pulse<cr>
 " nnoremap <leader>] :YcmCompleter GoToDeclaration<CR>mzzMzvzz15<c-e>`z:Pulse<cr>
 
 " }}}
@@ -1939,33 +1981,33 @@ nnoremap <leader>I :call IndentGuides()<cr>
 " }}}
 " Pulse Line {{{
 
-function! s:Pulse() " {{{
-    redir => old_hi
-        silent execute 'hi CursorLine'
-    redir END
-    let old_hi = split(old_hi, '\n')[0]
-    let old_hi = substitute(old_hi, 'xxx', '', '')
+" function! s:Pulse() " {{{
+"     redir => old_hi
+"         silent execute 'hi CursorLine'
+"     redir END
+"     let old_hi = split(old_hi, '\n')[0]
+"     let old_hi = substitute(old_hi, 'xxx', '', '')
 
-    let steps = 8
-    let width = 1
-    let start = width
-    let end = steps * width
-    let color = 233
+"     let steps = 8
+"     let width = 1
+"     let start = width
+"     let end = steps * width
+"     let color = 233
 
-    for i in range(start, end, width)
-        execute "hi CursorLine ctermbg=" . (color + i)
-        redraw
-        sleep 6m
-    endfor
-    for i in range(end, start, -1 * width)
-        execute "hi CursorLine ctermbg=" . (color + i)
-        redraw
-        sleep 6m
-    endfor
+"     for i in range(start, end, width)
+"         execute "hi CursorLine ctermbg=" . (color + i)
+"         redraw
+"         sleep 6m
+"     endfor
+"     for i in range(end, start, -1 * width)
+"         execute "hi CursorLine ctermbg=" . (color + i)
+"         redraw
+"         sleep 6m
+"     endfor
 
-    execute 'hi ' . old_hi
-endfunction " }}}
-command! -nargs=0 Pulse call s:Pulse()
+"     execute 'hi ' . old_hi
+" endfunction " }}}
+" command! -nargs=0 Pulse call s:Pulse()
 
 " }}}
 " Highlight Word {{{

@@ -30,6 +30,7 @@ pentadactyl/info/
 perso/
 vim/.netrwhist
 vim/.VimballRecord
+vim/NERDTreeBookmarks
 vim/plugged/
 vim/tmp/
 vim/local.vim
