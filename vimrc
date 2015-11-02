@@ -86,9 +86,7 @@ filetype plugin indent on       " load file type plugins + indentation
 " }}}
 " Basic options ----------------------------------------------------------- {{{
 
-if has('nvim')
-
-else
+if !has('nvim')
     set nocompatible                " choose no compatibility with legacy vi
     set encoding=utf-8
     set autoindent                  " always set autoindenting on
@@ -96,6 +94,9 @@ else
     set backspace=indent,eol,start  " backspace through everything in insert mode
     set laststatus=2                " show always statusline of last window
     set ttyfast
+    set history=10000
+    set smarttab
+    set wildmenu
 endif
 
 set modelines=0
@@ -106,7 +107,6 @@ set visualbell
 set ruler
 set nonumber
 set norelativenumber
-set history=1000
 set undofile
 set undoreload=10000
 set list                        " show eol, tabs, spaces, trailing and non-breaking spaces
@@ -205,7 +205,6 @@ augroup END
 " }}}
 " Wildmenu completion {{{
 
-set wildmenu
 " set wildmode=list:longest
 set wildmode=longest:full,full
 
@@ -248,14 +247,6 @@ set wrap
 
 " Autorise le passage d'une ligne à l'autre avec les flèches gauche et droite
 set whichwrap=<,>,[,]
-
-" Si activé, un <Tab> au début d'une ligne insère des blancs selon la valeur de
-" 'shiftwidth'. 'tabstop' est utilisé dans les autres endroits. Un <RetArr> en
-" début de ligne supprime un nombre d'espaces équivalant à la valeur de
-" 'shiftwidth'.  Si désactivé, un <Tab> insère toujours des blancs selon la
-" valeur de 'tabstop'. 'shiftwidth' n'est utilisé que lors du décalage de texte
-" à gauche ou à droite.
-set smarttab
 
 set textwidth=80
 set formatoptions=q         " Allow formatting of comments with "gq".
@@ -540,8 +531,8 @@ nnoremap ; :
 " nnoremap ; :<c-f>
 
 " map CTRL+k S N (non-breaking space) to CTRL+space
-imap <Nul> <C-k>NS
-imap <C-Space> <C-k>NS
+" imap <Nul> <C-k>NS
+" imap <C-Space> <C-k>NS
 
 " change directory to the file being edited
 nnoremap <leader>C :cd %:p:h<CR>:pwd<CR>
@@ -613,17 +604,20 @@ nnoremap <leader>sv :source ~/.vimrc<cr>
 nnoremap / /\v
 vnoremap / /\v
 
-set ignorecase                  " searches are case insensitive...
-set smartcase                   " ... unless they contain at least one capital letter
-set incsearch                   " incremental searching
-set showmatch                   " show matching brackets
-set hlsearch                    " highlight matches
-set gdefault                    " substitute all matches on the line
+set ignorecase           " searches are case insensitive...
+set smartcase            " ... unless they contain at least one capital letter
+set showmatch            " show matching brackets
+set gdefault             " substitute all matches on the line
 
-set scrolloff=3         " min nb of lines to keep above and below the cursor.
-set sidescroll=1        " min nb of columns to scroll horizontally.(with nowrap)
+if !has('nvim')
+    set hlsearch         " highlight matches
+    set incsearch        " incremental searching
+endif
+
+set scrolloff=3          " min nb of lines to keep above and below the cursor.
+set sidescroll=1         " min nb of columns to scroll horizontally.(with nowrap)
 set sidescrolloff=10
-set virtualedit+=block  " allow cursor where there is no actual character.
+set virtualedit+=block   " allow cursor where there is no actual character.
 
 noremap <silent> <leader><space> :noh<cr>:call clearmatches()<cr>
 
@@ -1797,7 +1791,12 @@ let g:ycm_seed_identifiers_with_syntax = 1
 " remove '<S-TAB>' to avoid conflict with ultisnips
 let g:ycm_key_list_previous_completion=['<Up>']
 
-nnoremap <leader>] :YcmCompleter GoToDefinitionElseDeclaration<CR>mzzMzvzz15<c-e>`z
+nnoremap <leader>] :YcmCompleter GoTo<CR>mzzMzvzz15<c-e>`z
+nnoremap <leader>k :YcmCompleter GetDoc<CR>
+nnoremap <leader>jf :YcmCompleter FixIt<CR>
+nnoremap <leader>ji :YcmCompleter GoToInclude<CR>
+nnoremap <leader>jd :YcmCompleter GoToDeclaration<CR>
+
 " nnoremap <leader>] :YcmCompleter GoToDefinitionElseDeclaration<CR>mzzMzvzz15<c-e>`z:Pulse<cr>
 " nnoremap <leader>] :YcmCompleter GoToDeclaration<CR>mzzMzvzz15<c-e>`z:Pulse<cr>
 
