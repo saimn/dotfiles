@@ -10,6 +10,7 @@ def _import_astropy(self, arg):
     ip.ex('import astropy')
     ip.ex('print("Astropy", astropy.__version__)')
     ip.ex('from astropy.io import ascii, fits')
+    ip.ex('from astropy.wcs import WCS')
     # ip.ex('from astropy import table')
     ip.ex('from astropy.table import Table, QTable, Column, MaskedColumn')
     # ip.ex('from astropy.table.table_helpers import TimingTables, simple_table, complex_table')
