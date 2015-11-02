@@ -33,6 +33,7 @@ vim/.VimballRecord
 vim/NERDTreeBookmarks
 vim/plugged/
 vim/tmp/
+vim/init.vim
 vim/local.vim
 vim/plugin/notmuch.vim
 vim/syntax/notmuch-*.vim
