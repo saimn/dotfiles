@@ -29,7 +29,6 @@ Plug 'ctrlpvim/ctrlp.vim'
 " Plug 'kien/rainbow_parentheses.vim', { 'for': 'lisp' }
 Plug 'klen/python-mode', { 'for': 'python' }
 Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
-Plug 'marijnh/tern_for_vim', { 'for': 'javascript', 'do': 'npm install' }
 " Plug 'mhinz/vim-signify'
 " Plug 'michaeljsmith/vim-indent-object'
 " Plug 'mileszs/ack.vim'
@@ -52,6 +51,7 @@ Plug 'sjl/gundo.vim', { 'on': 'GundoToggle' }
 " Plug 'smancill/conky-syntax.vim', { 'for': 'conkyrc' }
 Plug 'stefandtw/quickfix-reflector.vim'
 Plug 'tell-k/vim-autopep8', { 'for': 'python' }
+Plug 'ternjs/tern_for_vim', { 'for': 'javascript', 'do': 'npm install' }
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-dispatch'
