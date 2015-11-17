@@ -114,3 +114,5 @@ ESO
 VLT
 datacube
 SVD
+astropy
+matplotlib

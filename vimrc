@@ -622,13 +622,13 @@ set virtualedit+=block   " allow cursor where there is no actual character.
 noremap <silent> <leader><space> :noh<cr>:call clearmatches()<cr>
 
 runtime macros/matchit.vim
-" map <tab> %
+map <tab> %
 " silent! unmap [%
 " silent! unmap ]%
 "
 " Jump to matching pairs easily, with Tab
-nnoremap <Tab> %
-vnoremap <Tab> %
+" nnoremap <Tab> %
+" vnoremap <Tab> %
 
 " Made D behave
 nnoremap D d$

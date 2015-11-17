@@ -28,6 +28,7 @@ emacs.d/tramp
 newsbeuter/
 pentadactyl/info/
 perso/
+vim/*.spl
 vim/.netrwhist
 vim/.VimballRecord
 vim/NERDTreeBookmarks
