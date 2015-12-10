@@ -22,7 +22,6 @@ alias j='fasd_cd -i'
 alias k='k -h'
 alias m='fasd -f -e mplayer' # quick opening files with mplayer
 alias o='fasd -a -e xdg-open' # quick opening files with xdg-open
-alias t=todo.sh
 alias u="cd .. && ls"
 alias v='fasd -f -e vim' # quick opening files with vim
 # alias v="vim"
@@ -60,7 +59,6 @@ alias chromium='chromium --disk-cache-dir=/tmp/chromium-cache'
 alias ff='firefox -new-tab'
 alias firedef='firefox -no-remote -P default'
 alias firedev='firefox -no-remote -P Webdev'
-alias gbook='goobook query @ | sort | column -t'
 alias ht='urxvt -name htop -title htop +sb -geometry 80x6 -e htop &'
 alias ipyqt='ipython2 qtconsole --pylab'
 alias wo='workon'
