@@ -25,6 +25,7 @@ emacs.d/anything-*
 emacs.d/customize.el
 emacs.d/init-priv.el
 emacs.d/tramp
+jupyter/migrated
 newsbeuter/
 pentadactyl/info/
 perso/
