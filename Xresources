@@ -98,9 +98,9 @@ URxvt.url-launcher:             firefox
 ! URxvt.urlLauncher:              x-www-browser
 
 URxvt*matcher.button:           1
-/* URxvt*matcher.pattern.1:        \\bwww\\.[\\w-]+\\.[\\w./?&@#-]*[\\w/-] */
-Rxvt*matcher.pattern.1:         \\b(gopher|mailto|http|https|ftp|file):[/]*[\\w-]\\.[\\w./?&@#-]*[\\w/-]
-Rxvt*matcher.pattern.2:         \\bwww\\.[\\w-]\\.[\\w./?&@#-]*[\\w/-]
+! URxvt*matcher.pattern.1:        \\bwww\\.[\\w-]+\\.[\\w./?&@#-]*[\\w/-]
+! Rxvt*matcher.pattern.1:         \\b(gopher|mailto|http|https|ftp|file):[/]*[\\w-]\\.[\\w./?&@#-]*[\\w/-]
+! Rxvt*matcher.pattern.2:         \\bwww\\.[\\w-]\\.[\\w./?&@#-]*[\\w/-]
 
 URxvt*keysym.C-u:               perl:matcher
 ! open and list recent (currently limited to 10) URLs via keyboard:
