@@ -116,3 +116,9 @@ datacube
 SVD
 astropy
 matplotlib
+metadata
+Numpy
+OpenMP
+MPDAF
+pixtable
+DRS

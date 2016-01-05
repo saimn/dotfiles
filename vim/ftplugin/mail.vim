@@ -13,7 +13,7 @@ set spelllang=fr,en
 "syn on
 
 " Autoflow paragraphs you edit as you type, no more gq!
-set fo=atqn1
+set fo=aqn1
 
 " }}}
 

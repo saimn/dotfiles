@@ -249,16 +249,18 @@ set wrap
 set whichwrap=<,>,[,]
 
 set textwidth=80
-set formatoptions=q         " Allow formatting of comments with "gq".
-set formatoptions+=r        " Automatically insert the current comment leader
-set formatoptions+=n        " recognize numbered lists
-set formatoptions+=1        " Don't break a line after a one-letter word
-"set formatoptions+=a       " Automatic formatting of paragraphs
-set formatoptions+=t        " Auto-wrap text using textwidth
-set formatoptions+=c        " Auto-wrap comments using textwidth
-if v:version > 703 || v:version == 703
-  set formatoptions+=j " Delete comment char when joining commented lines
-endif
+set formatoptions=qrn1tcj
+" q : Allow formatting of comments with "gq".
+" r : Automatically insert the current comment leader
+" n : recognize numbered lists
+" 1 : Don't break a line after a one-letter word
+" a : Automatic formatting of paragraphs
+" t : Auto-wrap text using textwidth
+" c : Auto-wrap comments using textwidth
+" j : Delete comment char when joining commented lines
+" if v:version > 703 || v:version == 703
+"   set formatoptions+=j
+" endif
 
 set colorcolumn=+1
 
