@@ -11,7 +11,6 @@ Plug 'AndrewRadev/linediff.vim', { 'on': ['Linediff', 'LinediffReset'] }
 Plug 'airblade/vim-gitgutter'
 Plug 'ap/vim-css-color'
 Plug 'benmills/vimux'
-Plug 'bling/vim-airline'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'ciaranm/securemodelines'
 " Plug 'dogrover/vim-pentadactyl', { 'for': 'pentadactyl' }
@@ -61,6 +60,8 @@ Plug 'tpope/vim-repeat'
 " Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-surround'
 Plug 'Valloric/YouCompleteMe', { 'do': 'python2 install.py --clang-completer --system-libclang' }
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/Conflict2Diff', { 'on': 'Conflict2Diff' }
 Plug 'vim-scripts/DirDiff.vim', { 'on': 'DirDiff' }
 Plug 'vim-scripts/YankRing.vim', { 'on': 'YRShow' }
@@ -78,7 +79,7 @@ call plug#end()
 " }}}
 " Preamble ---------------------------------------------------------------- {{{
 
-set shell=/bin/bash
+set shell=/bin/zsh
 
 filetype off
 filetype plugin indent on       " load file type plugins + indentation
@@ -1613,14 +1614,6 @@ let g:secure_modelines_allowed_items = [
             \ ]
 
 " }}}
-" Signify {{{
-
-" let g:signify_vcs_list = [ 'git', 'hg' ]
-" let g:signify_disable_by_default = 0
-" let g:signify_skip_filetype = { 'vim': 1, 'c': 1 }
-" let g:signify_skip_filename = { '/home/user/.vimrc': 1 }
-
-"}}}
 " Sparkup {{{
 
 augroup ft_sparkup
@@ -1880,54 +1873,6 @@ nmap <silent> <F3> :ErrorsToggle<cr>
 nmap <silent> <F4> :QuickfixToggle<cr>
 
 " }}}
-" Hg {{{
-
-" function! s:HgDiff() " {{{
-"     diffthis
-
-"     let fn = expand('%:p')
-"     let ft = &ft
-
-"     wincmd v
-"     edit __hgdiff_orig__
-
-"     setlocal buftype=nofile
-
-"     normal ggdG
-"     execute "silent r!hg cat --rev . " . fn
-"     normal ggdd
-
-"     execute "setlocal ft=" . ft
-
-"     diffthis
-"     diffupdate
-" endfunction " }}}
-" command! -nargs=0 HgDiff call s:HgDiff()
-" " nnoremap <leader>hd :HgDiff<cr>
-
-" function! s:HgBlame() " {{{
-"     let fn = expand('%:p')
-
-"     wincmd v
-"     wincmd h
-"     edit __hgblame__
-"     vertical resize 28
-
-"     setlocal scrollbind winfixwidth nolist nowrap nonumber buftype=nofile ft=none
-
-"     normal ggdG
-"     execute "silent r!hg blame -undq " . fn
-"     normal ggdd
-"     execute ':%s/\v:.*$//'
-
-"     wincmd l
-"     setlocal scrollbind
-"     syncbind
-" endfunction " }}}
-" command! -nargs=0 HgBlame call s:HgBlame()
-" " nnoremap <leader>hb :HgBlame<cr>
-
-" }}}
 " Ack motions {{{
 
 " Motions to Ack for things.  Works with pretty much everything, including:
@@ -2158,7 +2103,7 @@ if has('gui_running')
     map <S-Insert> <MiddleMouse>
     map! <S-Insert> <MiddleMouse>
 elseif has('nvim')
-
+    colorscheme badwolf
 else
     " Console Vim
     " Mouse support
@@ -2171,22 +2116,6 @@ else
     "set termencoding=utf-8
     set ttymouse=sgr
 endif
-
-" UNIX Specials
-" if has("unix")
-"    " path: répertoires utilisés lors d'une recherche et autres commandes
-"    set path=.,/usr/include,usr/local/include
-" endif
-
-" }}}
-" Status line ------------------------------------------------------------- {{{
-
-" augroup ft_statuslinecolor
-"     au!
-
-"     au InsertEnter * hi StatusLine ctermfg=196 guifg=#FF3145
-"     au InsertLeave * hi StatusLine ctermfg=130 guifg=#CD5907
-" augroup END
 
 " }}}
 " Local config ------------------------------------------------------------ {{{
