@@ -7,7 +7,7 @@
 # settings
 #set height 1024
 #set width 768
-# set adjust_open width
+set adjust_window width
 
 # key bindings
 map <PageUp> navigate previous

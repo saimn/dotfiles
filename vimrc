@@ -59,6 +59,7 @@ Plug 'tpope/vim-markdown', { 'for': 'markdown' }
 Plug 'tpope/vim-repeat'
 " Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-surround'
+Plug 'tshirtman/vim-cython'
 Plug 'Valloric/YouCompleteMe', { 'do': 'python2 install.py --clang-completer --system-libclang' }
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
