@@ -42,6 +42,12 @@ html, body, #holder, .pun {
 
 /* RESET */
 
+#holder.max_width {
+	margin: 0 auto;
+	max-width: inherit;
+	box-shadow: inherit;
+}
+
 .content_article, .content_article .article, #content_box, #punwrap > div, .pun, #wrapper_context, #article, #home_background_content {
   float: none !important;
   position: relative;

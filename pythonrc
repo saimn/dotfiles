@@ -1,5 +1,7 @@
 # vim:ft=python
 
+print('Load pythonrc')
+
 # import datetime
 import os
 import sys
