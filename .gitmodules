@@ -16,3 +16,9 @@
 [submodule "zsh/k"]
 	path = zsh/k
 	url = https://github.com/rimraf/k.git
+[submodule "tmux/copycat"]
+	path = tmux/copycat
+	url = https://github.com/tmux-plugins/tmux-copycat
+[submodule "tmux/yank"]
+	path = tmux/yank
+	url = https://github.com/tmux-plugins/tmux-yank
