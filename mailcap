@@ -11,10 +11,12 @@ application/mspowerpoint;                 libreoffice %s
 application/vnd.ms-powerpoint;            libreoffice %s
 application/vnd.oasis.opendocument.text;  libreoffice %s
 
-application/pdf;                zathura %s
 image/pdf;                      zathura %s
+application/pdf;                zathura %s
+application/pdf;                evince %s
 application/pdf;                okular %s
 application/ps;                 zathura %s
+application/ps;                 evince %s
 application/ps;                 okular %s
 
 application/x-bz;               lesspipe.sh %s ; copiousoutput
@@ -30,7 +32,7 @@ multipart/x-zip;                lesspipe.sh %s ; copiousoutput
 multipart/x-gzip;               lesspipe.sh %s ; copiousoutput
 
 image/*;                        sxiv %s
-image/*;                        mirage %s
+image/*;                        eog %s
 image/*;                        gthumb %s
 audio/*;                        mplayer %s
 video/*;                        mplayer %s
@@ -38,6 +40,6 @@ video/*;                        mplayer %s
 text/html;                      firefox %s
 text/html;                      lynx -dump %s
 text/html;                      iconv -c -f %{charset} -t utf8 | python2 ~/bin/html2text/html2text.py -b 0 ; copiousoutput
-#text/html;                      html2text.py %s %{charset}; copiousoutput
-text/plain;                     emacsclient -c %s
+# text/html;                      html2text.py %s %{charset}; copiousoutput
+# text/plain;                     emacsclient -c %s
 text/plain;                     gvim %s
