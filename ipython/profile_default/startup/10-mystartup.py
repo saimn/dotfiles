@@ -10,14 +10,19 @@ except ImportError:
     pass
 
 
-def _import_astropy(self, arg):
+def _import_numpy(self, arg):
     ip.ex('import numpy as np')
+    ip.ex('from numpy import ma')
+
+
+def _import_astropy(self, arg):
+    _import_numpy(self, arg)
     ip.ex('import astropy')
     ip.ex('print("Astropy", astropy.__version__)')
     ip.ex('from astropy.io import ascii, fits')
     ip.ex('from astropy.wcs import WCS')
     # ip.ex('from astropy import table')
-    ip.ex('from astropy.table import Table, QTable, Column, MaskedColumn')
+    ip.ex('from astropy.table import Table, Column, MaskedColumn')
     # ip.ex('from astropy.table.table_helpers import TimingTables, simple_table, complex_table')
     # ip.ex('from astropy.time import Time, TimeDelta')
     # ip.ex('from astropy.coordinates import SkyCoord, ICRS, FK4, FK5')
@@ -28,9 +33,11 @@ def _import_mpdaf(self, arg):
     _import_astropy(self, arg)
     ip.ex('import mpdaf')
     ip.ex('print("MPDAF", mpdaf.__version__)')
-    ip.ex('from mpdaf.obj import Cube, Image, Spectrum, WCS')
+    ip.ex('from mpdaf.obj import Cube, Image, Spectrum, WCS, WaveCoord')
     ip.ex('from mpdaf.drs import PixTable')
+    ip.ex('from mpdaf.sdetect import Source')
 
 
 ip.define_magic('astro', _import_astropy)
 ip.define_magic('mpdaf', _import_mpdaf)
+ip.define_magic('numpy', _import_numpy)
