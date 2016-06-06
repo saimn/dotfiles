@@ -60,7 +60,7 @@ Plug 'tpope/vim-repeat'
 " Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-surround'
 Plug 'tshirtman/vim-cython'
-Plug 'Valloric/YouCompleteMe', { 'do': 'python2 install.py --clang-completer --system-libclang' }
+Plug 'Valloric/YouCompleteMe', { 'do': 'python2 install.py --clang-completer --tern-completer' }
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/Conflict2Diff', { 'on': 'Conflict2Diff' }
@@ -1780,12 +1780,14 @@ let g:ycm_autoclose_preview_window_after_completion = 1
 
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_complete_in_comments = 1
-let g:ycm_confirm_extra_conf = 1
 " let g:ycm_min_num_of_chars_for_completion = 4
 let g:ycm_seed_identifiers_with_syntax = 1
 
 " remove '<S-TAB>' to avoid conflict with ultisnips
 let g:ycm_key_list_previous_completion=['<Up>']
+
+let g:ycm_global_ycm_extra_conf = '~/lib/dotfiles/ycm_extra_conf.py'
+let g:ycm_confirm_extra_conf = 1
 
 nnoremap <leader>] :YcmCompleter GoTo<CR>mzzMzvzz15<c-e>`z
 nnoremap <leader>k :YcmCompleter GetDoc<CR>
