@@ -57,7 +57,7 @@ URxvt*font:           xft:Inconsolata for Powerline:style=Medium:pixelsize=14
 
 ! URxvt*termName:                 rxvt-256color
 ! URxvt*termName:                 rxvt-unicode
-URxvt.iconFile:                 /usr/share/icons/breeze/apps/software/utilities-terminal.svg
+URxvt.iconFile:                 /usr/share/icons/Arc/apps/symbolic/utilities-terminal-symbolic.svg
 
 URxvt*depth:                    32
 
