@@ -69,7 +69,7 @@ alias et="emacsclient -t"
 alias vi="vim"
 alias sv="sudo vim"
 
-alias cup='conda clean -pity;conda update --all'
+alias cup='conda clean -py;conda update --all'
 
 # alias less="/usr/share/vim/vim73/macros/less.sh"
 
