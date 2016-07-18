@@ -48,7 +48,7 @@ Plug 'sjl/clam.vim', { 'on': ['Clam', 'ClamVisual'] }
 Plug 'sjl/gundo.vim', { 'on': 'GundoToggle' }
 " Plug 'sjl/splice.vim', { 'on': 'SpliceInit' }
 " Plug 'smancill/conky-syntax.vim', { 'for': 'conkyrc' }
-Plug 'stefandtw/quickfix-reflector.vim'
+" Plug 'stefandtw/quickfix-reflector.vim'
 Plug 'tell-k/vim-autopep8', { 'for': 'python' }
 Plug 'ternjs/tern_for_vim', { 'for': 'javascript', 'do': 'npm install' }
 Plug 'terryma/vim-multiple-cursors'
@@ -1331,11 +1331,11 @@ augroup END
 let g:FerretMap = 0
 " let g:ackprg = 'ag --smart-case --nogroup --nocolor --column'
 
-nnoremap <leader>a :Ack<space>
-nnoremap <leader>A :Ack <C-r><C-w><CR>
+" nnoremap <leader>a :Ack<space>
+" nnoremap <leader>A :Ack <C-r><C-w><CR>
 vnoremap <leader>a y:grep! "\b<c-r>"\b"<cr>:cw<cr><cr>
-" nnoremap <leader>a <Plug>(FerretAck)
-" nnoremap <leader>A <Plug>(FerretAckWord)
+nmap <leader>a <Plug>(FerretAck)
+nmap <leader>A <Plug>(FerretAckWord)
 
 " }}}
 " Airline {{{
