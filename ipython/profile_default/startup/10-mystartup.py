@@ -58,7 +58,7 @@ def mpdaf(line):
 
 
 @register_line_magic
-def imu():
+def imu(line):
     ip.ex('import ipython_memory_usage.ipython_memory_usage as imu')
     ip.ex('imu.start_watching_memory()')
 
