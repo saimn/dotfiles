@@ -2072,7 +2072,7 @@ if has('gui_running')
         if hostname() == "thunderball"
             set guifont=Inconsolata\ for\ Powerline\ 12
         elseif hostname() == "fireball"
-            set guifont=Inconsolata\ for\ Powerline\ 10
+            set guifont=Inconsolata\ for\ Powerline\ 14
         else
             set guifont=Inconsolata\ for\ Powerline\ 10
         endif

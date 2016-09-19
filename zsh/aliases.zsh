@@ -46,11 +46,11 @@ alias psg="ps auxw | grep -i "
 alias -s conf="vim"
 alias -s fits="ds9"
 alias -s html="firefox -new-tab"
-alias -s jpg="sxiv"
+alias -s jpg="eog"
 alias -s log="less"
-alias -s pdf="zathura"
-alias -s png="sxiv"
-alias -s ps="zathura"
+alias -s pdf="evince"
+alias -s png="eog"
+alias -s ps="evince"
 
 # misc commands
 alias ack=ag
