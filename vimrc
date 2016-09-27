@@ -557,7 +557,7 @@ nnoremap <leader>o :e <C-R>=expand('%:h').'/'<cr>
 noremap <C-Up> :let &guifont=substitute(&guifont, '\d\+', '\=eval(submatch(0)+1)', '')<CR>
 noremap <C-Down> :let &guifont=substitute(&guifont, '\d\+', '\=eval(submatch(0)-1)', '')<CR>
 
-nnoremap gz :!zeal --query "<cword>"&<CR><CR>
+nnoremap gz :!zeal "<cword>"&<CR><CR>
 
 " Easy filetype switching {{{
 
