@@ -13,6 +13,7 @@ Plug 'ap/vim-css-color'
 Plug 'benmills/vimux'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'ciaranm/securemodelines'
+Plug 'ctrlpvim/ctrlp.vim'
 " Plug 'dogrover/vim-pentadactyl', { 'for': 'pentadactyl' }
 Plug 'edkolev/tmuxline.vim', { 'on': 'TmuxlineSnapshot' }
 Plug 'exu/pgsql.vim', { 'for': 'pgsql' }
@@ -21,16 +22,16 @@ Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
 Plug 'gregsexton/MatchTag', { 'for': ['html', 'xml'] }
 Plug 'groenewege/vim-less', { 'for': 'less' }
 Plug 'honza/vim-snippets'
-Plug 'ivanov/vim-ipython'
+" Plug 'ivanov/vim-ipython'
 " Plug 'jceb/vim-orgmode', { 'for': 'org' }
 " Plug 'junegunn/vim-github-dashboard', { 'on': ['GHDashboard', 'GHActivity'] }
-Plug 'ctrlpvim/ctrlp.vim'
 " Plug 'kien/rainbow_parentheses.vim', { 'for': 'lisp' }
 Plug 'klen/python-mode', { 'for': 'python' }
+Plug 'lervag/vimtex', { 'for': 'tex' }
 Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
 " Plug 'mhinz/vim-signify'
 " Plug 'michaeljsmith/vim-indent-object'
-" Plug 'mileszs/ack.vim'
+Plug 'mileszs/ack.vim'
 Plug 'mitsuhiko/vim-jinja', { 'for': ['htmljinja', 'sls'] }
 Plug 'mitsuhiko/vim-sparkup', { 'on': ['SparkupExecute', 'SparkupNext'] }
 Plug 'moll/vim-bbye', { 'on': 'Bdelete' }
@@ -68,7 +69,6 @@ Plug 'vim-scripts/DirDiff.vim', { 'on': 'DirDiff' }
 Plug 'vim-scripts/YankRing.vim', { 'on': 'YRShow' }
 " Plug 'wavded/vim-stylus', { 'for': 'stylus' }
 Plug 'w0ng/vim-hybrid'
-Plug 'wincent/ferret'
 
 Plug '~/.vim/bundle/camptocamp', { 'for': 'camptocamp' }
 Plug '~/.vim/bundle/closetags-custom'
@@ -175,7 +175,7 @@ au VimResized * :wincmd =
 
 " Leader
 let mapleader = ","
-let maplocalleader = "\\"
+let maplocalleader = ";"
 
 " 3: tree style
 let g:netrw_liststyle=3
@@ -530,7 +530,7 @@ nnoremap <c-Tab> <c-^>
 " nnoremap <c-p> :bprev!<CR>
 
 " make ; do the same thing as :
-nnoremap ; :
+" nnoremap ; :
 " visual command line
 " nnoremap ; :<c-f>
 
@@ -1328,14 +1328,15 @@ augroup END
 
 " Ack {{{
 
-let g:FerretMap = 0
-" let g:ackprg = 'ag --smart-case --nogroup --nocolor --column'
+if executable('rg')
+    let g:ackprg = 'rg -S --no-heading --vimgrep'
+elseif executable('ag')
+    let g:ackprg = 'ag --vimgrep'
+endif
 
-" nnoremap <leader>a :Ack<space>
-" nnoremap <leader>A :Ack <C-r><C-w><CR>
+nnoremap <leader>a :Ack<space>
+nnoremap <leader>A :Ack <C-r><C-w><CR>
 vnoremap <leader>a y:grep! "\b<c-r>"\b"<cr>:cw<cr><cr>
-nmap <leader>a <Plug>(FerretAck)
-nmap <leader>A <Plug>(FerretAckWord)
 
 " }}}
 " Airline {{{
@@ -1728,6 +1729,28 @@ let g:UltiSnipsExpandTrigger="<c-j>"
 " " let g:viewdoc_man_cmd='LANG=en_US.UTF-8 /usr/bin/man'
 
 " }}}
+" Vimtex {{{
+
+let g:vimtex_view_method = 'zathura'
+let g:vimtex_view_general_viewer = 'zathura'
+let g:vimtex_fold_enabled = 1
+let g:vimtex_fold_sections = ["part", "chapter", "section"]
+
+if !exists('g:ycm_semantic_triggers')
+    let g:ycm_semantic_triggers = {}
+endif
+let g:ycm_semantic_triggers.tex = [
+            \ 're!\\[A-Za-z]*cite[A-Za-z]*(\[[^]]*\]){0,2}{[^}]*',
+            \ 're!\\[A-Za-z]*ref({[^}]*|range{([^,{}]*(}{)?))',
+            \ 're!\\hyperref\[[^]]*',
+            \ 're!\\includegraphics\*?(\[[^]]*\]){0,2}{[^}]*',
+            \ 're!\\(include(only)?|input){[^}]*',
+            \ 're!\\\a*(gls|Gls|GLS)(pl)?\a*(\s*\[[^]]*\]){0,2}\s*\{[^}]*',
+            \ 're!\\includepdf(\s*\[[^]]*\])?\s*\{[^}]*',
+            \ 're!\\includestandalone(\s*\[[^]]*\])?\s*\{[^}]*',
+            \ ]
+
+" }}}
 " Vimux {{{
 
 nnoremap <Leader>rp :VimuxPromptCommand<CR>
@@ -1748,7 +1771,7 @@ vnoremap <Leader>rs "vy :call VimuxSlime()<CR>
 nnoremap <Leader>rs vip<Leader>rs<CR>
 
 " Run the current file with nose
-nnoremap <Leader>rn :call VimuxRunCommand("clear; nosetests " . bufname("%"))<CR>
+" nnoremap <Leader>rn :call VimuxRunCommand("clear; nosetests " . bufname("%"))<CR>
 " Run command without sending a return
 " map <Leader>rq :call VimuxRunCommand("clear; nosetests " . bufname("%"), 0)<CR>
 
