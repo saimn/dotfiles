@@ -1,0 +1,108 @@
+/* Custom CSS file for Geary
+ *
+ * Geary master CSS file:
+ * /usr/share/geary/theming/message-viewer.css
+ *
+ * Run Geary with the webkit console with --inspector
+ *
+ * */
+
+/* * { */
+/*   font-family: "Fira Sans", "Droid Sans"; */
+/* } */
+
+body {
+  /* font: 16px "Fira Sans", "Droid Sans"; */
+  background-color: #eee !important;
+}
+
+#message_container {
+  padding: 10px;
+}
+
+.email, .composer_embed {
+  color: #333;
+  border: 1px #08c solid;
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
+  border-radius: 8px;
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+.email.read, #multiple_messages .email, .composer_embed {
+  border-color: #ccc;
+  box-shadow: inherit;
+}
+.composer_embed { border-radius: 0 }
+.email.compressed { border-radius: 0; }
+.email.hide {
+  border-radius: 0;
+  margin: 0;
+}
+.email.hide:first-child {
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
+}
+
+body:not(.nohide) .email.hide,
+body:not(.nohide) .email .email.hide,
+body:not(.nohide) .email.sent.hide,
+body:not(.nohide) .email.sent .email.hide {
+  background-color: #fff;
+}
+.email.hide .header .field .value, .email.hide .header .field .value a,  .email.hide .preview {
+  color: #999;
+}
+
+.email .remote_images {
+  margin: 0 10px;
+  border: 0;
+  padding: 8px;
+  background: inherit;
+  font-size: small;
+  font-style: italic;
+  color: #666;
+}
+.email .remote_images .close_show_images {
+    margin: 5px 0 0;
+}
+input.show_images, input.show_from {
+  font-size: small;
+}
+
+.email .compressed_note > span {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  color: #999;
+}
+
+/* .email_container .header_container .preview { */
+/*   font-size: 100%; */
+/* } */
+
+.email .body {
+  border-top: 1px solid #ccc;
+}
+.email .body * {
+  font: 16px/1.5 "Fira Sans", "Droid Sans" !important;
+  /* line-height: 150% !important; */
+  /* max-width: 100% !important; */
+  /* width: initial !important; */
+  /* height: initial !important; */
+  /* margin-left: 0px !important; */
+}
+
+.avatar, .avatar[src^=file], .avatar[src^=http] {
+  display: none !important;
+}
+
+.quote_container {
+  background-color: #f7f7f7;
+  border: 1px #eee solid;
+  border-radius: 8px;
+}
+blockquote {
+  border-left: 3px #ccc solid;
+}
+
+.header .field        { font-size: 90%; }
+.header .field .value { max-height: initial; }
