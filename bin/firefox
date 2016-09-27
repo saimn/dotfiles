@@ -14,5 +14,6 @@ else
     rm -rf ~/.adobe ~/.macromedia
 
     export MOZ_DISABLE_PANGO=1
-    exec /usr/bin/firefox -P Simon "$@"
+    unset MOZ_NO_REMOTE
+    exec /usr/bin/firefox "$@"
 fi

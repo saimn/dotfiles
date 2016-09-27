@@ -83,7 +83,7 @@ git clone https://github.com/mitsuhiko/flask-sphinx-themes.git  ~/lib/flask-sphi
 # git clone https://github.com/apenwarr/sshuttle.git              ~/lib/sshuttle
 git clone https://github.com/gfxmonk/supergenpass.git           ~/lib/supergenpass
 
-hg clone https://bitbucket.org/thayerwilliams/vimbrant          ~/lib/vimbrant
+git clone https://github.com/thayerwilliams/vimbrant.git          ~/lib/vimbrant
 # hg clone http://bitbucket.org/sjl/hg-prompt/                    ~/lib/hg-prompt
 # hg clone https://bitbucket.org/sjl/mercurial-cli-templates      ~/lib/mercurial-cli-templates
 # }}}
