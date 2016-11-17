@@ -17,7 +17,7 @@ theme.wallpaper = themedir .. "/rainbow.png"
 
 theme.font          = "Source Sans Pro 10"
 if host == "fireball" then
-    theme.font          = "Source Sans Pro 18"
+    theme.font          = "Source Sans Pro 12"
 end
 
 theme.bg_normal     = "#222222"
@@ -59,7 +59,7 @@ theme.vol_bg = themedir .. "/icons/vol_bg.png"
 -- menu_[bg|fg]_[normal|focus]
 -- menu_[border_color|border_width]
 -- theme.menu_submenu_icon = themedir .. "/submenu.png"
-theme.menu_height = "15"
+theme.menu_height = "12"
 theme.menu_width  = "110"
 theme.menu_border_width = "0"
 
