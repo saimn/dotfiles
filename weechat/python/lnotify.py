@@ -93,8 +93,8 @@ def handle_msg(data, pbuffer, date, tags, displayed, highlight, prefix, message)
 
     # Check to make sure we're in X and xdotool exists.
     # This is kinda crude, but I'm no X master.
-    if (environ.get('DISPLAY') != None) and path.isfile("/bin/xdotool"):
-        window_name = subprocess.check_output(["xdotool", "getwindowfocus", "getwindowname"])
+    # if (environ.get('DISPLAY') != None) and path.isfile("/bin/xdotool"):
+    #     window_name = subprocess.check_output(["xdotool", "getwindowfocus", "getwindowname"])
 
     if "WeeChat" in window_name:
         x_focus = True
