@@ -51,6 +51,7 @@ alias -s log="less"
 alias -s pdf="evince"
 alias -s png="eog"
 alias -s ps="evince"
+alias -s fits="ds9"
 
 # misc commands
 alias ack=ag

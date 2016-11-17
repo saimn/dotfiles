@@ -3,6 +3,7 @@
 .hg
 .svn
 .tox
+__pycache__
 _build
 build
 dist

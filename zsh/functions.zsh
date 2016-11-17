@@ -75,3 +75,15 @@ strip-pdf-metadata() {
        sed -e 's/\(InfoValue:\)\s.*/\1\ /g' | \
        pdftk $1 update_info - output clean-$1
 }
+
+function ds9-images()
+{
+    args=""
+
+    for f in "$@";
+    do
+        args="$args $f -zscale"
+    done
+
+    eval ds9 $args -frame lock image -zoom 2 &
+}
