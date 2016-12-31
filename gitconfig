@@ -103,6 +103,7 @@
    untracked = cyan
 [rebase]
    stat = true
+   autosquash = true
 [branch]
    autosetupmerge = true
    autosetuprebase = always
@@ -111,8 +112,8 @@
 [pull]
     rebase = preserve
 [status]
-    submodulesummary = true
-	showUntrackedFiles = all
+    submoduleSummary = true
+    showUntrackedFiles = all
 [merge]
    tool = splice
    stat = true
@@ -127,3 +128,5 @@
    user = saimn
 [include]
     path = .gitconfig.local
+[fetch]
+    prune = true
