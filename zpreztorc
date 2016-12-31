@@ -38,7 +38,18 @@ zstyle ':prezto:load' pmodule \
   'tmux' \
   'syntax-highlighting' \
   'history-substring-search' \
+  'autosuggestions' \
+  'deer' \
+  'zsh-notify' \
   'prompt'
+
+#
+# Deer
+#
+
+# Set key bindings
+zstyle ':prezto:module:deer' key-bindings '^k'
+
 
 #
 # Autosuggestions
