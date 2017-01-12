@@ -39,6 +39,7 @@ Plug 'mtth/scratch.vim', { 'on': 'Scratch' }
 " Plug 'mxw/vim-jsx', { 'for': 'javascript' }
 Plug 'othree/html5.vim'
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+Plug 'pearofducks/ansible-vim'
 Plug 'saltstack/salt-vim', { 'for': 'sls' }
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'scrooloose/syntastic'
@@ -70,10 +71,10 @@ Plug 'vim-scripts/YankRing.vim', { 'on': 'YRShow' }
 " Plug 'wavded/vim-stylus', { 'for': 'stylus' }
 Plug 'w0ng/vim-hybrid'
 
-Plug '~/.vim/bundle/camptocamp', { 'for': 'camptocamp' }
+" Plug '~/.vim/bundle/camptocamp', { 'for': 'camptocamp' }
 Plug '~/.vim/bundle/closetags-custom'
-Plug '~/.vim/bundle/django-custom', { 'for': ['django', 'htmldjango'] }
-Plug '~/.vim/bundle/idlang', { 'for': 'idlang' }
+" Plug '~/.vim/bundle/django-custom', { 'for': ['django', 'htmldjango'] }
+" Plug '~/.vim/bundle/idlang', { 'for': 'idlang' }
 
 call plug#end()
 
