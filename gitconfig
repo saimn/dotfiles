@@ -104,6 +104,7 @@
 [rebase]
    stat = true
    autosquash = true
+   autostash = true
 [branch]
    autosetupmerge = true
    autosetuprebase = always
@@ -130,3 +131,7 @@
     path = .gitconfig.local
 [fetch]
     prune = true
+[submodule]
+    fetchJobs = 4
+[stash]
+    showPatch = true
