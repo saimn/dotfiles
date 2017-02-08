@@ -43,3 +43,9 @@ watch=(all)
 LOGCHECK=5
 
 source ~/lib/dotfiles/zsh/locals.zsh
+
+# added by travis gem
+[ -f /home/simon/.travis/travis.sh ] && source /home/simon/.travis/travis.sh
+
+[ -f /usr/share/fzf/completion.zsh ] && source /usr/share/fzf/completion.zsh
+[ -f /usr/share/fzf/key-bindings.zsh ] && source /usr/share/fzf/key-bindings.zsh
