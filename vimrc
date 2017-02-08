@@ -562,6 +562,7 @@ nnoremap gz :!zeal "<cword>"&<CR><CR>
 
 " Easy filetype switching {{{
 
+nnoremap _rst :set ft=rst<CR>
 nnoremap _md :set ft=markdown<CR>
 nnoremap _hd :set ft=htmldjango<CR>
 nnoremap _hj :set ft=htmljinja<CR>
