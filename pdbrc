@@ -1,7 +1,28 @@
+from __future__ import print_function
+
+import os
+
+home = os.path.expanduser("~/")
+
+# Command line history.
+# Source: https://wiki.python.org/moin/PdbRcIdea
+import readline
+histfile = home + ".pdb_history"
+print("Command history: " + histfile)
+try:
+    readline.read_history_file(histfile)
+except IOError:
+    pass
+import atexit
+atexit.register(readline.write_history_file, histfile)
+del histfile
+readline.set_history_length(20000)
+
 # Enable tab completion
-import rlcompleter
 import pdb
+import rlcompleter
 pdb.Pdb.complete = rlcompleter.Completer(locals()).complete
+
 # Sometimes when you do something funky, you may lose your terminal echo. This
 # should restore it when spanwning new pdb.
 import termios, sys
@@ -10,21 +31,32 @@ termios_echo = termios.tcgetattr(termios_fd)
 termios_echo[3] = termios_echo[3] | termios.ECHO
 termios_result = termios.tcsetattr(termios_fd, termios.TCSADRAIN, termios_echo)
 
-# Print instance variables (usage "pi classInst")
-alias pi for k in %1.__dict__.keys(): print "%1.",k,"=",%1.__dict__[k]
+# For ordinary Python objects, ppo will pretty-print members and their values.
+alias po pp %1.__dict__
+
+# ppio runs ppo over a sequence of objects
+alias ppo po [a.__dict__ for a in %*]
+
+# Print a dictionary, sorted. %1 is the dict, %2 is the prefix for the names.
+# alias p_ for k in sorted(%1.keys()): print("%s%-15s= %-80.80s" % ("%2", k, repr(%1[k])))
+alias p_ for k in sorted(%1): print("%s = %-80.80s" % (k, repr(%1[k])))
+
+# Print the member variables of a thing.
+# alias pi p_ %1.__dict__ %1.
+alias pi p_ %1.__dict__
 
 # Print instance variables in self
 alias ps pi self
 
-# Print a dictionary, sorted. %1 is the dict, %2 is the prefix for the names.
-alias p_ for k in sorted(%1.keys()): print "%s%-15s= %-80.80s" % ("%2",k,repr(%1[k]))
-
-# Print the member variables of a thing.
-# alias pi p_ %1.__dict__ %1.
-
 # Print the locals.
-alias pl p_ locals() local:
+alias pl p_ locals()
 
 # Next and list, and step and list.
 alias nl n;;l
 alias sl s;;l
+
+# 'inspect x' will print the source code for a method, class or function.
+alias inspect import inspect; print(inspect.getsource(%1))
+
+# 'help x' opens the man-style help viewer from the interpreter on an object
+alias h !print(help(%1))
