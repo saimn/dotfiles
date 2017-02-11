@@ -11,13 +11,13 @@ application/mspowerpoint;                 libreoffice %s
 application/vnd.ms-powerpoint;            libreoffice %s
 application/vnd.oasis.opendocument.text;  libreoffice %s
 
-image/pdf;                      zathura %s
-application/pdf;                zathura %s
+image/pdf;                      evince %s
 application/pdf;                evince %s
 application/pdf;                okular %s
-application/ps;                 zathura %s
+application/pdf;                zathura %s
 application/ps;                 evince %s
 application/ps;                 okular %s
+application/ps;                 zathura %s
 
 application/x-bz;               lesspipe.sh %s ; copiousoutput
 application/x-bzip2;            lesspipe.sh %s ; copiousoutput
