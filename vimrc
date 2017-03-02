@@ -54,6 +54,7 @@ Plug 'sjl/gundo.vim', { 'on': 'GundoToggle' }
 Plug 'tell-k/vim-autopep8', { 'for': 'python' }
 Plug 'ternjs/tern_for_vim', { 'for': 'javascript', 'do': 'npm install' }
 Plug 'terryma/vim-multiple-cursors'
+Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-fugitive'
