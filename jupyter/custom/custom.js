@@ -48,6 +48,6 @@
  * @static
  */
 
-$([IPython.events]).on("app_initialized.NotebookApp", function () {
-        IPython.load_extensions("toc");
-});
+// $([IPython.events]).on("app_initialized.NotebookApp", function () {
+//         IPython.load_extensions("toc");
+// });
