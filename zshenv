@@ -11,6 +11,12 @@
 # for tmux: export 256color
 [ -n "$TMUX" ] && export TERM=screen-256color
 
+# FZF conf
+export FZF_DEFAULT_COMMAND='ag -g ""'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
+# [-n "$TMUX" ] && export FZF_TMUX=1
+
 # default permissions
 # umask 022
 
