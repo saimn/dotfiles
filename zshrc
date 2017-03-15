@@ -36,6 +36,8 @@ source ~/lib/dotfiles/zsh/functions.zsh
 source ~/lib/dotfiles/zsh/keys.zsh
 source ~/lib/dotfiles/zsh/ssh.zsh
 source ~/lib/dotfiles/zsh/k/k.sh
+source ~/lib/dotfiles/zsh/fzf/completion.zsh
+source ~/lib/dotfiles/zsh/fzf/key-bindings.zsh
 source ~/lib/dotfiles/zsh/aliases.zsh
 
 # Watch new users
@@ -46,6 +48,3 @@ source ~/lib/dotfiles/zsh/locals.zsh
 
 # added by travis gem
 [ -f /home/simon/.travis/travis.sh ] && source /home/simon/.travis/travis.sh
-
-[ -f /usr/share/fzf/completion.zsh ] && source /usr/share/fzf/completion.zsh
-[ -f /usr/share/fzf/key-bindings.zsh ] && source /usr/share/fzf/key-bindings.zsh

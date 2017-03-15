@@ -40,8 +40,9 @@ zstyle ':prezto:load' pmodule \
   'history-substring-search' \
   'autosuggestions' \
   'deer' \
-  'zsh-notify' \
   'prompt'
+
+  # 'zsh-notify' \
 
 #
 # Deer

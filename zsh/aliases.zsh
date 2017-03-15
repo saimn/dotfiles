@@ -22,6 +22,7 @@ alias j='fasd_cd -i'
 alias k='k -h'
 alias m='fasd -f -e mplayer' # quick opening files with mplayer
 alias o='fasd -a -e xdg-open' # quick opening files with xdg-open
+alias t='todo.sh'
 alias u="cd .. && ls"
 alias v='fasd -f -e vim' # quick opening files with vim
 # alias v="vim"
