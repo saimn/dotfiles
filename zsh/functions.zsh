@@ -10,6 +10,8 @@ function mdv() { mplayer -dvd-device $1 dvd://$2 }
 function rmdv() { for i in `seq 1 1 30` ; mplayer -dvd-device $1 dvd://$i }
 function vplay() { quvi $1 -f best --exec "mplayer %u" }
 
+function meteo() { curl "http://wttr.in/$1?lang=fr" }
+
 # function v() { urxvtc -e "bash" -c "exec vim $@" >> /dev/null & }
 # function sv() { urxvtc -e "bash" -c "exec sudo vim $@" >> /dev/null & }
 
