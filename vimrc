@@ -17,7 +17,7 @@ Plug 'ctrlpvim/ctrlp.vim'
 " Plug 'dogrover/vim-pentadactyl', { 'for': 'pentadactyl' }
 Plug 'edkolev/tmuxline.vim', { 'on': 'TmuxlineSnapshot' }
 Plug 'exu/pgsql.vim', { 'for': 'pgsql' }
-" Plug 'freitass/todo.txt-vim'
+Plug 'freitass/todo.txt-vim'
 Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
 Plug 'gregsexton/MatchTag', { 'for': ['html', 'xml'] }
 Plug 'groenewege/vim-less', { 'for': 'less' }
