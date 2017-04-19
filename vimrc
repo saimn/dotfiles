@@ -14,6 +14,7 @@ Plug 'benmills/vimux'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'ciaranm/securemodelines'
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'derekwyatt/vim-fswitch'
 " Plug 'dogrover/vim-pentadactyl', { 'for': 'pentadactyl' }
 Plug 'edkolev/tmuxline.vim', { 'on': 'TmuxlineSnapshot' }
 Plug 'exu/pgsql.vim', { 'for': 'pgsql' }
@@ -817,9 +818,16 @@ set foldtext=MyFoldText()
 
 " C {{{
 
+let c_no_comment_fold = 1
+
 augroup ft_c
     au!
     au FileType c,cpp setlocal foldmethod=syntax cindent
+    au FileType c,cpp setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
+    au BufRead,BufNewFile *.h,*.c set filetype=c.doxygen
+    " au BufEnter *.cpp let b:fswitchdst = 'hpp,h' | let b:fswitchlocs = '../inc'
+
+    au Filetype c nmap <buffer> <localleader>h :FSHere<cr>
 augroup END
 
 " }}}
