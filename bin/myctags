@@ -3,20 +3,30 @@
 set -e
 
 echo ":: ctags ..."
-ctags -R --languages=python,C,C++ --exclude=node_modules .
-sed -i -E -e '/^[^	]+	[^	]+.py	.+v$/d' tags
+ctags -R \
+    --extra=+f \
+    --languages=python,C,C++ \
+    --exclude=dotfiles \
+    --exclude=node_modules \
+    --exclude=.tox \
+    .
 
-mv tags tags1
-touch tags2
-echo ":: jsctags ..."
-find . -type d -path '*node_modules*' -prune -o -name '*.js' -exec jsctags '{}' -f \; > tags2
-# ffind '.js' --literal | xargs jsctags -f tags2 || echo > tags2
+if [ $# -gt 0 ]
+then
+    sed -i -E -e '/^[^	]+	[^	]+.py	.+v$/d' tags
+
+    mv tags tags1
+    touch tags2
+    echo ":: jsctags ..."
+    find . -type d -path '*node_modules*' -prune -o -name '*.js' -exec jsctags '{}' -f \; > tags2
+    # ffind '.js' --literal | xargs jsctags -f tags2 || echo > tags2
 
 
-echo ":: combine ..."
-echo '!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/' > tags
-echo '!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/' >> tags
+    echo ":: combine ..."
+    echo '!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/' > tags
+    echo '!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/' >> tags
 
-cat tags1 tags2 | grep -Ev '^!' | grep -v 'anonymous_function' | sed '/^$/d' | sort >> tags
+    cat tags1 tags2 | grep -Ev '^!' | grep -v 'anonymous_function' | sed '/^$/d' | sort >> tags
 
-rm tags1 tags2
+    rm tags1 tags2
+fi
