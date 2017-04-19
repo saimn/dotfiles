@@ -39,9 +39,9 @@ zstyle ':prezto:load' pmodule \
   'syntax-highlighting' \
   'history-substring-search' \
   'autosuggestions' \
-  'deer' \
   'prompt'
 
+  # 'deer' \
   # 'zsh-notify' \
 
 #
@@ -49,7 +49,7 @@ zstyle ':prezto:load' pmodule \
 #
 
 # Set key bindings
-zstyle ':prezto:module:deer' key-bindings '^k'
+# zstyle ':prezto:module:deer' key-bindings '^k'
 
 
 #
