@@ -20,11 +20,11 @@ function check_backup () {
 #----------------------------------------------------------------------------
 # Mail backup with offlineIMAP {{{
 function backup_mail () {
-   read -p "Backup mail with OfflineIMAP ? y/[n]" answer
+   read -p "Backup mail ? y/[n]" answer
    if [ $answer = "y" ]
    then
-      offlineimap
-      reset
+      # offlineimap
+      # reset
       tar czvf $HOME/Private/backup/mail-$DATE.tar.gz --exclude=.notmuch $HOME/Mail/
    fi
 }

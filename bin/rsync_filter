@@ -22,6 +22,7 @@
 - .module-cache/
 - .mozilla/**/Cache
 - .thumbnails/
+- .thunderbird/
 - .tox/
 - Cache*/
 - Trash/
@@ -36,6 +37,7 @@
 - data/
 - lib/dotfiles/vim/plugged/
 - lib/virtualenvs/
+- miniconda3/
 - node_modules/
 - tmp/
 
