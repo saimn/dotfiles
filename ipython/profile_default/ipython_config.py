@@ -163,10 +163,10 @@ c = get_config()
 # c.TerminalIPythonApp.gui = None
 
 # A list of dotted module names of IPython extensions to load.
-c.TerminalIPythonApp.extensions = [
-    'line_profiler_ext',
-    # 'memory_profiler_ext',
-]
+# c.TerminalIPythonApp.extensions = [
+#     # 'line_profiler_ext',
+#     # 'memory_profiler_ext',
+# ]
 
 # Start IPython quickly by skipping the loading of config files.
 # c.TerminalIPythonApp.quick = False
