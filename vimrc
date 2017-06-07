@@ -6,7 +6,6 @@
 
 call plug#begin('~/.vim/plugged')
 
-Plug '5long/pytest-vim-compiler'
 Plug 'AndrewRadev/linediff.vim', { 'on': ['Linediff', 'LinediffReset'] }
 Plug 'airblade/vim-gitgutter'
 Plug 'ap/vim-css-color'
@@ -23,11 +22,9 @@ Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
 Plug 'gregsexton/MatchTag', { 'for': ['html', 'xml'] }
 Plug 'groenewege/vim-less', { 'for': 'less' }
 Plug 'honza/vim-snippets'
-" Plug 'ivanov/vim-ipython'
 " Plug 'jceb/vim-orgmode', { 'for': 'org' }
 " Plug 'junegunn/vim-github-dashboard', { 'on': ['GHDashboard', 'GHActivity'] }
 " Plug 'kien/rainbow_parentheses.vim', { 'for': 'lisp' }
-Plug 'klen/python-mode', { 'for': 'python' }
 Plug 'lervag/vimtex', { 'for': 'tex' }
 Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
 " Plug 'mhinz/vim-signify'
@@ -52,7 +49,6 @@ Plug 'sjl/gundo.vim', { 'on': 'GundoToggle' }
 " Plug 'sjl/splice.vim', { 'on': 'SpliceInit' }
 " Plug 'smancill/conky-syntax.vim', { 'for': 'conkyrc' }
 " Plug 'stefandtw/quickfix-reflector.vim'
-Plug 'tell-k/vim-autopep8', { 'for': 'python' }
 Plug 'ternjs/tern_for_vim', { 'for': 'javascript', 'do': 'npm install' }
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tmux-plugins/vim-tmux-focus-events'
@@ -72,6 +68,16 @@ Plug 'vim-scripts/DirDiff.vim', { 'on': 'DirDiff' }
 Plug 'vim-scripts/YankRing.vim', { 'on': 'YRShow' }
 " Plug 'wavded/vim-stylus', { 'for': 'stylus' }
 Plug 'w0ng/vim-hybrid'
+
+" Python
+" Plug 'ivanov/vim-ipython'
+" Plug 'python-mode/python-mode', { 'for': 'python' }
+Plug '5long/pytest-vim-compiler'
+Plug 'alfredodeza/pytest.vim'
+Plug 'fs111/pydoc.vim'
+Plug 'tell-k/vim-autopep8', { 'for': 'python' }
+Plug 'vim-python/python-syntax'
+Plug 'Vimjas/vim-python-pep8-indent'
 
 " Plug '~/.vim/bundle/camptocamp', { 'for': 'camptocamp' }
 Plug '~/.vim/bundle/closetags-custom'
@@ -1159,6 +1165,12 @@ augroup END
 " }}}
 " Python {{{
 
+" vim-python/python-syntax conf
+let g:python_highlight_all = 1
+
+" let g:pydoc_open_cmd = 'vsplit'
+let g:pydoc_use_drop=1
+
 augroup ft_python
     au!
     " add header for new files
@@ -1558,46 +1570,30 @@ let g:org_agenda_files = ['~/org/*.org']
 " }}}
 " Python-Mode {{{
 
-let g:pymode_doc = 1
-let g:pymode_doc_key = 'M'
-let g:pydoc = 'pydoc'
-let g:pymode_syntax = 1
-let g:pymode_syntax_all = 1
-let g:pymode_syntax_builtin_objs = 1
-let g:pymode_syntax_print_as_function = 0
-let g:pymode_syntax_space_errors = 0
-let g:pymode_run = 1
-let g:pymode_run_key = '<leader>r'
-let g:pymode_lint = 0
-let g:pymode_breakpoint = 0
-let g:pymode_utils_whitespaces = 1
-let g:pymode_virtualenv = 1
-let g:pymode_folding = 0
+" let g:pymode_doc = 1
+" let g:pymode_doc_key = 'M'
+" let g:pydoc = 'pydoc'
+" let g:pymode_syntax = 1
+" let g:pymode_syntax_all = 1
+" let g:pymode_syntax_builtin_objs = 1
+" let g:pymode_syntax_print_as_function = 0
+" let g:pymode_syntax_space_errors = 0
+" let g:pymode_run = 1
+" let g:pymode_run_key = '<leader>r'
+" let g:pymode_lint = 0
+" let g:pymode_breakpoint = 0
+" let g:pymode_utils_whitespaces = 1
+" let g:pymode_virtualenv = 1
+" let g:pymode_folding = 0
 
-let g:pymode_options_indent = 0
-let g:pymode_options_fold = 0
-let g:pymode_options_other = 0
-let g:pymode_options = 0
+" let g:pymode_options_indent = 0
+" let g:pymode_options_fold = 0
+" let g:pymode_options_other = 0
+" let g:pymode_options = 0
 
-let g:pymode_rope = 0
-let g:pymode_rope_completion = 0
-let g:pymode_rope_autoimport = 0
-
-" let g:pymode_rope_global_prefix = "<localleader>R"
-" let g:pymode_rope_local_prefix = "<localleader>r"
-" let g:pymode_rope_auto_project = 1
-" let g:pymode_rope_enable_autoimport = 1
-" let g:pymode_rope_autoimport_generate = 1
-" let g:pymode_rope_autoimport_underlineds = 0
-" let g:pymode_rope_codeassist_maxfixes = 10
-" let g:pymode_rope_sorted_completions = 1
-" let g:pymode_rope_extended_complete = 1
-" let g:pymode_rope_autoimport_modules = ["os", "shutil", "datetime"]
-" let g:pymode_rope_confirm_saving = 1
-" let g:pymode_rope_vim_completion = 1
-" let g:pymode_rope_guess_project = 1
-" let g:pymode_rope_goto_def_newwin = 0
-" let g:pymode_rope_always_show_complete_menu = 0
+" let g:pymode_rope = 0
+" let g:pymode_rope_completion = 0
+" let g:pymode_rope_autoimport = 0
 
 " }}}
 " Scratch {{{
