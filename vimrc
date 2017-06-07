@@ -1658,8 +1658,8 @@ let g:syntastic_stl_format = '[%E{%e Errors}%B{, }%W{%w Warnings}]'
 let g:syntastic_jsl_conf = '$HOME/.vim/jsl.conf'
 
 " let g:syntastic_python_flake8_quiet_messages
-let g:syntastic_python_python_exec = 'python2'
-let g:syntastic_python_flake8_exec = 'flake8-python2'
+" let g:syntastic_python_python_exec = 'python2'
+" let g:syntastic_python_flake8_exec = 'flake8-python2'
 
 " nnoremap <leader>C :SyntasticCheck<cr>
 
