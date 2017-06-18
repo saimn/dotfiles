@@ -26,11 +26,6 @@ export PROJECT_HOME=$HOME/Dev
 
 [[ -f /usr/bin/virtualenvwrapper.sh ]] && source /usr/bin/virtualenvwrapper.sh
 
-# export STANDARD_CACHE_DIR="${XDG_CACHE_HOME:-${HOME}/.cache}/pip"
-# export WHEELHOUSE="${HOME}/.cache/pip/wheelhouse"
-# export PIP_FIND_LINKS="file://${WHEELHOUSE}"
-# export PIP_WHEEL_DIR="${WHEELHOUSE}"
-
 # source ~/lib/dotfiles/zsh/completion.zsh
 source ~/lib/dotfiles/zsh/functions.zsh
 source ~/lib/dotfiles/zsh/keys.zsh
