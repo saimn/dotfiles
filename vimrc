@@ -74,7 +74,7 @@ Plug 'w0ng/vim-hybrid'
 " Plug 'python-mode/python-mode', { 'for': 'python' }
 Plug '5long/pytest-vim-compiler'
 Plug 'alfredodeza/pytest.vim'
-Plug 'fs111/pydoc.vim'
+" Plug 'fs111/pydoc.vim'
 Plug 'tell-k/vim-autopep8', { 'for': 'python' }
 Plug 'vim-python/python-syntax'
 Plug 'Vimjas/vim-python-pep8-indent'
@@ -1169,7 +1169,7 @@ augroup END
 let g:python_highlight_all = 1
 
 " let g:pydoc_open_cmd = 'vsplit'
-let g:pydoc_use_drop=1
+" let g:pydoc_use_drop=1
 
 augroup ft_python
     au!
@@ -1804,6 +1804,8 @@ nnoremap <silent> <F11> :YRShow<CR>
 " }}}
 " YouCompleteMe {{{
 
+" let g:ycm_python_binary_path = 'python'
+
 let g:ycm_add_preview_to_completeopt = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_autoclose_preview_window_after_completion = 1
@@ -1820,7 +1822,7 @@ let g:ycm_global_ycm_extra_conf = '~/lib/dotfiles/ycm_extra_conf.py'
 let g:ycm_confirm_extra_conf = 1
 
 nnoremap <leader>] :YcmCompleter GoTo<CR>mzzMzvzz15<c-e>`z
-nnoremap <leader>k :YcmCompleter GetDoc<CR>
+nnoremap K :YcmCompleter GetDoc<CR>
 nnoremap <leader>jf :YcmCompleter FixIt<CR>
 nnoremap <leader>ji :YcmCompleter GoToInclude<CR>
 nnoremap <leader>jd :YcmCompleter GoToDeclaration<CR>
