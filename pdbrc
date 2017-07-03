@@ -1,23 +1,5 @@
 from __future__ import print_function
 
-import os
-
-home = os.path.expanduser("~/")
-
-# Command line history.
-# Source: https://wiki.python.org/moin/PdbRcIdea
-import readline
-histfile = home + ".pdb_history"
-print("Command history: " + histfile)
-try:
-    readline.read_history_file(histfile)
-except IOError:
-    pass
-import atexit
-atexit.register(readline.write_history_file, histfile)
-del histfile
-readline.set_history_length(20000)
-
 # Enable tab completion
 import pdb
 import rlcompleter
