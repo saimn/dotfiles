@@ -20,7 +20,8 @@ ipython/profile_default/static/
 ipython/nbextensions/mathjax/
 bin/arch/
 jupyter/migrated
-jupyter/jupyter_notebook_config.json
+jupyter/*.json
+jupyter/*/*.json
 pentadactyl/info/
 perso/
 vim/*.spl
