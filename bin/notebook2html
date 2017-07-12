@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+jupyter-nbconvert $1 \
+    --execute --ExecutePreprocessor.timeout=6000 \
+    --to html \
+    --output ${1/.ipynb/.html}
