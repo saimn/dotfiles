@@ -3,3 +3,5 @@ tags
 TAGS
 .tern-project
 .ycm_extra_conf.py
+__pycache__/
+*.egg-info/
