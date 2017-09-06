@@ -1,3 +1,5 @@
 line-profiler
 memory_profiler
 psutil
+py-heat
+py-heat-magic

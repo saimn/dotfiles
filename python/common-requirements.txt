@@ -1,11 +1,10 @@
 coverage
-# fabric
 # gorun
 line-profiler
 memory_profiler
-#nose
-#nose-progressive
 psutil
+py-heat
+py-heat-magic
 pytest
 pytest-cov
 sphinx
