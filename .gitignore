@@ -24,6 +24,7 @@ jupyter/*.json
 jupyter/*/*.json
 pentadactyl/info/
 perso/
+systemd/user/*.target.wants/
 vim/*.spl
 vim/.netrwhist
 vim/.VimballRecord

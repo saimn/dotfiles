@@ -1,0 +1,9 @@
+[Unit]
+Description=Mailbox quicksync service
+
+[Service]
+Type=oneshot
+; ExecStart=/usr/bin/mbsync -V INBOX
+ExecStart=/home/simon/bin/syncmail.sh -q INBOX
+StandardOutput=syslog
+StandardError=syslog
