@@ -150,9 +150,10 @@ end
 
 -- {{{ Menu
 mymainmenu = awful.menu({ items = {
+    { "hotkeys", function() return false, hotkeys_popup.show_help end},
     { "edit config", editor_cmd .. " " .. awesome.conffile },
     { "restart", awesome.restart },
-    { "quit", awesome.quit },
+    -- { "quit", function() awesome.quit() end}
     { "run", function() mypromptbox[mouse.screen]:run() end },
     { "----------", "" },
     { "suspend", "sudo pm-suspend" },
