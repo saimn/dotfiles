@@ -2095,6 +2095,8 @@ nnoremap <F10> :call ToggleMenuBar()<CR>
 " }}}
 " Environments (GUI/Console) ---------------------------------------------- {{{
 
+highlight Comment cterm=italic gui=italic
+
 if has('gui_running')
     " GUI Vim
 
