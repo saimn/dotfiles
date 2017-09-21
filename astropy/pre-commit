@@ -1,0 +1,19 @@
+#!/bin/sh
+#
+# Git pre commit hook which find the next PR number and replace occurences of
+# GUESSPR in the changelog
+
+files_modified=`git diff --cached --name-only --diff-filter=ACM`
+
+if [[ $files_modified == *"CHANGES.rst"* ]]
+then
+    if grep -q "GUESSPR" CHANGES.rst
+    then
+        ghurl="https://api.github.com/repos/astropy/astropy/issues?state=all&sort=created&direction=desc&per_page=1"
+        echo "Fetching PR number from $ghurl"
+        prnumber=$(curl -s $ghurl | \
+            python -c "import sys, json; print(json.load(sys.stdin)[0]['number'] + 1)")
+        sed -i "s/GUESSPR/#$prnumber/" CHANGES.rst && echo "Wrote PR number :)" || echo "FAILED"
+        git add CHANGES.rst
+    fi
+fi
