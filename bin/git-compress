@@ -1,0 +1,6 @@
+#!/bin/sh
+
+du -sh .git
+git reflog expire --all --expire=now
+git gc --prune=now --aggressive
+du -sh .git
