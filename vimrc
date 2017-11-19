@@ -24,6 +24,8 @@ Plug 'groenewege/vim-less', { 'for': 'less' }
 Plug 'honza/vim-snippets'
 " Plug 'jceb/vim-orgmode', { 'for': 'org' }
 " Plug 'junegunn/vim-github-dashboard', { 'on': ['GHDashboard', 'GHActivity'] }
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 " Plug 'kien/rainbow_parentheses.vim', { 'for': 'lisp' }
 Plug 'lervag/vimtex', { 'for': 'tex' }
 Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }

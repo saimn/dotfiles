@@ -162,3 +162,5 @@ calc(){ awk "BEGIN{ print $* }" ;}
 # Set host-specific config
 [[ -f ~/.bashrc.$HOSTNAME ]] && . ~/.bashrc.$HOSTNAME
 [[ -f ~/.bashrc.local ]] && . ~/.bashrc.local
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
