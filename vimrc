@@ -60,7 +60,7 @@ Plug 'tpope/vim-repeat'
 " Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-surround'
 Plug 'tshirtman/vim-cython'
-Plug 'Valloric/YouCompleteMe', { 'do': 'python2 install.py --clang-completer --tern-completer' }
+Plug 'Valloric/YouCompleteMe', { 'do': 'python install.py --clang-completer --js-completer --system-libclang' }
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/Conflict2Diff', { 'on': 'Conflict2Diff' }
