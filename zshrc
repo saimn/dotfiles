@@ -33,6 +33,16 @@ source ~/lib/dotfiles/zsh/ssh.zsh
 source ~/lib/dotfiles/zsh/k/k.sh
 source ~/lib/dotfiles/zsh/aliases.zsh
 
+# source ~/lib/dotfiles/zsh/fzf/completion.zsh
+# source ~/lib/dotfiles/zsh/fzf/key-bindings.zsh
+
+# fzf via local installation
+if [ -e ~/.fzf ]; then
+    export PATH="$PATH:$HOME/.fzf/bin"
+    source ~/.fzf/shell/key-bindings.zsh
+    source ~/.fzf/shell/completion.zsh
+fi
+
 # Watch new users
 watch=(all)
 LOGCHECK=5
@@ -41,7 +51,3 @@ source ~/lib/dotfiles/zsh/locals.zsh
 
 # added by travis gem
 [ -f /home/simon/.travis/travis.sh ] && source /home/simon/.travis/travis.sh
-
-# source ~/lib/dotfiles/zsh/fzf/completion.zsh
-# source ~/lib/dotfiles/zsh/fzf/key-bindings.zsh
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

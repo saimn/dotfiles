@@ -6,15 +6,14 @@
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'AndrewRadev/linediff.vim', { 'on': ['Linediff', 'LinediffReset'] }
+" Plug 'AndrewRadev/linediff.vim', { 'on': ['Linediff', 'LinediffReset'] }
 Plug 'airblade/vim-gitgutter'
 Plug 'ap/vim-css-color'
 Plug 'benmills/vimux'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'ciaranm/securemodelines'
-Plug 'ctrlpvim/ctrlp.vim'
+" Plug 'ctrlpvim/ctrlp.vim'
 Plug 'derekwyatt/vim-fswitch'
-" Plug 'dogrover/vim-pentadactyl', { 'for': 'pentadactyl' }
 Plug 'edkolev/tmuxline.vim', { 'on': 'TmuxlineSnapshot' }
 Plug 'exu/pgsql.vim', { 'for': 'pgsql' }
 Plug 'freitass/todo.txt-vim'
@@ -26,7 +25,6 @@ Plug 'honza/vim-snippets'
 " Plug 'junegunn/vim-github-dashboard', { 'on': ['GHDashboard', 'GHActivity'] }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-" Plug 'kien/rainbow_parentheses.vim', { 'for': 'lisp' }
 Plug 'lervag/vimtex', { 'for': 'tex' }
 Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
 " Plug 'mhinz/vim-signify'
@@ -1413,54 +1411,54 @@ augroup END
 " }}}
 " Ctrl-P {{{
 
-let g:ctrlp_reuse_window = 'NERD_tree_2'
-let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_max_height = 20
-let g:ctrlp_extensions = ['tag']
-let g:ctrlp_switch_buffer = 'et'
+" let g:ctrlp_reuse_window = 'NERD_tree_2'
+" let g:ctrlp_working_path_mode = 'ra'
+" let g:ctrlp_max_height = 20
+" let g:ctrlp_extensions = ['tag']
+" let g:ctrlp_switch_buffer = 'et'
 
-let g:ctrlp_map = '<leader>,'
-nnoremap <leader>; :CtrlPTag<cr>
-nnoremap <leader>b :CtrlPBuffer<cr>
-nnoremap <leader>m :CtrlPMRU<cr>
+" let g:ctrlp_map = '<leader>,'
+" nnoremap <leader>; :CtrlPTag<cr>
+" nnoremap <leader>b :CtrlPBuffer<cr>
+" nnoremap <leader>m :CtrlPMRU<cr>
 
-" let g:ctrlp_prompt_mappings = {
-" \ 'PrtSelectMove("j")':   ['<c-j>', '<down>', '<s-tab>'],
-" \ 'PrtSelectMove("k")':   ['<c-k>', '<up>', '<tab>'],
-" \ 'PrtHistory(-1)':       ['<c-n>'],
-" \ 'PrtHistory(1)':        ['<c-p>'],
-" \ 'ToggleFocus()':        ['<c-tab>'],
-" \ }
+" " let g:ctrlp_prompt_mappings = {
+" " \ 'PrtSelectMove("j")':   ['<c-j>', '<down>', '<s-tab>'],
+" " \ 'PrtSelectMove("k")':   ['<c-k>', '<up>', '<tab>'],
+" " \ 'PrtHistory(-1)':       ['<c-n>'],
+" " \ 'PrtHistory(1)':        ['<c-p>'],
+" " \ 'ToggleFocus()':        ['<c-tab>'],
+" " \ }
 
-" let ctrlp_filter_greps = "".
-"     \ "egrep -iv '\.(" .
-"     \ "jar|class|swp|swo|log|so|o|pyc|pyo|jpe?g|png|gif|mo|po|min\.js" .
-"     \ ")$' | " .
-"     \ "egrep -v '^(\.\/)?(" .
-"     \ "node_modules/|lib/|libs/|.git/|.hg/|.svn/|.tox/|dist/|build/|docs/build/|docs/_build/" .
-"     \ ")'"
+" " let ctrlp_filter_greps = "".
+" "     \ "egrep -iv '\.(" .
+" "     \ "jar|class|swp|swo|log|so|o|pyc|pyo|jpe?g|png|gif|mo|po|min\.js" .
+" "     \ ")$' | " .
+" "     \ "egrep -v '^(\.\/)?(" .
+" "     \ "node_modules/|lib/|libs/|.git/|.hg/|.svn/|.tox/|dist/|build/|docs/build/|docs/_build/" .
+" "     \ ")'"
 
-" let my_ctrlp_user_command = "" .
-"     \ "find %s '(' -type f -or -type l ')' -maxdepth 15 -not -path '*/\\.*/*' | " .
-"     \ ctrlp_filter_greps
+" " let my_ctrlp_user_command = "" .
+" "     \ "find %s '(' -type f -or -type l ')' -maxdepth 15 -not -path '*/\\.*/*' | " .
+" "     \ ctrlp_filter_greps
 
-" let my_ctrlp_git_command = "" .
-"     \ "cd %s && git ls-files --exclude-standard -co | " .
-"     \ ctrlp_filter_greps
+" " let my_ctrlp_git_command = "" .
+" "     \ "cd %s && git ls-files --exclude-standard -co | " .
+" "     \ ctrlp_filter_greps
 
-" let g:ctrlp_user_command = ['.git/', my_ctrlp_git_command, my_ctrlp_user_command]
+" " let g:ctrlp_user_command = ['.git/', my_ctrlp_git_command, my_ctrlp_user_command]
 
-" Use The Silver Searcher over grep, iff possible
-if executable('ag')
-   " Use ag over grep
-   " set grepprg=ag\ --nogroup\ --nocolor
+" " Use The Silver Searcher over grep, iff possible
+" if executable('ag')
+"    " Use ag over grep
+"    " set grepprg=ag\ --nogroup\ --nocolor
 
-   " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-   let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
+"    " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+"    let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
 
-   " ag is fast enough that CtrlP doesn't need to cache
-   let g:ctrlp_use_caching = 0
-endif
+"    " ag is fast enough that CtrlP doesn't need to cache
+"    let g:ctrlp_use_caching = 0
+" endif
 
 " }}}
 " DirDiff {{{
@@ -1495,6 +1493,30 @@ nnoremap <leader>gl :Clam git hist<cr>:wincmd \|<cr>
 " Hub
 nnoremap <leader>gh :Gbrowse<cr>
 vnoremap <leader>gh :Gbrowse<cr>
+
+" }}}
+" FZF {{{
+
+nnoremap <leader>, :Files<CR>
+nnoremap <leader>b :Buffers<CR>
+nnoremap <leader>; :Tags<CR>
+nnoremap <leader>m :History<CR>
+
+" Customize fzf colors to match your color scheme
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
 
 " }}}
 " Git Gutter {{{
