@@ -40,7 +40,7 @@ Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'pearofducks/ansible-vim'
 Plug 'saltstack/salt-vim', { 'for': 'sls' }
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
-Plug 'scrooloose/syntastic'
+" Plug 'scrooloose/syntastic'
 Plug 'SirVer/ultisnips'
 " Plug 'sjl/AnsiEsc.vim'
 Plug 'sjl/badwolf'
@@ -78,6 +78,7 @@ Plug 'alfredodeza/pytest.vim'
 Plug 'tell-k/vim-autopep8', { 'for': 'python' }
 Plug 'vim-python/python-syntax'
 Plug 'Vimjas/vim-python-pep8-indent'
+Plug 'w0rp/ale'
 
 " Plug '~/.vim/bundle/camptocamp', { 'for': 'camptocamp' }
 Plug '~/.vim/bundle/closetags-custom'
@@ -1658,32 +1659,32 @@ augroup END
 " let g:sparkupNextMapping = '<c-s>'
 
 "}}}
-" Syntastic {{{
+" " Syntastic {{{
 
-let g:syntastic_aggregate_errors = 1
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_check_on_open = 1
+" let g:syntastic_aggregate_errors = 1
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_check_on_open = 1
 
-let g:syntastic_enable_signs = 1
-let g:syntastic_error_symbol = '✗'
-let g:syntastic_warning_symbol = '⚠'
+" let g:syntastic_enable_signs = 1
+" let g:syntastic_error_symbol = '✗'
+" let g:syntastic_warning_symbol = '⚠'
 
-" let g:syntastic_java_checker = 'javac'
-let g:syntastic_mode_map = {
-            \ "mode": "active",
-            \ "active_filetypes": [],
-            \ "passive_filetypes": ['java', 'html', 'rst', 'scala']
-            \ }
-let g:syntastic_stl_format = '[%E{%e Errors}%B{, }%W{%w Warnings}]'
-let g:syntastic_jsl_conf = '$HOME/.vim/jsl.conf'
+" " let g:syntastic_java_checker = 'javac'
+" let g:syntastic_mode_map = {
+"             \ "mode": "active",
+"             \ "active_filetypes": [],
+"             \ "passive_filetypes": ['java', 'html', 'rst', 'scala']
+"             \ }
+" let g:syntastic_stl_format = '[%E{%e Errors}%B{, }%W{%w Warnings}]'
+" let g:syntastic_jsl_conf = '$HOME/.vim/jsl.conf'
 
-" let g:syntastic_python_flake8_quiet_messages
-" let g:syntastic_python_python_exec = 'python2'
-" let g:syntastic_python_flake8_exec = 'flake8-python2'
+" " let g:syntastic_python_flake8_quiet_messages
+" " let g:syntastic_python_python_exec = 'python2'
+" " let g:syntastic_python_flake8_exec = 'flake8-python2'
 
-" nnoremap <leader>C :SyntasticCheck<cr>
+" " nnoremap <leader>C :SyntasticCheck<cr>
 
-" }}}
+" " }}}
 " Splice {{{
 
 " let g:splice_prefix = "-"
@@ -2163,8 +2164,8 @@ if has('gui_running')
     " Make shift-insert work like in Xterm
     map <S-Insert> <MiddleMouse>
     map! <S-Insert> <MiddleMouse>
-elseif has('nvim')
-    colorscheme badwolf
+" elseif has('nvim')
+"     colorscheme badwolf
 else
     " Console Vim
     " Mouse support
@@ -2175,7 +2176,9 @@ else
     " colorscheme molokai
     "set t_Co=8
     "set termencoding=utf-8
-    set ttymouse=sgr
+    if !has('nvim')
+        set ttymouse=sgr
+    endif
 endif
 
 " }}}
