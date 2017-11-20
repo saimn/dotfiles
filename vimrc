@@ -25,6 +25,7 @@ Plug 'honza/vim-snippets'
 " Plug 'junegunn/vim-github-dashboard', { 'on': ['GHDashboard', 'GHActivity'] }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'junegunn/goyo.vim'
 Plug 'lervag/vimtex', { 'for': 'tex' }
 Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
 " Plug 'mhinz/vim-signify'
@@ -1525,6 +1526,12 @@ let g:fzf_colors =
 let g:gitgutter_escape_grep = 1
 let g:gitgutter_realtime = 0
 " let g:gitgutter_max_signs = 500
+
+" GitGutter styling to use · instead of +/-
+let g:gitgutter_sign_added = '∙'
+let g:gitgutter_sign_modified = '∙'
+let g:gitgutter_sign_removed = '∙'
+let g:gitgutter_sign_modified_removed = '∙'
 
 highlight GitGutterAdd guifg=#d7ffaf ctermfg=193
 highlight GitGutterDelete guifg=#cc6666 ctermfg=167
