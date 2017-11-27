@@ -1,0 +1,7 @@
+ipython
+jupyter
+jupyter_contrib_nbextensions
+jupyterlab
+#jupyter-nbextensions-configurator
+nbdime
+#qtconsole

@@ -1,0 +1,17 @@
+# vim: ft=conf
+
+numpy
+matplotlib
+pandas
+pillow
+
+-e dev/astropy
+
+-r astro-requirements.txt
+-r jupyter-requirements.txt
+
+APLpy
+bokeh
+imageio
+ipyaladin
+mpld3

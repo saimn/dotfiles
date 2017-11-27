@@ -1,0 +1,50 @@
+# vim: ft=conf
+# main requirements file
+
+-r astro-requirements.txt
+-r jupyter-requirements.txt
+-r perf-requirements.txt
+
+# dev
+cython
+
+# plotting
+adjustText
+lineid-plot
+matplotlib
+seaborn
+
+# testing
+coverage
+pytest
+pytest-cov
+
+# documentation
+alabaster
+doc2dash
+#graphviz
+jinja2
+sphinx
+sphinx-automodapi
+sphinx_rtd_theme
+
+# misc
+beautifulsoup4
+lxml
+pdbpp
+pyyaml
+requests
+twine
+# gorun
+
+# science
+joblib
+#lmfit
+numexpr
+numpy
+numpydoc
+pandas
+pillow
+scikit-image
+scikit-learn
+scipy

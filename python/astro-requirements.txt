@@ -1,11 +1,6 @@
-numpy
-scipy
-APLpy
-astropy
+astroquery
+#APLpy
+fitsio
+
+# astropy
 # pyregion
-# pywcsgrid2
-# pIDLy
-# pyIDL
-# python-montage
-# pynbody
-# yt

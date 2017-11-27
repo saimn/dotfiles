@@ -1,0 +1,11 @@
+dataset
+python-cpl
+
+-e dev/astropy
+-e dev/mpdaf
+
+-e dev/muse-analysis
+-e dev/musex
+-e dev/mydrs
+-e dev/photutils
+-e dev/zap
