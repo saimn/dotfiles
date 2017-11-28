@@ -1,7 +1,9 @@
 ipython
 jupyter
 jupyter_contrib_nbextensions
+jupyter_nbextensions_configurator
 jupyterlab
-#jupyter-nbextensions-configurator
+jupyternotify
 nbdime
+
 #qtconsole

@@ -1,3 +1,4 @@
+astroplan
 astroquery
 #APLpy
 fitsio
