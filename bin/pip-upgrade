@@ -1,0 +1,18 @@
+#!/bin/sh
+
+# Colors
+COL_R="\\033[31m"
+COL_G="\\033[32m"
+COL_Y="\\033[33m"
+ENDC="\\033[0m"
+
+# List outdated packages
+pip list -lo
+
+echo -en "\n${COL_Y}Upgrade ? [Y/n]${ENDC}"
+read answer
+[[ $answer = "n" ]] && exit
+
+# Update all
+pip list --outdated --format=freeze | cut -d = -f 1 | xargs -n1 pip install -U
+echo -e "\n${COL_G}DONE ${ENDC}"
