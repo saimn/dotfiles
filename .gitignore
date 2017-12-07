@@ -40,6 +40,7 @@ weechat/*.log
 weechat/*.txt
 weechat/buffer_autoset.conf
 weechat/irc.conf
+weechat/sec.conf
 weechat/logs/
 weechat/script/
 weechat/xfer/
