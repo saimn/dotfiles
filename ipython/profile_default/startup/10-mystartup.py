@@ -3,13 +3,19 @@
 
 from IPython.core.magic import register_line_magic
 
-ip = get_ipython()
+ip = get_ipython()  # noqa
 
 # try:
 #     import line_profiler
 #     ip.define_magic('lprun', line_profiler.magic_lprun)
 # except ImportError:
 #     pass
+
+try:
+    import jupyternotify
+    ip.register_magics(jupyternotify.JupyterNotifyMagics)
+except ImportError:
+    pass
 
 
 def _import_numpy():
