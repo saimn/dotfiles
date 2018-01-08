@@ -271,9 +271,15 @@ set formatoptions=qrn1tcj
 " t : Auto-wrap text using textwidth
 " c : Auto-wrap comments using textwidth
 " j : Delete comment char when joining commented lines
-" if v:version > 703 || v:version == 703
-"   set formatoptions+=j
-" endif
+
+nnoremap <leader>w :call AutoWrapToggle()<CR>
+function! AutoWrapToggle()
+  if &formatoptions =~ 't'
+    set fo-=tc
+  else
+    set fo+=tc
+  endif
+endfunction
 
 set colorcolumn=+1
 
@@ -403,7 +409,7 @@ vnoremap p <Esc>:let current_reg = @"<CR>gvdi<C-R>=current_reg<CR><Esc>
 nnoremap <leader><cr> :silent !myctags<cr>:redraw!<cr>
 
 " Clean trailing whitespace
-nnoremap <leader>w mz:%s/\s\+$//<cr>:let @/=''<cr>`z
+" nnoremap <leader>w mz:%s/\s\+$//<cr>:let @/=''<cr>`z
 " Clean leading spaces
 " nmap _S :%s/^\s\+//<CR>
 
@@ -1362,6 +1368,14 @@ endif
 nnoremap <leader>a :Ack<space>
 nnoremap <leader>A :Ack <C-r><C-w><CR>
 vnoremap <leader>a y:grep! "\b<c-r>"\b"<cr>:cw<cr><cr>
+
+" }}}
+" Ale {{{
+
+let g:ale_sign_warning = '▲'
+let g:ale_sign_error = '✗'
+" highlight link ALEWarningSign String
+" highlight link ALEErrorSign
 
 " }}}
 " Airline {{{
