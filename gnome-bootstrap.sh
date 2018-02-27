@@ -13,8 +13,8 @@ gsettings set org.gnome.Evince.Default show-sidebar false
 # gsettings set org.gnome.shell.extensions.dock position 'left'
 
 # default apps
-gsettings set org.gnome.desktop.default-applications.terminal exec urxvtc
-gsettings set org.gnome.desktop.default-applications.terminal exec-arg "'-e'"
+# gsettings set org.gnome.desktop.default-applications.terminal exec urxvtc
+# gsettings set org.gnome.desktop.default-applications.terminal exec-arg "'-e'"
 
 # keybindings
 gsettings set org.gnome.desktop.wm.keybindings maximize "['<Super>m']"

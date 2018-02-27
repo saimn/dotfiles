@@ -51,3 +51,5 @@ source ~/lib/dotfiles/zsh/locals.zsh
 
 # added by travis gem
 [ -f /home/simon/.travis/travis.sh ] && source /home/simon/.travis/travis.sh
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
