@@ -21,8 +21,14 @@
 - .macromedia/
 - .module-cache/
 - .mozilla/**/Cache
+- .mu/
+- .nixnote/
+- .npm/
+- .pyenv/
+- __pycache__/
 - .thumbnails/
 - .thunderbird/
+- .tor-browser/
 - .tox/
 - Cache*/
 - Trash/
@@ -39,6 +45,8 @@
 - lib/virtualenvs/
 - miniconda3/
 - node_modules/
+- ownCloud
+- scikit_learn_data/
 - tmp/
 
 + .config/
@@ -67,4 +75,5 @@
 + .xawtv
 + *.local
 
+- .config/chromium/
 - /simon/.*
