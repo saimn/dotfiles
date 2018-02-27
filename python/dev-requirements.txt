@@ -1,0 +1,9 @@
+# vim: ft=conf
+
+# testing
+coverage
+pytest
+pytest-cov
+
+# syntax checks
+flake8-docstrings

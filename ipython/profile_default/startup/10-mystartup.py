@@ -29,6 +29,7 @@ def _import_astropy():
     ip.ex('import astropy')
     ip.ex('print("Astropy", astropy.__version__)')
     ip.ex('import astropy.units as u')
+    ip.ex('from astropy.coordinates import SkyCoord')
     ip.ex('from astropy.io import ascii, fits')
     ip.ex('from astropy.wcs import WCS')
     ip.ex('from astropy.table import Table, Column, MaskedColumn')

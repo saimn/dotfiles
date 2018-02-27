@@ -2,6 +2,7 @@
 # main requirements file
 
 -r astro-requirements.txt
+-r dev-requirements.txt
 -r jupyter-requirements.txt
 -r perf-requirements.txt
 
@@ -13,11 +14,6 @@ adjustText
 lineid-plot
 matplotlib
 seaborn
-
-# testing
-coverage
-pytest
-pytest-cov
 
 # documentation
 alabaster
