@@ -1,0 +1,16 @@
+dataset
+python-cpl
+
+-e lib/astropy
+-e lib/mpdaf
+
+-e lib/doit
+#-e lib/lsdcat
+-e lib/muse-analysis
+-e lib/musex
+-e lib/mydrs
+-e lib/pampelmuse
+-e lib/photutils
+-e lib/python-cpl
+-e lib/StarSelector-1.0
+-e lib/zap
