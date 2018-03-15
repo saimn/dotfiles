@@ -14,7 +14,7 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'ciaranm/securemodelines'
 " Plug 'ctrlpvim/ctrlp.vim'
 Plug 'derekwyatt/vim-fswitch'
-Plug 'edkolev/tmuxline.vim', { 'on': 'TmuxlineSnapshot' }
+Plug 'edkolev/tmuxline.vim', { 'on': ['Tmuxline', 'TmuxlineSnapshot'] }
 Plug 'exu/pgsql.vim', { 'for': 'pgsql' }
 Plug 'freitass/todo.txt-vim'
 Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
@@ -1382,12 +1382,12 @@ let g:ale_sign_error = '✗'
 " }}}
 " Airline {{{
 
-let g:airline_powerline_fonts = 1
+let g:airline_powerline_fonts = 0
 " let g:airline_section_z = airline#section#create_right(['%2p%% %3l:%1c'])
 let g:airline_theme='badwolf'
 
 let g:airline#extensions#branch#enabled = 1
-let g:airline#extensions#syntastic#enabled = 1
+let g:airline#extensions#ale#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tagbar#enabled = 0
 let g:airline#extensions#tmuxline#enabled = 0
@@ -1754,7 +1754,8 @@ let g:tagbar_iconchars = ['▸', '▾']
 "  }}}
 " Tmuxline {{{
 
-  let g:tmuxline_preset = {
+let g:tmuxline_powerline_separators = 0
+let g:tmuxline_preset = {
       \'a'       : '#H',
       \'b'       : '#S',
       \'c'       : '#W',
