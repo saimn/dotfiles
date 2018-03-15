@@ -1,0 +1,9 @@
+Type: Jupyter Notebook Extension
+Compatibility: 4.x, 5.x
+Name: Fullwidth
+Main: main.js
+Icon: icon.png
+Link: README.md
+Description: |
+  Use full width for cells.
+default: true
