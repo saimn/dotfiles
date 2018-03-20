@@ -3,7 +3,8 @@
 Name=Mutt
 Comment=IRC Client
 GenericName=Mutt
-Exec=urxvt -icon $HOME/lib/dotfiles/applications/mutt.svg -T Mutt -name mutt -e mutt
+#Exec=urxvt -icon $HOME/lib/dotfiles/applications/mutt.svg -T Mutt -name mutt -e mutt
+Exec=tilix -p Mutt -t Mutt -s Mutt
 Icon=/home/simon/lib/dotfiles/applications/mutt.svg
 StartupNotify=true
 Terminal=false
