@@ -15,11 +15,10 @@ done
 mkdir $HOME/.config/ranger
 mkdir -p $HOME/lib/dotfiles/vim/tmp/{backup,swap,undo}
 
-rm $HOME/.config/{awesome,zathura,termite} $HOME/bin
+rm $HOME/.config/{awesome,zathura} $HOME/bin
 ln -s $HOME/lib/dotfiles/bin/ $HOME/bin
 ln -s $HOME/lib/dotfiles/awesome/ $HOME/.config/awesome
 ln -s $HOME/lib/dotfiles/zathura/ $HOME/.config/zathura
-ln -s $HOME/lib/dotfiles/termite/ $HOME/.config/termite
 
 ln -s $HOME/lib/dotfiles/compton.conf $HOME/.config/compton.conf
 
@@ -64,8 +63,8 @@ ln -s ~/lib/mail/mutt .mutt
 #cd ~/lib/python/virtualenvwrapper
 #sudo python setup.py install
 
-mkdir -p $HOME/lib/{python,virtualenvs}
-ln -s ~/lib/virtualenvs/  ~/.virtualenvs
+# mkdir -p $HOME/lib/{python,virtualenvs}
+# ln -s ~/lib/virtualenvs/  ~/.virtualenvs
 
 rm $HOME/.config/ipython
 ln -s $HOME/lib/dotfiles/ipython $HOME/.ipython
@@ -78,10 +77,10 @@ ln -s $HOME/lib/dotfiles/matplotlibrc $HOME/.config/matplotlib/matplotlibrc
 
 #{{{ Other repos
 # git clone git@github.com:saimn/color-theme-wombat.git           ~/lib/color-theme-wombat
-git clone https://github.com/mitsuhiko/flask-sphinx-themes.git  ~/lib/flask-sphinx-themes
+# git clone https://github.com/mitsuhiko/flask-sphinx-themes.git  ~/lib/flask-sphinx-themes
 # git clone git://gitorious.org/mutt-notmuch/mutt-notmuch.git     ~/lib/mutt-notmuch
 # git clone https://github.com/apenwarr/sshuttle.git              ~/lib/sshuttle
-git clone https://github.com/gfxmonk/supergenpass.git           ~/lib/supergenpass
+# git clone https://github.com/gfxmonk/supergenpass.git           ~/lib/supergenpass
 
 git clone https://github.com/thayerwilliams/vimbrant.git          ~/lib/vimbrant
 # hg clone http://bitbucket.org/sjl/hg-prompt/                    ~/lib/hg-prompt
