@@ -1,3 +1,5 @@
+# vim: ft=conf
+
 *.elc
 *.hi
 *.local
@@ -8,8 +10,21 @@
 \#*\#
 .DS_Store
 tags
-bin/QFitsView*
+
+build/
 geary/*/geary.ini
+perso/
+systemd/user/*.target.wants/
+zathura/bookmarks
+zsh/history
+zsh/locals.zsh
+
+# bin
+bin/arch/
+bin/exa
+bin/QFitsView*
+
+# ipython/jupyter
 ipython/README
 ipython/profile_default/*.sqlite
 ipython/profile_default/db/
@@ -18,24 +33,24 @@ ipython/profile_default/pid/
 ipython/profile_default/security/
 ipython/profile_default/static/
 ipython/nbextensions/mathjax/
-bin/arch/
 jupyter/migrated
 jupyter/*.json
 jupyter/*/*.json
-pentadactyl/info/
-perso/
-systemd/user/*.target.wants/
+
+# vim
 vim/*.spl
 vim/.netrwhist
 vim/.VimballRecord
 vim/NERDTreeBookmarks
 vim/plugged/
+vim/spell/
 vim/tmp/
 vim/init.vim
 vim/local.vim
 vim/plugin/notmuch.vim
 vim/syntax/notmuch-*.vim
-vimperator/info/
+
+# weechat
 weechat/*.log
 weechat/*.txt
 weechat/buffer_autoset.conf
@@ -44,9 +59,3 @@ weechat/sec.conf
 weechat/logs/
 weechat/script/
 weechat/xfer/
-xmonad/history
-xmonad/xmonad-x86_64-linux
-xmonad/xmonad.errors
-zathura/bookmarks
-zsh/history
-zsh/locals.zsh
