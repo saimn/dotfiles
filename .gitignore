@@ -22,6 +22,7 @@ zsh/locals.zsh
 # bin
 bin/arch/
 bin/exa
+bin/fd
 bin/QFitsView*
 
 # ipython/jupyter
