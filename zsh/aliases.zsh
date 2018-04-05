@@ -39,7 +39,7 @@ alias lsd='ls -ld *(-/DN)'
 alias cp='cp -p'
 alias rm='trash-put'
 alias du='du -h --max-depth=1'
-alias dusort='du -x --block-size=1048576 | sort -nr'
+alias dusort='du -h --max-depth=1 | sort -h -r'
 alias df='df -h'
 alias psg="ps auxw | grep -i "
 
