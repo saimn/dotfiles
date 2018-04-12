@@ -30,7 +30,6 @@ export PROJECT_HOME=$HOME/Dev
 source ~/lib/dotfiles/zsh/functions.zsh
 source ~/lib/dotfiles/zsh/keys.zsh
 source ~/lib/dotfiles/zsh/ssh.zsh
-source ~/lib/dotfiles/zsh/k/k.sh
 source ~/lib/dotfiles/zsh/aliases.zsh
 
 # source ~/lib/dotfiles/zsh/fzf/completion.zsh

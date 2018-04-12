@@ -10,9 +10,6 @@
 [submodule "awesome/revelation"]
 	path = awesome/revelation
 	url = https://github.com/guotsuan/awesome-revelation.git
-[submodule "zsh/k"]
-	path = zsh/k
-	url = https://github.com/rimraf/k.git
 [submodule "tmux/copycat"]
 	path = tmux/copycat
 	url = https://github.com/tmux-plugins/tmux-copycat
