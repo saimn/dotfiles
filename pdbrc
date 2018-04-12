@@ -1,5 +1,3 @@
-from __future__ import print_function
-
 # Enable tab completion
 import pdb
 import rlcompleter
@@ -41,4 +39,4 @@ alias sl s;;l
 alias inspect import inspect; print(inspect.getsource(%1))
 
 # 'help x' opens the man-style help viewer from the interpreter on an object
-alias h !print(help(%1))
+alias hh !print(help(%1))
