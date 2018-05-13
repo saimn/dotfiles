@@ -3,10 +3,8 @@
 #
 
 PATH="$HOME/bin:${PATH}"
-PATH="$HOME/bin/fasd:${PATH}"
 PATH="$HOME/bin/html2rst:${PATH}"
 PATH="$HOME/bin/html2text:${PATH}"
-PATH="$HOME/bin/git:${PATH}"
 PATH="$HOME/.local/bin:${PATH}"
 export PATH
 
@@ -21,19 +19,16 @@ fi
 # Customize to your needs...
 
 # Python
-export WORKON_HOME=$HOME/.virtualenvs
-export PROJECT_HOME=$HOME/Dev
+# export WORKON_HOME=$HOME/.virtualenvs
+# export PROJECT_HOME=$HOME/Dev
 
-[[ -f /usr/bin/virtualenvwrapper.sh ]] && source /usr/bin/virtualenvwrapper.sh
+# [[ -f /usr/bin/virtualenvwrapper.sh ]] && source /usr/bin/virtualenvwrapper.sh
 
 # source ~/lib/dotfiles/zsh/completion.zsh
 source ~/lib/dotfiles/zsh/functions.zsh
 source ~/lib/dotfiles/zsh/keys.zsh
 source ~/lib/dotfiles/zsh/ssh.zsh
 source ~/lib/dotfiles/zsh/aliases.zsh
-
-# source ~/lib/dotfiles/zsh/fzf/completion.zsh
-# source ~/lib/dotfiles/zsh/fzf/key-bindings.zsh
 
 # fzf via local installation
 if [ -e ~/.fzf ]; then

@@ -33,7 +33,6 @@ zstyle ':prezto:load' pmodule \
   'utility' \
   'completion' \
   'archive' \
-  'fasd' \
   'git' \
   'tmux' \
   'syntax-highlighting' \
@@ -41,6 +40,7 @@ zstyle ':prezto:load' pmodule \
   'autosuggestions' \
   'prompt'
 
+  # 'fasd' \
   # 'deer' \
   # 'zsh-notify' \
 
