@@ -558,7 +558,7 @@ nnoremap <c-Tab> <c-^>
 " imap <C-Space> <C-k>NS
 
 " change directory to the file being edited
-nnoremap <leader>C :cd %:p:h<CR>:pwd<CR>
+" nnoremap <leader>C :cd %:p:h<CR>:pwd<CR>
 
 " disable cursor keys in normal mode
 " map <Left> :echo "no!"<cr>
@@ -1519,6 +1519,7 @@ nnoremap <leader>, :Files<CR>
 nnoremap <leader>b :Buffers<CR>
 nnoremap <leader>; :Tags<CR>
 nnoremap <leader>m :History<CR>
+nnoremap <leader>C :Commits<CR>
 
 " Customize fzf colors to match your color scheme
 let g:fzf_colors =

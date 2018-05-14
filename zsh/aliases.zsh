@@ -107,6 +107,7 @@ alias glgg='git log --graph --max-count=5'
 alias glg='git log --stat --max-count=5'
 alias gpull='git pull'
 alias gpush='git push'
+alias gr='git rebase'
 alias gst='git status -sb'
 
 # }}}
