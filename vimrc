@@ -1376,6 +1376,9 @@ vnoremap <leader>a y:grep! "\b<c-r>"\b"<cr>:cw<cr><cr>
 
 let g:ale_sign_warning = '▲'
 let g:ale_sign_error = '✗'
+let g:ale_linters = {
+  \   'python': ['flake8'],
+  \}
 " highlight link ALEWarningSign String
 " highlight link ALEErrorSign
 
@@ -1932,17 +1935,17 @@ endfunc
 " }}}
 " Error Toggles {{{
 
-command! ErrorsToggle call ErrorsToggle()
-function! ErrorsToggle() " {{{
-  if exists("w:is_error_window")
-    unlet w:is_error_window
-    lclose
-  else
-    exec "Errors"
-    lopen
-    let w:is_error_window = 1
-  endif
-endfunction " }}}
+" command! ErrorsToggle call ErrorsToggle()
+" function! ErrorsToggle() " {{{
+"   if exists("w:is_error_window")
+"     unlet w:is_error_window
+"     lclose
+"   else
+"     exec "Errors"
+"     lopen
+"     let w:is_error_window = 1
+"   endif
+" endfunction " }}}
 
 command! -bang -nargs=? QuickfixToggle call QuickfixToggle(<bang>0)
 function! QuickfixToggle(forced) " {{{
@@ -1955,7 +1958,7 @@ function! QuickfixToggle(forced) " {{{
   endif
 endfunction " }}}
 
-nmap <silent> <F3> :ErrorsToggle<cr>
+" nmap <silent> <F3> :ErrorsToggle<cr>
 nmap <silent> <F4> :QuickfixToggle<cr>
 
 " }}}
