@@ -82,9 +82,9 @@ VISUAL="gvim -f"
 #ALTERNATE_EDITOR=emacs
 PAGER=less
 PATH=$PATH:$HOME/bin
-BROWSER='firefox -new-tab'
+# BROWSER='firefox -new-tab'
 
-export EDITOR VISUAL PAGER PATH ALTERNATE_EDITOR BROWSER
+export EDITOR VISUAL PAGER PATH ALTERNATE_EDITOR
 
 # turn off .lesshst file
 export LESSHISTFILE="-"

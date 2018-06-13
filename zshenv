@@ -27,7 +27,7 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 # Ne pas passer par le proxy pour les domaines locaux
 #export no_proxy="exemple.org"
 
-export BROWSER="firefox"
+# export BROWSER="firefox"
 # run multiple Firefox
 #export MOZ_NO_REMOTE=1
 
