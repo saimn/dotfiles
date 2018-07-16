@@ -1073,9 +1073,11 @@ let g:markdown_folding = 1
 augroup ft_markdown
     au!
 
+    au BufRead,BufNewFile ~/ownCloud/Notes/*.txt setlocal filetype=markdown
     " au BufNewFile,BufRead *.m*down setlocal filetype=markdown
     " au BufNewFile,BufRead *.md setfiletype markdown
     " au BufNewFile,BufRead *.mkd setfiletype markdown
+
     au FileType markdown setlocal foldlevel=1
 
     " Use <localleader>1/2/3 to add headings.
@@ -1184,7 +1186,7 @@ let g:python_highlight_all = 1
 augroup ft_python
     au!
     " add header for new files
-    au BufNewFile *.py 0put=\"# -*- coding: utf-8 -*-\<nl>\<nl>\"|$
+    " au BufNewFile *.py 0put=\"# -*- coding: utf-8 -*-\<nl>\<nl>\"|$
     " au BufNewFile *.py 0put=\"#!/usr/bin/env python2\"|1put=\"# -*- coding: utf-8 -*-\<nl>\<nl>\"|$
 
     " make Python follow PEP8 ( http://www.python.org/dev/peps/pep-0008/ )
@@ -1205,12 +1207,8 @@ augroup ft_python
     " override this in a normal way, could you?
     au FileType python if exists("python_space_error_highlight") | unlet python_space_error_highlight | endif
 
-    " Jesus, Python.  Five characters of punctuation for a damn string?
-    " au FileType python inoremap <buffer> <c-g> _(u'')<left><left>
-
     au FileType python inoremap <buffer> <c-b> """"""<left><left><left>
-
-    au FileType python iabbrev <buffer> afo assert False, "Okay"
+    " au FileType python iabbrev <buffer> afo assert False, "Okay"
 
     " Autopep8
     let g:autopep8_select="E1,E2,E3,E4,W2,W3"
@@ -1775,7 +1773,7 @@ let g:tmuxline_preset = {
 let g:UltiSnipsUsePythonVersion = 3
 let g:UltiSnipsEditSplit = 'context'
 let g:UltiSnipsSnippetsDir = '~/.vim/mysnippets'
-let g:UltiSnipsSnippetDirectories = ['UltiSnips', 'mysnippets']
+" let g:UltiSnipsSnippetDirectories = ['UltiSnips', 'mysnippets']
 let g:UltiSnipsExpandTrigger="<c-j>"
 " let g:UltiSnipsExpandTrigger="<c-tab>"
 " let g:UltiSnipsListSnippets="<c-s-tab>"

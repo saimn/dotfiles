@@ -94,4 +94,9 @@ snippet ipython
 	import IPython; IPython.embed()
 endsnippet
 
+snippet qtdb
+	__import__('PyQt5').QtCore.pyqtRemoveInputHook()
+	__import__('pdb').set_trace()
+endsnippet
+
 # vim:ft=snippets:

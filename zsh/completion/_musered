@@ -1,0 +1,9 @@
+#compdef musered
+_musered() {
+  eval $(env COMMANDLINE="${words[1,$CURRENT]}" _MUSERED_COMPLETE=complete-zsh  musered)
+}
+if [[ "$(basename ${(%):-%x})" != "_musered" ]]; then
+  autoload -U compinit && compinit
+  compdef _musered musered
+fi
+
