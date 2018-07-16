@@ -1,7 +1,7 @@
 # vim: ft=conf
 # main requirements file
 
--r astro-requirements.txt
+# -r astro-requirements.txt
 -r dev-requirements.txt
 -r jupyter-requirements.txt
 -r perf-requirements.txt

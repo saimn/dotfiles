@@ -91,6 +91,9 @@ alias ping="ping -c 3"
 alias weechat="urxvt -icon $HOME/lib/dotfiles/applications/weechat-64x64.png -T Weechat -name weechat -e weechat &"
 alias mutt="urxvt -icon $HOME/lib/dotfiles/applications/mutt.svg -T Mutt -name Mutt -e mutt &"
 
+alias notes="gvim ~/ownCloud/Notes/notes.txt"
+alias todo="gvim ~/.todo/todo.txt"
+
 # git
 alias gb='git branch'
 alias gba='git branch -a -vv'

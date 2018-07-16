@@ -18,7 +18,7 @@ done
 
 sync() {
     mbsync $verbosity $mbox && echo OK
-    mu index -q --maildir=~/Mail
+    mu index --maildir=~/Mail
     mu find --clearlinks --format=links --linksdir=~/Mail/INBOX \
         m:'/cral/INBOX' OR m:'/sconseil/INBOX' OR m:'/saimon/INBOX'
 }
