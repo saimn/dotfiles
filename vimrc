@@ -22,6 +22,7 @@ Plug 'gregsexton/MatchTag', { 'for': ['html', 'xml'] }
 Plug 'groenewege/vim-less', { 'for': 'less' }
 Plug 'honza/vim-snippets'
 " Plug 'jceb/vim-orgmode', { 'for': 'org' }
+Plug 'jpalardy/vim-slime'
 " Plug 'junegunn/vim-github-dashboard', { 'on': ['GHDashboard', 'GHActivity'] }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -29,6 +30,7 @@ Plug 'junegunn/goyo.vim'
 Plug 'lervag/vimtex', { 'for': 'tex' }
 Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
 " Plug 'mhinz/vim-signify'
+Plug 'mhinz/vim-startify'
 " Plug 'michaeljsmith/vim-indent-object'
 Plug 'mileszs/ack.vim'
 Plug 'mitsuhiko/vim-jinja', { 'for': ['htmljinja', 'sls'] }
@@ -828,6 +830,9 @@ set foldtext=MyFoldText()
 "    " Le découpage des folders se base sur l'indentation
 "    set foldmethod=marker "indent
 " endif
+
+" }}}
+" Terminal ---------------------------------------------------------------- {{{
 
 " }}}
 " Filetype-specific ------------------------------------------------------- {{{
@@ -1710,6 +1715,15 @@ augroup END
 " " nnoremap <leader>C :SyntasticCheck<cr>
 
 " " }}}
+" Slime {{{
+
+" let g:slime_target = "tmux"
+let g:slime_target = "vimterminal"
+let g:slime_vimterminal_config = {"vertical":1}
+" use %cpaste magic for error-free pasting
+let g:slime_python_ipython = 1
+
+" }}}
 " Splice {{{
 
 " let g:splice_prefix = "-"
@@ -1732,6 +1746,12 @@ augroup END
 " let g:splice_initial_scrollbind_path = 0
 
 " let g:splice_wrap = "nowrap"
+
+" }}}
+" Startify {{{
+
+let g:startify_fortune_use_unicode = 1
+let g:startify_bookmarks = [ '~/.vimrc', '~/.zshrc' ]
 
 " }}}
 " Tagbar {{{
