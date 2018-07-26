@@ -29,6 +29,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'junegunn/goyo.vim'
 Plug 'lervag/vimtex', { 'for': 'tex' }
 Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
+Plug 'maralla/completor.vim'
 " Plug 'mhinz/vim-signify'
 Plug 'mhinz/vim-startify'
 " Plug 'michaeljsmith/vim-indent-object'
@@ -63,7 +64,7 @@ Plug 'tpope/vim-repeat'
 " Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-surround'
 Plug 'tshirtman/vim-cython'
-Plug 'Valloric/YouCompleteMe', { 'do': '/usr/bin/python install.py --clang-completer --js-completer --system-libclang' }
+" Plug 'Valloric/YouCompleteMe', { 'do': '/usr/bin/python install.py --clang-completer --js-completer --system-libclang' }
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/Conflict2Diff', { 'on': 'Conflict2Diff' }
@@ -180,7 +181,7 @@ set backupskip=/tmp/*,/private/tmp/*"
 
 " Better Completion
 set complete=.,w,b,u,t,i
-set completeopt=longest,menuone,preview
+" set completeopt=longest,menuone,preview
 
 " Save when losing focus
 au FocusLost * :silent! wall
@@ -1414,6 +1415,17 @@ let g:clam_autoreturn = 1
 " let g:clam_debug = 1
 
 " }}}
+" Completor {{{
+
+" Use Tab to select completion
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
+
+" let g:completor_complete_options = 'menuone,noselect,preview'
+" set completeopt=longest,menuone,preview
+
+" }}}
 " Commentary {{{
 
 nmap <leader>c <Plug>CommentaryLine
@@ -1874,35 +1886,35 @@ endfunction
 nnoremap <silent> <F11> :YRShow<CR>
 
 " }}}
-" YouCompleteMe {{{
+" " YouCompleteMe {{{
 
-" let g:ycm_python_binary_path = 'python'
+" " let g:ycm_python_binary_path = 'python'
 
-let g:ycm_add_preview_to_completeopt = 1
-let g:ycm_autoclose_preview_window_after_insertion = 1
-let g:ycm_autoclose_preview_window_after_completion = 1
+" let g:ycm_add_preview_to_completeopt = 1
+" let g:ycm_autoclose_preview_window_after_insertion = 1
+" let g:ycm_autoclose_preview_window_after_completion = 1
 
-let g:ycm_collect_identifiers_from_tags_files = 1
-let g:ycm_complete_in_comments = 1
-" let g:ycm_min_num_of_chars_for_completion = 4
-let g:ycm_seed_identifiers_with_syntax = 1
+" let g:ycm_collect_identifiers_from_tags_files = 1
+" let g:ycm_complete_in_comments = 1
+" " let g:ycm_min_num_of_chars_for_completion = 4
+" let g:ycm_seed_identifiers_with_syntax = 1
 
-" remove '<S-TAB>' to avoid conflict with ultisnips
-let g:ycm_key_list_previous_completion=['<Up>']
+" " remove '<S-TAB>' to avoid conflict with ultisnips
+" let g:ycm_key_list_previous_completion=['<Up>']
 
-let g:ycm_global_ycm_extra_conf = '~/lib/dotfiles/ycm_extra_conf.py'
-let g:ycm_confirm_extra_conf = 1
+" let g:ycm_global_ycm_extra_conf = '~/lib/dotfiles/ycm_extra_conf.py'
+" let g:ycm_confirm_extra_conf = 1
 
-nnoremap <leader>] :YcmCompleter GoTo<CR>mzzMzvzz15<c-e>`z
-nnoremap K :YcmCompleter GetDoc<CR>
-nnoremap <leader>jf :YcmCompleter FixIt<CR>
-nnoremap <leader>ji :YcmCompleter GoToInclude<CR>
-nnoremap <leader>jd :YcmCompleter GoToDeclaration<CR>
+" nnoremap <leader>] :YcmCompleter GoTo<CR>mzzMzvzz15<c-e>`z
+" nnoremap K :YcmCompleter GetDoc<CR>
+" nnoremap <leader>jf :YcmCompleter FixIt<CR>
+" nnoremap <leader>ji :YcmCompleter GoToInclude<CR>
+" nnoremap <leader>jd :YcmCompleter GoToDeclaration<CR>
 
-" nnoremap <leader>] :YcmCompleter GoToDefinitionElseDeclaration<CR>mzzMzvzz15<c-e>`z:Pulse<cr>
-" nnoremap <leader>] :YcmCompleter GoToDeclaration<CR>mzzMzvzz15<c-e>`z:Pulse<cr>
+" " nnoremap <leader>] :YcmCompleter GoToDefinitionElseDeclaration<CR>mzzMzvzz15<c-e>`z:Pulse<cr>
+" " nnoremap <leader>] :YcmCompleter GoToDeclaration<CR>mzzMzvzz15<c-e>`z:Pulse<cr>
 
-" }}}
+" " }}}
 
 " }}}
 " Text objects ------------------------------------------------------------ {{{
