@@ -32,12 +32,16 @@
 
 --exclude=.git
 --exclude=.hg
---exclude=*.min.js
+--exclude=*.fits
+--exclude=*min.js
 --exclude=*.pyc
 --exclude=*.pyo
+--exclude=.eggs
 --exclude=.ropeproject
 --exclude=.tox
 --exclude=_build
 --exclude=build
 --exclude=dist
 --exclude=htmlcov
+--exclude=node_modules
+--exclude=_static
