@@ -34,6 +34,7 @@ ipython/profile_default/pid/
 ipython/profile_default/security/
 ipython/profile_default/static/
 ipython/nbextensions/mathjax/
+jupyter/lab
 jupyter/migrated
 jupyter/*.json
 jupyter/*/*.json
