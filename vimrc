@@ -1767,6 +1767,16 @@ let g:startify_fortune_use_unicode = 1
 let g:startify_bookmarks = [ '~/.vimrc', '~/.zshrc' ]
 
 " }}}
+" Surround {{{
+
+" defines a new replacement on d (for "double"; 100 = char2nr('d'))
+" use with ysiwd
+let g:surround_100 = "{{ \r }}"
+
+" surround work winth {{ }}
+" nmap <C-J> ysiw}lysiw{
+
+" }}}
 " Tagbar {{{
 
 noremap <F9> :TagbarToggle<CR>
