@@ -1,6 +1,6 @@
 astroplan
 astroquery
-#APLpy
+APLpy
 fitsio
 
 # astropy

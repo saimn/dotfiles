@@ -43,6 +43,6 @@ $CONDA install -y \
 #     astroquery \
 #     fitsio
 
-$PIP install -r ~/lib/dotfiles/python/conda-requirements.txt
+# $PIP install -r ~/lib/dotfiles/python/conda-requirements.txt
 
-$PIP install git+https://github.com/ianozsvald/ipython_memory_usage.git\#egg\=ipython_memory_usage
+# $PIP install git+https://github.com/ianozsvald/ipython_memory_usage.git\#egg\=ipython_memory_usage

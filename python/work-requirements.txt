@@ -1,11 +1,12 @@
-dataset
-python-cpl
-
 -e dev/astropy
+-e dev/astroquery
+-e dev/imphot
 -e dev/mpdaf
-
 -e dev/muse-analysis
+-e dev/musered
 -e dev/musex
 -e dev/mydrs
+-e dev/origin
 -e dev/photutils
+-e dev/psfrec
 -e dev/zap
