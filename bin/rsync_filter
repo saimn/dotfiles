@@ -11,13 +11,18 @@
 - .Cache*/
 - .Trash-1000/
 - .adobe/
+- .atom/
 - .cache*/
 - .ccache/
 - .config/fish/generated_completions/
 - *.egg-info/
+- .fonts/
+- .fzf/
 - .gvfs/
-- .local/share/akonadi/
-- .local/share/baloo/
+- .ipynb_checkpoints/
+- .ipython/
+- .jupyter/
+- .local/share/
 - .macromedia/
 - .module-cache/
 - .mozilla/**/Cache
@@ -29,12 +34,20 @@
 - .thumbnails/
 - .thunderbird/
 - .tor-browser/
+- .texlive/
 - .tox/
-- Cache*/
-- Trash/
 - .Trash/
+- .Trash-1000/
+- .vim/
+- .virtualenvs/
+- .weechat/
+- .yarn/
+- .zcompcache/
+
 - cache*/
+- Cache*/
 - trash/
+- Trash/
 
 - Mail/
 - Musique/
