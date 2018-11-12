@@ -1,0 +1,12 @@
+session_name: mail
+windows:
+- window_name: mutt
+  layout: main-vertical
+  # shell_command_before:
+  #   - cd ~/                    # run as a first command in all panes
+  panes:
+    - mutt
+    - syncmail.sh
+    # - shell_command:           # pane no. 1
+    #     - cd /var/log          # run multiple commands in this pane
+    #     - ls -al | grep \.log

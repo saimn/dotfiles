@@ -37,8 +37,11 @@ image/*;                        gthumb %s
 audio/*;                        mplayer %s
 video/*;                        mplayer %s
 
-text/html;                      firefox %s
+text/html;                      links -dump %s; nametemplate=%s.html; copiousoutput
+# text/html;                      firefox %s &; test=test -n "$DISPLAY"; needsterminal;
+text/html;                      firefox %s & ; copiousoutput
 text/html;                      lynx -dump %s
+# text/html;                      w3m -I %{charset} -T text/html; copiousoutput;
 text/html;                      iconv -c -f %{charset} -t utf8 | /usr/bin/python2 ~/bin/html2text/html2text.py -b 0 ; copiousoutput
 # text/html;                      html2text.py %s %{charset}; copiousoutput
 # text/plain;                     emacsclient -c %s

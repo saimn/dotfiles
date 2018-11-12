@@ -1810,6 +1810,10 @@ let g:tmuxline_preset = {
       \'y'       : '%H:%M',
       \'z'       : '#T'}
 
+" if hostname() == "fireball"
+"     let g:tmuxline_preset['x'] = ['SC: #{maildir_counter_1}', 'SA: #{maildir_counter_2}', 'CR: #{maildir_counter_3}', '#(uptime  | cut -d " " -f 1,2,3)']
+" endif
+
 " }}}
 " Ultisnips {{{
 

@@ -89,7 +89,7 @@ alias ping="ping -c 3"
 #[[ -x `which mutt` ]] && alias mutt="mutt -y"
 
 alias weechat="urxvt -icon $HOME/lib/dotfiles/applications/weechat-64x64.png -T Weechat -name weechat -e weechat &"
-alias mutt="urxvt -icon $HOME/lib/dotfiles/applications/mutt.svg -T Mutt -name Mutt -e mutt &"
+# alias mutt="urxvt -icon $HOME/lib/dotfiles/applications/mutt.svg -T Mutt -name Mutt -e mutt &"
 
 alias notes="vim ~/ownCloud/Notes/notes.txt"
 alias todo="vim ~/.todo/todo.txt"
