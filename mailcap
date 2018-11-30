@@ -31,6 +31,8 @@ application/zip;                lesspipe.sh %s ; copiousoutput
 multipart/x-zip;                lesspipe.sh %s ; copiousoutput
 multipart/x-gzip;               lesspipe.sh %s ; copiousoutput
 
+image/fits;                     dfits %s; copiousoutput
+image/fits;                     ds9 %s
 image/*;                        sxiv %s
 image/*;                        eog %s
 image/*;                        gthumb %s

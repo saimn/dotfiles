@@ -5,10 +5,12 @@ set -eu
 
 verbosity=""
 mbox="-a"
+delay="5m"
 
 while true; do
     case "${1:-}" in
     --loop) loop=1; shift;;
+    --delay) shift; delay=$1; shift;;
     --quick) mbox="INBOX"; shift;;
     -V) verbosity="-V"; shift;;
     -q) verbosity="-q"; shift;;
@@ -21,7 +23,6 @@ sync() {
     mu index -q --maildir=~/Mail
     # mu find --clearlinks --format=links --linksdir=~/Mail/INBOX \
     #     m:'/cral/INBOX' OR m:'/sconseil/INBOX' OR m:'/saimon/INBOX'
-    echo "Done, $(date +%H:%M)"
 }
 
 
@@ -30,7 +31,8 @@ if [ ${loop:-0} -eq 1 ]; then
     do
         echo -n "`date +%H:%M` Syncing... "
         sync
-        sleep 5m
+        echo "Done, $(date +%H:%M), sleeping for $delay"
+        sleep $delay
     done
 else
     sync
