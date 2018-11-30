@@ -16,6 +16,7 @@ Plug 'ciaranm/securemodelines'
 Plug 'derekwyatt/vim-fswitch'
 Plug 'edkolev/tmuxline.vim', { 'on': ['Tmuxline', 'TmuxlineSnapshot'] }
 Plug 'exu/pgsql.vim', { 'for': 'pgsql' }
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'freitass/todo.txt-vim'
 Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
 Plug 'gregsexton/MatchTag', { 'for': ['html', 'xml'] }
@@ -836,6 +837,9 @@ set foldtext=MyFoldText()
 " }}}
 " Terminal ---------------------------------------------------------------- {{{
 
+nnoremap <leader>tv :vertical terminal<cr>
+nnoremap <leader>th :terminal<cr>
+
 " }}}
 " Filetype-specific ------------------------------------------------------- {{{
 
@@ -943,6 +947,32 @@ augroup END
 "     au BufNewFile,BufRead common_settings.py  setlocal filetype=python.django
 "     au BufNewFile,BufRead common_settings.py  setlocal foldmethod=marker
 " augroup END
+
+" }}}
+" Go {{{
+
+" let g:go_auto_sameids = 1
+" let g:go_auto_type_info = 1
+let g:go_fmt_command = "goimports"
+" let g:go_doc_command = ["go doc"]
+
+let g:go_highlight_extra_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_types = 1
+
+augroup ft_go
+    au!
+
+    autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
+    autocmd FileType go nmap <buffer> <localleader>b  <Plug>(go-build)
+    autocmd FileType go nmap <buffer> <localleader>i  <Plug>(go-install)
+    autocmd FileType go nmap <buffer> <localleader>r  <Plug>(go-run)
+    autocmd FileType go nmap <buffer> <localleader>t  <Plug>(go-test)
+    autocmd FileType go nmap <buffer> <localleader>c  <Plug>(go-coverage-toggle)
+augroup END
 
 " }}}
 " HTML, Django, Jinja, Dram {{{
@@ -1093,8 +1123,7 @@ augroup ft_markdown
     au Filetype markdown nnoremap <buffer> <localleader>3 mzI###<space><esc>`zllll
     au Filetype markdown nnoremap <buffer> <localleader>4 mzI####<space><esc>`zlllll
 
-    au Filetype markdown nnoremap <buffer> <localleader>p VV:'<,'>!python -m json.tool<cr>
-    au Filetype markdown vnoremap <buffer> <localleader>p :!python -m json.tool<cr>
+    au Filetype markdown nnoremap <buffer> <localleader>v :w!~/.vim/tmp/vim-markdown.md<CR>:!pandoc -s -f markdown -t html -o ~/.vim/tmp/vim-markdown.html ~/.vim/tmp/vim-markdown.md<CR>:!firefox /home/user/tmp/vim-markdown.html > /dev/null 2> /dev/null&<CR><CR>
 augroup END
 
 " }}}
