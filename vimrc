@@ -43,9 +43,11 @@ Plug 'mtth/scratch.vim', { 'on': 'Scratch' }
 Plug 'othree/html5.vim'
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'pearofducks/ansible-vim'
+Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 Plug 'saltstack/salt-vim', { 'for': 'sls' }
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 " Plug 'scrooloose/syntastic'
+Plug 'shime/vim-livedown', { 'for': 'markdown', 'do': 'npm install livedown' }
 Plug 'SirVer/ultisnips'
 " Plug 'sjl/AnsiEsc.vim'
 Plug 'sjl/badwolf'
@@ -60,7 +62,6 @@ Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-markdown', { 'for': 'markdown' }
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-rhubarb'
 " Plug 'tpope/vim-speeddating'
@@ -1105,7 +1106,10 @@ runtime! ftplugin/man.vim
 " }}}
 " Markdown {{{
 
-let g:markdown_folding = 1
+let g:vim_markdown_new_list_item_indent = 2
+let g:vim_markdown_toc_autofit = 1
+
+let g:livedown_browser = "chromium"
 
 augroup ft_markdown
     au!
@@ -1123,7 +1127,8 @@ augroup ft_markdown
     au Filetype markdown nnoremap <buffer> <localleader>3 mzI###<space><esc>`zllll
     au Filetype markdown nnoremap <buffer> <localleader>4 mzI####<space><esc>`zlllll
 
-    au Filetype markdown nnoremap <buffer> <localleader>v :w!~/.vim/tmp/vim-markdown.md<CR>:!pandoc -s -f markdown -t html -o ~/.vim/tmp/vim-markdown.html ~/.vim/tmp/vim-markdown.md<CR>:!firefox /home/user/tmp/vim-markdown.html > /dev/null 2> /dev/null&<CR><CR>
+    au Filetype markdown nnoremap <buffer> <localleader>v :LivedownToggle<CR>
+
 augroup END
 
 " }}}
