@@ -213,15 +213,15 @@ augroup END
 " }}}
 " Trailing whitespace {{{
 
-augroup trailing
-    au!
+" augroup trailing
+"     au!
 
-    " Only shown when not in insert mode so I don't go insane.
-    " au InsertEnter * :set listchars-=trail:⌴
+"     " Only shown when not in insert mode so I don't go insane.
+"     " au InsertEnter * :set listchars-=trail:⌴
 
-    " Remove trailing whitespace
-    autocmd BufWritePre * :%s/\s\+$//e
-augroup END
+"     " Remove trailing whitespace
+"     autocmd BufWritePre * :%s/\s\+$//e
+" augroup END
 
 " }}}
 " Wildmenu completion {{{
@@ -329,7 +329,8 @@ let g:badwolf_tabline = 2
 let g:badwolf_css_props_highlight = 1
 " colorscheme badwolf
 
-let g:hybrid_use_Xresources = 1
+" let g:hybrid_custom_term_colors = 1
+" let g:hybrid_reduced_contrast = 1
 colorscheme hybrid
 
 " Reload the colorscheme whenever we write the file.
@@ -1255,13 +1256,15 @@ augroup ft_python
     let g:autopep8_select="E1,E2,E3,E4,W2,W3"
     au FileType python map <buffer> <localleader>p :call Autopep8()<CR>
 
-    au FileType python map <buffer> <localleader>y :0,$!yapf<CR>
+    " au FileType python map <buffer> <localleader>y :0,$!yapf<CR>
     " au FileType python nnoremap <leader>y :0,$!yapf<Cr>
 
     " Defer to isort for sorting Python imports (instead of using Unix sort)
-    if executable('isort')
-        autocmd filetype python nnoremap <leader>s mX:%! isort -<cr>`X
-    endif
+    au filetype python nmap <buffer> <localleader>s :ALEFix isort<CR>
+    au filetype python nmap <buffer> <localleader>y :ALEFix yapf<CR>
+    " if executable('isort')
+    "     autocmd filetype python nnoremap <leader>s mX:%! isort -<cr>`X
+    " endif
 augroup END
 
 " }}}
@@ -1418,6 +1421,18 @@ let g:ale_sign_error = '✗'
 let g:ale_linters = {
   \   'python': ['flake8'],
   \}
+let b:ale_fixers = {
+  \   '*': ['remove_trailing_lines', 'trim_whitespace'],
+  \}
+
+" \   'python': ['isort'],
+let g:ale_fix_on_save = 1
+nmap <leader>f <Plug>(ale_fix)
+
+" Fixers:
+" 'remove_trailing_lines' - Remove all blank lines at the end of a file.
+" 'trim_whitespace' - Remove all trailing whitespace characters at the end of every line.
+
 " highlight link ALEWarningSign String
 " highlight link ALEErrorSign
 
@@ -2014,17 +2029,17 @@ endfunc
 " }}}
 " Error Toggles {{{
 
-" command! ErrorsToggle call ErrorsToggle()
-" function! ErrorsToggle() " {{{
-"   if exists("w:is_error_window")
-"     unlet w:is_error_window
-"     lclose
-"   else
-"     exec "Errors"
-"     lopen
-"     let w:is_error_window = 1
-"   endif
-" endfunction " }}}
+command! ErrorsToggle call ErrorsToggle()
+function! ErrorsToggle() " {{{
+  if exists("w:is_error_window")
+    unlet w:is_error_window
+    lclose
+  else
+    " exec "Errors"
+    lopen
+    let w:is_error_window = 1
+  endif
+endfunction " }}}
 
 command! -bang -nargs=? QuickfixToggle call QuickfixToggle(<bang>0)
 function! QuickfixToggle(forced) " {{{
@@ -2037,7 +2052,7 @@ function! QuickfixToggle(forced) " {{{
   endif
 endfunction " }}}
 
-" nmap <silent> <F3> :ErrorsToggle<cr>
+nmap <silent> <F3> :ErrorsToggle<cr>
 nmap <silent> <F4> :QuickfixToggle<cr>
 
 " }}}
