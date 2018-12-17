@@ -24,3 +24,11 @@ jupyter labextension install @jupyterlab/latex
 # Matplotlib
 pip install ipympl
 jupyter labextension install jupyter-matplotlib
+
+# jupyterlab_code_formatter
+jupyter labextension install @ryantam626/jupyterlab_code_formatter
+pip install jupyterlab_code_formatter
+jupyter serverextension enable --py jupyterlab_code_formatter
+
+# bokeh
+jupyter labextension install jupyterlab_bokeh
