@@ -16,16 +16,17 @@ if [ -x /usr/bin/dircolors ] || [ -x /bin/dircolors ]; then
   alias egrep='egrep --color=auto'
 fi
 
-alias e="emacsclient"
+# alias e="emacsclient"
 alias g='git'
-alias j='fasd_cd -i'
-alias m='fasd -f -e mplayer' # quick opening files with mplayer
-alias o='fasd -a -e xdg-open' # quick opening files with xdg-open
 alias t='todo.sh'
 alias u="cd .. && ls"
-alias v='fasd -f -e vim' # quick opening files with vim
 # alias v="vim"
-alias z='fasd_cd -d'
+
+# alias j='fasd_cd -i'
+# alias m='fasd -f -e mplayer' # quick opening files with mplayer
+# alias o='fasd -a -e xdg-open' # quick opening files with xdg-open
+# alias v='fasd -f -e vim' # quick opening files with vim
+# alias z='fasd_cd -d'
 
 alias ll='ls -l --group-directories-first'
 alias l='ll -Gh'
@@ -51,7 +52,6 @@ alias -s log="less"
 alias -s pdf="evince"
 alias -s png="eog"
 alias -s ps="evince"
-alias -s fits="ds9"
 
 # misc commands
 alias ack=ag
@@ -61,12 +61,11 @@ alias ff='firefox -new-tab'
 alias firedef='firefox -no-remote -P default'
 alias firedev='firefox -no-remote -P Webdev'
 alias ht='urxvt -name htop -title htop +sb -geometry 80x6 -e htop &'
-alias ipyqt='ipython2 qtconsole --pylab'
-alias wo='workon'
+# alias wo='workon'
 alias xp='xprop | grep "WM_WINDOW_ROLE\|WM_CLASS" && echo "WM_CLASS(STRING) = \"NAME\", \"CLASS\""'
 
-alias ec="emacsclient -n -c"
-alias et="emacsclient -t"
+# alias ec="emacsclient -n -c"
+# alias et="emacsclient -t"
 alias vi="vim"
 alias sv="sudo vim"
 
@@ -75,7 +74,7 @@ alias cup='conda clean -py;conda update --all'
 # alias less="/usr/share/vim/vim73/macros/less.sh"
 
 # simple webserver on port 8000
-alias webshare='python2 -m SimpleHTTPServer'
+# alias webshare='python2 -m SimpleHTTPServer'
 
 # open & close dropbox coffre
 # alias sync="unison default -batch"
@@ -88,7 +87,7 @@ alias ping="ping -c 3"
 # start mutt with list mailboxes
 #[[ -x `which mutt` ]] && alias mutt="mutt -y"
 
-alias weechat="urxvt -icon $HOME/lib/dotfiles/applications/weechat-64x64.png -T Weechat -name weechat -e weechat &"
+# alias weechat="urxvt -icon $HOME/lib/dotfiles/applications/weechat-64x64.png -T Weechat -name weechat -e weechat &"
 # alias mutt="urxvt -icon $HOME/lib/dotfiles/applications/mutt.svg -T Mutt -name Mutt -e mutt &"
 
 alias notes="vim ~/ownCloud/Notes/notes.txt"
