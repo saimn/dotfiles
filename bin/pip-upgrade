@@ -7,12 +7,13 @@ COL_Y="\\033[33m"
 ENDC="\\033[0m"
 
 # List outdated packages
-pip list -lo
+pip list -o --exclude-editable
 
 echo -en "\n${COL_Y}Upgrade ? [Y/n]${ENDC}"
 read answer
 [[ $answer = "n" ]] && exit
 
 # Update all
-pip list --outdated --format=freeze | cut -d = -f 1 | xargs -n1 pip install -U
+pip list --outdated --format=freeze --exclude-editable | \
+    cut -d = -f 1 | xargs -n1 pip install -U
 echo -e "\n${COL_G}DONE ${ENDC}"
