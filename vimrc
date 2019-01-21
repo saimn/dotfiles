@@ -1589,6 +1589,9 @@ nnoremap <leader>; :Tags<CR>
 nnoremap <leader>m :History<CR>
 nnoremap <leader>C :Commits<CR>
 
+let g:fzf_commits_log_options = '--graph --color=always'
+let g:fzf_tags_command = 'ctags -R'
+
 " Customize fzf colors to match your color scheme
 let g:fzf_colors =
 \ { 'fg':      ['fg', 'Normal'],
