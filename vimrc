@@ -16,7 +16,7 @@ Plug 'ciaranm/securemodelines'
 Plug 'derekwyatt/vim-fswitch'
 Plug 'edkolev/tmuxline.vim', { 'on': ['Tmuxline', 'TmuxlineSnapshot'] }
 Plug 'exu/pgsql.vim', { 'for': 'pgsql' }
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'freitass/todo.txt-vim'
 Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
 Plug 'gregsexton/MatchTag', { 'for': ['html', 'xml'] }
@@ -81,6 +81,7 @@ Plug 'w0ng/vim-hybrid'
 " Plug 'python-mode/python-mode', { 'for': 'python' }
 Plug '5long/pytest-vim-compiler'
 Plug 'alfredodeza/pytest.vim'
+Plug 'davidhalter/jedi-vim'
 " Plug 'fs111/pydoc.vim'
 Plug 'tell-k/vim-autopep8', { 'for': 'python' }
 Plug 'vim-python/python-syntax'
@@ -619,7 +620,7 @@ nnoremap <leader>ed :vsplit ~/.vim/custom-dictionary.utf-8.add<cr>
 nnoremap <leader>eg :vsplit ~/.gitconfig<cr>
 nnoremap <leader>eh :vsplit ~/.hgrc<cr>
 nnoremap <leader>em :vsplit ~/.mutt/muttrc<cr>
-nnoremap <leader>eo :vsplit ~/org<cr>4j
+" nnoremap <leader>eo :vsplit ~/org<cr>4j
 nnoremap <leader>ep :vsplit ~/.pentadactylrc<cr>
 nnoremap <leader>er :vsplit ~/lib/dotfiles/README<cr>
 nnoremap <leader>et :vsplit ~/ownCloud/todo/todo.txt<cr>
@@ -888,24 +889,6 @@ augroup ft_css
     au FileType less,css,scss setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
 
     " Use <leader>S to sort properties.  Turns this:
-    "
-    "     p {
-    "         width: 200px;
-    "         height: 100px;
-    "         background: red;
-    "
-    "         ...
-    "     }
-    "
-    " into this:
-
-    "     p {
-    "         background: red;
-    "         height: 100px;
-    "         width: 200px;
-    "
-    "         ...
-    "     }
     au BufNewFile,BufRead *.less,*.css nnoremap <buffer> <localleader>S ?{<CR>jV/\v^\s*\}?$<CR>k:sort<CR>:noh<CR>
 
     " Make {<cr> insert a pair of brackets in such a way that the cursor is correctly
@@ -1168,20 +1151,11 @@ augroup END
 " }}}
 " OrgMode {{{
 
-augroup ft_org
-    au!
-
-    au Filetype org nmap <buffer> Q vahjgq
-    au Filetype org setlocal nolist
-augroup END
-
-" }}}
-" Pentadactyl {{{
-
-" augroup ft_pentadactyl
+" augroup ft_org
 "     au!
-"     au BufNewFile,BufRead *pentadactylrc set filetype=pentadactyl
-"     au BufNewFile,BufRead /tmp/**/pentadactyl.txt set nolist wrap linebreak columns=100 colorcolumn=0
+
+"     au Filetype org nmap <buffer> Q vahjgq
+"     au Filetype org setlocal nolist
 " augroup END
 
 " }}}
@@ -1207,16 +1181,6 @@ augroup ft_postgres
 augroup END
 
 " }}}
-" Puppet {{{
-
-" augroup ft_puppet
-"     au!
-
-"     au Filetype puppet setlocal foldmethod=marker
-"     au Filetype puppet setlocal foldmarker={,}
-" augroup END
-
-" }}}
 " Python {{{
 
 " vim-python/python-syntax conf
@@ -1224,6 +1188,19 @@ let g:python_highlight_all = 1
 
 " let g:pydoc_open_cmd = 'vsplit'
 " let g:pydoc_use_drop=1
+
+" let g:jedi#auto_initialization = 0
+let g:jedi#auto_vim_configuration = 0
+let g:jedi#completions_enabled = 0
+" let g:jedi#show_call_signatures = "1"
+let g:jedi#smart_auto_mappings = 1
+let g:jedi#goto_command = "<leader>g"
+let g:jedi#goto_assignments_command = "<localleader>g"
+let g:jedi#goto_definitions_command = "<localleader>d"
+let g:jedi#documentation_command = "K"
+let g:jedi#usages_command = "<localleader>n"
+" let g:jedi#completions_command = "<C-Space>"
+let g:jedi#rename_command = "<localleader>r"
 
 augroup ft_python
     au!
@@ -1247,7 +1224,7 @@ augroup ft_python
 
     " Jesus tapdancing Christ, built-in Python syntax, you couldn't let me
     " override this in a normal way, could you?
-    au FileType python if exists("python_space_error_highlight") | unlet python_space_error_highlight | endif
+    " au FileType python if exists("python_space_error_highlight") | unlet python_space_error_highlight | endif
 
     au FileType python inoremap <buffer> <c-b> """"""<left><left><left>
     " au FileType python iabbrev <buffer> afo assert False, "Okay"
@@ -1260,10 +1237,14 @@ augroup ft_python
     " au FileType python nnoremap <leader>y :0,$!yapf<Cr>
 
     " Defer to isort for sorting Python imports (instead of using Unix sort)
-    au filetype python nmap <buffer> <localleader>s :ALEFix isort<CR>
+    au filetype python nmap <buffer> <localleader>i :ALEFix isort<CR>
     au filetype python nmap <buffer> <localleader>y :ALEFix yapf<CR>
     " if executable('isort')
     "     autocmd filetype python nnoremap <leader>s mX:%! isort -<cr>`X
+    " endif
+    " if executable('autoflake')
+    "     autocmd filetype python nnoremap <localleader>i mX:%! autoflake -<cr>`X
+    "     autocmd filetype python nnoremap <localleader>I mX:%! autoflake --remove-all-unused-imports -<cr>`X
     " endif
 augroup END
 
@@ -1344,14 +1325,6 @@ augroup ft_txt
     " spell check for commit messages
     au Filetype svn,*commit* setlocal spell spelllang=en
 augroup END
-
-" }}}
-" Vagrant {{{
-
-" augroup ft_vagrant
-"     au!
-"     au BufRead,BufNewFile Vagrantfile set ft=ruby
-" augroup END
 
 " }}}
 " Vim {{{

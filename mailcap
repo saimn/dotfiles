@@ -10,6 +10,7 @@ application/powerpoint;                   libreoffice %s
 application/mspowerpoint;                 libreoffice %s
 application/vnd.ms-powerpoint;            libreoffice %s
 application/vnd.oasis.opendocument.text;  libreoffice %s
+application/vnd.openxmlformats-officedocument.wordprocessingml.document; libreoffice %s
 
 image/pdf;                      evince %s
 application/pdf;                evince %s
