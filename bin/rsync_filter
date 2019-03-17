@@ -12,20 +12,22 @@
 - .Trash-1000/
 - .adobe/
 - .atom/
+- .android/
+- .ansible/
 - .cache*/
 - .ccache/
 - .config/fish/generated_completions/
 - *.egg-info/
-- .fonts/
 - .fzf/
 - .gvfs/
 - .ipynb_checkpoints/
 - .ipython/
 - .jupyter/
-- .local/share/
+- .local/
 - .macromedia/
 - .module-cache/
 - .mozilla/**/Cache
+- .mozilla/**/storage
 - .mu/
 - .nixnote/
 - .npm/
@@ -53,9 +55,9 @@
 - Musique/
 - VirtualBox*/
 - VirtualMachines/
+- builds/
 - data/
-- lib/dotfiles/vim/plugged/
-- lib/virtualenvs/
+- lib/prezto/
 - miniconda3/
 - node_modules/
 - ownCloud
@@ -76,7 +78,6 @@
 + .ssh/
 + .subversion/
 + .themes/
-+ .thunderbird/
 + .unison/
 + .urxvt/
 + .wicd/
@@ -85,8 +86,6 @@
 + .kderc
 + .netrc
 + .profile
-+ .xawtv
-+ *.local
 
 - .config/chromium/
 - /simon/.*
