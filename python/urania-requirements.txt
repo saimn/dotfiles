@@ -3,13 +3,13 @@
 #-e lib/doit
 -e lib/imphot
 -e lib/mpdaf
--e lib/muse-analysis
+#-e lib/muse-analysis
+-e lib/muse-psfr
 -e lib/musered
 -e lib/musex
--e lib/mydrs
+#-e lib/mydrs
 -e lib/pampelmuse
 -e lib/photutils
--e lib/psfrec
 #-e lib/python-cpl
 #-e lib/StarSelector-1.0
 -e lib/zap

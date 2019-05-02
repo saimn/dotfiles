@@ -1,5 +1,9 @@
 # vim: ft=conf
 
+# linting
+autopep8
+yapf
+
 # testing
 coverage
 pytest
