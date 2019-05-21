@@ -1239,6 +1239,7 @@ augroup ft_python
     " Defer to isort for sorting Python imports (instead of using Unix sort)
     au filetype python nmap <buffer> <localleader>i :ALEFix isort<CR>
     au filetype python nmap <buffer> <localleader>y :ALEFix yapf<CR>
+    au filetype python nmap <buffer> <localleader>b :ALEFix black<CR>
     " if executable('isort')
     "     autocmd filetype python nnoremap <leader>s mX:%! isort -<cr>`X
     " endif
