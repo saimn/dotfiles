@@ -7,16 +7,18 @@
 - /tags
 - .git/modules
 
-- __pycache__/
-- .Cache*/
-- .Trash-1000/
 - .adobe/
 - .atom/
 - .android/
 - .ansible/
 - .cache*/
 - .ccache/
+- .compose-cache*/
 - .config/fish/generated_completions/
+- *crashrecovery*
+- .dbus/
+- .dropbox/
+- .dropbox-dist/
 - *.egg-info/
 - .fzf/
 - .gvfs/
@@ -46,6 +48,9 @@
 - .yarn/
 - .zcompcache/
 
+- __pycache__/
+- .Cache*/
+- .Trash*/
 - cache*/
 - Cache*/
 - trash/
@@ -57,7 +62,9 @@
 - VirtualMachines/
 - builds/
 - data/
+- lib/dotfiles/vim/plugged/
 - lib/prezto/
+- lib/virtualenvs/
 - miniconda3/
 - node_modules/
 - scikit_learn_data/
@@ -65,7 +72,6 @@
 
 + .config/
 + .fonts/
-+ .gajim/
 + .gconf/
 + .gnome2/
 + .gnupg/
@@ -77,7 +83,7 @@
 + .ssh/
 + .subversion/
 + .themes/
-+ .unison/
++ .thunderbird/
 + .urxvt/
 + .wicd/
 

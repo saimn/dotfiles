@@ -12,7 +12,7 @@ BACKUP_OPTS="--backup --suffix=.$DATE --backup-dir=backup/"
 #----------------------------------------------------------------------------
 # check if disk is present {{{
 function check_backup () {
-   [ "$HOSTNAME" != "thunderball" ] && echo "Error: unknown host" && exit 1
+   # [ "$HOSTNAME" != "thunderball" ] && echo "Error: unknown host" && exit 1
    [ ! -e "$DST" ] && echo "Error: backup disk missing ($DST)" && exit 2
 }
 # }}}
@@ -53,8 +53,6 @@ function backup_home () {
    read -p "Backup $SRC to $DST ? y/[n]" answer
    [ $answer != "y" ] && echo "Cancel backup" && exit
 
-   #notify-send --icon='info' Message "Starting backup of $SRC to $DST ..."
-
    echo ":: Starting backup of $SRC to $DST - `date`" | tee -a $LOG
    echo "--------------------------------------------------------" | tee -a $LOG
 
@@ -64,8 +62,6 @@ function backup_home () {
 
    echo "--------------------------------------------------------" | tee -a $LOG
    echo ":: Backup finished ! - `date`" | tee -a $LOG
-
-   #notify-send --icon='info' Message "Backup finished !"
 
    chmod 700 $LOG
 
@@ -165,6 +161,7 @@ while true; do
       --wd)             DST="/run/media/simon/857344cd-6fa4-428c-a68b-08b211b2cedd"; shift ;;
       --sg)             DST="/run/media/simon/d3946868-9424-459b-8288-e572975c62e4"; shift ;;
       --wd25)           DST="/run/media/simon/SIMON"; shift ;;
+      --diskcral)       DST="/run/media/simon/backupdisk"; shift ;;
       --music)          backup_music; exit 0 ;;
       --mail)           backup_mail; exit 0 ;;
       --home)           backup_home; exit 0 ;;
@@ -173,6 +170,8 @@ while true; do
       *)  break ;;
    esac
 done
+
+notify-send --icon='info' Message "Backup finished \!"
 
 exit
 
