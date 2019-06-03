@@ -1,13 +1,13 @@
 session_name: mail
 windows:
 - window_name: mutt
-  layout: main-horizontal
+  # layout: main-horizontal
   # shell_command_before:
   #   - cd ~/                    # run as a first command in all panes
   panes:
     - mutt
     - shell_command:
-      - tmux resize-pane -y 10
-      - tmux set-hook -g client-resized 'resize-pane -y 3'
-      - clear
+      - tmux resize-pane -y 3
+      # - tmux set-hook -g client-resized 'resize-pane -y 3'
+      # - clear
       - syncmail.sh --loop
