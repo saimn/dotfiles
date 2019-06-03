@@ -66,7 +66,6 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-rhubarb'
 " Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-surround'
-Plug 'tshirtman/vim-cython'
 " Plug 'Valloric/YouCompleteMe', { 'do': '/usr/bin/python install.py --clang-completer --js-completer --system-libclang' }
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -84,6 +83,8 @@ Plug 'alfredodeza/pytest.vim'
 Plug 'davidhalter/jedi-vim'
 " Plug 'fs111/pydoc.vim'
 Plug 'tell-k/vim-autopep8', { 'for': 'python' }
+Plug 'tmhedberg/SimpylFold'
+Plug 'tshirtman/vim-cython'
 Plug 'vim-python/python-syntax'
 Plug 'Vimjas/vim-python-pep8-indent'
 Plug 'w0rp/ale'
@@ -1183,6 +1184,9 @@ augroup END
 " }}}
 " Python {{{
 
+" SimpylFold
+let g:SimpylFold_fold_docstring = 0
+
 " vim-python/python-syntax conf
 let g:python_highlight_all = 1
 
@@ -1399,7 +1403,7 @@ let g:ale_fixers = {
   \   '*': ['remove_trailing_lines', 'trim_whitespace'],
   \}
 
-" \   'python': ['isort'],
+" \   'python': ['black', 'isort'],
 let g:ale_fix_on_save = 1
 nmap <leader>f <Plug>(ale_fix)
 
@@ -1807,12 +1811,12 @@ let g:surround_100 = "{{ \r }}"
 
 noremap <F9> :TagbarToggle<CR>
 
-augroup ps_tagbar
-    au!
+" augroup ps_tagbar
+"     au!
 
-    " open Tagbar also if you open a supported file in an already running Vim
-    " autocmd FileType c,cpp,python nested :call tagbar#autoopen(0)
-augroup END
+"     " open Tagbar also if you open a supported file in an already running Vim
+"     autocmd FileType c,cpp,python nested :call tagbar#autoopen(0)
+" augroup END
 
 let g:tagbar_autofocus = 1
 let g:tagbar_compact = 1
