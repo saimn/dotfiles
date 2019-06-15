@@ -24,6 +24,7 @@ fi
 
 # [[ -f /usr/bin/virtualenvwrapper.sh ]] && source /usr/bin/virtualenvwrapper.sh
 
+source ~/lib/dotfiles/purepower
 # source ~/lib/dotfiles/zsh/completion.zsh
 source ~/lib/dotfiles/zsh/functions.zsh
 source ~/lib/dotfiles/zsh/keys.zsh
