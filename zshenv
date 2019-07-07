@@ -34,6 +34,10 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 # for pcmanfm's list of apps
 #export XDG_MENU_PREFIX=lxde-
 
+# History
+HISTSIZE=20000  # The maximum number of events to save in the internal history.
+SAVEHIST=50000  # The maximum number of events to save in the history file.
+
 # }}}
 
 # {{{ Python
