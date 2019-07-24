@@ -1,0 +1,90 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+# From https://github.com/phyber/mutt-mailboxes
+
+# __future__ import does nothing on Python 3.
+from __future__ import print_function
+import argparse
+import os
+
+
+def parse_args():
+    parser = argparse.ArgumentParser(
+            description='Mailbox lister for Mutt',
+            )
+
+    parser.add_argument(
+            '--base', '-b',
+            help='Base directory of maildir structure.',
+            required=True,
+            )
+
+    parser.add_argument(
+            '--initial', '-i',
+            help='''Maildirs to appear first in the list.
+                    May be supplied multiple times.''',
+            action='append',
+            )
+
+    parser.add_argument(
+            '--exclude', '-e',
+            help='''Maildirs to exclude from the listing.
+                    May be supplied multiple times.''',
+            action='append',
+            )
+
+    return parser.parse_args()
+
+
+def walk_maildir(base):
+    for root, dirs, files in os.walk(base):
+        for folder in dirs:
+            # Maildirs are recognised by looking for the `cur` directory within
+            # them. We skip directories that don't contain these.
+            if folder != 'cur':
+                continue
+
+            # root path will be something like: <base>/Some/.Maildir.
+            # folder will be 'cur'.
+            # Get the relative path to the mailbox by removing <base>.
+            yield os.path.relpath(root, base)
+
+
+def list_maildirs(base, initial=None, excluded=None):
+    if initial is None:
+        initial = ()
+
+    if excluded is None:
+        excluded = ()
+
+    maildirs = list(initial)
+
+    # Get a sorted list of maildirs.
+    # initial is excluded here because we already listed those first above.
+    maildirs.extend(
+        sorted([
+            x for x in walk_maildir(base)
+            if x not in initial
+            and x not in excluded
+        ])
+    )
+
+    return maildirs
+
+
+def main():
+    args = parse_args()
+
+    maildirs = list_maildirs(
+            args.base,
+            args.initial,
+            args.exclude,
+            )
+
+    for maildir in maildirs:
+        print("+'{}' ".format(maildir), end="")
+
+
+if __name__ == '__main__':
+    main()
