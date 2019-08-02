@@ -6,7 +6,7 @@ DATE=$(date +%Y%m%d)
 
 # options
 DRYRUN=""
-OPTS="-avh --delete --force --stats --progress --delete-excluded"
+OPTS="-avh --delete --force --stats --progress --delete-excluded --ignore-errors"
 BACKUP_OPTS="--backup --suffix=.$DATE --backup-dir=backup/"
 
 #----------------------------------------------------------------------------

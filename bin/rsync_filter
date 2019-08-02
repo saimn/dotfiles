@@ -72,8 +72,6 @@
 
 + .config/
 + .fonts/
-+ .gconf/
-+ .gnome2/
 + .gnupg/
 + .hg/
 + .icons/
