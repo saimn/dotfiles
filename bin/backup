@@ -6,7 +6,7 @@ DATE=$(date +%Y%m%d)
 
 # options
 DRYRUN=""
-OPTS="-avh --delete --force --stats --progress --delete-excluded --ignore-errors"
+OPTS="-avh -L --delete --force --stats --progress --delete-excluded --ignore-errors"
 BACKUP_OPTS="--backup --suffix=.$DATE --backup-dir=backup/"
 
 #----------------------------------------------------------------------------
@@ -20,20 +20,15 @@ function check_backup () {
 #----------------------------------------------------------------------------
 # Mail backup with offlineIMAP {{{
 function backup_mail () {
-   read -p "Backup mail ? y/[n]" answer
-   if [ $answer = "y" ]
-   then
-      # offlineimap
-      # reset
-      tar czvf $HOME/Private/backup/mail-$DATE.tar.gz --exclude=.notmuch $HOME/Mail/
-   fi
+    tar czvf $HOME/Documents/backup/mail-$DATE.tar.gz \
+        --exclude=INBOX --exclude=search $HOME/Mail/
 }
 # }}}
 
 #----------------------------------------------------------------------------
 # backup home {{{
 function backup_home () {
-   SRC=$HOME
+   SRC=$HOME/
    check_backup
 
    # excludes file (contains a wildcard pattern per line of files to exclude)
@@ -58,7 +53,7 @@ function backup_home () {
 
    [ $RSYNC_BACKUP ] && OPTS="${OPTS} $BACKUP_OPTS"
 
-   rsync $OPTS $DRYRUN --filter=". $FILTER" $SRC $DST 2> $ERRLOG | tee -a $LOG
+   rsync $OPTS $DRYRUN --filter=". $FILTER" $SRC $DST/simon 2> $ERRLOG | tee -a $LOG
 
    echo "--------------------------------------------------------" | tee -a $LOG
    echo ":: Backup finished ! - `date`" | tee -a $LOG
@@ -81,7 +76,7 @@ function backup_system () {
    pacman -Qqmt > pkglist-local.txt
 
    echo ":: Backup system config files ..."
-   tar -cvpJf $HOME/Private/backup/system-files-$DATE.tar.xz \
+   tar -cvpJf $HOME/Documents/backup/system-files-$DATE.tar.xz \
        /etc /boot pkglist-local.txt pkglist-official.txt
    rm pkglist-local.txt pkglist-official.txt
 
