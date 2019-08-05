@@ -1,19 +1,38 @@
-#!/bin/sh
+#!/usr/bin/env python
+
+import json
+import subprocess
+import sys
 
 # Colors
-COL_R="\\033[31m"
-COL_G="\\033[32m"
-COL_Y="\\033[33m"
-ENDC="\\033[0m"
+COL_R = "\033[31m"
+COL_G = "\033[32m"
+COL_Y = "\033[33m"
+ENDC = "\033[0m"
 
-# List outdated packages
-pip list -o --exclude-editable
+out = subprocess.run(['pip', 'list', '-o', '--exclude-editable',
+                      '--format', 'json'], capture_output=True)
+data = json.loads(out.stdout.decode('utf8'))
 
-echo -en "\n${COL_Y}Upgrade ? [Y/n]${ENDC}"
-read answer
-[[ $answer = "n" ]] && exit
+maxp = max(len(d['name']) for d in data)
+maxp = max(7, maxp)
+maxv = max(max(len(d['version']), len(d['latest_version'])) for d in data)
+maxv = max(7, maxv)
+maxi = len(str(len(data)))
 
-# Update all
-pip list --outdated --format=freeze --exclude-editable | \
-    cut -d = -f 1 | xargs -n1 pip install -U
-echo -e "\n${COL_G}DONE ${ENDC}"
+print(f"""
+{' ' * maxi}  {'Package':{maxp}s} {'Version':{maxv}s} {'Latest':{maxv}s} Type
+{' ' * maxi}  {'-' * maxp} {'-' * maxv} {'-' * maxv} -----\
+""")
+for idx, d in enumerate(data, start=1):
+    print(f"{idx:{maxi}d}. {d['name']:{maxp}s} {d['version']:{maxv}s} "
+          f"{d['latest_version']:{maxv}s} {d['latest_filetype']}")
+
+resp = input(f'\n{COL_G}Update all ? [y/N]{ENDC}')
+if resp != 'y':
+    sys.exit('aborting')
+
+packages = [d['name'] for d in data]
+subprocess.run(['pip', 'install', '-U'] + packages)
+
+print(f"\n{COL_G}DONE!{ENDC}")
