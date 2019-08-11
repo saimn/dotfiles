@@ -1147,6 +1147,8 @@ augroup ft_nginx
     au BufRead,BufNewFile vhost.nginx                            set ft=nginx
 
     au FileType nginx setlocal foldmethod=marker foldmarker={,}
+    au FileType nginx setlocal noexpandtab
+    au FileType nginx setlocal commentstring=#\ %s
 augroup END
 
 " }}}
