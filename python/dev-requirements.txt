@@ -2,6 +2,8 @@
 
 # linting
 autopep8
+black
+isort
 yapf
 
 # testing

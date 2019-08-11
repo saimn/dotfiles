@@ -13,7 +13,7 @@ cython
 adjustText
 lineid-plot
 matplotlib
-seaborn
+#seaborn
 
 # documentation
 alabaster
