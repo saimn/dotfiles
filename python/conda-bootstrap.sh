@@ -9,15 +9,20 @@ CONDA=$HOME/miniconda3/bin/conda
 PIP=$HOME/miniconda3/bin/pip
 
 $CONDA install -y \
+    autopep8 \
+    black \
     cython \
     flask \
     ipython \
+    isort \
     jinja2 \
     joblib \
     jupyter \
+    jupyterlab \
     line_profiler \
     matplotlib \
     memory_profiler \
+    notebook \
     numexpr \
     numpy \
     numpydoc \
@@ -27,14 +32,15 @@ $CONDA install -y \
     pytest \
     pytest-cov \
     pyyaml \
-    scikit image \
+    scikit-image \
     scikit-learn \
     scipy \
     seaborn \
     snakeviz \
     sphinx \
     sphinx_rtd_theme \
-    sqlalchemy
+    sqlalchemy \
+    yapf
 
 # $CONDA config --append channels openastronomy
 

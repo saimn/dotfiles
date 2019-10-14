@@ -17,7 +17,7 @@ matplotlib
 
 # documentation
 alabaster
-doc2dash
+#doc2dash
 #graphviz
 jinja2
 sphinx
