@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 #{{{ Dotfiles
-git clone git@github.com:saimn/dotfiles.git ~/lib/dotfiles
+#git clone git@github.com:saimn/dotfiles.git ~/lib/dotfiles
 
 for i in "bashrc" "ctags" "gitconfig" "hgrc" "lessfilter" "mailcap" \
     "pythonrc" "pdbrc" "screenrc" "tmux.conf" "vim" "vimrc" "xbindkeysrc" \
@@ -12,18 +12,15 @@ do
     ln -s $HOME/lib/dotfiles/$i $HOME/.$i
 done
 
-mkdir $HOME/.config/ranger
 mkdir -p $HOME/lib/dotfiles/vim/tmp/{backup,swap,undo}
 
-rm $HOME/.config/{awesome,zathura} $HOME/bin
-ln -s $HOME/lib/dotfiles/bin/ $HOME/bin
-ln -s $HOME/lib/dotfiles/awesome/ $HOME/.config/awesome
-ln -s $HOME/lib/dotfiles/zathura/ $HOME/.config/zathura
+rm $HOME/.config/{awesome,ranger,zathura} $HOME/bin
+ln -s $HOME/lib/dotfiles/bin $HOME/bin
+ln -s $HOME/lib/dotfiles/awesome $HOME/.config/awesome
+ln -s $HOME/lib/dotfiles/ranger $HOME/.config/ranger
+ln -s $HOME/lib/dotfiles/zathura $HOME/.config/zathura
 
 ln -s $HOME/lib/dotfiles/compton.conf $HOME/.config/compton.conf
-
-rm $HOME/.config/ranger/rc.conf
-ln -s $HOME/lib/dotfiles/ranger/rc.conf $HOME/.config/ranger/rc.conf
 
 #}}}
 
@@ -38,21 +35,21 @@ touch ~/lib/dotfiles/zsh/locals.zsh
 #}}}
 
 # {{{ Emacs
-git clone git@github.com:saimn/dotemacs.git ~/lib/dotemacs/
-rm ~/.emacs.d
-ln -s ~/lib/dotemacs ~/.emacs.d
-mkdir -p $HOME/lib/dotfiles/emacs.d/backup-files/
+#git clone git@github.com:saimn/dotemacs.git ~/lib/dotemacs/
+#rm ~/.emacs.d
+#ln -s ~/lib/dotemacs ~/.emacs.d
+#mkdir -p $HOME/lib/dotfiles/emacs.d/backup-files/
 # }}}
 
 # {{{ Mail
-cd
-rm .mutt .goobookrc .mairixrc .msmtprc .offlineimaprc .fdm.conf
-ln -s ~/lib/mail/offlineimaprc .offlineimaprc
-ln -s ~/lib/mail/goobookrc .goobookrc
-ln -s ~/lib/mail/mairixrc .mairixrc
-ln -s ~/lib/mail/msmtprc .msmtprc
-ln -s ~/lib/mail/fdm.conf .fdm.conf
-ln -s ~/lib/mail/mutt .mutt
+#cd
+#rm .mutt .goobookrc .mairixrc .msmtprc .offlineimaprc .fdm.conf
+#ln -s ~/lib/mail/offlineimaprc .offlineimaprc
+#ln -s ~/lib/mail/goobookrc .goobookrc
+#ln -s ~/lib/mail/mairixrc .mairixrc
+#ln -s ~/lib/mail/msmtprc .msmtprc
+#ln -s ~/lib/mail/fdm.conf .fdm.conf
+#ln -s ~/lib/mail/mutt .mutt
 # }}}
 
 # {{{ Python
