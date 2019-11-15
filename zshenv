@@ -7,6 +7,8 @@
 #export LC_ALL="en_US.UTF-8"
 #export LANG="en_US.UTF-8"
 
+# MOZ_ENABLE_WAYLAND=1
+
 #export TERM='rxvt-256color'
 # for tmux: export 256color
 [ -n "$TMUX" ] && export TERM=screen-256color

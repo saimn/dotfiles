@@ -6,6 +6,7 @@
 [core]
    editor = vim +0
    excludesfile = ~/.gitignore
+	commitGraph = true
    # autocrlf = input
    # safecrlf = true
 [alias]
@@ -131,7 +132,10 @@
     path = .gitconfig.local
 [fetch]
     prune = true
+	writeCommitGraph = true
 [submodule]
     fetchJobs = 4
 [stash]
     showPatch = true
+[gc]
+	writeCommitGraph = true
