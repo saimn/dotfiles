@@ -303,6 +303,8 @@ set undodir=~/.vim/tmp/undo//     " undo files
 set backupdir=~/.vim/tmp/backup// " backups
 set directory=~/.vim/tmp/swap//   " swap files
 
+set viminfo='100,n$HOME/.vim/files/info/viminfo
+
 " Make those folders automatically if they don't already exist.
 if !isdirectory(expand(&undodir))
     call mkdir(expand(&undodir), "p")
@@ -625,10 +627,10 @@ nnoremap <leader>em :vsplit ~/.mutt/muttrc<cr>
 nnoremap <leader>ep :vsplit ~/.pentadactylrc<cr>
 nnoremap <leader>er :vsplit ~/lib/dotfiles/README<cr>
 nnoremap <leader>et :vsplit ~/ownCloud/todo/todo.txt<cr>
-nnoremap <leader>ev :vsplit ~/.vimrc<cr>
+nnoremap <leader>ev :vsplit ~/.vim/vimrc<cr>
 nnoremap <leader>ez :vsplit ~/lib/dotfiles/zsh<cr>4j
 
-nnoremap <leader>sv :source ~/.vimrc<cr>
+nnoremap <leader>sv :source ~/.vim/vimrc<cr>
 
 " }}}
 " Searching and movement -------------------------------------------------- {{{
@@ -842,7 +844,8 @@ set foldtext=MyFoldText()
 " Terminal ---------------------------------------------------------------- {{{
 
 nnoremap <leader>tv :vertical terminal<cr>
-nnoremap <leader>th :terminal<cr>
+nnoremap <leader>th :split terminal<cr>
+tnoremap <Esc> <C-\><C-n>
 
 " }}}
 " Filetype-specific ------------------------------------------------------- {{{
@@ -1349,7 +1352,7 @@ augroup ft_vim
     autocmd filetype vim noremap! <buffer> <F1> <Esc>:help <C-r><C-w><CR>
 
     " Reload vimrc to apply changes
-    autocmd! BufWritePost .vimrc source %
+    autocmd! BufWritePost vimrc source %
 augroup END
 
 " }}}
@@ -1796,7 +1799,11 @@ let g:slime_python_ipython = 1
 " Startify {{{
 
 let g:startify_fortune_use_unicode = 1
-let g:startify_bookmarks = [ '~/.vimrc', '~/.zshrc' ]
+let g:startify_bookmarks = [
+            \ '~/.vim/vimrc',
+            \ '~/.zshrc',
+            \ '~/lib/dotfiles/zsh/locals.zsh'
+            \ ]
 
 " }}}
 " Surround {{{

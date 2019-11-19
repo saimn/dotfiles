@@ -81,6 +81,10 @@ typeset -gU cdpath fpath mailpath path
 
 # Set the list of directories that Zsh searches for programs.
 path=(
+  $HOME/bin
+  $HOME/bin/html2rst
+  $HOME/bin/html2text
+  $HOME/.local/bin
   /usr/local/{bin,sbin}
   /usr/{bin,sbin}
   /{bin,sbin}

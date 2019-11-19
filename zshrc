@@ -2,11 +2,11 @@
 # Executes commands at the start of an interactive session.
 #
 
-PATH="$HOME/bin:${PATH}"
-PATH="$HOME/bin/html2rst:${PATH}"
-PATH="$HOME/bin/html2text:${PATH}"
-PATH="$HOME/.local/bin:${PATH}"
-export PATH
+# PATH="$HOME/bin:${PATH}"
+# PATH="$HOME/bin/html2rst:${PATH}"
+# PATH="$HOME/bin/html2text:${PATH}"
+# PATH="$HOME/.local/bin:${PATH}"
+# export PATH
 
 # modify fpath before call compinit
 fpath=( "$HOME/lib/dotfiles/zsh" "$HOME/lib/dotfiles/zsh/completion" $fpath )
@@ -37,6 +37,7 @@ if [ -e ~/.fzf ]; then
     source ~/.fzf/shell/key-bindings.zsh
     source ~/.fzf/shell/completion.zsh
 fi
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Watch new users
 watch=(all)
@@ -55,5 +56,3 @@ fi
 
 # added by travis gem
 [ -f /home/simon/.travis/travis.sh ] && source /home/simon/.travis/travis.sh
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

@@ -4,8 +4,8 @@
 #{{{ Dotfiles
 #git clone git@github.com:saimn/dotfiles.git ~/lib/dotfiles
 
-for i in "bashrc" "ctags" "gitconfig" "hgrc" "lessfilter" "mailcap" \
-    "pdbrc" "screenrc" "tmux.conf" "vim" "vimrc" "xbindkeysrc" \
+for i in "bashrc" "ctags" "gitconfig" "gitignore" "hgrc" "lessfilter" \
+    "mailcap" "pdbrc" "screenrc" "tmux.conf" "vim" "vimrc" "xbindkeysrc" \
     "Xresources" "Xmodmap" "xprofile" "gdbinit"
 do
     [ -e $HOME/.$i ] && rm $HOME/.$i
