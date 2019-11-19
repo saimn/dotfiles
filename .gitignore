@@ -21,6 +21,7 @@ zsh/locals.zsh
 
 # bin
 bin/arch/
+bin/ds9*
 bin/exa
 bin/fd
 bin/QFitsView*
