@@ -43,14 +43,15 @@ jupyter/*/*.json
 vim/*.spl
 vim/.netrwhist
 vim/.VimballRecord
-vim/NERDTreeBookmarks
-vim/plugged/
-vim/spell/
-vim/tmp/
+vim/files/info/viminfo
 vim/init.vim
 vim/local.vim
+vim/NERDTreeBookmarks
+vim/plugged/
 vim/plugin/notmuch.vim
+vim/spell/
 vim/syntax/notmuch-*.vim
+vim/tmp/
 
 # weechat
 weechat/*.log
