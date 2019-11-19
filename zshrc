@@ -44,6 +44,15 @@ LOGCHECK=5
 
 source ~/lib/dotfiles/zsh/locals.zsh
 
+# pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+# export PYENV_VERSION=3.6.3
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+  eval "$(pyenv virtualenv-init -)"
+fi
+
 # added by travis gem
 [ -f /home/simon/.travis/travis.sh ] && source /home/simon/.travis/travis.sh
 
