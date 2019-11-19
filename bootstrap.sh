@@ -5,8 +5,8 @@
 #git clone git@github.com:saimn/dotfiles.git ~/lib/dotfiles
 
 for i in "bashrc" "ctags" "gitconfig" "hgrc" "lessfilter" "mailcap" \
-    "pythonrc" "pdbrc" "screenrc" "tmux.conf" "vim" "vimrc" "xbindkeysrc" \
-    "Xresources" "Xmodmap" "xprofile" "dir_colors" "gdbinit"
+    "pdbrc" "screenrc" "tmux.conf" "vim" "vimrc" "xbindkeysrc" \
+    "Xresources" "Xmodmap" "xprofile" "gdbinit"
 do
     [ -e $HOME/.$i ] && rm $HOME/.$i
     ln -s $HOME/lib/dotfiles/$i $HOME/.$i
