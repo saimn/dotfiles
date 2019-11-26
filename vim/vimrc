@@ -118,6 +118,7 @@ if !has('nvim')
     set history=10000
     set smarttab
     set wildmenu
+    set viminfo='100,n$HOME/.vim/files/info/viminfo
 else
     let g:python3_host_prog = '/usr/bin/python'
 endif
@@ -302,8 +303,6 @@ set noswapfile                    " it's 2013, Vim.
 set undodir=~/.vim/tmp/undo//     " undo files
 set backupdir=~/.vim/tmp/backup// " backups
 set directory=~/.vim/tmp/swap//   " swap files
-
-set viminfo='100,n$HOME/.vim/files/info/viminfo
 
 " Make those folders automatically if they don't already exist.
 if !isdirectory(expand(&undodir))
@@ -1800,7 +1799,10 @@ let g:slime_python_ipython = 1
 
 let g:startify_fortune_use_unicode = 1
 let g:startify_bookmarks = [
+            \ '~/.gitconfig',
+            \ '~/.tmux.conf',
             \ '~/.vim/vimrc',
+            \ '~/.zshenv',
             \ '~/.zshrc',
             \ '~/lib/dotfiles/zsh/locals.zsh'
             \ ]
