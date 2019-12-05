@@ -46,6 +46,13 @@ def _import_mpdaf():
     ip.ex('from mpdaf.sdetect import Source, Catalog')
 
 
+def _import_dragons():
+    _import_astropy()
+    ip.ex('import astrodata')
+    ip.ex('import gemini_instruments')
+    ip.ex('print("astrodata", astrodata.__version__)')
+
+
 @register_line_magic
 def numpy(line):
     """Import Numpy"""
@@ -62,6 +69,12 @@ def astropy(line):
 def mpdaf(line):
     """Import MPDAF"""
     _import_mpdaf()
+
+
+@register_line_magic
+def dragons(line):
+    """Import dragons"""
+    _import_dragons()
 
 
 @register_line_magic
