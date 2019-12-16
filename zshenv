@@ -8,6 +8,7 @@
 #export LANG="en_US.UTF-8"
 
 # MOZ_ENABLE_WAYLAND=1
+export _JAVA_OPTIONS="-Dawt.useSystemAAFontSettings=on -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel"
 
 #export TERM='rxvt-256color'
 # for tmux: export 256color
