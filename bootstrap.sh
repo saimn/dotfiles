@@ -5,7 +5,7 @@
 #git clone git@github.com:saimn/dotfiles.git ~/lib/dotfiles
 
 for i in "bashrc" "ctags" "gitconfig" "gitignore" "hgrc" "lessfilter" \
-    "mailcap" "pdbrc" "screenrc" "tmux.conf" "vim" "vimrc" "xbindkeysrc" \
+    "mailcap" "pdbrc" "screenrc" "tmux.conf" "vim" "xbindkeysrc" \
     "Xresources" "Xmodmap" "xprofile" "gdbinit"
 do
     [ -e $HOME/.$i ] && rm $HOME/.$i
@@ -70,6 +70,13 @@ rm -r $HOME/.matplotlib
 rm -r $HOME/.config/matplotlib
 mkdir -p $HOME/.config/matplotlib
 ln -s $HOME/lib/dotfiles/matplotlibrc $HOME/.config/matplotlib/matplotlibrc
+
+# pyenv
+git clone https://github.com/pyenv/pyenv.git ~/.pyenv
+git clone https://github.com/pyenv/pyenv-virtualenv.git $(pyenv root)/plugins/pyenv-virtualenv
+git clone git://github.com/pyenv/pyenv-pip-migrate.git $(pyenv root)/plugins/pyenv-pip-migrate
+git clone https://github.com/yyuu/pyenv-ccache.git $(pyenv root)/plugins/pyenv-ccache
+
 # }}}
 
 #{{{ Other repos
