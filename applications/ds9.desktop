@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=SAOImage DS9
+Comment=An astronomical imaging and data visualization application
+TryExec=ds9
+Exec=ds9 %F
+Terminal=false
+Categories=Science;X-Astrophysics;X-Imaging;X-Astronomy;X-Education;
+MimeType=image/x-fits;
+Icon=/home/simon/lib/dotfiles/applications/ds9-64x64.png
