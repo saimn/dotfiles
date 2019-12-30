@@ -1,8 +1,10 @@
-#line-profiler
 memory_profiler
 psutil
 py-heat
 py-heat-magic
 snakeviz
+
+#line-profiler
+git+https://github.com/rkern/line_profiler#egg=line_profiler
 
 git+https://github.com/ianozsvald/ipython_memory_usage#egg=ipython_memory_usage
