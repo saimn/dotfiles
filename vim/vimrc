@@ -120,7 +120,8 @@ if !has('nvim')
     set wildmenu
     set viminfo='100,n$HOME/.vim/files/info/viminfo
 else
-    let g:python3_host_prog = '/usr/bin/python'
+    set termguicolors
+    " let g:python3_host_prog = '/usr/bin/python'
 endif
 
 set modelines=0

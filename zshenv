@@ -46,6 +46,15 @@ SAVEHIST=50000  # The maximum number of events to save in the history file.
 # {{{ Python
 # export PYTHONPATH="$HOME/lib/python:$PYTHONPATH"
 # export PYTHONSTARTUP="$HOME/.pythonrc"
+
+# pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+
+if [[ -n $VIRTUAL_ENV && -e "${VIRTUAL_ENV}/bin/activate" ]]; then
+  source "${VIRTUAL_ENV}/bin/activate"
+fi
+
 # }}}
 
 #
@@ -133,3 +142,5 @@ TMPPREFIX="${TMPDIR%/}/zsh"
 if [[ $TILIX_ID ]]; then
     source /etc/profile.d/vte.sh
 fi
+
+[ -f $HOME/lib/dotfiles/zsh/localenv.zsh ] && source $HOME/lib/dotfiles/zsh/localenv.zsh

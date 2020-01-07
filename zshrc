@@ -9,14 +9,12 @@ fi
 # Executes commands at the start of an interactive session.
 #
 
-# PATH="$HOME/bin:${PATH}"
-# PATH="$HOME/bin/html2rst:${PATH}"
-# PATH="$HOME/bin/html2text:${PATH}"
-# PATH="$HOME/.local/bin:${PATH}"
-# export PATH
-
 # modify fpath before call compinit
 fpath=( "$HOME/lib/dotfiles/zsh" "$HOME/lib/dotfiles/zsh/completion" $fpath )
+
+if type brew &>/dev/null; then
+  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
+fi
 
 # Source Prezto.
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
@@ -64,12 +62,9 @@ fi
 watch=(all)
 LOGCHECK=5
 
-source ~/lib/dotfiles/zsh/locals.zsh
+[ -f $HOME/lib/dotfiles/zsh/locals.zsh ] && source $HOME/lib/dotfiles/zsh/locals.zsh
 
 # pyenv
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-# export PYENV_VERSION=3.6.3
 if command -v pyenv 1>/dev/null 2>&1; then
     export PYENV_VIRTUALENV_DISABLE_PROMPT=1
     eval "$(pyenv init -)"
