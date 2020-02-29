@@ -6,7 +6,7 @@
 [core]
    editor = vim +0
    excludesfile = ~/.gitignore
-	commitGraph = true
+   commitGraph = true
    # autocrlf = input
    # safecrlf = true
 [alias]
@@ -83,6 +83,7 @@
 [diff]
    renames = true
    algorithm = patience
+   noprefix = true
 [color]
    branch = auto
    diff = auto
