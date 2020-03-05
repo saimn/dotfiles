@@ -17,14 +17,17 @@ perso/
 systemd/user/*.target.wants/
 zathura/bookmarks
 zsh/history
-zsh/locals.zsh
+zsh/local*
 
 # bin
 bin/arch/
+bin/dfits
 bin/ds9*
 bin/exa
 bin/fd
+bin/fitsort
 bin/QFitsView*
+bin/xpa*
 
 # ipython/jupyter
 ipython/README
