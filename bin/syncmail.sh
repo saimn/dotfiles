@@ -20,7 +20,8 @@ done
 
 sync() {
     mbsync $verbosity $mbox || echo "Sync error."
-    mu index -q --maildir=~/Mail
+    # mu init --maildir=~/Mail
+    mu index -q
     # mu find --clearlinks --format=links --linksdir=~/Mail/INBOX \
     #     m:'/cral/INBOX' OR m:'/sconseil/INBOX' OR m:'/saimon/INBOX'
 }

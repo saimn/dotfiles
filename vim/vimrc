@@ -50,7 +50,6 @@ Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'shime/vim-livedown', { 'for': 'markdown', 'do': 'npm install livedown' }
 Plug 'SirVer/ultisnips'
 " Plug 'sjl/AnsiEsc.vim'
-Plug 'sjl/badwolf'
 Plug 'sjl/clam.vim', { 'on': ['Clam', 'ClamVisual'] }
 Plug 'sjl/gundo.vim', { 'on': 'GundoToggle' }
 " Plug 'sjl/splice.vim', { 'on': 'SpliceInit' }
@@ -73,7 +72,6 @@ Plug 'vim-scripts/Conflict2Diff', { 'on': 'Conflict2Diff' }
 Plug 'vim-scripts/DirDiff.vim', { 'on': 'DirDiff' }
 Plug 'vim-scripts/YankRing.vim', { 'on': 'YRShow' }
 " Plug 'wavded/vim-stylus', { 'for': 'stylus' }
-Plug 'w0ng/vim-hybrid'
 
 " Python
 " Plug 'ivanov/vim-ipython'
@@ -88,6 +86,14 @@ Plug 'tshirtman/vim-cython'
 Plug 'vim-python/python-syntax'
 Plug 'Vimjas/vim-python-pep8-indent'
 Plug 'w0rp/ale'
+
+" colorschemes
+Plug 'arcticicestudio/nord-vim'
+" Plug 'chriskempson/base16-vim'
+Plug 'kaicataldo/material.vim'
+Plug 'morhetz/gruvbox'
+Plug 'sjl/badwolf'
+Plug 'w0ng/vim-hybrid'
 
 " Plug '~/.vim/bundle/camptocamp', { 'for': 'camptocamp' }
 Plug '~/.vim/bundle/closetags-custom'
@@ -120,8 +126,11 @@ if !has('nvim')
     set wildmenu
     set viminfo='100,n$HOME/.vim/files/info/viminfo
 else
-    set termguicolors
     " let g:python3_host_prog = '/usr/bin/python'
+endif
+
+if (has('termguicolors'))
+  set termguicolors
 endif
 
 set modelines=0
@@ -336,6 +345,17 @@ let g:badwolf_css_props_highlight = 1
 " let g:hybrid_custom_term_colors = 1
 " let g:hybrid_reduced_contrast = 1
 colorscheme hybrid
+
+" let g:material_theme_style = 'default' | 'palenight' | 'ocean' | 'lighter' | 'darker'
+" let g:material_theme_style = 'darker'
+" let g:material_terminal_italics = 1
+" colorscheme material
+
+" colorscheme base16-default-dark
+" colorscheme nord
+
+" let g:gruvbox_italic=1
+" colorscheme hybrid
 
 " Reload the colorscheme whenever we write the file.
 " augroup color_badwolf_dev
@@ -1425,6 +1445,7 @@ nmap <leader>f <Plug>(ale_fix)
 let g:airline_powerline_fonts = 0
 " let g:airline_section_z = airline#section#create_right(['%2p%% %3l:%1c'])
 let g:airline_theme='badwolf'
+" let g:airline_theme = 'material'
 
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#ale#enabled = 1
