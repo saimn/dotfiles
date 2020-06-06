@@ -8,6 +8,7 @@ call plug#begin('~/.vim/plugged')
 
 " Plug 'AndrewRadev/linediff.vim', { 'on': ['Linediff', 'LinediffReset'] }
 Plug 'airblade/vim-gitgutter'
+Plug 'ap/vim-buftabline'
 Plug 'ap/vim-css-color'
 Plug 'benmills/vimux'
 Plug 'christoomey/vim-tmux-navigator'
@@ -22,8 +23,10 @@ Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
 Plug 'gregsexton/MatchTag', { 'for': ['html', 'xml'] }
 Plug 'groenewege/vim-less', { 'for': 'less' }
 Plug 'honza/vim-snippets'
+Plug 'itchyny/lightline.vim'
 " Plug 'jceb/vim-orgmode', { 'for': 'org' }
 Plug 'jpalardy/vim-slime'
+Plug 'jreybert/vimagit'
 " Plug 'junegunn/vim-github-dashboard', { 'on': ['GHDashboard', 'GHActivity'] }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -66,8 +69,8 @@ Plug 'tpope/vim-rhubarb'
 " Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-surround'
 " Plug 'Valloric/YouCompleteMe', { 'do': '/usr/bin/python install.py --clang-completer --js-completer --system-libclang' }
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+" Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/Conflict2Diff', { 'on': 'Conflict2Diff' }
 Plug 'vim-scripts/DirDiff.vim', { 'on': 'DirDiff' }
 Plug 'vim-scripts/YankRing.vim', { 'on': 'YRShow' }
@@ -157,6 +160,7 @@ set linebreak     " ne casse pas les mots en fin de ligne
 set colorcolumn=+1
 " set autochdir                   " change current dir
 " set smartindent                 " clever autoindenting
+set updatetime=1000               " faster updates with e.g. gitgutter
 
 " Spelling
 "
@@ -1440,22 +1444,6 @@ nmap <leader>f <Plug>(ale_fix)
 " highlight link ALEErrorSign
 
 " }}}
-" Airline {{{
-
-let g:airline_powerline_fonts = 0
-" let g:airline_section_z = airline#section#create_right(['%2p%% %3l:%1c'])
-let g:airline_theme='badwolf'
-" let g:airline_theme = 'material'
-
-let g:airline#extensions#branch#enabled = 1
-let g:airline#extensions#ale#enabled = 1
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tagbar#enabled = 0
-let g:airline#extensions#tmuxline#enabled = 0
-let g:airline#extensions#virtualenv#enabled = 1
-let g:airline#extensions#whitespace#enabled = 0
-
-" }}}
 " Bbye {{{
 
 nnoremap <Leader>q :Bdelete<CR>
@@ -1828,6 +1816,33 @@ let g:startify_bookmarks = [
             \ '~/.zshrc',
             \ '~/lib/dotfiles/zsh/locals.zsh'
             \ ]
+
+" }}}
+" Status Line {{{
+
+let g:airline_powerline_fonts = 0
+" let g:airline_section_z = airline#section#create_right(['%2p%% %3l:%1c'])
+let g:airline_theme='badwolf'
+" let g:airline_theme = 'material'
+
+let g:airline#extensions#branch#enabled = 1
+let g:airline#extensions#ale#enabled = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tagbar#enabled = 0
+let g:airline#extensions#tmuxline#enabled = 0
+let g:airline#extensions#virtualenv#enabled = 1
+let g:airline#extensions#whitespace#enabled = 0
+
+      " \ 'colorscheme': 'one dark',
+let g:lightline = {
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'FugitiveHead'
+      \ },
+      \ }
 
 " }}}
 " Surround {{{
