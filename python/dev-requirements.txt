@@ -12,4 +12,9 @@ pytest
 pytest-cov
 
 # syntax checks
+flake8
 #flake8-docstrings
+
+# editor
+pynvim
+jedi

@@ -10,6 +10,8 @@ COL_G = "\033[32m"
 COL_Y = "\033[33m"
 ENDC = "\033[0m"
 
+args = sys.argv[1:]
+
 try:
     out = subprocess.run(['pip', 'list', '-o', '--exclude-editable',
                           '--format', 'json'], capture_output=True)
@@ -29,12 +31,15 @@ try:
         print(f"{idx:{maxi}d}. {d['name']:{maxp}s} {d['version']:{maxv}s} "
               f"{d['latest_version']:{maxv}s} {d['latest_filetype']}")
 
+    packages = [d['name'] for d in data]
+    print(f'\nWould run:\n\n'
+          f'pip install {" ".join(args)} -U {" ".join(packages)}\n')
+
     resp = input(f'\n{COL_G}Update all ? [Y/n]{ENDC}')
     if resp and resp.lower() in 'nq':
         sys.exit('aborting')
 
-    packages = [d['name'] for d in data]
-    subprocess.run(['pip', 'install', '-U'] + packages)
+    subprocess.run(['pip', 'install', *args, '-U'] + packages)
 
     print(f"\n{COL_G}DONE!{ENDC}")
 except KeyboardInterrupt:

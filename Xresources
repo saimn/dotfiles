@@ -149,7 +149,7 @@ URxvt.colorIT:                  #bbbbbb
 ! Appearance
 xterm*eightBitInput: true
 xterm*faceName: terminus:pixelsize=12
-xterm*cursorColor: #FFFFFF
+xterm*cursorColor: #000000
 ! xterm*Geometry:   100x60
 ! xterm*foreground: #909090
 ! xterm*background: #303030
