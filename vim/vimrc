@@ -8,22 +8,18 @@ call plug#begin('~/.vim/plugged')
 
 " Plug 'AndrewRadev/linediff.vim', { 'on': ['Linediff', 'LinediffReset'] }
 Plug 'airblade/vim-gitgutter'
-Plug 'ap/vim-buftabline'
 Plug 'ap/vim-css-color'
 Plug 'benmills/vimux'
-Plug 'christoomey/vim-tmux-navigator'
 Plug 'ciaranm/securemodelines'
 " Plug 'ctrlpvim/ctrlp.vim'
 Plug 'derekwyatt/vim-fswitch'
-Plug 'edkolev/tmuxline.vim', { 'on': ['Tmuxline', 'TmuxlineSnapshot'] }
 Plug 'exu/pgsql.vim', { 'for': 'pgsql' }
 " Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-Plug 'freitass/todo.txt-vim'
+" Plug 'freitass/todo.txt-vim'
 Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
 Plug 'gregsexton/MatchTag', { 'for': ['html', 'xml'] }
 Plug 'groenewege/vim-less', { 'for': 'less' }
 Plug 'honza/vim-snippets'
-Plug 'itchyny/lightline.vim'
 " Plug 'jceb/vim-orgmode', { 'for': 'org' }
 Plug 'jpalardy/vim-slime'
 Plug 'jreybert/vimagit'
@@ -31,7 +27,7 @@ Plug 'jreybert/vimagit'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/goyo.vim'
-Plug 'lervag/vimtex', { 'for': 'tex' }
+" Plug 'lervag/vimtex', { 'for': 'tex' }
 Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
 Plug 'maralla/completor.vim'
 " Plug 'mhinz/vim-signify'
@@ -47,10 +43,10 @@ Plug 'othree/html5.vim'
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'pearofducks/ansible-vim'
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
-Plug 'saltstack/salt-vim', { 'for': 'sls' }
+" Plug 'saltstack/salt-vim', { 'for': 'sls' }
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 " Plug 'scrooloose/syntastic'
-Plug 'shime/vim-livedown', { 'for': 'markdown', 'do': 'npm install livedown' }
+" Plug 'shime/vim-livedown', { 'for': 'markdown', 'do': 'npm install livedown' }
 Plug 'SirVer/ultisnips'
 " Plug 'sjl/AnsiEsc.vim'
 Plug 'sjl/clam.vim', { 'on': ['Clam', 'ClamVisual'] }
@@ -60,7 +56,6 @@ Plug 'sjl/gundo.vim', { 'on': 'GundoToggle' }
 " Plug 'stefandtw/quickfix-reflector.vim'
 Plug 'ternjs/tern_for_vim', { 'for': 'javascript', 'do': 'npm install' }
 Plug 'terryma/vim-multiple-cursors'
-Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-fugitive'
@@ -69,8 +64,6 @@ Plug 'tpope/vim-rhubarb'
 " Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-surround'
 " Plug 'Valloric/YouCompleteMe', { 'do': '/usr/bin/python install.py --clang-completer --js-completer --system-libclang' }
-" Plug 'vim-airline/vim-airline'
-" Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/Conflict2Diff', { 'on': 'Conflict2Diff' }
 Plug 'vim-scripts/DirDiff.vim', { 'on': 'DirDiff' }
 Plug 'vim-scripts/YankRing.vim', { 'on': 'YRShow' }
@@ -89,6 +82,18 @@ Plug 'tshirtman/vim-cython'
 Plug 'vim-python/python-syntax'
 Plug 'Vimjas/vim-python-pep8-indent'
 Plug 'w0rp/ale'
+
+" statusline / tabline
+Plug 'ap/vim-buftabline'
+Plug 'itchyny/lightline.vim'
+Plug 'maximbaz/lightline-ale'
+" Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
+
+" Tmux
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'edkolev/tmuxline.vim', { 'on': ['Tmuxline', 'TmuxlineSnapshot'] }
+Plug 'tmux-plugins/vim-tmux-focus-events'
 
 " colorschemes
 Plug 'arcticicestudio/nord-vim'
@@ -1820,29 +1825,87 @@ let g:startify_bookmarks = [
 " }}}
 " Status Line {{{
 
-let g:airline_powerline_fonts = 0
-" let g:airline_section_z = airline#section#create_right(['%2p%% %3l:%1c'])
-let g:airline_theme='badwolf'
-" let g:airline_theme = 'material'
+" let g:airline_powerline_fonts = 0
+" " let g:airline_section_z = airline#section#create_right(['%2p%% %3l:%1c'])
+" let g:airline_theme='badwolf'
+" " let g:airline_theme = 'material'
 
-let g:airline#extensions#branch#enabled = 1
-let g:airline#extensions#ale#enabled = 1
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tagbar#enabled = 0
-let g:airline#extensions#tmuxline#enabled = 0
-let g:airline#extensions#virtualenv#enabled = 1
-let g:airline#extensions#whitespace#enabled = 0
+" let g:airline#extensions#branch#enabled = 1
+" let g:airline#extensions#ale#enabled = 1
+" let g:airline#extensions#tabline#enabled = 1
+" let g:airline#extensions#tagbar#enabled = 0
+" let g:airline#extensions#tmuxline#enabled = 0
+" let g:airline#extensions#virtualenv#enabled = 1
+" let g:airline#extensions#whitespace#enabled = 0
 
-      " \ 'colorscheme': 'one dark',
+" let g:lightline.colorscheme = 'default'
+" let g:lightline.separator = { 'left': '', 'right': '' }
+" let g:lightline.subseparator = { 'left': '|', 'right': '|' }
+
 let g:lightline = {
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \             [ 'readonly', 'filename' ] ],
+      \   'right': [ [ 'linter_checking', 'linter_errors', 'linter_warnings',
+      \               'linter_infos', 'linter_ok' ],
+      \              [ 'percent', 'lineinfo' ],
+      \              [ 'fileformat', 'fileencoding', 'filetype' ] ]
       \ },
       \ 'component_function': {
-      \   'gitbranch': 'FugitiveHead'
+      \   'filename': 'LightlineFilename',
+      \   'readonly': 'LightlineReadonly',
+      \   'fugitive': 'LightlineFugitive',
       \ },
+      \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
+      \ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" }
       \ }
+
+let g:lightline.component_expand = {
+      \  'linter_checking': 'lightline#ale#checking',
+      \  'linter_infos': 'lightline#ale#infos',
+      \  'linter_warnings': 'lightline#ale#warnings',
+      \  'linter_errors': 'lightline#ale#errors',
+      \  'linter_ok': 'lightline#ale#ok',
+      \ }
+
+let g:lightline.component_type = {
+      \     'linter_checking': 'right',
+      \     'linter_infos': 'right',
+      \     'linter_warnings': 'warning',
+      \     'linter_errors': 'error',
+      \     'linter_ok': 'right',
+      \ }
+
+function! LightlineFilename()
+  let filename = expand('%:f') !=# '' ? expand('%:f') : '[No Name]'
+  let modified = &modified ? ' +' : ''
+  return filename . modified
+endfunction
+
+function! LightlineReadonly()
+    return &readonly ? '' : ''
+endfunction
+function! LightlineFugitive()
+    if exists('*FugitiveHead')
+        let branch = FugitiveHead()
+        return branch !=# '' ? ''.branch : ''
+    endif
+    return ''
+endfunction
+
+let g:lightline.mode_map = {
+\ 'n' : 'N',
+\ 'i' : 'I',
+\ 'R' : 'R',
+\ 'v' : 'V',
+\ 'V' : 'V-LINE',
+\ "\<C-v>": 'V-BLOCK',
+\ 'c' : 'COMMAND',
+\ 's' : 'SELECT',
+\ 'S' : 'S-LINE',
+\ "\<C-s>": 'S-BLOCK',
+\ 't': 'TERMINAL',
+\ }
 
 " }}}
 " Surround {{{
@@ -1857,7 +1920,7 @@ let g:surround_100 = "{{ \r }}"
 " }}}
 " Tagbar {{{
 
-noremap <F9> :TagbarToggle<CR>
+nnoremap <silent> <F9> :TagbarToggle<CR>
 
 " augroup ps_tagbar
 "     au!
@@ -1868,6 +1931,7 @@ noremap <F9> :TagbarToggle<CR>
 
 let g:tagbar_autofocus = 1
 let g:tagbar_compact = 1
+let g:tagbar_foldlevel = 0
 let g:tagbar_indent = 1
 let g:tagbar_show_visibility = 0
 let g:tagbar_zoomwidth = 0
