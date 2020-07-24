@@ -1,0 +1,15 @@
+{
+    "shortcuts": [
+        {
+            "command": "jupyterlab_code_formatter:format",
+            "keys": ["Ctrl Y"],
+            "selector": "body"
+        },
+        {
+            "command": "jupyterlab_code_formatter:format_all",
+            "keys": ["Ctrl Shift Y"],
+            "selector": "body"
+        },
+    ]
+
+}

@@ -1,0 +1,10 @@
+{
+    "preferences": {
+        "default_formatter": {
+            "python": ["isort", "yapf"],
+        }
+    },
+    "yapf": {
+        "style_config": "pep8"
+    },
+}
