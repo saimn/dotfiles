@@ -1480,15 +1480,16 @@ xmap <leader>c <Plug>Commentary
 
 augroup plugin_commentary
     au!
+    au FileType cfg setlocal commentstring=#\ %s
+    au FileType clojurescript setlocal commentstring=;\ %s
+    au FileType cython setlocal commentstring=#\ %s
+    au FileType fish setlocal commentstring=#\ %s
     au FileType htmldjango setlocal commentstring={#\ %s\ #}
     au FileType htmljinja setlocal commentstring={#\ %s\ #}
-    au FileType clojurescript setlocal commentstring=;\ %s
     au FileType lisp setlocal commentstring=;\ %s
-    au FileType puppet setlocal commentstring=#\ %s
-    au FileType fish setlocal commentstring=#\ %s
-    au FileType cfg setlocal commentstring=#\ %s
-    au FileType tmux setlocal commentstring=#\ %s
     au FileType pentadactyl setlocal commentstring=\"\ %s
+    au FileType puppet setlocal commentstring=#\ %s
+    au FileType tmux setlocal commentstring=#\ %s
 augroup END
 
 " }}}
