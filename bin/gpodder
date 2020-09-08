@@ -1,0 +1,6 @@
+#!/bin/sh
+
+export GPODDER_HOME=$HOME/ownCloud/gPodder
+export GPODDER_DOWNLOAD_DIR=$HOME/gPodder
+
+exec /usr/bin/gpodder
