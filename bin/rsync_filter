@@ -12,9 +12,16 @@
 - .android/
 - .ansible/
 - .cache*/
+- .cargo/
 - .ccache/
 - .compose-cache*/
+- .config/chromium/
 - .config/fish/generated_completions/
+- .config/skypeforlinux/
+- .config/vim/
+- .config/Electron/
+- .config/GIMP/
+- .config/Slack/
 - *crashrecovery*
 - .dbus/
 - .dropbox/
@@ -47,6 +54,7 @@
 - .weechat/
 - .yarn/
 - .zcompcache/
+- .zprezto/
 
 - __pycache__/
 - .Cache*/

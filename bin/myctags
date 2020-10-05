@@ -3,12 +3,22 @@
 set -e
 
 echo ":: ctags ..."
+
+pushd ~/dev
+
 ctags -R \
-    --extra=+f \
+    --extras=+f \
     --languages=python,C,C++ \
+    --exclude=archives \
+    --exclude=C \
     --exclude=dotfiles \
+    --exclude=galleries \
+    --exclude=linuxfr \
+    --exclude=Marz \
     --exclude=node_modules \
+    --exclude=source-inspector-work \
     --exclude=.tox \
+    --exclude=viz \
     .
 
 if [ $# -gt 0 ]
@@ -30,3 +40,5 @@ then
 
     rm tags1 tags2
 fi
+
+popd

@@ -59,4 +59,3 @@ fi
 # Tidy up after ourselves.
 unfunction _ssh-agent-start
 unset _ssh_agent_{env,forwarding}
-

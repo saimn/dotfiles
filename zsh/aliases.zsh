@@ -18,6 +18,7 @@ fi
 
 # alias e="emacsclient"
 alias g='git'
+alias h='git hist'
 alias t='todo.sh'
 alias u="cd .. && ls"
 # alias v="vim"
@@ -58,8 +59,8 @@ alias ack=ag
 alias dif='colordiff -u'
 alias chromium='chromium --disk-cache-dir=/tmp/chromium-cache'
 alias ff='firefox -new-tab'
-alias firedef='firefox -no-remote -P default'
-alias firedev='firefox -no-remote -P Webdev'
+# alias firedef='firefox -no-remote -P default'
+# alias firedev='firefox -no-remote -P Webdev'
 alias ht='urxvt -name htop -title htop +sb -geometry 80x6 -e htop &'
 # alias wo='workon'
 alias xp='xprop | grep "WM_WINDOW_ROLE\|WM_CLASS" && echo "WM_CLASS(STRING) = \"NAME\", \"CLASS\""'
@@ -104,7 +105,7 @@ alias gco='git checkout'
 
 alias gdi='git diff'
 alias ggrep='git grep --color -n -P'
-alias gh='git hist'
+alias ghi='git hist'
 alias glgg='git log --graph --max-count=5'
 alias glg='git log --stat --max-count=5'
 alias gpull='git pull'
