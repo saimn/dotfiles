@@ -17,6 +17,7 @@ if [ -x /usr/bin/dircolors ] || [ -x /bin/dircolors ]; then
 fi
 
 # alias e="emacsclient"
+alias e="exa -l --group-directories-first"
 alias g='git'
 alias h='git hist'
 alias t='todo.sh'
