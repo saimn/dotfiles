@@ -1,12 +1,16 @@
+# vim: ft=cfg
+
 [style]
 based_on_style = pep8
+align_closing_bracket_with_visual_indent = false
+allow_multiline_lambdas = true
 arithmetic_precedence_indication=True
 blank_line_before_nested_class_or_def=True
-coalesce_brackets=False
+coalesce_brackets = true
 # dedent_closing_brackets=False
 # each_dict_entry_on_separate_line=True
 # split_before_arithmetic_operator=False
-# split_before_bitwise_operator=True
+split_before_bitwise_operator = false
 # split_before_closing_bracket=True
 # split_before_logical_operator=True
 split_before_dot=True

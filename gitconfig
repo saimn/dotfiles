@@ -140,3 +140,5 @@
     showPatch = true
 [gc]
 	writeCommitGraph = true
+[init]
+	defaultBranch = main
