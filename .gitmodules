@@ -1,6 +1,6 @@
 [submodule "bin/html2text"]
 	path = bin/html2text
-	url = https://github.com/aaronsw/html2text.git
+	url = https://github.com/Alir3z4/html2text.git
 [submodule "awesome/vicious"]
 	path = awesome/vicious
 	url = http://git.sysphere.org/vicious

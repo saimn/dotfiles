@@ -40,13 +40,13 @@ image/*;                        gthumb %s
 audio/*;                        mplayer %s
 video/*;                        mplayer %s
 
+text/html;                      html2text %s %{charset}; copiousoutput
 text/html;                      links -dump %s; nametemplate=%s.html; copiousoutput
 # text/html;                      lynx -assume_charset=%{charset} -display_charset=utf-8 -collapse_br_tags -dump %s; nametemplate=%s.html; copiousoutput
 # text/html;                      w3m -I %{charset} -T text/html; copiousoutput;
 # text/html;                      elinks -dump ; copiousoutput;
 # text/html;                      firefox %s &; test=test -n "$DISPLAY"; needsterminal;
 text/html;                      firefox %s & ; copiousoutput
-# text/html;                      iconv -c -f %{charset} -t utf8 | /usr/bin/python2 ~/bin/html2text/html2text.py -b 0 ; copiousoutput
-# text/html;                      html2text.py %s %{charset}; copiousoutput
+# text/html;                      iconv -c -f %{charset} -t utf8 | html2text -b 0 ; copiousoutput
 # text/plain;                     emacsclient -c %s
 text/plain;                     gvim %s
