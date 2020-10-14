@@ -19,6 +19,8 @@ application/pdf;                zathura %s
 application/ps;                 evince %s
 application/ps;                 okular %s
 application/ps;                 zathura %s
+application/postscript;         evince %s
+application/postscript;         zathura %s
 
 application/x-bz;               lesspipe.sh %s ; copiousoutput
 application/x-bzip2;            lesspipe.sh %s ; copiousoutput

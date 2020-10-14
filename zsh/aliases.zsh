@@ -105,6 +105,7 @@ alias gcm='git checkout master'
 alias gco='git checkout'
 
 alias gdi='git diff'
+alias gdib='git diff master...HEAD'
 alias ggrep='git grep --color -n -P'
 alias ghi='git hist'
 alias glgg='git log --graph --max-count=5'

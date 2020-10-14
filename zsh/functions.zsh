@@ -28,6 +28,11 @@ function calc(){ awk "BEGIN{ print $* }" ;}
     #command ssh $*
 #}
 
+function wyz()
+{
+    curl https://wyz.fr/ -F"${1##*.}=@$1"
+}
+
 # rename with the creation date
 function date_rename()
 {
