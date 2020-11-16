@@ -31,10 +31,10 @@ def _import_astropy():
     ip.ex('import astropy.units as u')
     ip.ex('from astropy.coordinates import SkyCoord')
     ip.ex('from astropy.io import ascii, fits')
-    ip.ex('from astropy.wcs import WCS')
+    ip.ex('from astropy.nddata import NDData, VarianceUncertainty')
     ip.ex('from astropy.table import Table, Column, MaskedColumn')
-    # ip.ex('from astropy.time import Time, TimeDelta')
-    # ip.ex('from astropy.coordinates import SkyCoord, ICRS, FK4, FK5')
+    ip.ex('from astropy.time import Time, TimeDelta')
+    ip.ex('from astropy.wcs import WCS')
 
 
 def _import_mpdaf():
