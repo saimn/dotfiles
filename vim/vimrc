@@ -96,11 +96,12 @@ Plug 'edkolev/tmuxline.vim', { 'on': ['Tmuxline', 'TmuxlineSnapshot'] }
 Plug 'tmux-plugins/vim-tmux-focus-events'
 
 " colorschemes
-Plug 'arcticicestudio/nord-vim'
+" Plug 'arcticicestudio/nord-vim'
 " Plug 'chriskempson/base16-vim'
 Plug 'kaicataldo/material.vim'
-Plug 'morhetz/gruvbox'
+" Plug 'morhetz/gruvbox'
 Plug 'sjl/badwolf'
+" Plug 'sonph/onehalf', { 'rtp': 'vim' }
 Plug 'w0ng/vim-hybrid'
 
 " Plug '~/.vim/bundle/camptocamp', { 'for': 'camptocamp' }
@@ -138,7 +139,9 @@ else
 endif
 
 if (has('termguicolors'))
-  set termguicolors
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+    set termguicolors
 endif
 
 set modelines=0
@@ -364,7 +367,10 @@ colorscheme hybrid
 " colorscheme nord
 
 " let g:gruvbox_italic=1
-" colorscheme hybrid
+" colorscheme gruvbox
+
+" colorscheme onehalfdark
+" let g:lightline = { 'colorscheme': 'onehalfdark' }
 
 " Reload the colorscheme whenever we write the file.
 " augroup color_badwolf_dev
@@ -1264,7 +1270,8 @@ augroup ft_python
     " override this in a normal way, could you?
     " au FileType python if exists("python_space_error_highlight") | unlet python_space_error_highlight | endif
 
-    au FileType python inoremap <buffer> <c-b> """"""<left><left><left>
+    au FileType python inoremap <buffer> <c-d> """"""<left><left><left>
+    au FileType python inoremap <buffer> <c-b> breakpoint()
     " au FileType python iabbrev <buffer> afo assert False, "Okay"
 
     " Autopep8
@@ -1672,6 +1679,9 @@ let g:org_agenda_files = ['~/org/*.org']
 " }}}
 " Scratch {{{
 
+let g:scratch_no_mappings = 1
+" let g:scratch_persistence_file = '~/.vim/tmp/scratch.vim'
+
 command! ScratchToggle call ScratchToggle()
 
 function! ScratchToggle()
@@ -1679,6 +1689,7 @@ function! ScratchToggle()
         unlet w:is_scratch_window
         exec "q"
     else
+        " exec "normal! :Scratch\<cr>"
         exec "normal! :Scratch\<cr>\<C-W>L"
         let w:is_scratch_window = 1
     endif
