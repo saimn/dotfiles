@@ -148,13 +148,13 @@ URxvt.colorIT:                  #bbbbbb
 
 ! Appearance
 xterm*eightBitInput: true
-xterm*faceName: terminus:pixelsize=12
+xterm*faceName: terminus:pixelsize=16
 xterm*cursorColor: #000000
 ! xterm*Geometry:   100x60
 ! xterm*foreground: #909090
 ! xterm*background: #303030
-xterm*font:       -*-terminus-medium-*-*-*-14-*-*-*-*-*-*-*
-xterm*boldFont:   -*-terminus-medium-*-*-*-14-*-*-*-*-*-*-*
+xterm*font:       -*-terminus-medium-*-*-*-16-*-*-*-*-*-*-*
+xterm*boldFont:   -*-terminus-medium-*-*-*-16-*-*-*-*-*-*-*
 xterm*scrollBar:  false
 ! xterm*termName:   xterm-256color
 xterm*utf8: 2

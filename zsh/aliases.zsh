@@ -115,4 +115,8 @@ alias gpush='git push'
 alias gr='git rebase'
 alias gst='git status -sb'
 
+# kitty
+alias icat="kitty +kitten icat"
+alias idiff="kitty +kitten diff"
+
 # }}}
