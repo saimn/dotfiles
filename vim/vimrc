@@ -14,15 +14,14 @@ Plug 'cespare/vim-toml'
 Plug 'ciaranm/securemodelines'
 Plug 'dense-analysis/ale'
 Plug 'derekwyatt/vim-fswitch'
-Plug 'exu/pgsql.vim', { 'for': 'pgsql' }
+" Plug 'exu/pgsql.vim', { 'for': 'pgsql' }
 " Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 " Plug 'freitass/todo.txt-vim'
 Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
 Plug 'gregsexton/MatchTag', { 'for': ['html', 'xml'] }
-Plug 'groenewege/vim-less', { 'for': 'less' }
 Plug 'honza/vim-snippets'
 " Plug 'jceb/vim-orgmode', { 'for': 'org' }
-Plug 'jpalardy/vim-slime'
+" Plug 'jpalardy/vim-slime'
 Plug 'jreybert/vimagit'
 " Plug 'junegunn/vim-github-dashboard', { 'on': ['GHDashboard', 'GHActivity'] }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -44,8 +43,8 @@ Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'pearofducks/ansible-vim'
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 Plug 'preservim/tagbar', { 'on': 'TagbarToggle' }
+Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
 " Plug 'saltstack/salt-vim', { 'for': 'sls' }
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 " Plug 'scrooloose/syntastic'
 " Plug 'shime/vim-livedown', { 'for': 'markdown', 'do': 'npm install livedown' }
 Plug 'SirVer/ultisnips'
@@ -68,7 +67,6 @@ Plug 'tpope/vim-surround'
 Plug 'vim-scripts/Conflict2Diff', { 'on': 'Conflict2Diff' }
 Plug 'vim-scripts/DirDiff.vim', { 'on': 'DirDiff' }
 Plug 'vim-scripts/YankRing.vim', { 'on': 'YRShow' }
-" Plug 'wavded/vim-stylus', { 'for': 'stylus' }
 
 " Python
 " Plug 'ivanov/vim-ipython'
@@ -367,7 +365,7 @@ colorscheme hybrid
 " colorscheme nord
 
 " let g:gruvbox_italic=1
-" colorscheme gruvbox
+" autocmd vimenter * ++nested colorscheme gruvbox
 
 " colorscheme onehalfdark
 " let g:lightline = { 'colorscheme': 'onehalfdark' }
