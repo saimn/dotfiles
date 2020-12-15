@@ -96,7 +96,8 @@ Plug 'tmux-plugins/vim-tmux-focus-events'
 " colorschemes
 " Plug 'arcticicestudio/nord-vim'
 " Plug 'chriskempson/base16-vim'
-Plug 'kaicataldo/material.vim'
+" Plug 'kaicataldo/material.vim'
+" Plug 'mhartington/oceanic-next'
 " Plug 'morhetz/gruvbox'
 Plug 'sjl/badwolf'
 " Plug 'sonph/onehalf', { 'rtp': 'vim' }
@@ -351,6 +352,7 @@ let g:badwolf_tabline = 2
 " Turn on CSS properties highlighting
 let g:badwolf_css_props_highlight = 1
 " colorscheme badwolf
+" let g:airline_theme='badwolf'
 
 " let g:hybrid_custom_term_colors = 1
 " let g:hybrid_reduced_contrast = 1
@@ -360,6 +362,10 @@ colorscheme hybrid
 " let g:material_theme_style = 'darker'
 " let g:material_terminal_italics = 1
 " colorscheme material
+" let g:airline_theme = 'material'
+
+" colorscheme OceanicNext
+" let g:airline_theme='oceanicnext'
 
 " colorscheme base16-default-dark
 " colorscheme nord
@@ -1793,8 +1799,6 @@ let g:startify_bookmarks = [
 
 " let g:airline_powerline_fonts = 0
 " " let g:airline_section_z = airline#section#create_right(['%2p%% %3l:%1c'])
-" let g:airline_theme='badwolf'
-" " let g:airline_theme = 'material'
 
 " let g:airline#extensions#branch#enabled = 1
 " let g:airline#extensions#ale#enabled = 1
@@ -2354,7 +2358,7 @@ else
     set mouse=a
 
     "set term=xterm
-    set t_Co=256
+    " set t_Co=256
     " colorscheme molokai
     "set t_Co=8
     "set termencoding=utf-8
