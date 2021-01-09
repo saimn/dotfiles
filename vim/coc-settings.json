@@ -1,0 +1,6 @@
+{
+    "python.analysis.typeCheckingMode": "off",
+    "python.formatting.provider": "yapf",
+    "python.linting.flake8Enabled": true,
+    "python.venvPath": "~/.pyenv/versions",
+}

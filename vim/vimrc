@@ -29,7 +29,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/goyo.vim'
 " Plug 'lervag/vimtex', { 'for': 'tex' }
-Plug 'maralla/completor.vim'
+" Plug 'maralla/completor.vim'
 " Plug 'mhinz/vim-signify'
 Plug 'mhinz/vim-startify'
 " Plug 'michaeljsmith/vim-indent-object'
@@ -71,7 +71,7 @@ Plug 'vim-scripts/YankRing.vim', { 'on': 'YRShow' }
 " Python
 Plug '5long/pytest-vim-compiler'
 Plug 'alfredodeza/pytest.vim'
-Plug 'davidhalter/jedi-vim'
+" Plug 'davidhalter/jedi-vim'
 " Plug 'fs111/pydoc.vim'
 " Plug 'ivanov/vim-ipython'
 " Plug 'python-mode/python-mode', { 'for': 'python' }
@@ -93,6 +93,10 @@ Plug 'maximbaz/lightline-ale'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'edkolev/tmuxline.vim', { 'on': ['Tmuxline', 'TmuxlineSnapshot'] }
 Plug 'tmux-plugins/vim-tmux-focus-events'
+
+" Coc
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" :CocInstall coc-css coc-git coc-highlight coc-html coc-json coc-lists coc-pyright coc-yaml
 
 " colorschemes
 " Plug 'arcticicestudio/nord-vim'
@@ -1232,18 +1236,18 @@ let g:python_highlight_all = 1
 " let g:pydoc_open_cmd = 'vsplit'
 " let g:pydoc_use_drop=1
 
-" let g:jedi#auto_initialization = 0
-let g:jedi#auto_vim_configuration = 0
-let g:jedi#completions_enabled = 0
-" let g:jedi#show_call_signatures = "1"
-let g:jedi#smart_auto_mappings = 1
-let g:jedi#goto_command = "<leader>g"
-let g:jedi#goto_assignments_command = "<localleader>g"
-let g:jedi#goto_definitions_command = "<localleader>d"
-let g:jedi#documentation_command = "K"
-let g:jedi#usages_command = "<localleader>n"
-" let g:jedi#completions_command = "<C-Space>"
-let g:jedi#rename_command = "<localleader>r"
+" " let g:jedi#auto_initialization = 0
+" let g:jedi#auto_vim_configuration = 0
+" let g:jedi#completions_enabled = 0
+" " let g:jedi#show_call_signatures = "1"
+" let g:jedi#smart_auto_mappings = 1
+" let g:jedi#goto_command = "<leader>g"
+" let g:jedi#goto_assignments_command = "<localleader>g"
+" let g:jedi#goto_definitions_command = "<localleader>d"
+" let g:jedi#documentation_command = "K"
+" let g:jedi#usages_command = "<localleader>n"
+" " let g:jedi#completions_command = "<C-Space>"
+" let g:jedi#rename_command = "<localleader>r"
 
 augroup ft_python
     au!
@@ -1468,12 +1472,47 @@ let g:clam_autoreturn = 1
 " let g:clam_debug = 1
 
 " }}}
+" Coc {{{
+
+nmap <localleader>d <Plug>(coc-definition)
+nmap <localleader>D <Plug>(coc-declaration)
+nmap <localleader>g <Plug>(coc-implementation)
+nmap <localleader>n <Plug>(coc-references)
+nmap <localleader>r <Plug>(coc-rename)
+nmap <localleader>R <Plug>(coc-refactor)
+
+nmap <localleader>f <Plug>(coc-format-selected)
+vmap <localleader>f <Plug>(coc-format-selected)
+
+" use <tab> for trigger completion and navigate to the next complete item
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
+inoremap <silent><expr> <Tab>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<Tab>" :
+      \ coc#refresh()
+
+inoremap <silent><expr> <S-Tab>
+      \ pumvisible() ? "\<C-p>" :
+      \ <SID>check_back_space() ? "\<Tab>" :
+      \ coc#refresh()
+
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
+" inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" use <c-space>for trigger completion
+" inoremap <silent><expr> <c-space> coc#refresh()
+
+" }}}
 " Completor {{{
 
-" Use Tab to select completion
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
+" " Use Tab to select completion
+" inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
 
 " let g:completor_complete_options = 'menuone,noselect,preview'
 " set completeopt=longest,menuone,preview
