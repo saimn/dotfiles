@@ -10,10 +10,10 @@
 cython
 
 # plotting
-adjustText
-lineid-plot
+# adjustText
+# lineid-plot
 matplotlib
-seaborn
+# seaborn
 
 # documentation
 alabaster
@@ -41,6 +41,6 @@ numpy
 numpydoc
 pandas
 pillow
-scikit-image
-scikit-learn
+# scikit-image
+# scikit-learn
 scipy

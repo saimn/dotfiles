@@ -17,4 +17,4 @@ flake8
 
 # editor
 pynvim
-jedi
+# jedi

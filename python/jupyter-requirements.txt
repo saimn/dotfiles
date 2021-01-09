@@ -7,4 +7,4 @@ jupyterlab
 jupyter_nbextensions_configurator
 jupyternotify
 nbdime
-#qtconsole
+# qtconsole
