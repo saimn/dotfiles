@@ -30,6 +30,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'junegunn/goyo.vim'
 " Plug 'lervag/vimtex', { 'for': 'tex' }
 " Plug 'maralla/completor.vim'
+Plug 'mg979/vim-visual-multi'
 " Plug 'mhinz/vim-signify'
 Plug 'mhinz/vim-startify'
 " Plug 'michaeljsmith/vim-indent-object'
@@ -55,7 +56,6 @@ Plug 'sjl/gundo.vim', { 'on': 'GundoToggle' }
 " Plug 'smancill/conky-syntax.vim', { 'for': 'conkyrc' }
 " Plug 'stefandtw/quickfix-reflector.vim'
 Plug 'ternjs/tern_for_vim', { 'for': 'javascript', 'do': 'npm install' }
-Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-fugitive'
