@@ -53,6 +53,7 @@ vim/local.vim
 vim/NERDTreeBookmarks
 vim/plugged/
 vim/plugin/notmuch.vim
+vim/sessions/
 vim/spell/
 vim/syntax/notmuch-*.vim
 vim/tmp/
