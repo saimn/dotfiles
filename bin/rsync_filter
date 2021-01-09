@@ -6,6 +6,8 @@
 - *~
 - /tags
 - .git/modules
+- __pycache__
+- .tox
 
 - .adobe/
 - .atom/
@@ -18,6 +20,7 @@
 - .config/chromium/
 - .config/fish/generated_completions/
 - .config/skypeforlinux/
+- .config/nvim/
 - .config/vim/
 - .config/Electron/
 - .config/GIMP/
@@ -28,6 +31,7 @@
 - .dropbox-dist/
 - *.egg-info/
 - .fzf/
+- .geminidr/
 - .gvfs/
 - .ipynb_checkpoints/
 - .ipython/
@@ -35,8 +39,7 @@
 - .local/
 - .macromedia/
 - .module-cache/
-- .mozilla/**/Cache
-- .mozilla/**/storage
+- .mozilla
 - .mu/
 - .nixnote/
 - .npm/
@@ -49,9 +52,11 @@
 - .tox/
 - .Trash/
 - .Trash-1000/
+- .var/
 - .vim/
 - .virtualenvs/
 - .weechat/
+- .x2go/
 - .yarn/
 - .zcompcache/
 - .zprezto/
@@ -68,6 +73,7 @@
 - Musique/
 - VirtualBox*/
 - VirtualMachines/
+
 - builds/
 - data/
 - lib/dotfiles/vim/plugged/
@@ -85,7 +91,6 @@
 + .icons/
 + .idl*/
 + .kde*/
-+ .mozilla/
 + .ssh/
 + .subversion/
 + .themes/
@@ -98,5 +103,4 @@
 + .netrc
 + .profile
 
-- .config/chromium/
 - /simon/.*
