@@ -17,6 +17,7 @@ Plug 'derekwyatt/vim-fswitch'
 " Plug 'exu/pgsql.vim', { 'for': 'pgsql' }
 " Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 " Plug 'freitass/todo.txt-vim'
+Plug 'Glench/Vim-Jinja2-Syntax', { 'for': ['jinja', 'html', 'sls'] }
 Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
 Plug 'gregsexton/MatchTag', { 'for': ['html', 'xml'] }
 Plug 'honza/vim-snippets'
@@ -33,7 +34,6 @@ Plug 'maralla/completor.vim'
 Plug 'mhinz/vim-startify'
 " Plug 'michaeljsmith/vim-indent-object'
 Plug 'mileszs/ack.vim'
-Plug 'mitsuhiko/vim-jinja', { 'for': ['htmljinja', 'sls'] }
 Plug 'mitsuhiko/vim-sparkup', { 'on': ['SparkupExecute', 'SparkupNext'] }
 Plug 'moll/vim-bbye', { 'on': 'Bdelete' }
 Plug 'mtth/scratch.vim', { 'on': 'Scratch' }
@@ -69,17 +69,18 @@ Plug 'vim-scripts/DirDiff.vim', { 'on': 'DirDiff' }
 Plug 'vim-scripts/YankRing.vim', { 'on': 'YRShow' }
 
 " Python
-" Plug 'ivanov/vim-ipython'
-" Plug 'python-mode/python-mode', { 'for': 'python' }
 Plug '5long/pytest-vim-compiler'
 Plug 'alfredodeza/pytest.vim'
 Plug 'davidhalter/jedi-vim'
 " Plug 'fs111/pydoc.vim'
+" Plug 'ivanov/vim-ipython'
+" Plug 'python-mode/python-mode', { 'for': 'python' }
+Plug 'stsewd/sphinx.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'tell-k/vim-autopep8', { 'for': 'python' }
 Plug 'tmhedberg/SimpylFold'
 Plug 'tshirtman/vim-cython'
-Plug 'vim-python/python-syntax'
 Plug 'Vimjas/vim-python-pep8-indent'
+Plug 'vim-python/python-syntax'
 
 " statusline / tabline
 Plug 'ap/vim-buftabline'
@@ -633,7 +634,7 @@ nnoremap gz :!zeal "<cword>"&<CR><CR>
 nnoremap _rst :set ft=rst<CR>
 nnoremap _md :set ft=markdown<CR>
 nnoremap _hd :set ft=htmldjango<CR>
-nnoremap _hj :set ft=htmljinja<CR>
+nnoremap _hj :set ft=jinja.html<CR>
 nnoremap _js :set ft=javascript<CR>
 nnoremap _pd :set ft=python.django<CR>
 nnoremap _d  :set ft=diff<CR>
@@ -1010,7 +1011,7 @@ fun! s:SelectHTML()
   while n < 50 && n < line("$")
     " check for jinja
     if getline(n) =~ '{%\s*\(extends\|block\|macro\|set\|if\|for\|include\|trans\)\>'
-      set ft=htmljinja
+      set ft=jinja.html
       return
     endif
     " check for django
@@ -1039,14 +1040,14 @@ augroup ft_html
 
     au BufNewFile,BufRead *.html,*.htm,*.tpl call s:SelectHTML()
 
-    au FileType html,htmljinja,htmldjango setlocal foldmethod=manual
-    au FileType html,htmljinja,htmldjango setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
+    au FileType html,jinja.html,htmldjango setlocal foldmethod=manual
+    au FileType html,jinja.html,htmldjango setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
 
     " Use <localleader>f to fold the current tag.
-    au FileType html,htmljinja,htmldjango nnoremap <buffer> <localleader>f Vatzf
+    au FileType html,jinja.html,htmldjango nnoremap <buffer> <localleader>f Vatzf
 
     " Use <localleader>t to fold the current templatetag.
-    au FileType html,htmljinja,htmldjango nmap <buffer> <localleader>t viikojozf
+    au FileType html,jinja.html,htmldjango nmap <buffer> <localleader>t viikojozf
 
     " Use Shift-Return to turn this:
     "     <tag>|</tag>
@@ -1055,22 +1056,16 @@ augroup ft_html
     "     <tag>
     "         |
     "     </tag>
-    au FileType html,htmljinja,htmldjango nnoremap <buffer> <s-cr> vit<esc>a<cr><esc>vito<esc>i<cr><esc>
-
-    " Smarter pasting
-    " au FileType html,htmljinja,htmldjango nnoremap <buffer> p :<C-U>YRPaste 'p'<CR>v`]=`]
-    " au FileType html,htmljinja,htmldjango nnoremap <buffer> P :<C-U>YRPaste 'P'<CR>v`]=`]
-    " au FileType html,htmljinja,htmldjango nnoremap <buffer> π :<C-U>YRPaste 'p'<CR>
-    " au FileType html,htmljinja,htmldjango nnoremap <buffer> ∏ :<C-U>YRPaste 'P'<CR>
+    au FileType html,jinja.html,htmldjango nnoremap <buffer> <s-cr> vit<esc>a<cr><esc>vito<esc>i<cr><esc>
 
     " Indent tag
-    au FileType html,htmljinja,htmldjango nnoremap <buffer> <leader>= Vat=
+    au FileType html,jinja.html,htmldjango nnoremap <buffer> <leader>= Vat=
 
     " Django tags
-    au FileType htmljinja,htmldjango inoremap <buffer> <c-t> {%<space><space>%}<left><left><left>
+    au FileType jinja.html,htmldjango inoremap <buffer> <c-t> {%<space><space>%}<left><left><left>
 
     " Django variables
-    au FileType htmljinja,htmldjango inoremap <buffer> <c-b> {{<space><space>}}<left><left><left>
+    au FileType jinja.html,htmldjango inoremap <buffer> <c-b> {{<space><space>}}<left><left><left>
 augroup END
 
 " }}}
@@ -1496,7 +1491,7 @@ augroup plugin_commentary
     au FileType cython setlocal commentstring=#\ %s
     au FileType fish setlocal commentstring=#\ %s
     au FileType htmldjango setlocal commentstring={#\ %s\ #}
-    au FileType htmljinja setlocal commentstring={#\ %s\ #}
+    au FileType jinja.html setlocal commentstring={#\ %s\ #}
     au FileType lisp setlocal commentstring=;\ %s
     au FileType pentadactyl setlocal commentstring=\"\ %s
     au FileType puppet setlocal commentstring=#\ %s
@@ -1716,8 +1711,8 @@ let g:secure_modelines_allowed_items = [
 
 augroup ft_sparkup
     au!
-    au FileType xml,html,htmljinja,htmldjango imap <buffer> <c-e> <Plug>SparkupExecute
-    au FileType xml,html,htmljinja,htmldjango imap <buffer> <c-l> <Plug>SparkupNext
+    au FileType xml,html,jinja.html,htmldjango imap <buffer> <c-e> <Plug>SparkupExecute
+    au FileType xml,html,jinja.html,htmldjango imap <buffer> <c-l> <Plug>SparkupNext
 augroup END
 
 " let g:sparkupNextMapping = '<c-s>'
