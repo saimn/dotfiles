@@ -1285,12 +1285,14 @@ augroup ft_python
     " au FileType python nnoremap <leader>y :0,$!yapf<Cr>
 
     " Defer to isort for sorting Python imports (instead of using Unix sort)
-    au filetype python nmap <buffer> <localleader>i :ALEFix isort<CR>
+    " au filetype python nmap <buffer> <localleader>i :ALEFix isort<CR>
     au filetype python nmap <buffer> <localleader>y :ALEFix yapf<CR>
     au filetype python nmap <buffer> <localleader>b :ALEFix black<CR>
-    " if executable('isort')
-    "     autocmd filetype python nnoremap <leader>s mX:%! isort -<cr>`X
-    " endif
+
+    if executable('isort')
+        autocmd filetype python nnoremap <localleader>i mX:%! isort -<cr>`X
+    endif
+
     " if executable('autoflake')
     "     autocmd filetype python nnoremap <localleader>i mX:%! autoflake -<cr>`X
     "     autocmd filetype python nnoremap <localleader>I mX:%! autoflake --remove-all-unused-imports -<cr>`X
