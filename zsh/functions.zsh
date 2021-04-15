@@ -89,7 +89,7 @@ function ds9-images()
 
     for f in "$@";
     do
-        args="$args $f -zscale"
+        args="$args "$f" -zscale"
     done
 
     eval ds9 $args -frame lock image -zoom 2 &
