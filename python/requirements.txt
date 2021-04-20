@@ -16,7 +16,7 @@ matplotlib
 # seaborn
 
 # documentation
-alabaster
+#alabaster
 #doc2dash
 #graphviz
 jinja2
@@ -41,6 +41,6 @@ numpy
 numpydoc
 pandas
 pillow
-# scikit-image
-# scikit-learn
+scikit-image
+scikit-learn
 scipy

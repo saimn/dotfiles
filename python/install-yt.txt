@@ -1,3 +1,0 @@
-yum install libpng-devel.x86_64 hdf5-devel.x86_64 Cython.x86_64 freetype-devel.x86_64
-export HDF5_DIR=/usr
-export PNG_DIR=/usr

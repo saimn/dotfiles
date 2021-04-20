@@ -18,14 +18,37 @@ except ImportError:
     pass
 
 
-def _import_numpy():
+@register_line_magic
+def matplotlib_plt(line):
+    ip.ex('import matplotlib')
+    ip.ex('import matplotlib.pyplot as plt')
+    ip.ex('print("Matplotlib", matplotlib.__version__)')
+
+
+@register_line_magic
+def pandas(line):
+    ip.ex("""
+try:
+    import pandas as pd
+except ImportError:
+    pass
+else:
+    print("Pandas", pd.__version__)
+""")
+
+
+@register_line_magic
+def numpy(line):
+    """Import Numpy"""
     ip.ex('import numpy as np')
     ip.ex('from numpy import ma')
     ip.ex('print("Numpy", np.__version__)')
 
 
-def _import_astropy():
-    _import_numpy()
+@register_line_magic
+def astropy(line):
+    """Import Astropy"""
+    ip.run_line_magic('numpy', None)
     ip.ex('import astropy')
     ip.ex('print("Astropy", astropy.__version__)')
     ip.ex('import astropy.units as u')
@@ -37,8 +60,10 @@ def _import_astropy():
     ip.ex('from astropy.wcs import WCS')
 
 
-def _import_mpdaf():
-    _import_astropy()
+@register_line_magic
+def mpdaf(line):
+    """Import MPDAF"""
+    ip.run_line_magic('astropy', None)
     ip.ex('import mpdaf')
     ip.ex('print("MPDAF", mpdaf.__version__)')
     ip.ex('from mpdaf.obj import Cube, Image, Spectrum, WCS, WaveCoord')
@@ -46,35 +71,22 @@ def _import_mpdaf():
     ip.ex('from mpdaf.sdetect import Source, Catalog')
 
 
-def _import_dragons():
-    _import_astropy()
+@register_line_magic
+def dragons(line):
+    """Import dragons"""
+    ip.run_line_magic('astropy', None)
     ip.ex('import astrodata')
     ip.ex('import gemini_instruments')
     ip.ex('print("astrodata", astrodata.__version__)')
 
 
 @register_line_magic
-def numpy(line):
-    """Import Numpy"""
-    _import_numpy()
-
-
-@register_line_magic
-def astropy(line):
-    """Import Astropy"""
-    _import_astropy()
-
-
-@register_line_magic
-def mpdaf(line):
+def pydata(line):
     """Import MPDAF"""
-    _import_mpdaf()
-
-
-@register_line_magic
-def dragons(line):
-    """Import dragons"""
-    _import_dragons()
+    ip.run_line_magic('matplotlib', line)
+    ip.run_line_magic('astropy', None)
+    ip.run_line_magic('pandas', None)
+    ip.run_line_magic('matplotlib_plt', None)
 
 
 @register_line_magic
@@ -83,4 +95,4 @@ def imu(line):
     ip.ex('imu.start_watching_memory()')
 
 
-del numpy, astropy, mpdaf, imu
+# del numpy, astropy, mpdaf, imu
