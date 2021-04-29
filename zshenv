@@ -96,6 +96,7 @@ path=(
   $HOME/bin
   $HOME/bin/html2rst
   $HOME/bin/html2text
+  $HOME/lib/eso_fits_tools
   $HOME/.local/bin
   /usr/local/{bin,sbin}
   /usr/{bin,sbin}

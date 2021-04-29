@@ -17,7 +17,8 @@ mkdir -p $HOME/lib/dotfiles/vim/tmp/{backup,swap,undo}
 rm  $HOME/bin
 ln -s $HOME/lib/dotfiles/bin $HOME/bin
 
-for i in "awesome" "ranger" "zathura" "kitty" "compton.conf"
+for i in "awesome" "ranger" "zathura" "kitty" "compton.conf" \
+    "ipython" "jupyter"
 do
     [ -e $HOME/.config/$i ] && rm $HOME/.config/$i
     ln -s $HOME/lib/dotfiles/$i $HOME/.config/$i
@@ -26,7 +27,7 @@ done
 #}}}
 
 #{{{ ZSH
-git clone https://github.com/sorin-ionescu/prezto.git ~/lib/prezto
+git clone --recurse-submodules https://github.com/sorin-ionescu/prezto.git ~/lib/prezto
 rm ~/{.zprezto,.zpreztorc,.zshenv,.zshrc}
 ln -s ~/lib/dotfiles/zshrc ~/.zshrc
 ln -s ~/lib/dotfiles/zshenv ~/.zshenv
@@ -64,9 +65,6 @@ touch ~/lib/dotfiles/zsh/locals.zsh
 # mkdir -p $HOME/lib/{python,virtualenvs}
 # ln -s ~/lib/virtualenvs/  ~/.virtualenvs
 
-rm $HOME/.config/ipython
-ln -s $HOME/lib/dotfiles/ipython $HOME/.ipython
-
 rm -r $HOME/.matplotlib
 rm -r $HOME/.config/matplotlib
 mkdir -p $HOME/.config/matplotlib
@@ -74,9 +72,9 @@ ln -s $HOME/lib/dotfiles/matplotlibrc $HOME/.config/matplotlib/matplotlibrc
 
 # pyenv
 git clone https://github.com/pyenv/pyenv.git ~/.pyenv
-git clone https://github.com/pyenv/pyenv-virtualenv.git $(pyenv root)/plugins/pyenv-virtualenv
-git clone git://github.com/pyenv/pyenv-pip-migrate.git $(pyenv root)/plugins/pyenv-pip-migrate
-git clone https://github.com/yyuu/pyenv-ccache.git $(pyenv root)/plugins/pyenv-ccache
+git clone https://github.com/pyenv/pyenv-virtualenv.git ~/.pyenv/plugins/pyenv-virtualenv
+git clone git://github.com/pyenv/pyenv-pip-migrate.git ~/.pyenv/plugins/pyenv-pip-migrate
+git clone https://github.com/yyuu/pyenv-ccache.git ~/.pyenv/plugins/pyenv-ccache
 
 # }}}
 
