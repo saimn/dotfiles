@@ -1,15 +1,6 @@
 [submodule "bin/html2text"]
 	path = bin/html2text
 	url = https://github.com/Alir3z4/html2text.git
-[submodule "awesome/vicious"]
-	path = awesome/vicious
-	url = http://git.sysphere.org/vicious
-[submodule "awesome/lain"]
-	path = awesome/lain
-	url = https://github.com/copycat-killer/lain.git
-[submodule "awesome/revelation"]
-	path = awesome/revelation
-	url = https://github.com/guotsuan/awesome-revelation.git
 [submodule "tmux/copycat"]
 	path = tmux/copycat
 	url = https://github.com/tmux-plugins/tmux-copycat
