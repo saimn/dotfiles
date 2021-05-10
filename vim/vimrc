@@ -96,13 +96,13 @@ Plug 'tmux-plugins/vim-tmux-focus-events'
 
 " colorschemes
 " Plug 'arcticicestudio/nord-vim'
-" Plug 'chriskempson/base16-vim'
+Plug 'chriskempson/base16-vim'
 " Plug 'kaicataldo/material.vim'
 " Plug 'mhartington/oceanic-next'
 " Plug 'morhetz/gruvbox'
 Plug 'sjl/badwolf'
 " Plug 'sonph/onehalf', { 'rtp': 'vim' }
-Plug 'w0ng/vim-hybrid'
+" Plug 'w0ng/vim-hybrid'
 
 " Plug '~/.vim/bundle/camptocamp', { 'for': 'camptocamp' }
 Plug '~/.vim/bundle/closetags-custom'
@@ -219,7 +219,7 @@ au VimResized * :wincmd =
 
 " Leader
 let mapleader = ","
-let maplocalleader = ";"
+let maplocalleader = "\\"
 
 " 3: tree style
 let g:netrw_liststyle=3
@@ -355,9 +355,7 @@ let g:badwolf_css_props_highlight = 1
 " colorscheme badwolf
 " let g:airline_theme='badwolf'
 
-" let g:hybrid_custom_term_colors = 1
-" let g:hybrid_reduced_contrast = 1
-colorscheme hybrid
+colorscheme base16-tomorrow-night
 
 " let g:material_theme_style = 'default' | 'palenight' | 'ocean' | 'lighter' | 'darker'
 " let g:material_theme_style = 'darker'
@@ -600,7 +598,7 @@ nnoremap <c-Tab> <c-^>
 " nnoremap <c-p> :bprev!<CR>
 
 " make ; do the same thing as :
-" nnoremap ; :
+nnoremap ; :
 " visual command line
 " nnoremap ; :<c-f>
 
@@ -2317,6 +2315,8 @@ if has('gui_running')
             set guifont=Inconsolata\ for\ Powerline\ 12
         elseif hostname() == "fireball"
             set guifont=Inconsolata\ for\ Powerline\ 14
+        elseif hostname() == "lyonovae24"
+            set guifont=Inconsolata\ for\ Powerline\ 13
         else
             set guifont=Inconsolata\ for\ Powerline\ 10
         endif
