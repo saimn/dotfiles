@@ -20,7 +20,6 @@ Plug 'Glench/Vim-Jinja2-Syntax', { 'for': ['jinja', 'html', 'sls'] }
 Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
 Plug 'gregsexton/MatchTag', { 'for': ['html', 'xml'] }
 Plug 'honza/vim-snippets'
-" Plug 'jceb/vim-orgmode', { 'for': 'org' }
 " Plug 'jpalardy/vim-slime'
 Plug 'jreybert/vimagit'
 " Plug 'junegunn/vim-github-dashboard', { 'on': ['GHDashboard', 'GHActivity'] }
@@ -37,7 +36,6 @@ Plug 'mileszs/ack.vim'
 Plug 'mitsuhiko/vim-sparkup', { 'on': ['SparkupExecute', 'SparkupNext'] }
 Plug 'moll/vim-bbye', { 'on': 'Bdelete' }
 Plug 'mtth/scratch.vim', { 'on': 'Scratch' }
-" Plug 'mxw/vim-jsx', { 'for': 'javascript' }
 Plug 'othree/html5.vim'
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'pearofducks/ansible-vim'
@@ -45,15 +43,12 @@ Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'preservim/tagbar', { 'on': 'TagbarToggle' }
 Plug 'preservim/vimux'
-" Plug 'saltstack/salt-vim', { 'for': 'sls' }
 " Plug 'scrooloose/syntastic'
-" Plug 'shime/vim-livedown', { 'for': 'markdown', 'do': 'npm install livedown' }
 Plug 'SirVer/ultisnips'
 " Plug 'sjl/AnsiEsc.vim'
 Plug 'sjl/clam.vim', { 'on': ['Clam', 'ClamVisual'] }
 Plug 'sjl/gundo.vim', { 'on': 'GundoToggle' }
 " Plug 'sjl/splice.vim', { 'on': 'SpliceInit' }
-" Plug 'smancill/conky-syntax.vim', { 'for': 'conkyrc' }
 " Plug 'stefandtw/quickfix-reflector.vim'
 Plug 'ternjs/tern_for_vim', { 'for': 'javascript', 'do': 'npm install' }
 Plug 'tpope/vim-commentary'
@@ -627,6 +622,10 @@ noremap <C-Down> :let &guifont=substitute(&guifont, '\d\+', '\=eval(submatch(0)-
 
 nnoremap gz :!zeal "<cword>"&<CR><CR>
 
+" Insert timestamp at the end of the line in this format: 20200527T113245
+" nnoremap <C-t><C-s> m'A<C-R>=strftime('%Y%m%dT%H%M%S')<CR>
+nnoremap <C-t><C-s> m'A<C-R>=strftime('%Y-%m-%d')<CR>
+
 " Easy filetype switching {{{
 
 nnoremap _rst :set ft=rst<CR>
@@ -1126,28 +1125,34 @@ runtime! ftplugin/man.vim
 " }}}
 " Markdown {{{
 
+" let g:tex_conceal = ""
+let g:vim_markdown_autowrite = 1
+let g:vim_markdown_conceal = 2
+" let g:vim_markdown_conceal_code_blocks = 0
+" let g:vim_markdown_edit_url_in = 'tab'
+let g:vim_markdown_follow_anchor = 1
+let g:vim_markdown_frontmatter = 1
+let g:vim_markdown_math = 1
 let g:vim_markdown_new_list_item_indent = 2
+let g:vim_markdown_no_extensions_in_markdown = 1
+let g:vim_markdown_strikethrough = 1
 let g:vim_markdown_toc_autofit = 1
-
-let g:livedown_browser = "chromium"
 
 augroup ft_markdown
     au!
 
     au BufRead,BufNewFile ~/ownCloud/Notes/*.txt setlocal filetype=markdown
-    " au BufNewFile,BufRead *.m*down setlocal filetype=markdown
-    " au BufNewFile,BufRead *.md setfiletype markdown
     " au BufNewFile,BufRead *.mkd setfiletype markdown
 
-    au FileType markdown setlocal foldlevel=1
+    au FileType markdown setlocal foldlevel=2
+
+    au Filetype markdown nnoremap <buffer> <localleader>g :Goyo<CR>
 
     " Use <localleader>1/2/3 to add headings.
     au Filetype markdown nnoremap <buffer> <localleader>1 yypVr=:redraw<cr>
     au Filetype markdown nnoremap <buffer> <localleader>2 yypVr-:redraw<cr>
     au Filetype markdown nnoremap <buffer> <localleader>3 mzI###<space><esc>`zllll
     au Filetype markdown nnoremap <buffer> <localleader>4 mzI####<space><esc>`zlllll
-
-    au Filetype markdown nnoremap <buffer> <localleader>v :LivedownToggle<CR>
 
 augroup END
 
@@ -1185,16 +1190,6 @@ augroup ft_nginx
     au FileType nginx setlocal noexpandtab
     au FileType nginx setlocal commentstring=#\ %s
 augroup END
-
-" }}}
-" OrgMode {{{
-
-" augroup ft_org
-"     au!
-
-"     au Filetype org nmap <buffer> Q vahjgq
-"     au Filetype org setlocal nolist
-" augroup END
 
 " }}}
 " Php {{{
@@ -1325,12 +1320,6 @@ augroup END
 "     au Filetype ruby setlocal foldmethod=syntax
 "     au BufRead,BufNewFile Capfile setlocal filetype=ruby
 " augroup END
-
-" }}}
-" Salt {{{
-
-" Force using the Jinja template syntax file
-let g:sls_use_jinja_syntax = 1
 
 " }}}
 " Shell {{{
@@ -1637,17 +1626,6 @@ let NERDChristmasTree = 1
 let NERDTreeChDirMode = 2
 let NERDTreeMapJumpFirstChild = 'gK'
 let NERDTreeShowBookmarks = 1
-
-" }}}
-" OrgMode {{{
-
-let g:org_heading_shade_leading_stars = 1
-" let g:org_plugins = ['ShowHide', '|', 'Navigator', 'EditStructure', '|', 'Todo', 'Date', 'Misc']
-
-let g:org_todo_keywords = ['TODO', '|', 'DONE']
-let g:org_agenda_files = ['~/org/*.org']
-
-" let g:org_debug = 1
 
 " }}}
 " Python-Mode {{{
