@@ -4,13 +4,16 @@
 [ -z "$PS1" ] && return
 
 # Source global definitions
-if [ -f /etc/bashrc ]; then
-    . /etc/bashrc
-fi
+[ -f /etc/bashrc ] && source /etc/bashrc
+[ -f /etc/bash.bashrc ] && source /etc/bash.bashrc
 
 # better completion
-if [ -f /etc/bash_completion ]; then
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
+  fi
 fi
 
 # completion for sudo
@@ -55,7 +58,8 @@ shopt -s checkwinsize
 
 # prompt
 #PS1="[\u@\h: \w]$ "
-PS1="\[\e[01;32m\]\u@\h\[\e[00m\]:\[\e[01;34m\][\w]\[\e[00m\]\$ "
+# PS1="\[\e[01;32m\]\u@\h\[\e[00m\]:\[\e[01;34m\][\w]\[\e[00m\]\$ "
+PS1="\[\e[01;32m\]\h\[\e[00m\]:\[\e[01;34m\]\w\[\e[00m\]\$ "
 
 # set variable identifying the chroot you work in (used in the prompt below)
 if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
@@ -64,7 +68,7 @@ fi
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
-    xterm-color) color_prompt=yes;;
+    xterm-color|*-256color) color_prompt=yes;;
 esac
 
 # Correction automatique des petites typos
@@ -78,7 +82,7 @@ shopt -s autocd
 #-------------------------------------
 
 EDITOR=vim
-VISUAL="gvim -f"
+#VISUAL="gvim -f"
 #ALTERNATE_EDITOR=emacs
 PAGER=less
 PATH=$PATH:$HOME/bin
@@ -93,65 +97,16 @@ export LESSHISTFILE="-"
 # Alias definitions.
 #-------------------------------------
 
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
-
-#if [ -f ~/.bash_aliases ]; then
-#    . ~/.bash_aliases
-#fi
-
-# enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ] || [ -x /bin/dircolors ]; then
-    eval "`dircolors -b`"
-    alias ls='ls --color=auto'
-    alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
-    alias grep='grep --color=auto'
-    #alias fgrep='fgrep --color=auto'
-    #alias egrep='egrep --color=auto'
-fi
-
-# Quelques options de ls :
-# -F: Avoir des / après les noms de dossiers > plus de couleur
-# -G: cacher les noms de groupe
-
-# Obtenir un listage de répertoire détaillé
-alias l='ls -Glh --group-directories-first'
-# idem avec tailles human
-alias ll='ls -lh --group-directories-first'
-# tri par date de modif
-alias lt='ll -tr'
-# Lister avec les fichiers cachés
-alias la='ls -la'
-# Remonter d'un dossier et ls
-alias u="cd .. && ls"
-
-# -p : conserve les dates, droits lors de la copie
-alias cp='cp -p'
-#alias mv='mv -v'
-#alias rm='rm -v'
-
 alias ..='cd ..'
-alias cd..='cd ..'
 alias ...='cd ../..'
 
-alias du='du -h --max-depth=1'
-alias dusort='du -x --block-size=1048576 | sort -nr'
-alias df='df -h'
-
-alias ht='urxvtc -name htop -title htop +sb -geometry 80x6 -e htop &'
-
-alias g=git
-alias v="vim"
-alias sv="sudo vim"
+if [ -f ~/.aliases ]; then
+    . ~/.aliases
+fi
 
 #-------------------------------------
 # Useful commands
 #-------------------------------------
-
-# simple webserver on port 8000
-alias webshare='python -m SimpleHTTPServer'
 
 # run multiple Firefox
 #export MOZ_NO_REMOTE=1
