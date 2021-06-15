@@ -21,8 +21,8 @@ pip install jupyterlab-git
 # Matplotlib
 pip install ipympl
 
-# jupyterlab_code_formatter
 pip install jupyterlab_code_formatter
+pip install jupyterlab_execute_time
 
 # bokeh
 jupyter labextension install jupyterlab_bokeh

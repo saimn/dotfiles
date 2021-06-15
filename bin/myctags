@@ -13,6 +13,7 @@ ctags -R \
     --exclude=C \
     --exclude=dotfiles \
     --exclude=galleries \
+    --exclude=InstallArea \
     --exclude=linuxfr \
     --exclude=Marz \
     --exclude=node_modules \
