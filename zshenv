@@ -50,7 +50,7 @@ SAVEHIST=50000  # The maximum number of events to save in the history file.
 # export PYTHONSTARTUP="$HOME/.pythonrc"
 
 # pyenv
-export PYENV_ROOT="$HOME/.pyenv"
+# export PYENV_ROOT="$HOME/.pyenv"
 # export PATH="$PYENV_ROOT/bin:$PATH"
 # eval "$(pyenv init --path)"
 
