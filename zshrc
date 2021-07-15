@@ -64,12 +64,11 @@ LOGCHECK=5
 
 [ -f $HOME/lib/dotfiles/zsh/locals.zsh ] && source $HOME/lib/dotfiles/zsh/locals.zsh
 
-# pyenv
-if command -v pyenv 1>/dev/null 2>&1; then
-    export PYENV_VIRTUALENV_DISABLE_PROMPT=1
-    eval "$(pyenv init -)"
-    eval "$(pyenv virtualenv-init -)"
-fi
+# # pyenv
+# if command -v pyenv 1>/dev/null 2>&1; then
+#     eval "$(pyenv init -)"
+#     eval "$(pyenv virtualenv-init -)"
+# fi
 
 # added by travis gem
 [ -f /home/simon/.travis/travis.sh ] && source /home/simon/.travis/travis.sh

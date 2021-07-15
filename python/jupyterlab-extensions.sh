@@ -23,6 +23,7 @@ pip install ipympl
 
 pip install jupyterlab_code_formatter
 pip install jupyterlab_execute_time
+pip install jupyter-resource-usage
 
 # bokeh
 jupyter labextension install jupyterlab_bokeh

@@ -31,6 +31,7 @@ zstyle ':prezto:load' pmodule \
   'directory' \
   'spectrum' \
   'utility' \
+  'python' \
   'completion' \
   'archive' \
   'git' \
@@ -191,3 +192,9 @@ zstyle ':prezto:module:terminal' auto-title 'yes'
 
 # Integrate with iTerm2.
 # zstyle ':prezto:module:tmux:iterm' integrate 'yes'
+
+#
+# Python
+#
+
+zstyle ':prezto:module:python' skip-virtualenvwrapper-init 'on'

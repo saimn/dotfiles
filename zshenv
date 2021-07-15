@@ -50,9 +50,13 @@ SAVEHIST=50000  # The maximum number of events to save in the history file.
 # export PYTHONSTARTUP="$HOME/.pythonrc"
 
 # pyenv
-# export PYENV_ROOT="$HOME/.pyenv"
+export PYENV_ROOT="$HOME/.pyenv"
+export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 # export PATH="$PYENV_ROOT/bin:$PATH"
-# eval "$(pyenv init --path)"
+
+# if command -v pyenv 1>/dev/null 2>&1; then
+#     eval "$(pyenv init --path zsh)"
+# fi
 
 if [[ -n $VIRTUAL_ENV && -e "${VIRTUAL_ENV}/bin/activate" ]]; then
   source "${VIRTUAL_ENV}/bin/activate"
