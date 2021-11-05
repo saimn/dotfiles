@@ -49,21 +49,15 @@ zstyle ':completion:*:descriptions' format '%B%d%b'
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path ~/.cache/zsh
 
-# prevent CVS files/directory completion
-# if [[ -x $(which cvs) ]]; then
-#   zstyle ':completion:*:(all-|)files' ignored-patterns '(|*/)CVS'
-#   zstyle ':completion:*:cd:*' ignored-patterns '(*/)#CVS'
-# fi
-
 zstyle ':completion:*' ignore-parents parent pwd
 
-zstyle ':completion:*:*:zless:*' file-patterns '*(-/):directories *.gz:all-files'
-zstyle ':completion:*:*:gqview:*' file-patterns '*(-/):directories :(#i)*.(png|jpeg|jpg):all-files'
-zstyle ':completion:*:*:lintian:*' file-patterns '*(-/):directories *.deb'
-zstyle ':completion:*:*:evince:*' file-patterns '*(-/):directories (#i)*.(pdf|ps)'
+# zstyle ':completion:*:*:zless:*' file-patterns '*(-/):directories *.gz:all-files'
+# zstyle ':completion:*:*:gqview:*' file-patterns '*(-/):directories :(#i)*.(png|jpeg|jpg):all-files'
+# zstyle ':completion:*:*:lintian:*' file-patterns '*(-/):directories *.deb'
+# zstyle ':completion:*:*:evince:*' file-patterns '*(-/):directories (#i)*.(pdf|ps)'
 
-zstyle ':completion:*:*:less:*' ignored-patterns '*.gz'
-zstyle ':completion:*:*:zcompile:*' ignored-patterns '(*~|*.zwc)'
+# zstyle ':completion:*:*:less:*' ignored-patterns '*.gz'
+# zstyle ':completion:*:*:zcompile:*' ignored-patterns '(*~|*.zwc)'
 
 # few simple completion definitions
 compdef _hosts mtr
@@ -73,14 +67,6 @@ compdef _gnu_generic sort
 # Some zstyle specific to vi/vim
 zstyle ':completion:*:*:vi*:*' file-sort modification
 zstyle ':completion:*:*:vi*:*' ignored-patterns '*.(o|class)'
-
-# Prevent aptitude-* to be complete, directly or via sudo
-zstyle ':completion:*:complete:-command-::commands' ignored-patterns 'aptitude-*'
-zstyle ':completion:*:*:sudo:*:commands' ignored-patterns 'aptitude-*'
-
-xdvi() { command xdvi ${*:-*.dvi(om[1])} }
-zstyle ':completion:*:*:xdvi:*' menu yes select
-zstyle ':completion:*:*:xdvi:*' file-sort time
 
 # ssh hosts
 # local _myhosts

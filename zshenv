@@ -129,7 +129,8 @@ export LESS='-F -g -i -M -R -S -w -X -z-4'
 
 # Set the Less input preprocessor.
 if (( $+commands[lesspipe.sh] )); then
-  export LESSOPEN='| /usr/bin/env lesspipe.sh %s 2>&-'
+  export LESSOPEN="|/usr/bin/lesspipe.sh %s"
+  export LESS_ADVANCED_PREPROCESSOR=1
 fi
 
 #
