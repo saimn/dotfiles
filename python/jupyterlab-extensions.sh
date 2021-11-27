@@ -4,7 +4,7 @@ pip install -r ./jupyter-requirements.txt
 
 jupyter labextension install @jupyter-widgets/jupyterlab-manager
 jupyter labextension install @jupyterlab/github
-jupyter labextension install @jupyterlab/shortcutui
+# jupyter labextension install @jupyterlab/shortcutui
 jupyter labextension install @jupyterlab/toc
 # jupyter labextension install jupyterlab_vim
 
