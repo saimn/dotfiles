@@ -113,7 +113,7 @@
 [push]
     default = upstream
 [pull]
-    rebase = preserve
+    rebase = merges
 [status]
     submoduleSummary = true
     showUntrackedFiles = all
