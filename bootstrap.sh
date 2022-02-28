@@ -6,7 +6,7 @@
 
 for i in "bashrc" "ctags" "gitconfig" "gitignore" "lessfilter" \
     "mailcap" "pdbrc" "screenrc" "tmux.conf" "vim" "xbindkeysrc" \
-    "Xresources" "Xmodmap" "xprofile" "gdbinit"
+    "Xresources" "Xmodmap" "xprofile" "gdbinit" "ipython" "jupyter"
 do
     [ -e $HOME/.$i ] && rm $HOME/.$i
     ln -s $HOME/lib/dotfiles/$i $HOME/.$i
@@ -17,8 +17,7 @@ mkdir -p $HOME/lib/dotfiles/vim/tmp/{backup,swap,undo}
 rm  $HOME/bin
 ln -s $HOME/lib/dotfiles/bin $HOME/bin
 
-for i in "awesome" "ranger" "zathura" "kitty" "compton.conf" \
-    "ipython" "jupyter"
+for i in "awesome" "ranger" "zathura" "kitty" "compton.conf"
 do
     [ -e $HOME/.config/$i ] && rm $HOME/.config/$i
     ln -s $HOME/lib/dotfiles/$i $HOME/.config/$i
