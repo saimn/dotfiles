@@ -15,9 +15,8 @@ ctags -R \
     --exclude=galleries \
     --exclude=InstallArea \
     --exclude=linuxfr \
-    --exclude=Marz \
     --exclude=node_modules \
-    --exclude=source-inspector-work \
+    --exclude=kstacker-old \
     --exclude=.tox \
     --exclude=viz \
     .

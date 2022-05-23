@@ -4,7 +4,7 @@
 #{{{ Dotfiles
 #git clone git@github.com:saimn/dotfiles.git ~/lib/dotfiles
 
-for i in "bashrc" "ctags" "gitconfig" "gitignore" "lessfilter" \
+for i in "aliases" "bashrc" "ctags" "gitconfig" "gitignore" "lessfilter" \
     "mailcap" "pdbrc" "screenrc" "tmux.conf" "vim" "xbindkeysrc" \
     "Xresources" "Xmodmap" "xprofile" "gdbinit" "ipython" "jupyter"
 do

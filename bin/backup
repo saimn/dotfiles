@@ -153,11 +153,11 @@ while true; do
       -h | --help)      print_help; exit 0;;
       -d | --dry-run)   DRYRUN="--dry-run"; shift ;;
       -b | --backup)    RSYNC_BACKUP=1; shift ;;
-      --wd)             DST="/run/media/simon/857344cd-6fa4-428c-a68b-08b211b2cedd"; shift ;;
-      --sg)             DST="/run/media/simon/d3946868-9424-459b-8288-e572975c62e4"; shift ;;
-      --wd25)           DST="/run/media/simon/SIMON"; shift ;;
-      --backup2)        DST="/run/media/simon/BACKUP2"; shift ;;
-      --diskcral)       DST="/run/media/simon/backupdisk"; shift ;;
+      --wd)             DST="/run/media/$USER/857344cd-6fa4-428c-a68b-08b211b2cedd"; shift ;;
+      --sg)             DST="/run/media/$USER/d3946868-9424-459b-8288-e572975c62e4"; shift ;;
+      --wd25)           DST="/run/media/$USER/SIMON"; shift ;;
+      --backup2)        DST="/run/media/$USER/BACKUP2"; shift ;;
+      --diskcral)       DST="/run/media/$USER/backupdisk"; shift ;;
       --music)          backup_music; exit 0 ;;
       --mail)           backup_mail; exit 0 ;;
       --home)           backup_home; exit 0 ;;

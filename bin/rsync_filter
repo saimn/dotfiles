@@ -10,6 +10,7 @@
 - .tox
 
 - .adobe/
+- .aesara/
 - .atom/
 - .android/
 - .ansible/
@@ -29,6 +30,7 @@
 - .dbus/
 - .dropbox/
 - .dropbox-dist/
+- .Element/
 - *.egg-info/
 - .fzf/
 - .geminidr/
@@ -36,19 +38,24 @@
 - .ipynb_checkpoints/
 - .ipython/
 - .jupyter/
+- .keras/
+- .libreoffice/
 - .local/
 - .macromedia/
 - .module-cache/
 - .mozilla
 - .mu/
+- .Nextcloud/
 - .nixnote/
 - .npm/
+- .pki/
 - .pyenv/
 - __pycache__/
 - .thumbnails/
 - .thunderbird/
 - .tor-browser/
 - .texlive/
+- .theano/
 - .tox/
 - .Trash/
 - .Trash-1000/
@@ -59,6 +66,7 @@
 - .x2go/
 - .yarn/
 - .zcompcache/
+- .zoom/
 - .zprezto/
 
 - __pycache__/
@@ -66,6 +74,7 @@
 - .Trash*/
 - cache*/
 - Cache*/
+- Code Cache*/
 - trash/
 - Trash/
 
@@ -74,8 +83,11 @@
 - VirtualBox*/
 - VirtualMachines/
 
+- _build/
+- build/
 - builds/
 - data/
+- fidle-datasets/
 - lib/dotfiles/vim/plugged/
 - lib/prezto/
 - lib/virtualenvs/

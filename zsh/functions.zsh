@@ -17,6 +17,8 @@ function meteo() { curl "http://wttr.in/$1?lang=fr" }
 
 function sssh (){ TERM=xterm-256color ssh -t "$1" 'tmux attach || tmux new || screen -DR'; }
 
+function cheat (){ curl cheat.sh/$1 }
+
 autoload -U zcalc
 function calc(){ awk "BEGIN{ print $* }" ;}
 
