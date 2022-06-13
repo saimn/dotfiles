@@ -28,6 +28,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'junegunn/goyo.vim'
 " Plug 'lervag/vimtex', { 'for': 'tex' }
 Plug 'maralla/completor.vim'
+Plug 'mbbill/undotree'
 Plug 'mg979/vim-visual-multi'
 " Plug 'mhinz/vim-signify'
 Plug 'mhinz/vim-startify'
@@ -47,7 +48,6 @@ Plug 'preservim/vimux'
 Plug 'SirVer/ultisnips'
 " Plug 'sjl/AnsiEsc.vim'
 Plug 'sjl/clam.vim', { 'on': ['Clam', 'ClamVisual'] }
-Plug 'sjl/gundo.vim', { 'on': 'GundoToggle' }
 " Plug 'sjl/splice.vim', { 'on': 'SpliceInit' }
 " Plug 'stefandtw/quickfix-reflector.vim'
 Plug 'ternjs/tern_for_vim', { 'for': 'javascript', 'do': 'npm install' }
@@ -1572,16 +1572,6 @@ highlight GitGutterDelete guifg=#cc6666 ctermfg=167
 highlight GitGutterChange guifg=#d7d7ff ctermfg=189
 
 " }}}
-" Gundo {{{
-
-nnoremap <F5> :GundoToggle<CR>
-
-" let g:gundo_debug = 1
-let g:gundo_preview_bottom = 1
-let g:gundo_tree_statusline = "Gundo"
-let g:gundo_preview_statusline = "Gundo Preview"
-
-" }}}
 " HTML5 {{{
 
 let g:event_handler_attributes_complete = 0
@@ -1913,6 +1903,11 @@ let g:UltiSnipsExpandTrigger="<c-j>"
 " let g:UltiSnipsListSnippets="<c-s-tab>"
 " let g:UltiSnipsJumpForwardTrigger="<c-j>"
 " let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+
+" }}}
+" Undotree {{{
+
+nnoremap <F5> :UndotreeToggle<CR>
 
 " }}}
 " Viewdoc {{{
