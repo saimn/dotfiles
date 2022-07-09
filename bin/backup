@@ -156,6 +156,7 @@ while true; do
       --wd)             DST="/run/media/$USER/857344cd-6fa4-428c-a68b-08b211b2cedd"; shift ;;
       --sg)             DST="/run/media/$USER/d3946868-9424-459b-8288-e572975c62e4"; shift ;;
       --wd25)           DST="/run/media/$USER/SIMON"; shift ;;
+      --backup1)        DST="/run/media/$USER/BACKUP"; shift ;;
       --backup2)        DST="/run/media/$USER/BACKUP2"; shift ;;
       --diskcral)       DST="/run/media/$USER/backupdisk"; shift ;;
       --music)          backup_music; exit 0 ;;
