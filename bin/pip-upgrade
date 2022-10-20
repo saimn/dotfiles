@@ -15,7 +15,9 @@ args = sys.argv[1:]
 try:
     out = subprocess.run(['pip', 'list', '-o', '--exclude-editable',
                           '--format', 'json'], capture_output=True)
-    data = json.loads(out.stdout.decode('utf8'))
+    out = out.stdout.decode('utf8')
+    out = out.splitlines()[0]
+    data = json.loads(out)
 
     maxp = max(len(d['name']) for d in data)
     maxp = max(7, maxp)
