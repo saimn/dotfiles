@@ -25,8 +25,9 @@ sphinx-automodapi
 sphinx_rtd_theme
 
 # misc
-beautifulsoup4
-lxml
+# beautifulsoup4
+# lxml
+ipdb
 pdbpp
 pyyaml
 requests
@@ -34,13 +35,14 @@ twine
 # gorun
 
 # science
+h5py
 joblib
 #lmfit
-numexpr
+# numexpr
 numpy
 numpydoc
 pandas
 pillow
-scikit-image
+# scikit-image
 scikit-learn
 scipy

@@ -26,4 +26,4 @@ pip install jupyterlab_execute_time
 pip install jupyter-resource-usage
 
 # bokeh
-jupyter labextension install jupyterlab_bokeh
+# jupyter labextension install jupyterlab_bokeh
