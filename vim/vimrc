@@ -6,58 +6,59 @@
 
 call plug#begin('~/.vim/plugged')
 
-" Plug 'AndrewRadev/linediff.vim', { 'on': ['Linediff', 'LinediffReset'] }
-Plug 'ap/vim-css-color'
-Plug 'cespare/vim-toml'
 Plug 'ciaranm/securemodelines'
 Plug 'derekwyatt/vim-fswitch'
-" Plug 'exu/pgsql.vim', { 'for': 'pgsql' }
-" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-" Plug 'freitass/todo.txt-vim'
-Plug 'Glench/Vim-Jinja2-Syntax', { 'for': ['jinja', 'html', 'sls'] }
 Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
 Plug 'gregsexton/MatchTag', { 'for': ['html', 'xml'] }
 Plug 'honza/vim-snippets'
 " Plug 'jpalardy/vim-slime'
-Plug 'jreybert/vimagit'
-" Plug 'junegunn/vim-github-dashboard', { 'on': ['GHDashboard', 'GHActivity'] }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/goyo.vim'
-" Plug 'lervag/vimtex', { 'for': 'tex' }
 Plug 'mbbill/undotree'
 Plug 'mg979/vim-visual-multi'
-" Plug 'mhinz/vim-signify'
 Plug 'mhinz/vim-startify'
 " Plug 'michaeljsmith/vim-indent-object'
 Plug 'mileszs/ack.vim'
 Plug 'moll/vim-bbye', { 'on': 'Bdelete' }
 Plug 'mtth/scratch.vim', { 'on': 'Scratch' }
-Plug 'othree/html5.vim'
-Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
-Plug 'pearofducks/ansible-vim'
-Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'preservim/tagbar', { 'on': 'TagbarToggle' }
-Plug 'preservim/vimux'
 " Plug 'SirVer/ultisnips'
-" Plug 'sjl/AnsiEsc.vim'
-Plug 'sjl/clam.vim', { 'on': ['Clam', 'ClamVisual'] }
+" Plug 'sjl/clam.vim', { 'on': ['Clam', 'ClamVisual'] }
 " Plug 'stefandtw/quickfix-reflector.vim'
-" Plug 'ternjs/tern_for_vim', { 'for': 'javascript', 'do': 'npm install' }
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-dispatch'
-Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-rhubarb'
-" Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-surround'
-Plug 'vim-scripts/Conflict2Diff', { 'on': 'Conflict2Diff' }
-Plug 'vim-scripts/DirDiff.vim', { 'on': 'DirDiff' }
 Plug 'vim-scripts/YankRing.vim', { 'on': 'YRShow' }
 
 " CoC
  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+" Diff
+" Plug 'AndrewRadev/linediff.vim', { 'on': ['Linediff', 'LinediffReset'] }
+" Plug 'vim-scripts/Conflict2Diff', { 'on': 'Conflict2Diff' }
+Plug 'vim-scripts/DirDiff.vim', { 'on': 'DirDiff' }
+
+" File types
+Plug 'ap/vim-css-color'
+Plug 'cespare/vim-toml'
+" Plug 'exu/pgsql.vim', { 'for': 'pgsql' }
+" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'Glench/Vim-Jinja2-Syntax', { 'for': ['jinja', 'html', 'sls'] }
+" Plug 'lervag/vimtex', { 'for': 'tex' }
+Plug 'othree/html5.vim'
+Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+Plug 'pearofducks/ansible-vim'
+Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
+" Plug 'ternjs/tern_for_vim', { 'for': 'javascript', 'do': 'npm install' }
+
+" Git
+" Plug 'jreybert/vimagit'
+" Plug 'junegunn/vim-github-dashboard', { 'on': ['GHDashboard', 'GHActivity'] }
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
 
 " Python
 " Plug '5long/pytest-vim-compiler'
@@ -82,6 +83,7 @@ Plug 'itchyny/lightline.vim'
 " Tmux
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'edkolev/tmuxline.vim', { 'on': ['Tmuxline', 'TmuxlineSnapshot'] }
+Plug 'preservim/vimux'
 Plug 'tmux-plugins/vim-tmux-focus-events'
 
 " colorschemes
@@ -94,6 +96,7 @@ Plug 'sjl/badwolf'
 " Plug 'sonph/onehalf', { 'rtp': 'vim' }
 " Plug 'w0ng/vim-hybrid'
 
+" Local
 " Plug '~/.vim/bundle/camptocamp', { 'for': 'camptocamp' }
 " Plug '~/.vim/bundle/closetags-custom'
 " Plug '~/.vim/bundle/django-custom', { 'for': ['django', 'htmldjango'] }
@@ -407,11 +410,11 @@ match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 " }}}
 " Abbreviations ----------------------------------------------------------- {{{
 
-iabbrev qd quand
-iabbrev qq quelque
-iabbrev qqs quelques
-iabbrev gh/ http://github.com/
-iabbrev ssig -- <cr>Simon
+" iabbrev qd quand
+" iabbrev qq quelque
+" iabbrev qqs quelques
+" iabbrev gh/ http://github.com/
+" iabbrev ssig -- <cr>Simon
 
 " }}}
 " Convenience mappings ---------------------------------------------------- {{{
@@ -1427,10 +1430,10 @@ nnoremap <Leader>q :Bdelete<CR>
 " }}}
 " Clam {{{
 
-nnoremap ! :Clam<space>
-vnoremap ! :ClamVisual<space>
-let g:clam_autoreturn = 1
-" let g:clam_debug = 1
+" nnoremap ! :Clam<space>
+" vnoremap ! :ClamVisual<space>
+" let g:clam_autoreturn = 1
+" " let g:clam_debug = 1
 
 " }}}
 " Coc {{{
@@ -1532,7 +1535,7 @@ nnoremap <leader>gci :Gcommit --verbose<cr>
 nnoremap <leader>gca :Gcommit --all --verbose<cr>
 " nnoremap <leader>gm :Gmove<cr>
 " nnoremap <leader>gr :Gremove<cr>
-nnoremap <leader>gl :Clam git hist<cr>:wincmd \|<cr>
+" nnoremap <leader>gl :Clam git hist<cr>:wincmd \|<cr>
 
 " Hub
 nnoremap <leader>gh :Gbrowse<cr>
@@ -1600,13 +1603,13 @@ let g:atia_attributes_complete = 0
 " }}}
 " Linediff {{{
 
-vnoremap <leader>l :Linediff<cr>
-nnoremap <leader>L :LinediffReset<cr>
+" vnoremap <leader>l :Linediff<cr>
+" nnoremap <leader>L :LinediffReset<cr>
 
 " }}}
 " Magit {{{
 
-nnoremap <leader>gm :Magit<cr>
+" nnoremap <leader>gm :Magit<cr>
 
 " }}}
 " NERD Tree {{{
@@ -1697,11 +1700,11 @@ let g:secure_modelines_allowed_items = [
 " }}}
 " Slime {{{
 
-" let g:slime_target = "tmux"
-let g:slime_target = "vimterminal"
-let g:slime_vimterminal_config = {"vertical":1}
-" use %cpaste magic for error-free pasting
-let g:slime_python_ipython = 1
+" " let g:slime_target = "tmux"
+" let g:slime_target = "vimterminal"
+" let g:slime_vimterminal_config = {"vertical":1}
+" " use %cpaste magic for error-free pasting
+" let g:slime_python_ipython = 1
 
 " }}}
 " Startify {{{
@@ -1907,18 +1910,6 @@ function! YRRunAfterMaps()
 endfunction
 
 nnoremap <silent> <F11> :YRShow<CR>
-
-" }}}
-
-" }}}
-" Text objects ------------------------------------------------------------ {{{
-
-" Shortcut for [] {{{
-
-" onoremap ir i[
-" onoremap ar a[
-" vnoremap ir i[
-" vnoremap ar a[
 
 " }}}
 
