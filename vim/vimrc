@@ -31,7 +31,6 @@ Plug 'mg979/vim-visual-multi'
 Plug 'mhinz/vim-startify'
 " Plug 'michaeljsmith/vim-indent-object'
 Plug 'mileszs/ack.vim'
-" Plug 'mitsuhiko/vim-sparkup', { 'on': ['SparkupExecute', 'SparkupNext'] }
 Plug 'moll/vim-bbye', { 'on': 'Bdelete' }
 Plug 'mtth/scratch.vim', { 'on': 'Scratch' }
 Plug 'othree/html5.vim'
@@ -44,7 +43,6 @@ Plug 'preservim/vimux'
 " Plug 'SirVer/ultisnips'
 " Plug 'sjl/AnsiEsc.vim'
 Plug 'sjl/clam.vim', { 'on': ['Clam', 'ClamVisual'] }
-" Plug 'sjl/splice.vim', { 'on': 'SpliceInit' }
 " Plug 'stefandtw/quickfix-reflector.vim'
 " Plug 'ternjs/tern_for_vim', { 'for': 'javascript', 'do': 'npm install' }
 Plug 'tpope/vim-commentary'
@@ -655,12 +653,10 @@ inoremap <c-k> <c-x><c-k>
 nnoremap <leader>ec :vsplit ~/.vim/doc/cheatsheet.txt<cr>
 nnoremap <leader>ed :vsplit ~/.vim/custom-dictionary.utf-8.add<cr>
 nnoremap <leader>eg :vsplit ~/.gitconfig<cr>
-nnoremap <leader>eh :vsplit ~/.hgrc<cr>
 nnoremap <leader>em :vsplit ~/.mutt/muttrc<cr>
 " nnoremap <leader>eo :vsplit ~/org<cr>4j
-nnoremap <leader>ep :vsplit ~/.pentadactylrc<cr>
 nnoremap <leader>er :vsplit ~/lib/dotfiles/README<cr>
-nnoremap <leader>et :vsplit ~/ownCloud/todo/todo.txt<cr>
+" nnoremap <leader>et :vsplit ~/ownCloud/todo/todo.txt<cr>
 nnoremap <leader>ev :vsplit ~/.vim/vimrc<cr>
 nnoremap <leader>ez :vsplit ~/lib/dotfiles/zsh<cr>4j
 
@@ -1154,15 +1150,6 @@ augroup ft_markdown
 augroup END
 
 " }}}
-" Mercurial {{{
-
-augroup ft_mercurial
-    au!
-
-    au BufNewFile,BufRead *hg-editor-*.txt setlocal filetype=hgcommit
-augroup END
-
-" }}}
 " Mutt {{{
 
 augroup ft_muttrc
@@ -1252,7 +1239,7 @@ augroup ft_python
     au FileType python setlocal define=^\s*\\(def\\\\|class\\)
     au FileType man nnoremap <buffer> <cr> :q<cr>
 
-    au FileType python compiler pytest
+    " au FileType python compiler pytest
     " au FileType python let b:dispatch = 'py.test'
 
     " Jesus tapdancing Christ, built-in Python syntax, you couldn't let me
@@ -1308,15 +1295,6 @@ augroup ft_rest
     au Filetype rst nnoremap <buffer> <localleader>3 yypVr~:redraw<cr>
     au Filetype rst nnoremap <buffer> <localleader>4 yypVr`:redraw<cr>
 augroup END
-
-" }}}
-" Ruby {{{
-
-" augroup ft_ruby
-"     au!
-"     au Filetype ruby setlocal foldmethod=syntax
-"     au BufRead,BufNewFile Capfile setlocal filetype=ruby
-" augroup END
 
 " }}}
 " Shell {{{
@@ -1717,43 +1695,6 @@ let g:secure_modelines_allowed_items = [
             \ ]
 
 " }}}
-" Sparkup {{{
-
-augroup ft_sparkup
-    au!
-    au FileType xml,html,jinja.html,htmldjango imap <buffer> <c-e> <Plug>SparkupExecute
-    au FileType xml,html,jinja.html,htmldjango imap <buffer> <c-l> <Plug>SparkupNext
-augroup END
-
-" let g:sparkupNextMapping = '<c-s>'
-
-"}}}
-" " Syntastic {{{
-
-" let g:syntastic_aggregate_errors = 1
-" let g:syntastic_always_populate_loc_list = 1
-" let g:syntastic_check_on_open = 1
-
-" let g:syntastic_enable_signs = 1
-" let g:syntastic_error_symbol = '✗'
-" let g:syntastic_warning_symbol = '⚠'
-
-" " let g:syntastic_java_checker = 'javac'
-" let g:syntastic_mode_map = {
-"             \ "mode": "active",
-"             \ "active_filetypes": [],
-"             \ "passive_filetypes": ['java', 'html', 'rst', 'scala']
-"             \ }
-" let g:syntastic_stl_format = '[%E{%e Errors}%B{, }%W{%w Warnings}]'
-" let g:syntastic_jsl_conf = '$HOME/.vim/jsl.conf'
-
-" " let g:syntastic_python_flake8_quiet_messages
-" " let g:syntastic_python_python_exec = 'python2'
-" " let g:syntastic_python_flake8_exec = 'flake8-python2'
-
-" " nnoremap <leader>C :SyntasticCheck<cr>
-
-" " }}}
 " Slime {{{
 
 " let g:slime_target = "tmux"
@@ -1761,30 +1702,6 @@ let g:slime_target = "vimterminal"
 let g:slime_vimterminal_config = {"vertical":1}
 " use %cpaste magic for error-free pasting
 let g:slime_python_ipython = 1
-
-" }}}
-" Splice {{{
-
-" let g:splice_prefix = "-"
-
-" let g:splice_initial_mode = "grid"
-
-" let g:splice_initial_layout_grid = 0
-" let g:splice_initial_layout_loupe = 0
-" let g:splice_initial_layout_compare = 0
-" let g:splice_initial_layout_path = 0
-
-" let g:splice_initial_diff_grid = 1
-" let g:splice_initial_diff_loupe = 0
-" let g:splice_initial_diff_compare = 1
-" let g:splice_initial_diff_path = 0
-
-" let g:splice_initial_scrollbind_grid = 0
-" let g:splice_initial_scrollbind_loupe = 0
-" let g:splice_initial_scrollbind_compare = 0
-" let g:splice_initial_scrollbind_path = 0
-
-" let g:splice_wrap = "nowrap"
 
 " }}}
 " Startify {{{
@@ -1801,17 +1718,6 @@ let g:startify_bookmarks = [
 
 " }}}
 " Status Line {{{
-
-" let g:airline_powerline_fonts = 0
-" " let g:airline_section_z = airline#section#create_right(['%2p%% %3l:%1c'])
-
-" let g:airline#extensions#branch#enabled = 1
-" let g:airline#extensions#ale#enabled = 1
-" let g:airline#extensions#tabline#enabled = 1
-" let g:airline#extensions#tagbar#enabled = 0
-" let g:airline#extensions#tmuxline#enabled = 0
-" let g:airline#extensions#virtualenv#enabled = 1
-" let g:airline#extensions#whitespace#enabled = 0
 
 " let g:lightline.colorscheme = 'default'
 " let g:lightline.separator = { 'left': '', 'right': '' }
