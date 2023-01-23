@@ -10,7 +10,13 @@
 #
 
 # modify fpath before call compinit
-fpath=( "$HOME/lib/dotfiles/zsh" "$HOME/lib/dotfiles/zsh/completion" $fpath )
+fpath=(
+    # "/usr/share/zsh/$ZSH_VERSION/functions"
+    # "/usr/share/zsh/site-functions"
+    "$HOME/lib/dotfiles/zsh"
+    "$HOME/lib/dotfiles/zsh/completion"
+    $fpath
+)
 
 # Source Prezto.
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
@@ -48,9 +54,18 @@ if command -v pyenv 1>/dev/null 2>&1; then
     PS1="\$(__pyenv_version_ps1)${PS1}"
 fi
 
+if [ -n "$TMUX" ]; then
+  function refresh {
+    eval $(tmux show-env -s | grep '^SSH_')
+    eval $(tmux show-env -s | grep '^DISPLAY')
+  }
+else
+  function refresh { :; }
+fi
+
 # Watch new users
-watch=(all)
-LOGCHECK=5
+# watch=(all)
+# LOGCHECK=5
 
 [ -f $HOME/lib/dotfiles/zsh/locals.zsh ] && source $HOME/lib/dotfiles/zsh/locals.zsh
 
