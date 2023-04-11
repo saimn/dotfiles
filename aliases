@@ -91,6 +91,7 @@ alias gpull='git pull'
 alias gpush='git push'
 alias gr='git rebase'
 alias gst='git status -sb'
+alias rgit='function _rgit(){ find . -type d -name .git -printf "\n%p\n" -execdir git "$@" \;; }; _rgit'
 
 # kitty
 alias icat="kitty +kitten icat"
