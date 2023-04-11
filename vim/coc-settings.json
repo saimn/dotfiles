@@ -1,3 +1,4 @@
+// vim: filetype=jsonc
 {
   "coc.preferences.extensionUpdateCheck": "weekly",
   "git.addedSign.hlGroup": "GitGutterAdd",
@@ -13,4 +14,6 @@
   "pyright.inlayHints.functionReturnTypes": false,
   "pyright.inlayHints.variableTypes": false,
   "pyright.testing.provider": "pytest",
+  "suggest.noselect": true,
+  // "suggest.enablePreselect": false,
 }

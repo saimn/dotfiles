@@ -51,7 +51,7 @@ Plug 'Glench/Vim-Jinja2-Syntax', { 'for': ['jinja', 'html', 'sls'] }
 Plug 'othree/html5.vim'
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'pearofducks/ansible-vim'
-Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
+Plug 'preservim/vim-markdown', { 'for': 'markdown' }
 " Plug 'ternjs/tern_for_vim', { 'for': 'javascript', 'do': 'npm install' }
 
 " Git
@@ -228,15 +228,13 @@ augroup END
 " }}}
 " Trailing whitespace {{{
 
-" augroup trailing
-"     au!
-
-"     " Only shown when not in insert mode so I don't go insane.
-"     " au InsertEnter * :set listchars-=trail:⌴
-
-"     " Remove trailing whitespace
-"     autocmd BufWritePre * :%s/\s\+$//e
-" augroup END
+augroup trailing
+    au!
+    " Only shown when not in insert mode so I don't go insane.
+    " au InsertEnter * :set listchars-=trail:⌴
+    " Remove trailing whitespace
+    autocmd BufWritePre * :%s/\s\+$//e
+augroup END
 
 " }}}
 " Wildmenu completion {{{
@@ -1072,6 +1070,14 @@ augroup END
 " augroup END
 
 " }}}
+" Jenkins {{{
+
+augroup ft_jenkins
+    au!
+    autocmd BufRead,BufNewFile Jenkinsfile set filetype=groovy
+augroup END
+
+" }}}
 " Javascript {{{
 
 " " let g:tern_show_argument_hints = 'on_hold'
@@ -1126,6 +1132,7 @@ let g:vim_markdown_autowrite = 1
 let g:vim_markdown_conceal = 2
 " let g:vim_markdown_conceal_code_blocks = 0
 " let g:vim_markdown_edit_url_in = 'tab'
+let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_follow_anchor = 1
 let g:vim_markdown_frontmatter = 1
 let g:vim_markdown_math = 1
@@ -1245,29 +1252,26 @@ augroup ft_python
     " au FileType python compiler pytest
     " au FileType python let b:dispatch = 'py.test'
 
-    " Jesus tapdancing Christ, built-in Python syntax, you couldn't let me
-    " override this in a normal way, could you?
-    " au FileType python if exists("python_space_error_highlight") | unlet python_space_error_highlight | endif
-
     au FileType python inoremap <buffer> <c-d> """"""<left><left><left>
     au FileType python inoremap <buffer> <c-b> breakpoint()
     " au FileType python iabbrev <buffer> afo assert False, "Okay"
 
     " Autopep8
-    let g:autopep8_select="E1,E2,E3,E4,W2,W3"
-    au FileType python map <buffer> <localleader>p :call Autopep8()<CR>
+    " let g:autopep8_select="E1,E2,E3,E4,W2,W3"
+    " au FileType python map <buffer> <localleader>p :call Autopep8()<CR>
 
     " au FileType python map <buffer> <localleader>y :0,$!yapf<CR>
     " au FileType python nnoremap <leader>y :0,$!yapf<Cr>
 
     " Defer to isort for sorting Python imports (instead of using Unix sort)
     " au filetype python nmap <buffer> <localleader>i :ALEFix isort<CR>
-    au filetype python nmap <buffer> <localleader>y :ALEFix yapf<CR>
-    au filetype python nmap <buffer> <localleader>b :ALEFix black<CR>
+    " au filetype python nmap <buffer> <localleader>y :ALEFix yapf<CR>
+    " au filetype python nmap <buffer> <localleader>b :ALEFix black<CR>
 
-    if executable('isort')
-        autocmd filetype python nnoremap <localleader>i mX:%! isort -<cr>`X
-    endif
+    " if executable('isort')
+    "     autocmd filetype python nnoremap <localleader>i mX:%! isort -<cr>`X
+    " endif
+    autocmd filetype python nnoremap <localleader>i :CocCommand python.sortImports<cr>
 
     " if executable('autoflake')
     "     autocmd filetype python nnoremap <localleader>i mX:%! autoflake -<cr>`X
@@ -1354,7 +1358,7 @@ augroup ft_vim
     autocmd filetype vim noremap! <buffer> <F1> <Esc>:help <C-r><C-w><CR>
 
     " Reload vimrc to apply changes
-    autocmd! BufWritePost vimrc source %
+    " autocmd! BufWritePost vimrc source %
 augroup END
 
 " }}}
@@ -1484,8 +1488,13 @@ endfunction
 nmap <leader>rn <Plug>(coc-rename)
 
 " Formatting selected code.
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
+vmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format)
+
+" command! -nargs=0 Format :call CocActionAsync('format')
+" command! -nargs=0 SortImport :call CocAction('organizeImport')
+
+
 
 " }}}
 " Commentary {{{
