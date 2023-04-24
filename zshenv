@@ -12,7 +12,7 @@
 
 #export TERM='rxvt-256color'
 # for tmux: export 256color
-[ -n "$TMUX" ] && export TERM=screen-256color
+# [ -n "$TMUX" ] && export TERM=screen-256color
 
 # FZF conf
 export FZF_DEFAULT_COMMAND='ag -g "" --hidden --ignore-case'
