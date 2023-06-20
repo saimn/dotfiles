@@ -6,72 +6,69 @@
 
 call plug#begin('~/.vim/plugged')
 
-" Plug 'AndrewRadev/linediff.vim', { 'on': ['Linediff', 'LinediffReset'] }
-Plug 'airblade/vim-gitgutter'
-Plug 'ap/vim-css-color'
-Plug 'cespare/vim-toml'
 Plug 'ciaranm/securemodelines'
-Plug 'dense-analysis/ale'
 Plug 'derekwyatt/vim-fswitch'
-" Plug 'exu/pgsql.vim', { 'for': 'pgsql' }
-" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-" Plug 'freitass/todo.txt-vim'
-Plug 'Glench/Vim-Jinja2-Syntax', { 'for': ['jinja', 'html', 'sls'] }
 Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
 Plug 'gregsexton/MatchTag', { 'for': ['html', 'xml'] }
 Plug 'honza/vim-snippets'
 " Plug 'jpalardy/vim-slime'
-Plug 'jreybert/vimagit'
-" Plug 'junegunn/vim-github-dashboard', { 'on': ['GHDashboard', 'GHActivity'] }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/goyo.vim'
-" Plug 'lervag/vimtex', { 'for': 'tex' }
-Plug 'maralla/completor.vim'
 Plug 'mbbill/undotree'
 Plug 'mg979/vim-visual-multi'
-" Plug 'mhinz/vim-signify'
 Plug 'mhinz/vim-startify'
 " Plug 'michaeljsmith/vim-indent-object'
 Plug 'mileszs/ack.vim'
-Plug 'mitsuhiko/vim-sparkup', { 'on': ['SparkupExecute', 'SparkupNext'] }
 Plug 'moll/vim-bbye', { 'on': 'Bdelete' }
 Plug 'mtth/scratch.vim', { 'on': 'Scratch' }
+Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'preservim/tagbar', { 'on': 'TagbarToggle' }
+" Plug 'SirVer/ultisnips'
+" Plug 'sjl/clam.vim', { 'on': ['Clam', 'ClamVisual'] }
+" Plug 'stefandtw/quickfix-reflector.vim'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'vim-scripts/YankRing.vim', { 'on': 'YRShow' }
+
+" CoC
+ Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+" Diff
+" Plug 'AndrewRadev/linediff.vim', { 'on': ['Linediff', 'LinediffReset'] }
+" Plug 'vim-scripts/Conflict2Diff', { 'on': 'Conflict2Diff' }
+Plug 'vim-scripts/DirDiff.vim', { 'on': 'DirDiff' }
+
+" File types
+Plug 'ap/vim-css-color'
+Plug 'cespare/vim-toml'
+" Plug 'exu/pgsql.vim', { 'for': 'pgsql' }
+" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'Glench/Vim-Jinja2-Syntax', { 'for': ['jinja', 'html', 'sls'] }
+" Plug 'lervag/vimtex', { 'for': 'tex' }
 Plug 'othree/html5.vim'
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'pearofducks/ansible-vim'
-Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
-Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
-Plug 'preservim/tagbar', { 'on': 'TagbarToggle' }
-Plug 'preservim/vimux'
-" Plug 'scrooloose/syntastic'
-Plug 'SirVer/ultisnips'
-" Plug 'sjl/AnsiEsc.vim'
-Plug 'sjl/clam.vim', { 'on': ['Clam', 'ClamVisual'] }
-" Plug 'sjl/splice.vim', { 'on': 'SpliceInit' }
-" Plug 'stefandtw/quickfix-reflector.vim'
-Plug 'ternjs/tern_for_vim', { 'for': 'javascript', 'do': 'npm install' }
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-dispatch'
+Plug 'preservim/vim-markdown', { 'for': 'markdown' }
+" Plug 'ternjs/tern_for_vim', { 'for': 'javascript', 'do': 'npm install' }
+
+" Git
+" Plug 'jreybert/vimagit'
+" Plug 'junegunn/vim-github-dashboard', { 'on': ['GHDashboard', 'GHActivity'] }
 Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-rhubarb'
-" Plug 'tpope/vim-speeddating'
-Plug 'tpope/vim-surround'
-" Plug 'Valloric/YouCompleteMe', { 'do': '/usr/bin/python install.py --clang-completer --js-completer --system-libclang' }
-Plug 'vim-scripts/Conflict2Diff', { 'on': 'Conflict2Diff' }
-Plug 'vim-scripts/DirDiff.vim', { 'on': 'DirDiff' }
-Plug 'vim-scripts/YankRing.vim', { 'on': 'YRShow' }
 
 " Python
-Plug '5long/pytest-vim-compiler'
-Plug 'alfredodeza/pytest.vim'
-Plug 'davidhalter/jedi-vim'
+" Plug '5long/pytest-vim-compiler'
+" Plug 'alfredodeza/pytest.vim'
+" Plug 'davidhalter/jedi-vim'
 " Plug 'fs111/pydoc.vim'
 " Plug 'ivanov/vim-ipython'
 " Plug 'python-mode/python-mode', { 'for': 'python' }
 Plug 'stsewd/sphinx.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'tell-k/vim-autopep8', { 'for': 'python' }
+" Plug 'tell-k/vim-autopep8', { 'for': 'python' }
 Plug 'tmhedberg/SimpylFold'
 Plug 'tshirtman/vim-cython'
 Plug 'Vimjas/vim-python-pep8-indent'
@@ -80,13 +77,13 @@ Plug 'vim-python/python-syntax'
 " statusline / tabline
 Plug 'ap/vim-buftabline'
 Plug 'itchyny/lightline.vim'
-Plug 'maximbaz/lightline-ale'
 " Plug 'vim-airline/vim-airline'
 " Plug 'vim-airline/vim-airline-themes'
 
 " Tmux
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'edkolev/tmuxline.vim', { 'on': ['Tmuxline', 'TmuxlineSnapshot'] }
+Plug 'preservim/vimux'
 Plug 'tmux-plugins/vim-tmux-focus-events'
 
 " colorschemes
@@ -99,8 +96,9 @@ Plug 'sjl/badwolf'
 " Plug 'sonph/onehalf', { 'rtp': 'vim' }
 " Plug 'w0ng/vim-hybrid'
 
+" Local
 " Plug '~/.vim/bundle/camptocamp', { 'for': 'camptocamp' }
-Plug '~/.vim/bundle/closetags-custom'
+" Plug '~/.vim/bundle/closetags-custom'
 " Plug '~/.vim/bundle/django-custom', { 'for': ['django', 'htmldjango'] }
 " Plug '~/.vim/bundle/idlang', { 'for': 'idlang' }
 
@@ -199,9 +197,6 @@ set notimeout
 set ttimeout
 set ttimeoutlen=10
 
-" Make Vim able to edit crontab files again.
-set backupskip=/tmp/*,/private/tmp/*"
-
 " Better Completion
 set complete=.,w,b,u,t,i
 " set completeopt=longest,menuone,preview
@@ -233,15 +228,13 @@ augroup END
 " }}}
 " Trailing whitespace {{{
 
-" augroup trailing
-"     au!
-
-"     " Only shown when not in insert mode so I don't go insane.
-"     " au InsertEnter * :set listchars-=trail:⌴
-
-"     " Remove trailing whitespace
-"     autocmd BufWritePre * :%s/\s\+$//e
-" augroup END
+augroup trailing
+    au!
+    " Only shown when not in insert mode so I don't go insane.
+    " au InsertEnter * :set listchars-=trail:⌴
+    " Remove trailing whitespace
+    autocmd BufWritePre * :%s/\s\+$//e
+augroup END
 
 " }}}
 " Wildmenu completion {{{
@@ -320,6 +313,9 @@ set noswapfile                    " it's 2013, Vim.
 set undodir=~/.vim/tmp/undo//     " undo files
 set backupdir=~/.vim/tmp/backup// " backups
 set directory=~/.vim/tmp/swap//   " swap files
+
+" Make Vim able to edit crontab files again.
+set backupskip=/tmp/*,/private/tmp/*"
 
 " Make those folders automatically if they don't already exist.
 if !isdirectory(expand(&undodir))
@@ -412,11 +408,11 @@ match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 " }}}
 " Abbreviations ----------------------------------------------------------- {{{
 
-iabbrev qd quand
-iabbrev qq quelque
-iabbrev qqs quelques
-iabbrev gh/ http://github.com/
-iabbrev ssig -- <cr>Simon
+" iabbrev qd quand
+" iabbrev qq quelque
+" iabbrev qqs quelques
+" iabbrev gh/ http://github.com/
+" iabbrev ssig -- <cr>Simon
 
 " }}}
 " Convenience mappings ---------------------------------------------------- {{{
@@ -658,12 +654,10 @@ inoremap <c-k> <c-x><c-k>
 nnoremap <leader>ec :vsplit ~/.vim/doc/cheatsheet.txt<cr>
 nnoremap <leader>ed :vsplit ~/.vim/custom-dictionary.utf-8.add<cr>
 nnoremap <leader>eg :vsplit ~/.gitconfig<cr>
-nnoremap <leader>eh :vsplit ~/.hgrc<cr>
 nnoremap <leader>em :vsplit ~/.mutt/muttrc<cr>
 " nnoremap <leader>eo :vsplit ~/org<cr>4j
-nnoremap <leader>ep :vsplit ~/.pentadactylrc<cr>
 nnoremap <leader>er :vsplit ~/lib/dotfiles/README<cr>
-nnoremap <leader>et :vsplit ~/ownCloud/todo/todo.txt<cr>
+" nnoremap <leader>et :vsplit ~/ownCloud/todo/todo.txt<cr>
 nnoremap <leader>ev :vsplit ~/.vim/vimrc<cr>
 nnoremap <leader>ez :vsplit ~/lib/dotfiles/zsh<cr>4j
 
@@ -1076,10 +1070,18 @@ augroup END
 " augroup END
 
 " }}}
+" Jenkins {{{
+
+augroup ft_jenkins
+    au!
+    autocmd BufRead,BufNewFile Jenkinsfile set filetype=groovy
+augroup END
+
+" }}}
 " Javascript {{{
 
-" let g:tern_show_argument_hints = 'on_hold'
-let g:tern_show_signature_in_pum = 1
+" " let g:tern_show_argument_hints = 'on_hold'
+" let g:tern_show_signature_in_pum = 1
 
 augroup ft_javascript
     au!
@@ -1130,6 +1132,7 @@ let g:vim_markdown_autowrite = 1
 let g:vim_markdown_conceal = 2
 " let g:vim_markdown_conceal_code_blocks = 0
 " let g:vim_markdown_edit_url_in = 'tab'
+let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_follow_anchor = 1
 let g:vim_markdown_frontmatter = 1
 let g:vim_markdown_math = 1
@@ -1154,15 +1157,6 @@ augroup ft_markdown
     au Filetype markdown nnoremap <buffer> <localleader>3 mzI###<space><esc>`zllll
     au Filetype markdown nnoremap <buffer> <localleader>4 mzI####<space><esc>`zlllll
 
-augroup END
-
-" }}}
-" Mercurial {{{
-
-augroup ft_mercurial
-    au!
-
-    au BufNewFile,BufRead *hg-editor-*.txt setlocal filetype=hgcommit
 augroup END
 
 " }}}
@@ -1225,18 +1219,18 @@ let g:python_highlight_all = 1
 " let g:pydoc_open_cmd = 'vsplit'
 " let g:pydoc_use_drop=1
 
-" let g:jedi#auto_initialization = 0
-let g:jedi#auto_vim_configuration = 0
-let g:jedi#completions_enabled = 0
-" let g:jedi#show_call_signatures = "1"
-let g:jedi#smart_auto_mappings = 1
-let g:jedi#goto_command = "<leader>g"
-let g:jedi#goto_assignments_command = "<localleader>g"
-let g:jedi#goto_definitions_command = "<localleader>d"
-let g:jedi#documentation_command = "K"
-let g:jedi#usages_command = "<localleader>n"
-" let g:jedi#completions_command = "<C-Space>"
-let g:jedi#rename_command = "<localleader>r"
+" " let g:jedi#auto_initialization = 0
+" let g:jedi#auto_vim_configuration = 0
+" let g:jedi#completions_enabled = 0
+" " let g:jedi#show_call_signatures = "1"
+" let g:jedi#smart_auto_mappings = 1
+" let g:jedi#goto_command = "<leader>g"
+" let g:jedi#goto_assignments_command = "<localleader>g"
+" let g:jedi#goto_definitions_command = "<localleader>d"
+" let g:jedi#documentation_command = "K"
+" let g:jedi#usages_command = "<localleader>n"
+" " let g:jedi#completions_command = "<C-Space>"
+" let g:jedi#rename_command = "<localleader>r"
 
 augroup ft_python
     au!
@@ -1255,32 +1249,29 @@ augroup ft_python
     au FileType python setlocal define=^\s*\\(def\\\\|class\\)
     au FileType man nnoremap <buffer> <cr> :q<cr>
 
-    au FileType python compiler pytest
+    " au FileType python compiler pytest
     " au FileType python let b:dispatch = 'py.test'
-
-    " Jesus tapdancing Christ, built-in Python syntax, you couldn't let me
-    " override this in a normal way, could you?
-    " au FileType python if exists("python_space_error_highlight") | unlet python_space_error_highlight | endif
 
     au FileType python inoremap <buffer> <c-d> """"""<left><left><left>
     au FileType python inoremap <buffer> <c-b> breakpoint()
     " au FileType python iabbrev <buffer> afo assert False, "Okay"
 
     " Autopep8
-    let g:autopep8_select="E1,E2,E3,E4,W2,W3"
-    au FileType python map <buffer> <localleader>p :call Autopep8()<CR>
+    " let g:autopep8_select="E1,E2,E3,E4,W2,W3"
+    " au FileType python map <buffer> <localleader>p :call Autopep8()<CR>
 
     " au FileType python map <buffer> <localleader>y :0,$!yapf<CR>
     " au FileType python nnoremap <leader>y :0,$!yapf<Cr>
 
     " Defer to isort for sorting Python imports (instead of using Unix sort)
     " au filetype python nmap <buffer> <localleader>i :ALEFix isort<CR>
-    au filetype python nmap <buffer> <localleader>y :ALEFix yapf<CR>
-    au filetype python nmap <buffer> <localleader>b :ALEFix black<CR>
+    " au filetype python nmap <buffer> <localleader>y :ALEFix yapf<CR>
+    " au filetype python nmap <buffer> <localleader>b :ALEFix black<CR>
 
-    if executable('isort')
-        autocmd filetype python nnoremap <localleader>i mX:%! isort -<cr>`X
-    endif
+    " if executable('isort')
+    "     autocmd filetype python nnoremap <localleader>i mX:%! isort -<cr>`X
+    " endif
+    autocmd filetype python nnoremap <localleader>i :CocCommand python.sortImports<cr>
 
     " if executable('autoflake')
     "     autocmd filetype python nnoremap <localleader>i mX:%! autoflake -<cr>`X
@@ -1311,15 +1302,6 @@ augroup ft_rest
     au Filetype rst nnoremap <buffer> <localleader>3 yypVr~:redraw<cr>
     au Filetype rst nnoremap <buffer> <localleader>4 yypVr`:redraw<cr>
 augroup END
-
-" }}}
-" Ruby {{{
-
-" augroup ft_ruby
-"     au!
-"     au Filetype ruby setlocal foldmethod=syntax
-"     au BufRead,BufNewFile Capfile setlocal filetype=ruby
-" augroup END
 
 " }}}
 " Shell {{{
@@ -1376,7 +1358,7 @@ augroup ft_vim
     autocmd filetype vim noremap! <buffer> <F1> <Esc>:help <C-r><C-w><CR>
 
     " Reload vimrc to apply changes
-    autocmd! BufWritePost vimrc source %
+    " autocmd! BufWritePost vimrc source %
 augroup END
 
 " }}}
@@ -1424,18 +1406,18 @@ vnoremap <leader>a y:grep! "\b<c-r>"\b"<cr>:cw<cr><cr>
 " }}}
 " Ale {{{
 
-let g:ale_sign_warning = '▲'
-let g:ale_sign_error = '✗'
-let g:ale_linters = {
-  \   'python': ['flake8', 'ruff'],
-  \}
-let g:ale_fixers = {
-  \   '*': ['remove_trailing_lines', 'trim_whitespace'],
-  \}
+" let g:ale_sign_warning = '▲'
+" let g:ale_sign_error = '✗'
+" let g:ale_linters = {
+"   \   'python': ['flake8', 'ruff'],
+"   \}
+" let g:ale_fixers = {
+"   \   '*': ['remove_trailing_lines', 'trim_whitespace'],
+"   \}
 
-" \   'python': ['black', 'isort'],
-let g:ale_fix_on_save = 1
-nmap <leader>f <Plug>(ale_fix)
+" " \   'python': ['black', 'isort'],
+" let g:ale_fix_on_save = 1
+" nmap <leader>f <Plug>(ale_fix)
 
 " Fixers:
 " 'remove_trailing_lines' - Remove all blank lines at the end of a file.
@@ -1452,21 +1434,67 @@ nnoremap <Leader>q :Bdelete<CR>
 " }}}
 " Clam {{{
 
-nnoremap ! :Clam<space>
-vnoremap ! :ClamVisual<space>
-let g:clam_autoreturn = 1
-" let g:clam_debug = 1
+" nnoremap ! :Clam<space>
+" vnoremap ! :ClamVisual<space>
+" let g:clam_autoreturn = 1
+" " let g:clam_debug = 1
 
 " }}}
-" Completor {{{
+" Coc {{{
 
-" Use Tab to select completion
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
+let g:coc_global_extensions = ['coc-json', 'coc-git', 'coc-pyright', 'coc-snippets']
 
-" let g:completor_complete_options = 'menuone,noselect,preview'
-" set completeopt=longest,menuone,preview
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: There's always complete item selected by default, you may want to enable
+" no select by `"suggest.noselect": true` in your configuration file.
+" NOTE: Use command ':verbose imap <tab>' to check mapping
+inoremap <expr> <Tab> coc#pum#visible() ? coc#pum#next(1) : "\<Tab>"
+inoremap <expr> <S-Tab> coc#pum#visible() ? coc#pum#prev(1) : "\<S-Tab>"
+
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+" <C-g>u breaks current undo, please make your own choice.
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call ShowDocumentation()<CR>
+
+function! ShowDocumentation()
+  if CocAction('hasProvider', 'hover')
+    call CocActionAsync('doHover')
+  else
+    call feedkeys('K', 'in')
+  endif
+endfunction
+
+" Highlight the symbol and its references when holding the cursor.
+" autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
+" Formatting selected code.
+vmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format)
+
+" command! -nargs=0 Format :call CocActionAsync('format')
+" command! -nargs=0 SortImport :call CocAction('organizeImport')
+
+
 
 " }}}
 " Commentary {{{
@@ -1516,7 +1544,7 @@ nnoremap <leader>gci :Gcommit --verbose<cr>
 nnoremap <leader>gca :Gcommit --all --verbose<cr>
 " nnoremap <leader>gm :Gmove<cr>
 " nnoremap <leader>gr :Gremove<cr>
-nnoremap <leader>gl :Clam git hist<cr>:wincmd \|<cr>
+" nnoremap <leader>gl :Clam git hist<cr>:wincmd \|<cr>
 
 " Hub
 nnoremap <leader>gh :Gbrowse<cr>
@@ -1558,16 +1586,17 @@ let g:fzf_colors =
 " }}}
 " Git Gutter {{{
 
-let g:gitgutter_escape_grep = 1
-let g:gitgutter_realtime = 0
-" let g:gitgutter_max_signs = 500
+" let g:gitgutter_escape_grep = 1
+" let g:gitgutter_realtime = 0
+" " let g:gitgutter_max_signs = 500
 
-" GitGutter styling to use · instead of +/-
-let g:gitgutter_sign_added = '∙'
-let g:gitgutter_sign_modified = '∙'
-let g:gitgutter_sign_removed = '∙'
-let g:gitgutter_sign_modified_removed = '∙'
+" " GitGutter styling to use · instead of +/-
+" let g:gitgutter_sign_added = '∙'
+" let g:gitgutter_sign_modified = '∙'
+" let g:gitgutter_sign_removed = '∙'
+" let g:gitgutter_sign_modified_removed = '∙'
 
+" also used by coc-git
 highlight GitGutterAdd guifg=#d7ffaf ctermfg=193
 highlight GitGutterDelete guifg=#cc6666 ctermfg=167
 highlight GitGutterChange guifg=#d7d7ff ctermfg=189
@@ -1583,13 +1612,13 @@ let g:atia_attributes_complete = 0
 " }}}
 " Linediff {{{
 
-vnoremap <leader>l :Linediff<cr>
-nnoremap <leader>L :LinediffReset<cr>
+" vnoremap <leader>l :Linediff<cr>
+" nnoremap <leader>L :LinediffReset<cr>
 
 " }}}
 " Magit {{{
 
-nnoremap <leader>gm :Magit<cr>
+" nnoremap <leader>gm :Magit<cr>
 
 " }}}
 " NERD Tree {{{
@@ -1678,74 +1707,13 @@ let g:secure_modelines_allowed_items = [
             \ ]
 
 " }}}
-" Sparkup {{{
-
-augroup ft_sparkup
-    au!
-    au FileType xml,html,jinja.html,htmldjango imap <buffer> <c-e> <Plug>SparkupExecute
-    au FileType xml,html,jinja.html,htmldjango imap <buffer> <c-l> <Plug>SparkupNext
-augroup END
-
-" let g:sparkupNextMapping = '<c-s>'
-
-"}}}
-" " Syntastic {{{
-
-" let g:syntastic_aggregate_errors = 1
-" let g:syntastic_always_populate_loc_list = 1
-" let g:syntastic_check_on_open = 1
-
-" let g:syntastic_enable_signs = 1
-" let g:syntastic_error_symbol = '✗'
-" let g:syntastic_warning_symbol = '⚠'
-
-" " let g:syntastic_java_checker = 'javac'
-" let g:syntastic_mode_map = {
-"             \ "mode": "active",
-"             \ "active_filetypes": [],
-"             \ "passive_filetypes": ['java', 'html', 'rst', 'scala']
-"             \ }
-" let g:syntastic_stl_format = '[%E{%e Errors}%B{, }%W{%w Warnings}]'
-" let g:syntastic_jsl_conf = '$HOME/.vim/jsl.conf'
-
-" " let g:syntastic_python_flake8_quiet_messages
-" " let g:syntastic_python_python_exec = 'python2'
-" " let g:syntastic_python_flake8_exec = 'flake8-python2'
-
-" " nnoremap <leader>C :SyntasticCheck<cr>
-
-" " }}}
 " Slime {{{
 
-" let g:slime_target = "tmux"
-let g:slime_target = "vimterminal"
-let g:slime_vimterminal_config = {"vertical":1}
-" use %cpaste magic for error-free pasting
-let g:slime_python_ipython = 1
-
-" }}}
-" Splice {{{
-
-" let g:splice_prefix = "-"
-
-" let g:splice_initial_mode = "grid"
-
-" let g:splice_initial_layout_grid = 0
-" let g:splice_initial_layout_loupe = 0
-" let g:splice_initial_layout_compare = 0
-" let g:splice_initial_layout_path = 0
-
-" let g:splice_initial_diff_grid = 1
-" let g:splice_initial_diff_loupe = 0
-" let g:splice_initial_diff_compare = 1
-" let g:splice_initial_diff_path = 0
-
-" let g:splice_initial_scrollbind_grid = 0
-" let g:splice_initial_scrollbind_loupe = 0
-" let g:splice_initial_scrollbind_compare = 0
-" let g:splice_initial_scrollbind_path = 0
-
-" let g:splice_wrap = "nowrap"
+" " let g:slime_target = "tmux"
+" let g:slime_target = "vimterminal"
+" let g:slime_vimterminal_config = {"vertical":1}
+" " use %cpaste magic for error-free pasting
+" let g:slime_python_ipython = 1
 
 " }}}
 " Startify {{{
@@ -1763,17 +1731,6 @@ let g:startify_bookmarks = [
 " }}}
 " Status Line {{{
 
-" let g:airline_powerline_fonts = 0
-" " let g:airline_section_z = airline#section#create_right(['%2p%% %3l:%1c'])
-
-" let g:airline#extensions#branch#enabled = 1
-" let g:airline#extensions#ale#enabled = 1
-" let g:airline#extensions#tabline#enabled = 1
-" let g:airline#extensions#tagbar#enabled = 0
-" let g:airline#extensions#tmuxline#enabled = 0
-" let g:airline#extensions#virtualenv#enabled = 1
-" let g:airline#extensions#whitespace#enabled = 0
-
 " let g:lightline.colorscheme = 'default'
 " let g:lightline.separator = { 'left': '', 'right': '' }
 " let g:lightline.subseparator = { 'left': '|', 'right': '|' }
@@ -1781,9 +1738,9 @@ let g:startify_bookmarks = [
 let g:lightline = {
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'readonly', 'filename' ] ],
-      \   'right': [ [ 'linter_checking', 'linter_errors', 'linter_warnings',
-      \               'linter_infos', 'linter_ok' ],
+      \             [ 'readonly', 'filename' ],
+      \             [ 'blame' ] ],
+      \   'right': [ [ 'cocstatus' ],
       \              [ 'percent', 'lineinfo' ],
       \              [ 'fileformat', 'fileencoding', 'filetype' ] ]
       \ },
@@ -1791,25 +1748,11 @@ let g:lightline = {
       \   'filename': 'LightlineFilename',
       \   'readonly': 'LightlineReadonly',
       \   'fugitive': 'LightlineFugitive',
+      \   'cocstatus': 'coc#status',
+      \   'blame': 'LightlineGitBlame',
       \ },
       \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
       \ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" }
-      \ }
-
-let g:lightline.component_expand = {
-      \  'linter_checking': 'lightline#ale#checking',
-      \  'linter_infos': 'lightline#ale#infos',
-      \  'linter_warnings': 'lightline#ale#warnings',
-      \  'linter_errors': 'lightline#ale#errors',
-      \  'linter_ok': 'lightline#ale#ok',
-      \ }
-
-let g:lightline.component_type = {
-      \     'linter_checking': 'right',
-      \     'linter_infos': 'right',
-      \     'linter_warnings': 'warning',
-      \     'linter_errors': 'error',
-      \     'linter_ok': 'right',
       \ }
 
 function! LightlineFilename()
@@ -1821,12 +1764,19 @@ endfunction
 function! LightlineReadonly()
     return &readonly ? '' : ''
 endfunction
+
 function! LightlineFugitive()
     if exists('*FugitiveHead')
         let branch = FugitiveHead()
         return branch !=# '' ? ''.branch : ''
     endif
     return ''
+endfunction
+
+function! LightlineGitBlame() abort
+  let blame = get(g:, 'coc_git_status', '')
+  return blame
+  " return winwidth(0) > 120 ? blame : ''
 endfunction
 
 let g:lightline.mode_map = {
@@ -1891,19 +1841,6 @@ let g:tmuxline_preset = {
 " if hostname() == "fireball"
 "     let g:tmuxline_preset['x'] = ['SC: #{maildir_counter_1}', 'SA: #{maildir_counter_2}', 'CR: #{maildir_counter_3}', '#(uptime  | cut -d " " -f 1,2,3)']
 " endif
-
-" }}}
-" Ultisnips {{{
-
-let g:UltiSnipsUsePythonVersion = 3
-let g:UltiSnipsEditSplit = 'context'
-let g:UltiSnipsSnippetsDir = '~/.vim/mysnippets'
-" let g:UltiSnipsSnippetDirectories = ['UltiSnips', 'mysnippets']
-let g:UltiSnipsExpandTrigger="<c-j>"
-" let g:UltiSnipsExpandTrigger="<c-tab>"
-" let g:UltiSnipsListSnippets="<c-s-tab>"
-" let g:UltiSnipsJumpForwardTrigger="<c-j>"
-" let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 
 " }}}
 " Undotree {{{
@@ -1982,47 +1919,6 @@ function! YRRunAfterMaps()
 endfunction
 
 nnoremap <silent> <F11> :YRShow<CR>
-
-" }}}
-" " YouCompleteMe {{{
-
-" " let g:ycm_python_binary_path = 'python'
-
-" let g:ycm_add_preview_to_completeopt = 1
-" let g:ycm_autoclose_preview_window_after_insertion = 1
-" let g:ycm_autoclose_preview_window_after_completion = 1
-
-" let g:ycm_collect_identifiers_from_tags_files = 1
-" let g:ycm_complete_in_comments = 1
-" " let g:ycm_min_num_of_chars_for_completion = 4
-" let g:ycm_seed_identifiers_with_syntax = 1
-
-" " remove '<S-TAB>' to avoid conflict with ultisnips
-" let g:ycm_key_list_previous_completion=['<Up>']
-
-" let g:ycm_global_ycm_extra_conf = '~/lib/dotfiles/ycm_extra_conf.py'
-" let g:ycm_confirm_extra_conf = 1
-
-" nnoremap <leader>] :YcmCompleter GoTo<CR>mzzMzvzz15<c-e>`z
-" nnoremap K :YcmCompleter GetDoc<CR>
-" nnoremap <leader>jf :YcmCompleter FixIt<CR>
-" nnoremap <leader>ji :YcmCompleter GoToInclude<CR>
-" nnoremap <leader>jd :YcmCompleter GoToDeclaration<CR>
-
-" " nnoremap <leader>] :YcmCompleter GoToDefinitionElseDeclaration<CR>mzzMzvzz15<c-e>`z:Pulse<cr>
-" " nnoremap <leader>] :YcmCompleter GoToDeclaration<CR>mzzMzvzz15<c-e>`z:Pulse<cr>
-
-" " }}}
-
-" }}}
-" Text objects ------------------------------------------------------------ {{{
-
-" Shortcut for [] {{{
-
-" onoremap ir i[
-" onoremap ar a[
-" vnoremap ir i[
-" vnoremap ar a[
 
 " }}}
 

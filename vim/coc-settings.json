@@ -1,0 +1,19 @@
+// vim: filetype=jsonc
+{
+  "coc.preferences.extensionUpdateCheck": "weekly",
+  "git.addedSign.hlGroup": "GitGutterAdd",
+  "git.changedSign.hlGroup": "GitGutterChange",
+  "git.removedSign.hlGroup": "GitGutterDelete",
+  "git.topRemovedSign.hlGroup": "GitGutterDelete",
+  "git.changeRemovedSign.hlGroup": "GitGutterChangeDelete",
+  "python.analysis.typeCheckingMode": "off",
+  "python.formatting.provider": "black",
+  "python.linting.flake8Enabled": true,
+  "python.linting.ruffEnabled": true,
+  "pyright.disableDiagnostics": true,
+  "pyright.inlayHints.functionReturnTypes": false,
+  "pyright.inlayHints.variableTypes": false,
+  "pyright.testing.provider": "pytest",
+  "suggest.noselect": true,
+  // "suggest.enablePreselect": false,
+}
