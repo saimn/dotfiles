@@ -5,23 +5,28 @@
                 "isort",
                 "black"
             ],
-            "r": "formatR"
+            "R": "formatR",
+            "rust": "rustfmt",
+            "c++11": "astyle"
         }
     },
     "black": {
         "line_length": 88,
-        "string_normalization": true
+        "string_normalization": true,
+        "magic_trailing_comma": true,
+        "experimental_string_processing": true
     },
     "yapf": {
         "style_config": "google"
     },
-    "autopep8": {},
     "isort": {
         "multi_line_output": 3,
         "include_trailing_comma": true,
         "force_grid_wrap": 0,
         "use_parentheses": true,
-        "line_length": 88
+        "ensure_newline_before_comments": true,
+        "line_length": 88,
+        "profile": "black"
     },
     "formatR": {
         "indent": 2,
@@ -29,7 +34,17 @@
         "wrap": true,
         "width_cutoff": 150
     },
-    "styler": {},
     "formatOnSave": false,
-    "suppressFormatterErrors": false
+    "cacheFormatters": false,
+    "astyle": {
+        "args": []
+    },
+    "ruff": {
+        "args": [
+            "--select=I"
+        ]
+    },
+    "suppressFormatterErrors": false,
+    "autopep8": {},
+    "styler": {}
 }

@@ -1,0 +1,10 @@
+{
+    // Notebook
+    // @jupyterlab/notebook-extension:tracker
+    // Notebook settings.
+    // **************************************
+
+    // Recording timing
+    // Should timing data be recorded in cell metadata
+    "recordTiming": true
+}
