@@ -1,20 +1,15 @@
 # vim: ft=conf
 
 # linting
-autopep8
 black
 isort
-yapf
+pre-commit
 
 # testing
 coverage
 pytest
 pytest-cov
 
-# syntax checks
-flake8
-#flake8-docstrings
-
 # editor
-pynvim
+# pynvim
 # jedi

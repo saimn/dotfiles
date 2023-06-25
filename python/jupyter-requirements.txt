@@ -1,10 +1,10 @@
 #ipyevents
-ipympl
+#ipympl
 ipython
-jupyter
-jupyter_contrib_nbextensions
+#jupyter
+#jupyter_contrib_nbextensions
 jupyterlab
-jupyter_nbextensions_configurator
-jupyternotify
+#jupyter_nbextensions_configurator
+#jupyternotify
 #nbdime
 # qtconsole

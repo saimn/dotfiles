@@ -44,5 +44,5 @@ numpydoc
 pandas
 pillow
 # scikit-image
-scikit-learn
+# scikit-learn
 scipy

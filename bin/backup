@@ -53,7 +53,7 @@ function backup_home () {
 
    [ $RSYNC_BACKUP ] && OPTS="${OPTS} $BACKUP_OPTS"
 
-   rsync $OPTS $DRYRUN --filter=". $FILTER" $SRC $DST/lyonovae24 2> $ERRLOG | tee -a $LOG
+   rsync $OPTS $DRYRUN --filter=". $FILTER" $SRC $DST/simon 2> $ERRLOG | tee -a $LOG
 
    echo "--------------------------------------------------------" | tee -a $LOG
    echo ":: Backup finished ! - `date`" | tee -a $LOG

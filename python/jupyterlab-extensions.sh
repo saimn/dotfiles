@@ -2,14 +2,13 @@
 
 pip install -r ./jupyter-requirements.txt
 
-jupyter labextension install @jupyter-widgets/jupyterlab-manager
-jupyter labextension install @jupyterlab/github
-# jupyter labextension install @jupyterlab/shortcutui
-jupyter labextension install @jupyterlab/toc
-# jupyter labextension install jupyterlab_vim
-
-jupyter labextension install @ijmbarr/jupyterlab_spellchecker
-jupyter labextension install @mflevine/jupyterlab_html
+# jupyter labextension install @jupyter-widgets/jupyterlab-manager
+# jupyter labextension install @jupyterlab/github
+# # jupyter labextension install @jupyterlab/shortcutui
+# jupyter labextension install @jupyterlab/toc
+# # jupyter labextension install jupyterlab_vim
+# jupyter labextension install @ijmbarr/jupyterlab_spellchecker
+# jupyter labextension install @mflevine/jupyterlab_html
 
 # git
 pip install jupyterlab-git
@@ -19,7 +18,7 @@ pip install jupyterlab-git
 # jupyter labextension install @jupyterlab/latex
 
 # Matplotlib
-pip install ipympl
+# pip install ipympl
 
 pip install jupyterlab_code_formatter
 pip install jupyterlab_execute_time

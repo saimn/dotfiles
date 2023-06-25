@@ -1,9 +1,9 @@
 ipython-memory-usage
-#line-profiler
+line-profiler
 memory_profiler
 psutil
-py-heat
-py-heat-magic
+#py-heat
+#py-heat-magic
 snakeviz
 
 #git+https://github.com/ianozsvald/ipython_memory_usage#egg=ipython_memory_usage
