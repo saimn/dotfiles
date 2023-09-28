@@ -12,6 +12,8 @@ pip install -r ./jupyter-requirements.txt
 
 # git
 pip install jupyterlab-git
+# pip install jupyterlab-gitlab
+# pip install jupyterlab-github
 
 # LaTeX
 # pip install jupyterlab_latex
@@ -26,3 +28,8 @@ pip install jupyter-resource-usage
 
 # bokeh
 # jupyter labextension install jupyterlab_bokeh
+
+# HDF5
+# pip install jupyterlab_hdf
+# jupyter labextension install @jupyterlab/hdf5
+# pip install jupyterlab_h5web
