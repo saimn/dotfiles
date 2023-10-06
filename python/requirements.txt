@@ -22,7 +22,7 @@ matplotlib
 jinja2
 sphinx
 sphinx-automodapi
-sphinx_rtd_theme
+# sphinx_rtd_theme
 
 # misc
 # beautifulsoup4
@@ -32,6 +32,7 @@ pdbpp
 pyyaml
 requests
 twine
+joblib
 # gorun
 
 # science
@@ -46,3 +47,4 @@ pillow
 # scikit-image
 # scikit-learn
 scipy
+xarray

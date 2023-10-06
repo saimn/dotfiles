@@ -1,5 +1,6 @@
+# vim: ft=conf
 ipython-memory-usage
-line-profiler
+# line-profiler
 memory_profiler
 psutil
 #py-heat
