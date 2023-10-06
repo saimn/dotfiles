@@ -15,5 +15,6 @@
   "pyright.inlayHints.variableTypes": false,
   "pyright.testing.provider": "pytest",
   "suggest.noselect": true,
+  "snippets.ultisnips.pythonPrompt": false,
   // "suggest.enablePreselect": false,
 }

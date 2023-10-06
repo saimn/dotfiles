@@ -85,7 +85,7 @@ EDITOR=vim
 #VISUAL="gvim -f"
 #ALTERNATE_EDITOR=emacs
 PAGER=less
-PATH=$PATH:$HOME/bin
+PATH=$HOME/bin:$PATH
 # BROWSER='firefox -new-tab'
 
 export EDITOR VISUAL PAGER PATH ALTERNATE_EDITOR
