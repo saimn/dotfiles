@@ -1442,7 +1442,15 @@ nnoremap <Leader>q :Bdelete<CR>
 " }}}
 " Coc {{{
 
-let g:coc_global_extensions = ['coc-json', 'coc-git', 'coc-pyright', 'coc-snippets']
+let g:coc_global_extensions = [
+            \ 'coc-clangd',
+            \ 'coc-json',
+            \ 'coc-git',
+            \ 'coc-pyright',
+            \ 'coc-rust-analyzer',
+            \ 'coc-snippets',
+            \ '@yaegassy/coc-ruff',
+            \]
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: There's always complete item selected by default, you may want to enable
