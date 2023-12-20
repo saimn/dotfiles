@@ -32,7 +32,9 @@ set completion-ignore-case On
 
 # ignoredups: don't put duplicate lines in the history
 # ignorespace: ignore line starting with a space
-export HISTCONTROL=ignoreboth
+# ignoreboth: ignorespace + ignoredups
+# erasedups: remove previous lines matching the current line
+export HISTCONTROL=ignoreboth:erasedups
 # lignes de l'historique par session bash
 export HISTSIZE=50000
 # lignes de l'historique conservées
