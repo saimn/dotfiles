@@ -17,7 +17,7 @@ mkdir -p $HOME/lib/dotfiles/vim/tmp/{backup,swap,undo}
 rm  $HOME/bin
 ln -s $HOME/lib/dotfiles/bin $HOME/bin
 
-for i in "awesome" "ranger" "zathura" "kitty" "compton.conf"
+for i in "awesome" "ranger" "zathura" "kitty" "compton.conf" "matplotlib"
 do
     [ -e $HOME/.config/$i ] && rm $HOME/.config/$i
     ln -s $HOME/lib/dotfiles/$i $HOME/.config/$i
@@ -63,11 +63,6 @@ touch ~/lib/dotfiles/zsh/locals.zsh
 
 # mkdir -p $HOME/lib/{python,virtualenvs}
 # ln -s ~/lib/virtualenvs/  ~/.virtualenvs
-
-rm -r $HOME/.matplotlib
-rm -r $HOME/.config/matplotlib
-mkdir -p $HOME/.config/matplotlib
-ln -s $HOME/lib/dotfiles/matplotlibrc $HOME/.config/matplotlib/matplotlibrc
 
 # pyenv
 git clone https://github.com/pyenv/pyenv.git ~/.pyenv
