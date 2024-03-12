@@ -5,8 +5,7 @@
 #git clone git@github.com:saimn/dotfiles.git ~/lib/dotfiles
 
 for i in "aliases" "bashrc" "ctags" "gitconfig" "gitignore" "lessfilter" \
-    "mailcap" "pdbrc" "screenrc" "tmux.conf" "vim" "xbindkeysrc" \
-    "Xresources" "Xmodmap" "xprofile" "gdbinit" "ipython" "jupyter"
+    "mailcap" "pdbrc" "screenrc" "tmux.conf" "vim" "gdbinit" "ipython" "jupyter"
 do
     [ -e $HOME/.$i ] && rm $HOME/.$i
     ln -s $HOME/lib/dotfiles/$i $HOME/.$i
@@ -17,7 +16,7 @@ mkdir -p $HOME/lib/dotfiles/vim/tmp/{backup,swap,undo}
 rm  $HOME/bin
 ln -s $HOME/lib/dotfiles/bin $HOME/bin
 
-for i in "awesome" "ranger" "zathura" "kitty" "compton.conf" "matplotlib"
+for i in "kitty" "matplotlib"
 do
     [ -e $HOME/.config/$i ] && rm $HOME/.config/$i
     ln -s $HOME/lib/dotfiles/$i $HOME/.config/$i

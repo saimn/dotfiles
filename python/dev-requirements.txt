@@ -2,8 +2,8 @@
 
 # linting
 black
-isort
 pre-commit
+ruff
 
 # testing
 coverage

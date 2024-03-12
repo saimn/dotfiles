@@ -44,7 +44,7 @@ numpy
 numpydoc
 pandas
 pillow
-# scikit-image
-# scikit-learn
+scikit-image
+scikit-learn
 scipy
 xarray
