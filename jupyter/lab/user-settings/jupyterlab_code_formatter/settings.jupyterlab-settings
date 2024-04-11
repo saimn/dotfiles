@@ -14,7 +14,6 @@
         "line_length": 88,
         "string_normalization": true,
         "magic_trailing_comma": true,
-        "experimental_string_processing": true
     },
     "yapf": {
         "style_config": "google"

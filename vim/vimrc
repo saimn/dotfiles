@@ -1542,14 +1542,14 @@ nnoremap <leader>d :Dispatch
 " }}}
 " Fugitive {{{
 
-nnoremap <leader>gd :Gdiff<cr>
-nnoremap <leader>gs :Gstatus<cr>
-nnoremap <leader>gw :Gwrite<cr>
-nnoremap <leader>ga :Git add %<cr>
-nnoremap <leader>gb :Gblame<cr>
-nnoremap <leader>gco :Gcheckout<cr>
-nnoremap <leader>gci :Gcommit --verbose<cr>
-nnoremap <leader>gca :Gcommit --all --verbose<cr>
+" nnoremap <leader>gd :Gdiff<cr>
+" nnoremap <leader>gs :Gstatus<cr>
+" nnoremap <leader>gw :Gwrite<cr>
+" nnoremap <leader>ga :Git add %<cr>
+" nnoremap <leader>gb :Gblame<cr>
+" nnoremap <leader>gco :Gcheckout<cr>
+" nnoremap <leader>gci :Gcommit --verbose<cr>
+" nnoremap <leader>gca :Gcommit --all --verbose<cr>
 " nnoremap <leader>gm :Gmove<cr>
 " nnoremap <leader>gr :Gremove<cr>
 " nnoremap <leader>gl :Clam git hist<cr>:wincmd \|<cr>
