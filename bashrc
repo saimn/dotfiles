@@ -88,6 +88,7 @@ EDITOR=vim
 #ALTERNATE_EDITOR=emacs
 PAGER=less
 PATH=$HOME/bin:$PATH
+PATH=$HOME/.local/bin:$PATH
 # BROWSER='firefox -new-tab'
 
 export EDITOR VISUAL PAGER PATH ALTERNATE_EDITOR
@@ -124,6 +125,11 @@ fi
 
 # calc
 calc(){ awk "BEGIN{ print $* }" ;}
+
+# slurm
+shist () {
+    sacct --format="User,JobID,JobName%30,Partition,Account,NCpus,ReqMem,MaxVmSize,MaxRSS,state,Elapsed,start,nodelist" --units G -u $USER --start ${1:-today}
+}
 
 # Set host-specific config
 [[ -f ~/.bashrc.$HOSTNAME ]] && . ~/.bashrc.$HOSTNAME

@@ -26,11 +26,14 @@ alias lsd='ls -ld *(-/DN)'
 
 # -p : conserve les dates, droits lors de la copie
 alias cp='cp -p'
-alias rm='trash-put'
 alias du='du -h --max-depth=1'
 alias dusort='du -h --max-depth=1 | sort -h -r'
 alias df='df -h'
 alias psg="ps auxw | grep -i "
+
+if [ -x /usr/bin/trash-put ]; then
+    alias rm='trash-put'
+fi
 
 # misc commands
 alias ack=ag
