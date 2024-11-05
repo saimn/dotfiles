@@ -30,7 +30,6 @@ zstyle ':prezto:load' pmodule \
   'history' \
   'directory' \
   'spectrum' \
-  'utility' \
   'python' \
   'completion' \
   'archive' \
@@ -40,8 +39,8 @@ zstyle ':prezto:load' pmodule \
   'history-substring-search' \
   'autosuggestions' \
   'prompt'
+  # 'utility' \
   # 'ssh' \
-
   # 'fasd' \
   # 'deer' \
   # 'zsh-notify' \

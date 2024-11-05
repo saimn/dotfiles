@@ -32,13 +32,8 @@ source ~/lib/dotfiles/zsh/keys.zsh
 source ~/lib/dotfiles/zsh/ssh.zsh
 source ~/lib/dotfiles/zsh/aliases.zsh
 
-# fzf via local installation
-if [ -e ~/.fzf ]; then
-    export PATH="$PATH:$HOME/.fzf/bin"
-    source ~/.fzf/shell/key-bindings.zsh
-    source ~/.fzf/shell/completion.zsh
-fi
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# Set up fzf key bindings and fuzzy completion
+source <(fzf --zsh)
 
 __pyenv_version_ps1 ()
 {
