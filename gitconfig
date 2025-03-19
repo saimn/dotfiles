@@ -82,8 +82,12 @@
 
 [diff]
    renames = true
-   algorithm = patience
-   noprefix = true
+   algorithm = histogram
+   colorMoved = plain
+   mnemonicPrefix = true
+   # noprefix = true
+[column]
+   ui = auto
 [color]
    branch = auto
    diff = auto
@@ -107,11 +111,20 @@
    stat = true
    autosquash = true
    autostash = true
+   updateRefs = true
+[rerere]
+   enabled = true
+   autoupdate = true
 [branch]
    autosetupmerge = true
    autosetuprebase = always
+   sort = -committerdate
+[tag]
+   sort = version:refname
 [push]
     default = upstream
+    autoSetupRemote = true
+    followTags = true
 [pull]
     rebase = merges
 [status]
@@ -133,6 +146,8 @@
     path = .gitconfig.local
 [fetch]
     prune = true
+    pruneTags = true
+    all = true
     writeCommitGraph = true
 [submodule]
     fetchJobs = 4
