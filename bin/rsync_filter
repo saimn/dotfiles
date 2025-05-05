@@ -60,6 +60,7 @@
 - .Trash/
 - .Trash-1000/
 - .var/
+- .venv/
 - .vim/
 - .virtualenvs/
 - .weechat/
@@ -85,9 +86,11 @@
 
 - _build/
 - build/
+- build.x86_64-conda_ry9-gcc11-o2g/
 - builds/
 - data/
 - fidle-datasets/
+- InstallArea/
 - lib/dotfiles/vim/plugged/
 - lib/prezto/
 - lib/virtualenvs/

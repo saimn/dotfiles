@@ -124,7 +124,7 @@
 [push]
     default = upstream
     autoSetupRemote = true
-    followTags = true
+    # followTags = true
 [pull]
     rebase = merges
 [status]
@@ -146,7 +146,7 @@
     path = .gitconfig.local
 [fetch]
     prune = true
-    pruneTags = true
+    # pruneTags = true
     all = true
     writeCommitGraph = true
 [submodule]
