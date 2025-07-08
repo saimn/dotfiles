@@ -1,19 +1,16 @@
 {
     "preferences": {
         "default_formatter": {
-            "python": [
-                "isort",
-                "black"
-            ],
             "R": "formatR",
             "rust": "rustfmt",
-            "c++11": "astyle"
+            "c++11": "astyle",
+            "python": "ruff"
         }
     },
     "black": {
         "line_length": 88,
         "string_normalization": true,
-        "magic_trailing_comma": true,
+        "magic_trailing_comma": true
     },
     "yapf": {
         "style_config": "google"
@@ -45,5 +42,9 @@
     },
     "suppressFormatterErrors": false,
     "autopep8": {},
-    "styler": {}
+    "styler": {},
+    "ruffformat": {
+        "args": []
+    },
+    "suppressFormatterErrorsIFFAutoFormatOnSave": false
 }
