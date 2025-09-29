@@ -15,7 +15,7 @@ function meteo() { curl "http://wttr.in/$1?lang=fr" }
 # function v() { urxvtc -e "bash" -c "exec vim $@" >> /dev/null & }
 # function sv() { urxvtc -e "bash" -c "exec sudo vim $@" >> /dev/null & }
 
-function sssh (){ TERM=xterm-256color ssh -t "$1" 'tmux attach || tmux new || screen -DR'; }
+function sssh (){ TERM=xterm-256color ssh -t "$1" 'tmux -u attach || tmux -u new || screen -DR'; }
 
 function cheat (){ curl cheat.sh/$1 }
 

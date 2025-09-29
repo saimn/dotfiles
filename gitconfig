@@ -84,10 +84,7 @@
    renames = true
    algorithm = histogram
    colorMoved = plain
-   mnemonicPrefix = true
-   # noprefix = true
-[column]
-   ui = auto
+   noprefix = true
 [color]
    branch = auto
    diff = auto

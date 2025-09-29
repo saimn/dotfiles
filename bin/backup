@@ -34,8 +34,8 @@ function backup_home () {
    # excludes file (contains a wildcard pattern per line of files to exclude)
    FILTER=$HOME/bin/rsync_filter
 
-   LOG=$DST/backup.$USER.`date +%F`.log
-   ERRLOG=$DST/backup.$USER.error.log
+   LOG=$DST/logs/backup.$USER.`date +%F`.log
+   ERRLOG=$DST/logs/backup.$USER.error.log
 
    # --dry-run option
    if [ "$DRYRUN" = "--dry-run" ]
@@ -53,7 +53,7 @@ function backup_home () {
 
    [ $RSYNC_BACKUP ] && OPTS="${OPTS} $BACKUP_OPTS"
 
-   rsync $OPTS $DRYRUN --filter=". $FILTER" $SRC $DST/simon 2> $ERRLOG | tee -a $LOG
+   rsync $OPTS $DRYRUN --filter=". $FILTER" $SRC $DST/lyonovae24 2> $ERRLOG | tee -a $LOG
 
    echo "--------------------------------------------------------" | tee -a $LOG
    echo ":: Backup finished ! - `date`" | tee -a $LOG
