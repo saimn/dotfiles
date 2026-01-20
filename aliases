@@ -76,7 +76,7 @@ alias ping="ping -c 3"
 # alias todo="vim ~/.todo/todo.txt"
 
 # git
-alias gb='git branch'
+alias gb='git branch -vv'
 alias gba='git branch -a -vv'
 
 alias gc='git commit -v'
