@@ -117,7 +117,7 @@ path=(
 # Set the default Less options.
 # Mouse-wheel scrolling has been disabled by -X (disable screen clearing).
 # Remove -X and -F (exit if the content fits on one screen) to enable it.
-export LESS='-F -g -i -M -R -S -w -X -z-4'
+export LESS='-F -g -i -M -R -S -w -X -4'
 
 # export LESS_TERMCAP_mb=$'\E[01;31m'    # begin blink !
 # export LESS_TERMCAP_md=$'\E[01;31m'    # begin bold

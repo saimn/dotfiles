@@ -14,18 +14,22 @@
 - .atom/
 - .android/
 - .ansible/
+- .bogofilter/
 - .cache*/
 - .cargo/
 - .ccache/
+- .comments/
 - .compose-cache*/
+- .config/BraveSoftware/
 - .config/chromium/
-- .config/fish/generated_completions/
-- .config/skypeforlinux/
-- .config/nvim/
-- .config/vim/
 - .config/Electron/
+- .config/fish/generated_completions/
 - .config/GIMP/
+- .config/libreoffice/
+- .config/nvim/
+- .config/skypeforlinux/
 - .config/Slack/
+- .config/vim/
 - *crashrecovery*
 - .dbus/
 - .dropbox/
@@ -50,7 +54,9 @@
 - .npm/
 - .pki/
 - .pyenv/
+- .pytest_cache/
 - __pycache__/
+- .ruff_cache/
 - .thumbnails/
 - .thunderbird/
 - .tor-browser/
@@ -68,6 +74,7 @@
 - .yarn/
 - .zcompcache/
 - .zoom/
+- .zotero/
 - .zprezto/
 
 - __pycache__/

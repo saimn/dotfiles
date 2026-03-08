@@ -60,6 +60,16 @@ function 2webm()
   done
 }
 
+function 2av1()
+{
+  # https://sebsauvage.net/wiki/doku.php?id=ffmpeg#re-encodage_en_av1
+  until [ -z $1 ]
+  do
+    ffmpeg -i $1 -map 0:v -c:v libsvtav1 -preset 6 -crf 30 -pix_fmt yuv420p10le -g 120 -map 0:a? -c:a copy -map 0:s? -c:s copy "`basename $1`.mkv"
+    shift
+  done
+}
+
 function 2mp4()
 {
   until [ -z $1 ]
