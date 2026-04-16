@@ -4,8 +4,8 @@
 #{{{ Dotfiles
 #git clone git@github.com:saimn/dotfiles.git ~/lib/dotfiles
 
-for i in "aliases" "bashrc" "ctags" "gitconfig" "gitignore" "lessfilter" \
-    "mailcap" "pdbrc" "screenrc" "tmux.conf" "vim" "gdbinit" "ipython" "jupyter"
+for i in "aliases" "bashrc" "ctags" "gdbinit" "gitconfig" "gitignore" \
+    "ipython" "jupyter" "lessfilter" "pdbrc" "screenrc" "tmux.conf" "vim"
 do
     [ -e $HOME/.$i ] && rm $HOME/.$i
     ln -s $HOME/lib/dotfiles/$i $HOME/.$i
