@@ -13,6 +13,7 @@
 fpath=(
     # "/usr/share/zsh/$ZSH_VERSION/functions"
     # "/usr/share/zsh/site-functions"
+    "$HOME/.zsh-complete"
     "$HOME/lib/dotfiles/zsh"
     "$HOME/lib/dotfiles/zsh/completion"
     $fpath
