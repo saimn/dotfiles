@@ -9,3 +9,7 @@ bin install github.com/BurntSushi/ripgrep
 rg --generate complete-zsh > ~/.zsh-complete/_rg
 
 bin install github.com/sxyazi/yazi
+
+bin install github.com/neovim/neovim
+
+bin install github.com/astral-sh/uv

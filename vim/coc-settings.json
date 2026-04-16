@@ -1,6 +1,6 @@
 // vim: filetype=jsonc
 {
-  "coc.preferences.extensionUpdateCheck": "weekly",
+  "extensions.updateCheck": "weekly",
   "git.addedSign.hlGroup": "GitGutterAdd",
   "git.changedSign.hlGroup": "GitGutterChange",
   "git.removedSign.hlGroup": "GitGutterDelete",
