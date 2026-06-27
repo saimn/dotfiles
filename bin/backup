@@ -45,15 +45,16 @@ function backup_home () {
    fi
 
    # check if everything is ok
-   read -p "Backup $SRC to $DST ? y/[n]" answer
+   DSTPATH=$DST/lyonovae24
+   read -p "Backup $SRC to $DSTPATH ? y/[n]" answer
    [ $answer != "y" ] && echo "Cancel backup" && exit
 
-   echo ":: Starting backup of $SRC to $DST - `date`" | tee -a $LOG
+   echo ":: Starting backup of $SRC to $DSTPATH - `date`" | tee -a $LOG
    echo "--------------------------------------------------------" | tee -a $LOG
 
    [ $RSYNC_BACKUP ] && OPTS="${OPTS} $BACKUP_OPTS"
 
-   rsync $OPTS $DRYRUN --filter=". $FILTER" $SRC $DST/simon 2> $ERRLOG | tee -a $LOG
+   rsync $OPTS $DRYRUN --filter=". $FILTER" $SRC $DSTPATH 2> $ERRLOG | tee -a $LOG
 
    echo "--------------------------------------------------------" | tee -a $LOG
    echo ":: Backup finished ! - `date`" | tee -a $LOG
