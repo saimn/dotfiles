@@ -1521,8 +1521,7 @@ augroup plugin_commentary
     au FileType htmldjango setlocal commentstring={#\ %s\ #}
     au FileType jinja.html setlocal commentstring={#\ %s\ #}
     au FileType lisp setlocal commentstring=;\ %s
-    au FileType pentadactyl setlocal commentstring=\"\ %s
-    au FileType puppet setlocal commentstring=#\ %s
+    au FileType msmtp setlocal commentstring=#\ %s
     au FileType tmux setlocal commentstring=#\ %s
 augroup END
 

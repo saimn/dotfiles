@@ -11,33 +11,18 @@
 
 - .adobe/
 - .aesara/
-- .atom/
 - .android/
-- .ansible/
-- .bogofilter/
 - .cache*/
 - .cargo/
 - .ccache/
 - .comments/
 - .compose-cache*/
-- .config/BraveSoftware/
-- .config/chromium/
-- .config/Electron/
-- .config/fish/generated_completions/
-- .config/GIMP/
-- .config/libreoffice/
-- .config/nvim/
-- .config/skypeforlinux/
-- .config/Slack/
-- .config/vim/
+- .config/
 - *crashrecovery*
 - .dbus/
-- .dropbox/
-- .dropbox-dist/
 - .Element/
 - *.egg-info/
 - .fzf/
-- .geminidr/
 - .gvfs/
 - .ipynb_checkpoints/
 - .ipython/
@@ -45,12 +30,10 @@
 - .keras/
 - .libreoffice/
 - .local/
-- .macromedia/
 - .module-cache/
 - .mozilla
 - .mu/
 - .Nextcloud/
-- .nixnote/
 - .npm/
 - .pki/
 - .pyenv/
@@ -69,8 +52,6 @@
 - .venv/
 - .vim/
 - .virtualenvs/
-- .weechat/
-- .x2go/
 - .yarn/
 - .zcompcache/
 - .zoom/
@@ -109,19 +90,11 @@
 + .config/
 + .fonts/
 + .gnupg/
-+ .hg/
-+ .icons/
-+ .idl*/
-+ .kde*/
 + .ssh/
 + .subversion/
 + .themes/
-+ .thunderbird/
-+ .urxvt/
-+ .wicd/
 
 + .bash*
-+ .kderc
 + .netrc
 + .profile
 

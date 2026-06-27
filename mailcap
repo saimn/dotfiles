@@ -38,8 +38,8 @@ image/fits;                     dfits %s; copiousoutput
 image/fits;                     ds9 %s
 image/*;                        eog %s
 image/*;                        gthumb %s
-audio/*;                        mplayer %s
-video/*;                        mplayer %s
+audio/*;                        mpv %s
+video/*;                        mpv %s
 
 text/html;                      html2text %s %{charset}; copiousoutput
 text/html;                      links -dump %s; nametemplate=%s.html; copiousoutput
