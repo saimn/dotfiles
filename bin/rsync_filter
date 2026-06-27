@@ -33,6 +33,7 @@
 - .module-cache/
 - .mozilla
 - .mu/
+- .mutt/
 - .Nextcloud/
 - .npm/
 - .pki/
@@ -40,6 +41,7 @@
 - .pytest_cache/
 - __pycache__/
 - .ruff_cache/
+- .skrooge/
 - .thumbnails/
 - .thunderbird/
 - .tor-browser/
