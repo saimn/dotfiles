@@ -11,6 +11,7 @@
 .DS_Store
 tags
 
+borgmatic/borg.log
 build/
 geary/*/geary.ini
 perso/

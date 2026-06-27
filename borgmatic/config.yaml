@@ -1,0 +1,40 @@
+constants:
+  user: sconseil
+
+# List of source directories and files to back up. Globs and tildes
+# are expanded. Do not backslash spaces in path names.
+source_directories:
+  - /home/{user}
+
+repositories:
+  - path: /run/media/{user}/BACKUP SIMON/work
+  # label: backupserver
+  # Whether the repository should be created append-only,
+  # only used for the repo-create action. Defaults to false.
+  # append_only: true
+
+# commands:
+#   - before: repository
+#     run:
+#       - findmnt /run/media/{user}/BACKUP\ SIMON/work > /dev/null || exit 75
+
+borg_exit_codes:
+  - code: 105
+    treat_as: warning
+
+one_file_system: true
+exclude_caches: true
+
+exclude_from:
+  - /home/{user}/.config/borgmatic/excludes
+
+keep_daily: 7
+keep_weekly: 1
+keep_monthly: 1
+keep_yearly: 1
+
+checks:
+  - name: repository
+    frequency: 2 weeks
+
+log_file: /home/{user}/.config/borgmatic/borg.log
