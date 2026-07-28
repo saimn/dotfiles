@@ -1,5 +1,6 @@
 // vim: filetype=jsonc
 {
+  "clangd.arguments": ["--background-index", "--clang-tidy"],
   "extensions.updateCheck": "weekly",
   "git.addedSign.hlGroup": "GitGutterAdd",
   "git.changedSign.hlGroup": "GitGutterChange",
@@ -16,8 +17,10 @@
   "pyright.inlayHints.parameterTypes": false,
   "pyright.organizeimports.provider": "ruff",
   "pyright.testing.provider": "pytest",
-  "ruff.disableDocumentFormatting": true,
   "suggest.noselect": true,
-  "snippets.ultisnips.pythonPrompt": false,
-  // "suggest.enablePreselect": false,
+  "snippets.ultisnips.pythonPrompt": false
 }
+  // "clangd.fallbackFlags": ["-std=c++23"],
+  // "ruff.disableDocumentFormatting": true,
+  // "semanticTokens.enable": true,
+  // "suggest.enablePreselect": false,

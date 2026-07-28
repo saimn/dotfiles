@@ -7,7 +7,6 @@
 call plug#begin('~/.vim/plugged')
 
 Plug 'ciaranm/securemodelines'
-Plug 'derekwyatt/vim-fswitch'
 Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
 Plug 'gregsexton/MatchTag', { 'for': ['html', 'xml'] }
 Plug 'honza/vim-snippets'
@@ -60,6 +59,9 @@ Plug 'snakemake/snakemake', {'rtp': 'misc/vim'}
 " Plug 'junegunn/vim-github-dashboard', { 'on': ['GHDashboard', 'GHActivity'] }
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
+
+" C
+Plug 'derekwyatt/vim-fswitch'
 
 " Python
 " Plug '5long/pytest-vim-compiler'
@@ -886,16 +888,17 @@ tnoremap <Esc> <C-\><C-n>
 
 " C {{{
 
-let c_no_comment_fold = 1
+let c_no_comment_fold = 1   " no folding for comments
+let c_minlines = 100        " syntax synchronization start 100 lines before
 
 augroup ft_c
     au!
     au FileType c,cpp setlocal foldmethod=syntax cindent
     au FileType c,cpp setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
     au BufRead,BufNewFile *.h,*.c set filetype=c.doxygen
-    " au BufEnter *.cpp let b:fswitchdst = 'hpp,h' | let b:fswitchlocs = '../inc'
 
-    au Filetype c nmap <buffer> <localleader>h :FSHere<cr>
+	au Filetype c nmap <silent> <leader>h :FSHere<cr>
+	" au Filetype c nmap <silent> <leader>ol :FSSplitRight<cr>
 augroup END
 
 " }}}
@@ -1090,7 +1093,7 @@ augroup ft_javascript
     au!
 
     " Treat JSON files like JavaScript
-    au BufNewFile,BufRead *.json set ft=javascript
+    au BufNewFile,BufRead *.json set ft=jsonc
 
     au FileType javascript setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
     au FileType javascript setlocal foldmethod=marker
@@ -1222,19 +1225,6 @@ let g:python_highlight_all = 1
 " let g:pydoc_open_cmd = 'vsplit'
 " let g:pydoc_use_drop=1
 
-" " let g:jedi#auto_initialization = 0
-" let g:jedi#auto_vim_configuration = 0
-" let g:jedi#completions_enabled = 0
-" " let g:jedi#show_call_signatures = "1"
-" let g:jedi#smart_auto_mappings = 1
-" let g:jedi#goto_command = "<leader>g"
-" let g:jedi#goto_assignments_command = "<localleader>g"
-" let g:jedi#goto_definitions_command = "<localleader>d"
-" let g:jedi#documentation_command = "K"
-" let g:jedi#usages_command = "<localleader>n"
-" " let g:jedi#completions_command = "<C-Space>"
-" let g:jedi#rename_command = "<localleader>r"
-
 augroup ft_python
     au!
     " add header for new files
@@ -1249,7 +1239,7 @@ augroup ft_python
     " autocmd filetype python setlocal formatoptions-=t
 
     " au FileType python setlocal omnifunc=pythoncomplete#Complete
-    au FileType python setlocal define=^\s*\\(def\\\\|class\\)
+    " au FileType python setlocal define=^\s*\\(def\\\\|class\\)
     au FileType man nnoremap <buffer> <cr> :q<cr>
 
     " au FileType python compiler pytest
@@ -1259,27 +1249,8 @@ augroup ft_python
     au FileType python inoremap <buffer> <c-b> breakpoint()
     " au FileType python iabbrev <buffer> afo assert False, "Okay"
 
-    " Autopep8
-    " let g:autopep8_select="E1,E2,E3,E4,W2,W3"
-    " au FileType python map <buffer> <localleader>p :call Autopep8()<CR>
-
-    " au FileType python map <buffer> <localleader>y :0,$!yapf<CR>
-    " au FileType python nnoremap <leader>y :0,$!yapf<Cr>
-
-    " Defer to isort for sorting Python imports (instead of using Unix sort)
-    " au filetype python nmap <buffer> <localleader>i :ALEFix isort<CR>
-    " au filetype python nmap <buffer> <localleader>y :ALEFix yapf<CR>
-    " au filetype python nmap <buffer> <localleader>b :ALEFix black<CR>
-
-    " if executable('isort')
-    "     autocmd filetype python nnoremap <localleader>i mX:%! isort -<cr>`X
-    " endif
     autocmd filetype python nnoremap <localleader>i :CocCommand python.sortImports<cr>
 
-    " if executable('autoflake')
-    "     autocmd filetype python nnoremap <localleader>i mX:%! autoflake -<cr>`X
-    "     autocmd filetype python nnoremap <localleader>I mX:%! autoflake --remove-all-unused-imports -<cr>`X
-    " endif
 augroup END
 
 " }}}
@@ -1432,7 +1403,7 @@ vnoremap <leader>a y:grep! "\b<c-r>"\b"<cr>:cw<cr><cr>
 " }}}
 " Bbye {{{
 
-nnoremap <Leader>q :Bdelete<CR>
+nnoremap <leader>q :Bdelete<CR>
 
 " }}}
 " Clam {{{
@@ -1480,6 +1451,9 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
+nmap <silent> gs :CocCommand clangd.switchSourceHeader<cr>
+nmap <silent> gi :CocCommand clangd.symbolInfo<cr>
+
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call ShowDocumentation()<CR>
 
@@ -1492,19 +1466,35 @@ function! ShowDocumentation()
 endfunction
 
 " Highlight the symbol and its references when holding the cursor.
-" autocmd CursorHold * silent call CocActionAsync('highlight')
+autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
 
 " Formatting selected code.
-vmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format)
+" nmap <leader>f  <Plug>(coc-format)
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
 
-" command! -nargs=0 Format :call CocActionAsync('format')
-" command! -nargs=0 SortImport :call CocAction('organizeImport')
+" Applying code actions to the selected code block
+" xmap <leader>ga  <Plug>(coc-codeaction-selected)
+" nmap <leader>ga  <Plug>(coc-codeaction-selected)
 
+" Remap keys for applying code actions at the cursor position
+nmap <leader>ga  <Plug>(coc-codeaction-cursor)
 
+" Remap keys for applying refactor code actions
+nmap <silent> <leader>gr <Plug>(coc-codeaction-refactor)
+xmap <silent> <leader>gr <Plug>(coc-codeaction-refactor-selected)
+
+" Add `:Format` command to format current buffer
+command! -nargs=0 Format :call CocActionAsync('format')
+
+" Add `:Fold` command to fold current buffer
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" Add `:OR` command for organize imports of the current buffer
+command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.organizeImport')
 
 " }}}
 " Commentary {{{
@@ -1529,10 +1519,10 @@ augroup END
 " DirDiff {{{
 
 " just
-" nnoremap <Leader>@g <Plug>DirDiffGet
-" nnoremap <Leader>@p <Plug>DirDiffPut
-" nnoremap <Leader>@j <Plug>DirDiffNext
-" nnoremap <Leader>@k <Plug>DirDiffPrev
+" nnoremap <leader>@g <Plug>DirDiffGet
+" nnoremap <leader>@p <Plug>DirDiffPut
+" nnoremap <leader>@j <Plug>DirDiffNext
+" nnoremap <leader>@k <Plug>DirDiffPrev
 
 " }}}
 " Dispatch {{{
@@ -1556,8 +1546,8 @@ nnoremap <leader>d :Dispatch
 " nnoremap <leader>gl :Clam git hist<cr>:wincmd \|<cr>
 
 " Hub
-nnoremap <leader>gh :Gbrowse<cr>
-vnoremap <leader>gh :Gbrowse<cr>
+" nnoremap <leader>gh :GBrowse<cr>
+" vnoremap <leader>gh :GBrowse<cr>
 
 " }}}
 " FZF {{{
@@ -1734,7 +1724,8 @@ let g:startify_bookmarks = [
             \ '~/.vim/vimrc',
             \ '~/.zshenv',
             \ '~/.zshrc',
-            \ '~/lib/dotfiles/zsh/locals.zsh'
+            \ '~/dev/dotfiles/zsh/locals.zsh',
+            \ '~/dev/dotfiles/zsh/localenv.zsh'
             \ ]
 
 " }}}
@@ -1888,11 +1879,11 @@ let g:ycm_semantic_triggers.tex = [
 " }}}
 " Vimux {{{
 
-nnoremap <Leader>rp :VimuxPromptCommand<CR>
-nnoremap <Leader>rl :VimuxRunLastCommand<CR>
-nnoremap <Leader>ri :VimuxInspectRunner<CR>
-nnoremap <Leader>rz :VimuxZoomRunner<CR>
-" map <Leader>rm :VimuxPromptCommand("make ")<CR>
+nnoremap <leader>rp :VimuxPromptCommand<CR>
+nnoremap <leader>rl :VimuxRunLastCommand<CR>
+nnoremap <leader>ri :VimuxInspectRunner<CR>
+nnoremap <leader>rz :VimuxZoomRunner<CR>
+" map <leader>rm :VimuxPromptCommand("make ")<CR>
 
 function! VimuxSlime()
     call VimuxSendText(@v)
@@ -1900,15 +1891,15 @@ function! VimuxSlime()
 endfunction
 
 " If text is selected, save it in the v buffer and send that buffer it to tmux
-vnoremap <Leader>rs "vy :call VimuxSlime()<CR>
+vnoremap <leader>rs "vy :call VimuxSlime()<CR>
 
 " Select current paragraph and send it to tmux
-nnoremap <Leader>rs vip<Leader>rs<CR>
+nnoremap <leader>rs vip<leader>rs<CR>
 
 " Run the current file with nose
-" nnoremap <Leader>rn :call VimuxRunCommand("clear; nosetests " . bufname("%"))<CR>
+" nnoremap <leader>rn :call VimuxRunCommand("clear; nosetests " . bufname("%"))<CR>
 " Run command without sending a return
-" map <Leader>rq :call VimuxRunCommand("clear; nosetests " . bufname("%"), 0)<CR>
+" map <leader>rq :call VimuxRunCommand("clear; nosetests " . bufname("%"), 0)<CR>
 
 " }}}
 " YankRing {{{

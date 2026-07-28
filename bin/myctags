@@ -8,6 +8,7 @@ pushd ~/dev
 
 ctags -R \
     --extras=+f \
+    --fields=+l \
     --languages=python,C,C++ \
     --exclude=archives \
     --exclude=C \
