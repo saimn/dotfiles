@@ -6,7 +6,7 @@ DATE=$(date +%Y%m%d)
 
 # options
 DRYRUN=""
-OPTS="-avh -L --delete --force --stats --progress --delete-excluded --ignore-errors"
+OPTS="-avh --delete --force --stats --progress --delete-excluded --ignore-errors"
 BACKUP_OPTS="--backup --suffix=.$DATE --backup-dir=backup/"
 
 #----------------------------------------------------------------------------
@@ -73,13 +73,12 @@ function backup_home () {
 # backup system files {{{
 function backup_system () {
    echo ":: Backup list of installed packages ..."
-   pacman -Qqet | grep -v "$(pacman -Qqm)" > pkglist-official.txt
-   pacman -Qqmt > pkglist-local.txt
+   pacman -Qqen > pkglist-official.txt
+   pacman -Qqm > pkglist-local.txt
 
    echo ":: Backup system config files ..."
    tar -cvpJf $HOME/Documents/backup/system-files-$DATE.tar.xz \
        /etc /boot pkglist-local.txt pkglist-official.txt
-   rm pkglist-local.txt pkglist-official.txt
 
    #tar --files-from=include.txt --exclude-from=exclude.txt -cvpzf backupname.tar.gz
 }
