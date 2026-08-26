@@ -34,7 +34,7 @@ function backup_home () {
    # excludes file (contains a wildcard pattern per line of files to exclude)
    FILTER=$HOME/bin/rsync_filter
 
-   LOG=$DST/logs/backup.$USER.`date +%F`.log
+   LOG=$DST/logs/backup.$USER.`date --iso-8601=seconds`.log
    ERRLOG=$DST/logs/backup.$USER.error.log
 
    # --dry-run option
