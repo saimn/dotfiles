@@ -14,8 +14,8 @@ fpath=(
     # "/usr/share/zsh/$ZSH_VERSION/functions"
     # "/usr/share/zsh/site-functions"
     "$HOME/.zsh-complete"
-    "$HOME/lib/dotfiles/zsh"
-    "$HOME/lib/dotfiles/zsh/completion"
+    "$HOME/dev/dotfiles/zsh"
+    "$HOME/dev/dotfiles/zsh/completion"
     $fpath
 )
 
@@ -26,12 +26,12 @@ fi
 
 # Customize to your needs...
 
-# source ~/lib/dotfiles/purepower
-# source ~/lib/dotfiles/zsh/completion.zsh
-source ~/lib/dotfiles/zsh/functions.zsh
-source ~/lib/dotfiles/zsh/keys.zsh
-source ~/lib/dotfiles/zsh/ssh.zsh
-source ~/lib/dotfiles/zsh/aliases.zsh
+# source ~/dev/dotfiles/purepower
+# source ~/dev/dotfiles/zsh/completion.zsh
+source ~/dev/dotfiles/zsh/functions.zsh
+source ~/dev/dotfiles/zsh/keys.zsh
+source ~/dev/dotfiles/zsh/ssh.zsh
+source ~/dev/dotfiles/zsh/aliases.zsh
 
 # Set up fzf key bindings and fuzzy completion
 source <(fzf --zsh)
@@ -63,7 +63,7 @@ fi
 # watch=(all)
 # LOGCHECK=5
 
-[ -f $HOME/lib/dotfiles/zsh/locals.zsh ] && source $HOME/lib/dotfiles/zsh/locals.zsh
+[ -f $HOME/dev/dotfiles/zsh/locals.zsh ] && source $HOME/dev/dotfiles/zsh/locals.zsh
 
 # pyenv
 if command -v pyenv 1>/dev/null 2>&1; then

@@ -2,24 +2,27 @@
 # -*- coding: utf-8 -*-
 
 #{{{ Dotfiles
-#git clone git@github.com:saimn/dotfiles.git ~/lib/dotfiles
+#git clone git@github.com:saimn/dotfiles.git ~/dev/dotfiles
 
 for i in "aliases" "bashrc" "ctags" "gdbinit" "gitconfig" "gitignore" \
-    "ipython" "jupyter" "lessfilter" "pdbrc" "screenrc" "tmux.conf" "vim"
+    "ipython" "jupyter" "lessfilter" "pdbrc" "screenrc" "tmux.conf" "vim" \
+    "mailcap"
 do
     [ -e $HOME/.$i ] && rm $HOME/.$i
-    ln -s $HOME/lib/dotfiles/$i $HOME/.$i
+    [ -L $HOME/.$i ] && rm $HOME/.$i
+    ln -s $HOME/dev/dotfiles/$i $HOME/.$i
 done
 
-mkdir -p $HOME/lib/dotfiles/vim/tmp/{backup,swap,undo}
+mkdir -p $HOME/dev/dotfiles/vim/tmp/{backup,swap,undo}
 
 rm  $HOME/bin
-ln -s $HOME/lib/dotfiles/bin $HOME/bin
+ln -s $HOME/dev/dotfiles/bin $HOME/bin
 
 for i in "kitty" "matplotlib"
 do
     [ -e $HOME/.config/$i ] && rm $HOME/.config/$i
-    ln -s $HOME/lib/dotfiles/$i $HOME/.config/$i
+    [ -L $HOME/.config/$i ] && rm $HOME/.config/$i
+    ln -s $HOME/dev/dotfiles/$i $HOME/.config/$i
 done
 
 #}}}
@@ -27,11 +30,11 @@ done
 #{{{ ZSH
 git clone --recurse-submodules https://github.com/sorin-ionescu/prezto.git ~/lib/prezto
 rm ~/{.zprezto,.zpreztorc,.zshenv,.zshrc}
-ln -s ~/lib/dotfiles/zshrc ~/.zshrc
-ln -s ~/lib/dotfiles/zshenv ~/.zshenv
-ln -s ~/lib/dotfiles/zpreztorc ~/.zpreztorc
+ln -s ~/dev/dotfiles/zshrc ~/.zshrc
+ln -s ~/dev/dotfiles/zshenv ~/.zshenv
+ln -s ~/dev/dotfiles/zpreztorc ~/.zpreztorc
 ln -s ~/lib/prezto ~/.zprezto
-touch ~/lib/dotfiles/zsh/locals.zsh
+touch ~/dev/dotfiles/zsh/locals.zsh
 #}}}
 
 # {{{ Emacs

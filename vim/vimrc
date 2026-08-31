@@ -4,7 +4,7 @@
 
 " Plugins ----------------------------------------------------------------- {{{
 
-call plug#begin('~/.vim/plugged')
+call plug#begin('~/.config/vim/plugged')
 
 Plug 'ciaranm/securemodelines'
 Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
@@ -102,10 +102,10 @@ Plug 'sjl/badwolf'
 " Plug 'w0ng/vim-hybrid'
 
 " Local
-" Plug '~/.vim/bundle/camptocamp', { 'for': 'camptocamp' }
-" Plug '~/.vim/bundle/closetags-custom'
-" Plug '~/.vim/bundle/django-custom', { 'for': ['django', 'htmldjango'] }
-" Plug '~/.vim/bundle/idlang', { 'for': 'idlang' }
+" Plug '~/.config/vim/bundle/camptocamp', { 'for': 'camptocamp' }
+" Plug '~/.config/vim/bundle/closetags-custom'
+" Plug '~/.config/vim/bundle/django-custom', { 'for': ['django', 'htmldjango'] }
+" Plug '~/.config/vim/bundle/idlang', { 'for': 'idlang' }
 
 call plug#end()
 
@@ -131,7 +131,7 @@ if !has('nvim')
     set history=10000
     set smarttab
     set wildmenu
-    " set viminfo='100,n$HOME/.vim/files/info/viminfo
+    " set viminfo='100,n$HOME/.config/vim/files/info/viminfo
 else
     " let g:python3_host_prog = '/usr/bin/python'
 endif
@@ -175,7 +175,7 @@ set updatetime=1000               " faster updates with e.g. gitgutter
 "   /usr/share/dict/words
 "   Basic stuff.
 "
-"   ~/.vim/custom-dictionary.utf-8.add
+"   ~/.config/vim/custom-dictionary.utf-8.add
 "   Custom words (like my name).  This is in my (version-controlled) dotfiles.
 "
 "   ~/.vim-local-dictionary.utf-8.add
@@ -184,7 +184,7 @@ set updatetime=1000               " faster updates with e.g. gitgutter
 "
 " I also remap zG to add to the local dict (vanilla zG is useless anyway).
 set dictionary=/usr/share/dict/words
-set spellfile=~/.vim/custom-dictionary.utf-8.add,~/.vim-local-dictionary.utf-8.add
+set spellfile=~/.config/vim/custom-dictionary.utf-8.add,~/.vim-local-dictionary.utf-8.add
 nnoremap zG 2zg
 
 " iTerm2 is currently slow as balls at rendering the nice unicode lines, so for
@@ -315,9 +315,9 @@ set colorcolumn=+1
 set backup                        " enable backups
 set noswapfile                    " it's 2013, Vim.
 
-set undodir=~/.vim/tmp/undo//     " undo files
-set backupdir=~/.vim/tmp/backup// " backups
-set directory=~/.vim/tmp/swap//   " swap files
+set undodir=~/.config/vim/tmp/undo//     " undo files
+set backupdir=~/.config/vim/tmp/backup// " backups
+set directory=~/.config/vim/tmp/swap//   " swap files
 
 " Make Vim able to edit crontab files again.
 set backupskip=/tmp/*,/private/tmp/*"
@@ -656,17 +656,17 @@ inoremap <c-k> <c-x><c-k>
 " }}}
 " Quick editing ----------------------------------------------------------- {{{
 
-nnoremap <leader>ec :vsplit ~/.vim/doc/cheatsheet.txt<cr>
-nnoremap <leader>ed :vsplit ~/.vim/custom-dictionary.utf-8.add<cr>
+nnoremap <leader>ec :vsplit ~/.config/vim/doc/cheatsheet.txt<cr>
+nnoremap <leader>ed :vsplit ~/.config/vim/custom-dictionary.utf-8.add<cr>
 nnoremap <leader>eg :vsplit ~/.gitconfig<cr>
 nnoremap <leader>em :vsplit ~/.mutt/muttrc<cr>
 " nnoremap <leader>eo :vsplit ~/org<cr>4j
 nnoremap <leader>er :vsplit ~/lib/dotfiles/README<cr>
 " nnoremap <leader>et :vsplit ~/ownCloud/todo/todo.txt<cr>
-nnoremap <leader>ev :vsplit ~/.vim/vimrc<cr>
+nnoremap <leader>ev :vsplit ~/.config/vim/vimrc<cr>
 nnoremap <leader>ez :vsplit ~/lib/dotfiles/zsh<cr>4j
 
-nnoremap <leader>sv :source ~/.vim/vimrc<cr>
+nnoremap <leader>sv :source ~/.config/vim/vimrc<cr>
 
 " }}}
 " Searching and movement -------------------------------------------------- {{{
@@ -1634,7 +1634,7 @@ augroup ps_nerdtree
     " au Filetype nerdtree nnoremap <buffer> K :q<cr>
 augroup END
 
-let NERDTreeBookmarksFile = expand("$HOME/.vim/NERDTreeBookmarks")
+let NERDTreeBookmarksFile = expand("$HOME/.config/vim/NERDTreeBookmarks")
 let NERDTreeHighlightCursorline = 1
 let NERDTreeIgnore = ['\~$', '.*\.pyo$', '.*\.pyc$', 'pip-log\.txt$',
                     \ '.*\.o$', 'db.db', 'tags.bak', '.*\.pdf$']
@@ -1678,7 +1678,7 @@ let NERDTreeShowBookmarks = 1
 " Scratch {{{
 
 let g:scratch_no_mappings = 1
-" let g:scratch_persistence_file = '~/.vim/tmp/scratch.vim'
+" let g:scratch_persistence_file = '~/.config/vim/tmp/scratch.vim'
 
 command! ScratchToggle call ScratchToggle()
 
@@ -1721,7 +1721,7 @@ let g:startify_fortune_use_unicode = 1
 let g:startify_bookmarks = [
             \ '~/.gitconfig',
             \ '~/.tmux.conf',
-            \ '~/.vim/vimrc',
+            \ '~/.config/vim/vimrc',
             \ '~/.zshenv',
             \ '~/.zshrc',
             \ '~/dev/dotfiles/zsh/locals.zsh',
@@ -1904,7 +1904,7 @@ nnoremap <leader>rs vip<leader>rs<CR>
 " }}}
 " YankRing {{{
 
-let g:yankring_history_dir = '$HOME/.vim/tmp'
+let g:yankring_history_dir = '$HOME/.config/vim/tmp'
 
 function! YRRunAfterMaps()
     " Make Y yank to end of line.
@@ -2237,8 +2237,8 @@ endif
 " }}}
 " Local config ------------------------------------------------------------ {{{
 
-if filereadable(expand("~/.vim/local.vim"))
-    source ~/.vim/local.vim
+if filereadable(expand("~/.config/vim/local.vim"))
+    source ~/.config/vim/local.vim
 endif
 
 " }}}
