@@ -661,10 +661,10 @@ nnoremap <leader>ed :vsplit ~/.config/vim/custom-dictionary.utf-8.add<cr>
 nnoremap <leader>eg :vsplit ~/.gitconfig<cr>
 nnoremap <leader>em :vsplit ~/.mutt/muttrc<cr>
 " nnoremap <leader>eo :vsplit ~/org<cr>4j
-nnoremap <leader>er :vsplit ~/lib/dotfiles/README<cr>
+nnoremap <leader>er :vsplit ~/dev/dotfiles/README<cr>
 " nnoremap <leader>et :vsplit ~/ownCloud/todo/todo.txt<cr>
 nnoremap <leader>ev :vsplit ~/.config/vim/vimrc<cr>
-nnoremap <leader>ez :vsplit ~/lib/dotfiles/zsh<cr>4j
+nnoremap <leader>ez :vsplit ~/dev/dotfiles/zsh<cr>4j
 
 nnoremap <leader>sv :source ~/.config/vim/vimrc<cr>
 

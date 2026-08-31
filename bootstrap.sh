@@ -41,7 +41,7 @@ touch ~/dev/dotfiles/zsh/locals.zsh
 #git clone git@github.com:saimn/dotemacs.git ~/lib/dotemacs/
 #rm ~/.emacs.d
 #ln -s ~/lib/dotemacs ~/.emacs.d
-#mkdir -p $HOME/lib/dotfiles/emacs.d/backup-files/
+#mkdir -p $HOME/dev/dotfiles/emacs.d/backup-files/
 # }}}
 
 # {{{ Mail

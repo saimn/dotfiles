@@ -153,4 +153,4 @@ if [[ $TILIX_ID ]]; then
     source /etc/profile.d/vte.sh
 fi
 
-[ -f $HOME/lib/dotfiles/zsh/localenv.zsh ] && source $HOME/lib/dotfiles/zsh/localenv.zsh
+[ -f $HOME/dev/dotfiles/zsh/localenv.zsh ] && source $HOME/dev/dotfiles/zsh/localenv.zsh

@@ -8,4 +8,4 @@ Exec=ds9 %F
 Terminal=false
 Categories=Science;X-Astrophysics;X-Imaging;X-Astronomy;X-Education;
 MimeType=image/x-fits;
-Icon=/home/simon/lib/dotfiles/applications/ds9-64x64.png
+Icon=/home/simon/dev/dotfiles/applications/ds9-64x64.png

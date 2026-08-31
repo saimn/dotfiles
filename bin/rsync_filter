@@ -81,7 +81,7 @@
 - data/
 - fidle-datasets/
 - InstallArea/
-- lib/dotfiles/vim/plugged/
+- dev/dotfiles/vim/plugged/
 - lib/prezto/
 - lib/virtualenvs/
 - miniconda3/
