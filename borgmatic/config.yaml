@@ -1,5 +1,5 @@
 constants:
-  user: sconseil
+  user: simon
 
 # List of source directories and files to back up. Globs and tildes
 # are expanded. Do not backslash spaces in path names.

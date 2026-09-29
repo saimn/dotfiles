@@ -75,5 +75,9 @@ if command -v uv 1>/dev/null 2>&1; then
     eval "$(uv generate-shell-completion zsh)"
 fi
 
+if command -v pixi 1>/dev/null 2>&1; then
+    eval "$(pixi completion --shell zsh)"
+fi
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 # [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
