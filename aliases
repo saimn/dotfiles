@@ -51,7 +51,7 @@ alias xp='xprop | grep "WM_WINDOW_ROLE\|WM_CLASS" && echo "WM_CLASS(STRING) = \"
 alias vi="vim"
 alias sv="sudo vim"
 
-alias cup='conda clean -py;conda update --all'
+# alias cup='conda clean -py;conda update --all'
 
 # alias less="/usr/share/vim/vim73/macros/less.sh"
 

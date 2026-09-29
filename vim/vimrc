@@ -1200,6 +1200,17 @@ augroup ft_php
 augroup END
 
 " }}}
+" Podman {{{
+
+augroup ft_podman
+    au!
+
+    au BufRead,BufNewFile *.container set ft=systemd
+    au BufRead,BufNewFile *.network set ft=systemd
+    au BufRead,BufNewFile *.pod set ft=systemd
+augroup END
+
+" }}}
 " Postgresql {{{
 
 augroup ft_postgres
